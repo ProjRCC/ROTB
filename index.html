@@ -2575,12 +2575,44 @@
 
     function fitTimingText(element) {
       if (!element) return;
-      let size = 16;
-      element.style.fontSize = size + 'px';
-      const available = Math.max(0, element.clientWidth - 12);
-      while (size > 8 && element.scrollWidth > available) {
-        size -= .5;
-        element.style.fontSize = size + 'px';
+
+      const nav =
+        element.closest('.score-nav, .leader-nav');
+
+      const referenceButton =
+        nav
+          ? nav.querySelector('.nav-button')
+          : null;
+
+      const maxSize =
+        referenceButton
+          ? parseFloat(
+              getComputedStyle(referenceButton).fontSize
+            ) || 16
+          : 16;
+
+      const minSize = 8;
+      const available =
+        Math.max(
+          0,
+          element.clientWidth - 8
+        );
+
+      let size = maxSize;
+
+      element.style.fontSize =
+        size + 'px';
+
+      while (
+        size > minSize &&
+        element.scrollWidth > available
+      ) {
+
+        size -= .25;
+
+        element.style.fontSize =
+          size + 'px';
+
       }
     }
 
@@ -2752,10 +2784,28 @@
                 firstEmpty >= 0
               ) {
 
+                /*
+                  V4 progress positioning:
+                  keep at least four upcoming holes visible
+                  beneath the completed scoring progress.
+
+                  Hole 6 completed  -> top begins at Hole 2
+                  Hole 7 completed  -> top begins at Hole 3
+                  Hole 8 completed  -> top begins at Hole 4
+                  ...
+                  Near the end, maxScroll naturally caps the
+                  view at the final nine-hole window (10-18).
+                */
+                const targetIndex =
+                  Math.max(
+                    0,
+                    firstEmpty - 5
+                  );
+
                 const row =
                   els.scoreRows.querySelector(
                     '.score-row[data-score-index="' +
-                    firstEmpty +
+                    targetIndex +
                     '"]'
                   );
 
