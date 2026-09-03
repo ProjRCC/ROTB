@@ -2,55 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
   <meta name="theme-color" content="#000000">
+
   <title>ROTB 2026</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <style>
+
     :root {
       --gold: #bc961D;
-      --bg: #000;
-      --text: #fff;
-      --muted: #9b9b9b;
+      --text: #ffffff;
+      --muted: #9c9c9c;
       --line: rgba(255,255,255,.34);
       --line-strong: rgba(255,255,255,.72);
-      --gray-score: #aaa;
       --red: #ff4242;
-      --radius: 9px;
     }
+
 
     * {
       box-sizing: border-box;
     }
 
-    html,
+
+    html {
+      margin: 0;
+      min-height: 100%;
+      background: #000;
+    }
+
+
     body {
       margin: 0;
-      width: 100%;
       min-height: 100%;
       background: #000;
       color: var(--text);
       font-family: "Oswald", Arial, sans-serif;
+
+      /*
+        IMPORTANT FOR TESTING:
+        Do NOT lock body scrolling.
+
+        Chrome must remain free to perform
+        normal browser pull-to-refresh.
+      */
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
-    body {
-      overflow: hidden;
-    }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
       z-index: -2;
+
       background:
-        linear-gradient(rgba(0,0,0,.34), rgba(0,0,0,.34)),
-        url("BG.jpg") center top / 100% auto repeat-y;
+        linear-gradient(
+          rgba(0,0,0,.34),
+          rgba(0,0,0,.34)
+        ),
+        url("BG.jpg")
+        center top /
+        100% auto
+        repeat-y;
+
       pointer-events: none;
     }
+
 
     button,
     input,
@@ -58,42 +87,17 @@
       font: inherit;
     }
 
+
     button,
     select {
       -webkit-tap-highlight-color: transparent;
     }
 
+
     button {
       cursor: pointer;
     }
 
-    .top-loading {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 6000;
-      width: 0;
-      height: 3px;
-      opacity: 0;
-      background: var(--gold);
-      transition: width .2s ease, opacity .2s ease;
-    }
-
-    .top-loading.active {
-      opacity: 1;
-      width: 70%;
-      animation: loadingSweep 1s ease-in-out infinite alternate;
-    }
-
-    .top-loading.done {
-      opacity: 1;
-      width: 100%;
-    }
-
-    @keyframes loadingSweep {
-      from { width: 25%; }
-      to { width: 86%; }
-    }
 
     .view {
       display: none;
@@ -101,578 +105,1177 @@
       min-height: 100dvh;
     }
 
+
     .view.active {
       display: block;
     }
+
+
+    /* =========================================================
+       TOP LOADING LINE
+       ========================================================= */
+
+    .top-loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      width: 0;
+      height: 3px;
+
+      opacity: 0;
+
+      background: var(--gold);
+
+      z-index: 7000;
+
+      transition:
+        width .2s ease,
+        opacity .2s ease;
+    }
+
+
+    .top-loading.active {
+      width: 72%;
+      opacity: 1;
+
+      animation:
+        loadingSweep
+        1.05s
+        ease-in-out
+        infinite
+        alternate;
+    }
+
+
+    .top-loading.done {
+      width: 100%;
+      opacity: 1;
+    }
+
+
+    @keyframes loadingSweep {
+
+      from {
+        width: 24%;
+      }
+
+      to {
+        width: 84%;
+      }
+
+    }
+
+
+    /* =========================================================
+       SHARED NAV BUTTONS
+       ========================================================= */
+
+    .home-button {
+      height: 46px;
+
+      min-width: 78px;
+
+      padding:
+        0
+        12px;
+
+      border:
+        1px solid
+        var(--line-strong);
+
+      border-radius: 9px;
+
+      background:
+        rgba(0,0,0,.76);
+
+      color: #fff;
+
+      font-size: 18px;
+      font-weight: 600;
+
+      letter-spacing: .25px;
+    }
+
+
+    .info-button {
+      width: 44px;
+      height: 44px;
+
+      flex:
+        0 0
+        44px;
+
+      padding: 0;
+
+      border:
+        1px solid
+        var(--line-strong);
+
+      border-radius: 50%;
+
+      background:
+        rgba(0,0,0,.76);
+
+      color: #fff;
+
+      font-size: 25px;
+      font-weight: 400;
+
+      line-height: 1;
+    }
+
 
     /* =========================================================
        HOME / SPLASH
        ========================================================= */
 
     #homeView {
-      overflow-y: auto;
       text-align: center;
+
+      /*
+        Home itself is regular page content so
+        browser pull-to-refresh remains native.
+      */
+      overflow: visible;
     }
+
 
     .home-shell {
       width: 100%;
       max-width: 760px;
+
       min-height: 100dvh;
-      margin: 0 auto;
-      padding-bottom: calc(24px + env(safe-area-inset-bottom));
+
+      margin:
+        0 auto;
+
+      padding-bottom:
+        calc(
+          26px +
+          env(safe-area-inset-bottom)
+        );
     }
 
-    .home-top {
-      height: 54px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      padding: 8px 18px 0;
-    }
 
-    .info-button {
-      width: 52px;
-      height: 52px;
-      flex: 0 0 52px;
-      border: 1px solid var(--line-strong);
-      border-radius: 50%;
-      background: rgba(0,0,0,.72);
-      color: #fff;
-      font-size: 31px;
-      font-weight: 400;
-      line-height: 1;
-    }
+    /*
+      REV2:
+      There is intentionally NO info icon
+      on the splash screen.
+
+      QUICK GUIDE already serves that purpose.
+    */
 
     .splash-image-wrap {
       width: 100%;
-      margin-top: -22px;
+
+      margin:
+        0 auto;
     }
+
 
     .splash-image {
       display: block;
+
       width: 100%;
       height: auto;
-      margin: 0 auto;
+
+      margin:
+        0 auto;
     }
 
+
     .home-actions {
-      width: calc(100% - 34px);
+      width:
+        calc(
+          100% - 34px
+        );
+
       max-width: 470px;
-      margin: 0 auto;
+
+      margin:
+        -2px auto 0;
+
       display: flex;
+
       flex-direction: column;
+
       gap: 13px;
     }
 
+
     .home-main-button {
       width: 100%;
+
       min-height: 58px;
-      background: rgba(0,0,0,.78);
-      border: 2px solid var(--gold);
+
+      padding:
+        12px 14px;
+
+      border:
+        2px solid
+        var(--gold);
+
       border-radius: 9px;
+
+      background:
+        rgba(0,0,0,.78);
+
       color: #fff;
+
       font-size: 21px;
       font-weight: 600;
+
       letter-spacing: .5px;
-      padding: 12px 14px;
     }
 
+
     .home-main-button:active {
-      background: var(--gold);
+      background:
+        var(--gold);
+
       color: #000;
     }
 
+
     .quick-guide-button {
       align-self: center;
-      width: min(64%, 260px);
+
+      width:
+        min(
+          64%,
+          260px
+        );
+
       min-height: 44px;
+
       margin-top: 7px;
-      background: rgba(0,0,0,.78);
-      border: 1px solid #fff;
+
+      border:
+        1px solid #fff;
+
       border-radius: 8px;
-      color: var(--gold);
+
+      background:
+        rgba(0,0,0,.78);
+
+      color:
+        var(--gold);
+
       font-size: 18px;
       font-weight: 600;
+
       letter-spacing: .4px;
     }
+
 
     /* =========================================================
        SCORECARD
        ========================================================= */
 
     #scorecardView {
+      /*
+        View is exactly the visible screen.
+
+        The hole area scrolls internally,
+        but BODY IS NOT LOCKED.
+
+        This allows a downward gesture begun
+        on the sticky header to reach Chrome's
+        normal pull-to-refresh behavior.
+      */
       height: 100dvh;
-      overflow: hidden;
     }
+
 
     .scorecard-screen {
-      width: min(760px, 100%);
-      height: 100%;
-      margin: 0 auto;
+      width:
+        min(
+          760px,
+          100%
+        );
+
+      height: 100dvh;
+
+      margin:
+        0 auto;
+
       display: flex;
+
       flex-direction: column;
-      overflow: hidden;
+
+      overflow: visible;
     }
 
+
+    /* =========================================================
+       SCORECARD FIXED / STICKY TOP
+       ========================================================= */
+
     .score-fixed-top {
-      flex: 0 0 auto;
-      background: rgba(0,0,0,.92);
-      backdrop-filter: blur(8px);
-      padding:
-        calc(10px + env(safe-area-inset-top))
-        16px
-        0;
+      flex:
+        0 0 auto;
+
+      position: relative;
+
       z-index: 50;
+
+      padding:
+        calc(
+          9px +
+          env(safe-area-inset-top)
+        )
+        14px
+        0;
+
+      background:
+        rgba(0,0,0,.95);
+
+      backdrop-filter:
+        blur(7px);
     }
+
+
+    /*
+      HOME | RUNNING OF THE BULLS 2026 | i
+    */
 
     .score-nav {
       display: grid;
-      grid-template-columns: auto minmax(150px, 1fr) auto;
-      gap: 11px;
+
+      grid-template-columns:
+        82px
+        minmax(0,1fr)
+        44px;
+
       align-items: center;
+
+      gap: 8px;
     }
 
-    .home-button {
-      height: 52px;
-      min-width: 94px;
-      padding: 0 16px;
-      border: 1px solid var(--line-strong);
-      border-radius: 10px;
-      background: rgba(0,0,0,.72);
-      color: #fff;
-      font-size: 21px;
+
+    .score-event-title {
+      min-width: 0;
+
+      color:
+        var(--gold);
+
+      text-align: center;
+
+      font-size: 16px;
       font-weight: 600;
+
+      line-height: 1.12;
+
+      letter-spacing: .35px;
+
+      white-space: nowrap;
     }
+
+
+    /* =========================================================
+       TEAM SELECT
+       ========================================================= */
+
+    .team-select-wrap {
+      width: 100%;
+
+      padding:
+        8px 10px
+        0;
+    }
+
 
     .top-team-select {
+      display: block;
+
       width: 100%;
-      height: 52px;
-      min-width: 0;
-      padding: 0 36px 0 14px;
-      border: 1px solid var(--line-strong);
-      border-radius: 10px;
-      background: #050505;
-      color: #fff;
-      font-size: 20px;
-      font-weight: 600;
+
+      height: 48px;
+
+      padding:
+        0 38px
+        0 14px;
+
+      border:
+        1px solid
+        var(--line-strong);
+
+      border-radius: 9px;
+
       outline: none;
+
+      background: #050505;
+
+      color: #fff;
+
+      font-size: 19px;
+      font-weight: 600;
+
       text-align: center;
       text-align-last: center;
     }
 
+
     .top-team-select:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 1px var(--gold);
+      border-color:
+        var(--gold);
+
+      box-shadow:
+        0 0 0 1px
+        var(--gold);
     }
 
-    .score-identity {
-      text-align: center;
-      padding: 8px 2px 8px;
-    }
 
-    .scorecard-label,
-    .event-label {
-      font-size: 17px;
-      line-height: 1.1;
-      font-weight: 600;
-      letter-spacing: .6px;
-    }
-
-    .event-label {
-      margin-top: 3px;
-      color: var(--gold);
-    }
+    /* =========================================================
+       TEAM NAME
+       ========================================================= */
 
     .team-title {
-      min-height: 40px;
-      margin-top: 4px;
-      color: var(--gold);
-      font-size: clamp(30px, 8vw, 36px);
-      line-height: 1.03;
+      min-height: 51px;
+
+      padding:
+        5px 2px
+        7px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      color:
+        var(--gold);
+
+      text-align: center;
+
+      font-size:
+        clamp(
+          30px,
+          8vw,
+          36px
+        );
+
       font-weight: 700;
-      letter-spacing: .5px;
+
+      line-height: 1;
+
+      letter-spacing: .45px;
+
       white-space: nowrap;
     }
 
+
     .team-title.long {
-      font-size: clamp(24px, 6.5vw, 31px);
+      font-size:
+        clamp(
+          23px,
+          6vw,
+          29px
+        );
     }
+
+
+    /* =========================================================
+       SCORECARD TABLE HEADER
+       ========================================================= */
 
     .score-table-head {
       display: grid;
-      grid-template-columns: 19% 18% 28% 35%;
+
+      grid-template-columns:
+        19%
+        18%
+        28%
+        35%;
+
       align-items: center;
-      min-height: 48px;
-      border: 1px solid var(--line-strong);
-      border-bottom-color: var(--line);
-      border-radius: 10px 10px 0 0;
+
+      min-height: 44px;
+
       overflow: hidden;
-      background: rgba(0,0,0,.92);
-      color: #d0d0d0;
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: .4px;
+
+      border:
+        1px solid
+        var(--line-strong);
+
+      border-bottom:
+        1px solid
+        var(--line);
+
+      border-radius:
+        9px 9px
+        0 0;
+
+      background:
+        rgba(0,0,0,.94);
+
+      color: #d2d2d2;
+
       text-align: center;
+
+      font-size: 16px;
+      font-weight: 600;
+
+      letter-spacing: .35px;
     }
+
 
     .score-table-head > div {
       height: 100%;
+
       display: flex;
+
       align-items: center;
       justify-content: center;
-      border-right: 1px solid var(--line);
+
+      border-right:
+        1px solid
+        var(--line);
     }
+
 
     .score-table-head > div:last-child {
       border-right: 0;
+
       color: #fff;
+
       font-weight: 700;
     }
 
+
+    /* =========================================================
+       SCORECARD SCROLLING HOLES
+       ========================================================= */
+
     .score-scroll {
-      flex: 1 1 auto;
+      flex:
+        1 1 auto;
+
       min-height: 0;
-      margin: 0 16px;
+
+      margin:
+        0 14px;
+
       overflow-y: auto;
-      overscroll-behavior: contain;
-      scrollbar-width: thin;
-      background: rgba(0,0,0,.28);
-      border-left: 1px solid var(--line-strong);
-      border-right: 1px solid var(--line-strong);
-      -webkit-overflow-scrolling: touch;
+      overflow-x: hidden;
+
+      -webkit-overflow-scrolling:
+        touch;
+
+      /*
+        Hole scrolling stays contained.
+
+        Pull-to-refresh is expected from the
+        top/header area, not from the middle
+        of the hole list.
+      */
+      overscroll-behavior-y:
+        contain;
+
+      border-left:
+        1px solid
+        var(--line-strong);
+
+      border-right:
+        1px solid
+        var(--line-strong);
+
+      background:
+        rgba(0,0,0,.28);
     }
+
 
     .score-row {
       display: grid;
-      grid-template-columns: 19% 18% 28% 35%;
+
+      grid-template-columns:
+        19%
+        18%
+        28%
+        35%;
+
       align-items: stretch;
-      min-height: 58px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(0,0,0,.48);
+
+      min-height: 57px;
+
+      border-bottom:
+        1px solid
+        var(--line);
+
+      background:
+        rgba(0,0,0,.47);
     }
+
 
     .score-row > div {
       min-width: 0;
-      border-right: 1px solid var(--line);
+
+      border-right:
+        1px solid
+        var(--line);
     }
+
 
     .score-row > div:last-child {
       border-right: 0;
     }
+
 
     .hole-cell,
     .par-cell,
     .yardage-cell,
     .score-cell {
       display: flex;
+
       align-items: center;
       justify-content: center;
+
       text-align: center;
     }
 
+
     .hole-cell {
-      font-size: 23px;
+      font-size: 22px;
       font-weight: 700;
     }
+
 
     .par-cell {
       font-size: 20px;
       font-weight: 500;
     }
 
+
     .yardage-cell {
       gap: 4px;
+
       white-space: nowrap;
+
       font-size: 18px;
       font-weight: 500;
     }
+
 
     .yard-white {
       color: #fff;
     }
 
+
     .yard-slash {
-      color: #b8b8b8;
-      font-weight: 400;
+      color: #aaa;
     }
 
+
     .yard-gold {
-      color: var(--gold);
+      color:
+        var(--gold);
     }
+
+
+    /* =========================================================
+       SCORE BUTTON STATES
+       ========================================================= */
 
     .score-button {
       width: 58px;
       height: 46px;
-      border: 1px solid rgba(255,255,255,.48);
+
+      border:
+        1px solid
+        rgba(255,255,255,.48);
+
       border-radius: 8px;
-      background: rgba(0,0,0,.72);
+
+      background:
+        rgba(0,0,0,.72);
+
       color: #fff;
+
       font-size: 27px;
-      line-height: 1;
       font-weight: 700;
+
+      line-height: 1;
     }
 
+
     .score-button.empty {
-      background: rgba(0,0,0,.72);
+      background:
+        rgba(0,0,0,.72);
+
       color: #aaa;
     }
 
+
     .score-button.unsaved {
-      background: #b7b7b7;
+      border-color:
+        #e0e0e0;
+
+      background:
+        #b7b7b7;
+
       color: #111;
-      border-color: #e0e0e0;
     }
 
+
     .score-button.saved {
-      background: var(--gold);
+      border-color:
+        #d9bd52;
+
+      background:
+        var(--gold);
+
       color: #111;
-      border-color: #d9bd52;
     }
+
+
+    /* =========================================================
+       FRONT / BACK NINE DIVIDER
+       ========================================================= */
 
     .nine-break {
       height: 9px;
+
       background: #000;
-      border-bottom: 1px solid var(--gold);
-      border-top: 1px solid rgba(188,150,29,.45);
+
+      border-top:
+        1px solid
+        rgba(188,150,29,.48);
+
+      border-bottom:
+        1px solid
+        var(--gold);
     }
 
+
+    /* =========================================================
+       SCORECARD BOTTOM
+       ========================================================= */
+
     .score-fixed-bottom {
-      flex: 0 0 auto;
-      background: rgba(0,0,0,.95);
-      border-top: 1px solid var(--line-strong);
-      backdrop-filter: blur(8px);
+      flex:
+        0 0 auto;
+
+      z-index: 60;
+
       padding:
-        10px
-        16px
-        calc(10px + env(safe-area-inset-bottom));
+        9px
+        14px
+        calc(
+          9px +
+          env(safe-area-inset-bottom)
+        );
+
+      border-top:
+        1px solid
+        var(--line-strong);
+
+      background:
+        rgba(0,0,0,.96);
+
+      backdrop-filter:
+        blur(7px);
     }
+
 
     .score-bottom-actions {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      gap: 11px;
     }
+
 
     .bottom-action {
-      min-height: 58px;
+      min-height: 55px;
+
       border-radius: 9px;
-      font-size: 20px;
+
+      font-size: 18px;
       font-weight: 700;
-      letter-spacing: .35px;
+
+      letter-spacing: .25px;
     }
 
+
     .leaderboard-button {
-      border: 1px solid var(--line-strong);
-      background: #050505;
+      border:
+        1px solid
+        var(--line-strong);
+
+      background:
+        #050505;
+
       color: #fff;
     }
 
+
     .submit-button {
-      border: 1px solid var(--gold);
-      background: var(--gold);
+      border:
+        1px solid
+        var(--gold);
+
+      background:
+        var(--gold);
+
       color: #111;
     }
 
+
     .submit-button:disabled {
-      opacity: .48;
+      opacity: .42;
+
       cursor: default;
     }
 
+
     /* =========================================================
-       LEADERBOARD
+       LIVE LEADERBOARD
        ========================================================= */
 
     #leaderboardView {
-      height: 100dvh;
-      overflow: hidden;
+      min-height: 100dvh;
     }
+
 
     .leaderboard-screen {
-      width: min(760px, 100%);
-      height: 100%;
-      margin: 0 auto;
+      width:
+        min(
+          760px,
+          100%
+        );
+
+      min-height: 100dvh;
+
+      margin:
+        0 auto;
+
       display: flex;
+
       flex-direction: column;
-      overflow: hidden;
     }
+
 
     .leader-top {
-      flex: 0 0 auto;
+      flex:
+        0 0 auto;
+
       padding:
-        calc(10px + env(safe-area-inset-top))
-        16px
-        8px;
-      background: rgba(0,0,0,.90);
-      backdrop-filter: blur(8px);
+        calc(
+          8px +
+          env(safe-area-inset-top)
+        )
+        14px
+        6px;
+
+      background:
+        rgba(0,0,0,.94);
     }
+
 
     .leader-nav {
-      display: flex;
+      display: grid;
+
+      grid-template-columns:
+        82px
+        minmax(0,1fr)
+        44px;
+
+      gap: 8px;
+
       align-items: center;
-      justify-content: space-between;
     }
 
-    .leader-title-block {
+
+    .leader-event-top {
+      color:
+        var(--gold);
+
       text-align: center;
-      margin-top: 6px;
+
+      font-size: 16px;
+      font-weight: 600;
+
+      letter-spacing: .35px;
+
+      white-space: nowrap;
     }
+
 
     .leader-title {
-      font-size: 32px;
-      line-height: 1;
+      margin-top: 6px;
+
+      color: #fff;
+
+      text-align: center;
+
+      font-size: 25px;
       font-weight: 700;
-      letter-spacing: .5px;
+
+      line-height: 1;
+
+      letter-spacing: .35px;
     }
 
-    .leader-subtitle {
-      margin-top: 8px;
-      color: var(--gold);
-      font-size: 19px;
-      font-weight: 500;
-      letter-spacing: .5px;
-    }
 
-    .leader-scroll {
-      flex: 1 1 auto;
+    /*
+      Compact leaderboard is intentional.
+
+      Goal for this tournament:
+      all six active teams visible on S25
+      without needing to scroll.
+    */
+
+    .leader-content {
+      flex:
+        1 1 auto;
+
       min-height: 0;
+
+      padding:
+        6px
+        18px
+        4px;
+
       overflow-y: auto;
-      padding: 8px 16px 16px;
-      -webkit-overflow-scrolling: touch;
+
+      -webkit-overflow-scrolling:
+        touch;
     }
+
 
     .leader-table {
-      width: min(700px, 100%);
-      margin: 0 auto;
-      border: 1px solid var(--line-strong);
-      border-radius: 10px;
+      width: 100%;
+
+      max-width: 680px;
+
+      margin:
+        0 auto;
+
       overflow: hidden;
-      background: rgba(0,0,0,.42);
+
+      border:
+        1px solid
+        var(--line-strong);
+
+      border-radius: 9px;
+
+      background:
+        rgba(0,0,0,.42);
     }
+
 
     .leader-row {
       display: grid;
-      grid-template-columns: minmax(0, 1.8fr) .75fr .65fr;
-      min-height: 84px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(0,0,0,.46);
+
+      grid-template-columns:
+        minmax(0,1.75fr)
+        .78fr
+        .65fr;
+
+      min-height: 61px;
+
+      border-bottom:
+        1px solid
+        var(--line);
+
+      background:
+        rgba(0,0,0,.46);
     }
+
 
     .leader-row:last-child {
       border-bottom: 0;
     }
 
+
     .leader-row.header {
-      min-height: 56px;
-      background: rgba(0,0,0,.88);
+      min-height: 42px;
+
       color: #d0d0d0;
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: .3px;
+
+      background:
+        rgba(0,0,0,.90);
+
       text-align: center;
+
+      font-size: 15px;
+      font-weight: 700;
+
+      letter-spacing: .25px;
     }
+
 
     .leader-row > div {
       min-width: 0;
+
       display: flex;
+
       align-items: center;
       justify-content: center;
-      padding: 9px 12px;
-      border-right: 1px solid var(--line);
+
+      padding:
+        5px 8px;
+
+      border-right:
+        1px solid
+        var(--line);
     }
+
 
     .leader-row > div:last-child {
       border-right: 0;
     }
 
+
     .leader-team-cell {
-      align-items: flex-start !important;
-      justify-content: center !important;
       flex-direction: column;
+
+      align-items:
+        flex-start !important;
+
+      justify-content:
+        center !important;
+
       text-align: left;
     }
 
+
     .leader-team-name {
       width: 100%;
+
       color: #fff;
-      font-size: 22px;
-      line-height: 1.08;
+
+      font-size: 17px;
       font-weight: 700;
+
+      line-height: 1.05;
+
       overflow-wrap: anywhere;
     }
 
+
     .leader-hcp {
       width: 100%;
-      margin-top: 5px;
-      color: var(--gold);
-      font-size: 17px;
-      line-height: 1;
+
+      margin-top: 3px;
+
+      color:
+        var(--gold);
+
+      font-size: 13px;
       font-weight: 500;
+
+      line-height: 1;
     }
+
 
     .leader-through-cell {
       flex-direction: column;
+
       text-align: center;
     }
+
 
     .leader-through-score {
-      font-size: 27px;
-      line-height: 1;
+      font-size: 20px;
       font-weight: 700;
+
+      line-height: 1;
     }
+
 
     .leader-through-label {
-      margin-top: 5px;
+      margin-top: 3px;
+
       color: #aaa;
-      font-size: 17px;
-      line-height: 1;
+
+      font-size: 12px;
       font-weight: 500;
+
+      line-height: 1;
     }
 
+
     .leader-total {
-      font-size: 32px;
-      line-height: 1;
+      font-size: 24px;
       font-weight: 700;
+
+      line-height: 1;
+
       text-align: center;
     }
 
+
     .under {
-      color: var(--red);
+      color:
+        var(--red);
     }
+
 
     .even-over {
       color: #fff;
     }
 
+
     .leader-update-note {
-      width: min(700px, 100%);
-      min-height: 34px;
-      margin: 8px auto 0;
-      color: #999;
-      font-size: 16px;
+      min-height: 18px;
+
+      margin:
+        4px auto
+        0;
+
+      color: #888;
+
       text-align: center;
+
+      font-size: 11px;
     }
 
+
     .leader-bottom {
-      flex: 0 0 auto;
-      border-top: 1px solid var(--line-strong);
+      flex:
+        0 0 auto;
+
       padding:
-        10px
-        16px
-        calc(10px + env(safe-area-inset-bottom));
-      background: rgba(0,0,0,.95);
-      backdrop-filter: blur(8px);
+        8px
+        18px
+        calc(
+          8px +
+          env(safe-area-inset-bottom)
+        );
+
+      border-top:
+        1px solid
+        var(--line-strong);
+
+      background:
+        rgba(0,0,0,.96);
     }
+
 
     .access-scorecard {
       width: 100%;
-      min-height: 58px;
-      border: 1px solid var(--gold);
+
+      min-height: 53px;
+
+      border:
+        1px solid
+        var(--gold);
+
       border-radius: 9px;
-      background: var(--gold);
+
+      background:
+        var(--gold);
+
       color: #111;
-      font-size: 20px;
+
+      font-size: 18px;
       font-weight: 700;
     }
+
 
     /* =========================================================
        MODALS
@@ -681,359 +1284,605 @@
     .modal-overlay,
     .score-entry-overlay {
       position: fixed;
+
       inset: 0;
+
       z-index: 5000;
+
       display: none;
+
       align-items: center;
       justify-content: center;
+
       padding: 20px;
-      background: rgba(0,0,0,.62);
-      backdrop-filter: blur(7px);
+
+      background:
+        rgba(0,0,0,.62);
+
+      backdrop-filter:
+        blur(7px);
     }
+
 
     .modal-overlay.open,
     .score-entry-overlay.open {
       display: flex;
     }
 
+
     .modal-box {
-      width: min(650px, 100%);
-      max-height: calc(100dvh - 40px);
+      width:
+        min(
+          650px,
+          100%
+        );
+
+      max-height:
+        calc(
+          100dvh - 40px
+        );
+
       overflow-y: auto;
-      padding: 28px 34px 30px;
-      border: 1px solid rgba(255,255,255,.82);
-      border-radius: 18px;
+
+      padding:
+        26px 28px
+        28px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.82);
+
+      border-radius: 17px;
+
       background: #050505;
+
       text-align: left;
     }
 
+
     .modal-title {
-      color: var(--gold);
-      font-size: 28px;
-      line-height: 1.1;
+      margin-bottom: 16px;
+
+      color:
+        var(--gold);
+
+      font-size: 27px;
       font-weight: 700;
-      margin-bottom: 18px;
+
+      line-height: 1.1;
     }
+
 
     .modal-text {
       color: #ddd;
-      font-size: 19px;
-      line-height: 1.45;
+
+      font-size: 18px;
+
+      line-height: 1.42;
     }
+
 
     .modal-input {
       width: 100%;
-      height: 58px;
-      margin-top: 18px;
-      padding: 0 16px;
-      border: 2px solid var(--gold);
-      border-radius: 10px;
+
+      height: 56px;
+
+      margin-top: 17px;
+
+      padding:
+        0 14px;
+
+      border:
+        2px solid
+        var(--gold);
+
+      border-radius: 9px;
+
       outline: none;
+
       background: #161616;
+
       color: #fff;
-      font-size: 22px;
+
+      font-size: 21px;
     }
+
 
     .modal-actions {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 22px;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      gap: 13px;
+
+      margin-top: 20px;
     }
 
+
+    .modal-actions.single {
+      grid-template-columns:
+        1fr;
+    }
+
+
     .modal-btn {
-      min-height: 56px;
-      border: 1px solid var(--line-strong);
+      min-height: 54px;
+
+      border:
+        1px solid
+        var(--line-strong);
+
       border-radius: 9px;
-      background: #060606;
+
+      background: #050505;
+
       color: #fff;
-      font-size: 20px;
+
+      font-size: 18px;
       font-weight: 700;
     }
 
+
     .modal-btn.primary {
-      border-color: var(--gold);
-      background: var(--gold);
+      border-color:
+        var(--gold);
+
+      background:
+        var(--gold);
+
       color: #111;
     }
 
-    .modal-actions.single {
-      grid-template-columns: 1fr;
-    }
 
     .quick-list {
       margin: 0;
-      padding-left: 25px;
+
+      padding-left: 23px;
     }
+
 
     .quick-list li {
-      margin: 0 0 10px;
+      margin-bottom: 8px;
     }
 
+
     .quick-correction {
-      margin-top: 18px;
+      margin-top: 17px;
+
       color: #fff;
     }
+
 
     /* =========================================================
        SCORE ENTRY
        ========================================================= */
 
     .score-entry-overlay {
-      align-items: flex-start;
+      align-items:
+        flex-start;
+
       padding-top: 11vh;
+
       z-index: 5200;
     }
 
+
     .score-entry-box {
-      width: min(420px, calc(100% - 10px));
+      width:
+        min(
+          420px,
+          calc(100% - 10px)
+        );
+
       padding: 24px;
-      border: 1px solid rgba(255,255,255,.84);
+
+      border:
+        1px solid
+        rgba(255,255,255,.84);
+
       border-radius: 14px;
+
       background: #050505;
+
       text-align: center;
     }
+
 
     .score-entry-hole {
       font-size: 28px;
       font-weight: 700;
     }
 
+
     .score-entry-par {
       margin-top: 2px;
+
       color: #aaa;
+
       font-size: 20px;
     }
 
+
     .score-entry-input {
       width: 100%;
+
       height: 68px;
+
       margin-top: 18px;
-      border: 2px solid var(--gold);
+
+      border:
+        2px solid
+        var(--gold);
+
       border-radius: 10px;
+
       outline: none;
+
       background: #191919;
+
       color: #fff;
+
+      text-align: center;
+
       font-size: 34px;
       font-weight: 700;
-      text-align: center;
     }
+
 
     .score-entry-enter {
       width: 100%;
+
       min-height: 58px;
+
       margin-top: 14px;
-      border: 1px solid var(--gold);
+
+      border:
+        1px solid
+        var(--gold);
+
       border-radius: 9px;
-      background: var(--gold);
+
+      background:
+        var(--gold);
+
       color: #111;
+
       font-size: 21px;
       font-weight: 700;
     }
 
+
+    /* =========================================================
+       SMALLER PHONES
+       ========================================================= */
+
     @media (max-width: 420px) {
+
       .score-fixed-top {
         padding-left: 12px;
         padding-right: 12px;
       }
+
 
       .score-scroll {
         margin-left: 12px;
         margin-right: 12px;
       }
 
-      .score-nav {
-        grid-template-columns: 86px minmax(0, 1fr) 52px;
-        gap: 8px;
+
+      .score-nav,
+      .leader-nav {
+        grid-template-columns:
+          76px
+          minmax(0,1fr)
+          42px;
       }
+
 
       .home-button {
-        min-width: 86px;
-        padding: 0 10px;
-        font-size: 20px;
+        min-width: 76px;
+
+        height: 44px;
+
+        padding:
+          0 9px;
+
+        font-size: 17px;
       }
+
+
+      .info-button {
+        width: 42px;
+        height: 42px;
+
+        flex:
+          0 0
+          42px;
+
+        font-size: 23px;
+      }
+
+
+      .score-event-title,
+      .leader-event-top {
+        font-size: 14px;
+      }
+
+
+      .team-select-wrap {
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+
 
       .top-team-select {
+        height: 47px;
+
         font-size: 18px;
-        padding-left: 8px;
-        padding-right: 28px;
       }
 
-      .scorecard-label,
-      .event-label {
-        font-size: 15px;
-      }
 
       .team-title {
         font-size: 31px;
       }
 
+
       .team-title.long {
-        font-size: 24px;
+        font-size: 23px;
       }
 
+
       .score-table-head {
-        min-height: 44px;
         font-size: 15px;
       }
 
-      .score-row {
-        min-height: 56px;
-      }
-
-      .hole-cell {
-        font-size: 22px;
-      }
-
-      .par-cell {
-        font-size: 19px;
-      }
 
       .yardage-cell {
-        gap: 3px;
         font-size: 17px;
       }
 
-      .score-button {
-        width: 56px;
-        height: 44px;
-        font-size: 26px;
-      }
 
       .bottom-action {
-        min-height: 56px;
-        font-size: 18px;
-      }
-
-      .leader-title {
-        font-size: 30px;
-      }
-
-      .leader-subtitle {
-        font-size: 18px;
-      }
-
-      .leader-row.header {
         font-size: 17px;
       }
 
-      .leader-team-name {
-        font-size: 20px;
+
+      .leader-title {
+        font-size: 23px;
       }
 
-      .leader-hcp,
-      .leader-through-label {
+
+      .leader-row {
+        min-height: 58px;
+      }
+
+
+      .leader-row.header {
+        min-height: 40px;
+
+        font-size: 14px;
+      }
+
+
+      .leader-team-name {
         font-size: 16px;
       }
 
-      .leader-through-score {
-        font-size: 26px;
+
+      .leader-hcp {
+        font-size: 12px;
       }
+
+
+      .leader-through-score {
+        font-size: 19px;
+      }
+
+
+      .leader-through-label {
+        font-size: 11px;
+      }
+
 
       .leader-total {
-        font-size: 31px;
+        font-size: 23px;
       }
+
 
       .modal-box {
-        padding: 24px 20px;
+        padding:
+          23px 20px
+          25px;
       }
 
-      .modal-title {
-        font-size: 26px;
-      }
-
-      .modal-text {
-        font-size: 18px;
-      }
     }
 
+
     @media (orientation: landscape) {
+
       body::before {
-        background-size: 50% auto;
+        background-size:
+          50% auto;
       }
+
 
       .splash-image {
         width: 50%;
       }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <div id="topLoading" class="top-loading"></div>
+  <div
+    id="topLoading"
+    class="top-loading"
+  ></div>
 
-  <!-- HOME -->
-  <section id="homeView" class="view active">
+
+  <!-- =======================================================
+       HOME / SPLASH
+       ======================================================= -->
+
+  <section
+    id="homeView"
+    class="view active"
+  >
+
     <div class="home-shell">
 
-      <div class="home-top">
-        <button class="info-button" type="button" data-guide aria-label="Quick Guide">i</button>
+      <div class="splash-image-wrap">
+
+        <img
+          src="Splash.jpg"
+          class="splash-image"
+          alt="Running of the Bulls 2026"
+        >
+
       </div>
 
-      <div class="splash-image-wrap">
-        <img src="Splash.jpg" class="splash-image" alt="Running of the Bulls 2026">
-      </div>
 
       <div class="home-actions">
 
-        <button id="homeScorecardButton" class="home-main-button" type="button">
+        <button
+          id="homeScorecardButton"
+          class="home-main-button"
+          type="button"
+        >
           ACCESS SCORECARD
         </button>
 
-        <button id="homeLeaderboardButton" class="home-main-button" type="button">
+
+        <button
+          id="homeLeaderboardButton"
+          class="home-main-button"
+          type="button"
+        >
           VIEW LIVE LEADERBOARD
         </button>
 
-        <button class="quick-guide-button" type="button" data-guide>
+
+        <button
+          class="quick-guide-button"
+          type="button"
+          data-guide
+        >
           QUICK GUIDE
         </button>
 
       </div>
+
     </div>
+
   </section>
 
 
-  <!-- SCORECARD -->
-  <section id="scorecardView" class="view">
+  <!-- =======================================================
+       SCORECARD
+       ======================================================= -->
+
+  <section
+    id="scorecardView"
+    class="view"
+  >
+
     <div class="scorecard-screen">
+
 
       <div class="score-fixed-top">
 
+
         <div class="score-nav">
 
-          <button id="scoreHomeButton" class="home-button" type="button">
+          <button
+            id="scoreHomeButton"
+            class="home-button"
+            type="button"
+          >
             HOME
           </button>
 
-          <select id="teamSelect" class="top-team-select" aria-label="Select Team">
-            <option value="">SELECT TEAM</option>
-          </select>
 
-          <button class="info-button" type="button" data-guide aria-label="Quick Guide">
+          <div class="score-event-title">
+            RUNNING OF THE BULLS 2026
+          </div>
+
+
+          <button
+            class="info-button"
+            type="button"
+            data-guide
+            aria-label="Quick Guide"
+          >
             i
           </button>
 
         </div>
 
-        <div class="score-identity">
-          <div class="scorecard-label">SCORECARD</div>
-          <div class="event-label">RUNNING OF THE BULLS 2026</div>
-          <div id="teamHeading" class="team-title">SELECT A TEAM</div>
+
+        <div class="team-select-wrap">
+
+          <select
+            id="teamSelect"
+            class="top-team-select"
+            aria-label="Select Team"
+          >
+
+            <option value="">
+              SELECT TEAM
+            </option>
+
+          </select>
+
         </div>
+
+
+        <div
+          id="teamHeading"
+          class="team-title"
+        >
+          SELECT A TEAM
+        </div>
+
 
         <div class="score-table-head">
-          <div>HOLE</div>
-          <div>PAR</div>
-          <div>YARDS</div>
-          <div>SCORE</div>
+
+          <div>
+            HOLE
+          </div>
+
+          <div>
+            PAR
+          </div>
+
+          <div>
+            YARDS
+          </div>
+
+          <div>
+            SCORE
+          </div>
+
         </div>
 
       </div>
 
-      <div id="scoreScroll" class="score-scroll">
+
+      <div
+        id="scoreScroll"
+        class="score-scroll"
+      >
+
         <div id="scoreRows"></div>
+
       </div>
+
 
       <div class="score-fixed-bottom">
 
@@ -1041,15 +1890,22 @@
 
           <button
             id="scoreLeaderboardButton"
-            class="bottom-action leaderboard-button"
+            class="
+              bottom-action
+              leaderboard-button
+            "
             type="button"
           >
             LIVE LEADERBOARD
           </button>
 
+
           <button
             id="submitBtn"
-            class="bottom-action submit-button"
+            class="
+              bottom-action
+              submit-button
+            "
             type="button"
             disabled
           >
@@ -1061,53 +1917,95 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- LIVE LEADERBOARD -->
-  <section id="leaderboardView" class="view">
+  <!-- =======================================================
+       LIVE LEADERBOARD
+       ======================================================= -->
+
+  <section
+    id="leaderboardView"
+    class="view"
+  >
+
     <div class="leaderboard-screen">
+
 
       <div class="leader-top">
 
+
         <div class="leader-nav">
 
-          <button id="leaderHomeButton" class="home-button" type="button">
+          <button
+            id="leaderHomeButton"
+            class="home-button"
+            type="button"
+          >
             HOME
           </button>
 
-          <button class="info-button" type="button" data-guide aria-label="Quick Guide">
+
+          <div class="leader-event-top">
+            RUNNING OF THE BULLS 2026
+          </div>
+
+
+          <button
+            class="info-button"
+            type="button"
+            data-guide
+            aria-label="Quick Guide"
+          >
             i
           </button>
 
         </div>
 
-        <div class="leader-title-block">
-          <div class="leader-title">LIVE LEADERBOARD</div>
-          <div class="leader-subtitle">RUNNING OF THE BULLS 2026</div>
+
+        <div class="leader-title">
+          LIVE LEADERBOARD
         </div>
 
       </div>
 
-      <div class="leader-scroll">
+
+      <div class="leader-content">
 
         <div class="leader-table">
 
           <div class="leader-row header">
-            <div>TEAM</div>
-            <div>THROUGH</div>
-            <div>TOTAL</div>
+
+            <div>
+              TEAM
+            </div>
+
+            <div>
+              THROUGH
+            </div>
+
+            <div>
+              TOTAL
+            </div>
+
           </div>
+
 
           <div id="leaderRows"></div>
 
         </div>
 
-        <div id="leaderUpdateNote" class="leader-update-note">
+
+        <div
+          id="leaderUpdateNote"
+          class="leader-update-note"
+        >
           Live standings • updates automatically
         </div>
 
       </div>
+
 
       <div class="leader-bottom">
 
@@ -1122,16 +2020,32 @@
       </div>
 
     </div>
+
   </section>
 
 
-  <!-- GENERAL MODAL -->
-  <div id="modalOverlay" class="modal-overlay">
+  <!-- =======================================================
+       GENERAL MODAL
+       ======================================================= -->
+
+  <div
+    id="modalOverlay"
+    class="modal-overlay"
+  >
 
     <div class="modal-box">
 
-      <div id="modalTitle" class="modal-title"></div>
-      <div id="modalBody" class="modal-text"></div>
+      <div
+        id="modalTitle"
+        class="modal-title"
+      ></div>
+
+
+      <div
+        id="modalBody"
+        class="modal-text"
+      ></div>
+
 
       <input
         id="modalInput"
@@ -1142,20 +2056,46 @@
         style="display:none;"
       >
 
-      <div id="modalActions" class="modal-actions"></div>
+
+      <div
+        id="modalActions"
+        class="modal-actions"
+      ></div>
 
     </div>
 
   </div>
 
 
-  <!-- SCORE ENTRY -->
-  <div id="scoreEntryOverlay" class="score-entry-overlay">
+  <!-- =======================================================
+       SCORE ENTRY
+       ======================================================= -->
 
-    <div id="scoreEntryBox" class="score-entry-box">
+  <div
+    id="scoreEntryOverlay"
+    class="score-entry-overlay"
+  >
 
-      <div id="scoreEntryHole" class="score-entry-hole">HOLE</div>
-      <div id="scoreEntryPar" class="score-entry-par">PAR</div>
+    <div
+      id="scoreEntryBox"
+      class="score-entry-box"
+    >
+
+      <div
+        id="scoreEntryHole"
+        class="score-entry-hole"
+      >
+        HOLE
+      </div>
+
+
+      <div
+        id="scoreEntryPar"
+        class="score-entry-par"
+      >
+        PAR
+      </div>
+
 
       <input
         id="scoreEntryInput"
@@ -1168,7 +2108,12 @@
         autocomplete="off"
       >
 
-      <button id="scoreEntryEnter" class="score-entry-enter" type="button">
+
+      <button
+        id="scoreEntryEnter"
+        class="score-entry-enter"
+        type="button"
+      >
         ENTER
       </button>
 
@@ -1178,144 +2123,262 @@
 
 
   <script>
+
     // ==========================================================
-    // ROTB 2026 - REV 1
+    // ROTB 2026
+    // REV 2
     //
-    // Apps Script:
-    // default read        -> scorecard
-    // ?action=leaderboard -> leaderboard
-    // ?action=saveScores&slot=N&scores=[18 values]
+    // IMPORTANT COMMUNICATION RULES
     //
-    // TROUBLESHOOTING RULES:
-    // - Each manual page refresh performs ONE clean read attempt.
-    // - No automatic scorecard read retries yet.
-    // - Writes NEVER automatically retry.
-    // - Scores turn gold only after authoritative save success.
-    // - Refresh preserves the current screen in this tab.
+    // - Google Sheets remains source of truth.
+    // - Sheet performs tournament math.
+    // - Website only reads/display/writes scores.
+    //
+    // - READS:
+    //   One plain fetch per request.
+    //   No automatic retry during troubleshooting.
+    //
+    // - WRITES:
+    //   One plain fetch.
+    //   NEVER blindly retry a write.
+    //
+    // - NO ARTIFICIAL ABORT TIMEOUT.
+    //
+    // - Scores remain gray until Apps Script
+    //   returns authoritative success.
+    //
     // ==========================================================
+
 
     const SCRIPT_URL =
       'https://script.google.com/macros/s/AKfycbx4r2MORk4rPjUf28W_7EoarbgKEJzVTIOuaewqKf5cqUpehQlqKFa0ZyyKDjpy7Fc9/exec';
 
-    const SCORECARD_READ_ATTEMPTS = 1;
-    const LEADERBOARD_READ_ATTEMPTS = 1;
-    const READ_TIMEOUT_MS = 12000;
-    const LEADERBOARD_REFRESH_MS = 5000;
+
+    const LEADERBOARD_REFRESH_MS =
+      8000;
+
 
     const els = {
 
       topLoading:
-        document.getElementById('topLoading'),
+        document.getElementById(
+          'topLoading'
+        ),
+
 
       homeView:
-        document.getElementById('homeView'),
+        document.getElementById(
+          'homeView'
+        ),
+
 
       scorecardView:
-        document.getElementById('scorecardView'),
+        document.getElementById(
+          'scorecardView'
+        ),
+
 
       leaderboardView:
-        document.getElementById('leaderboardView'),
+        document.getElementById(
+          'leaderboardView'
+        ),
+
 
       homeScorecardButton:
-        document.getElementById('homeScorecardButton'),
+        document.getElementById(
+          'homeScorecardButton'
+        ),
+
 
       homeLeaderboardButton:
-        document.getElementById('homeLeaderboardButton'),
+        document.getElementById(
+          'homeLeaderboardButton'
+        ),
+
 
       scoreHomeButton:
-        document.getElementById('scoreHomeButton'),
+        document.getElementById(
+          'scoreHomeButton'
+        ),
+
 
       leaderHomeButton:
-        document.getElementById('leaderHomeButton'),
+        document.getElementById(
+          'leaderHomeButton'
+        ),
+
 
       teamSelect:
-        document.getElementById('teamSelect'),
+        document.getElementById(
+          'teamSelect'
+        ),
+
 
       teamHeading:
-        document.getElementById('teamHeading'),
+        document.getElementById(
+          'teamHeading'
+        ),
+
 
       scoreRows:
-        document.getElementById('scoreRows'),
+        document.getElementById(
+          'scoreRows'
+        ),
+
 
       scoreScroll:
-        document.getElementById('scoreScroll'),
+        document.getElementById(
+          'scoreScroll'
+        ),
+
 
       scoreLeaderboardButton:
-        document.getElementById('scoreLeaderboardButton'),
+        document.getElementById(
+          'scoreLeaderboardButton'
+        ),
+
 
       submitBtn:
-        document.getElementById('submitBtn'),
+        document.getElementById(
+          'submitBtn'
+        ),
+
 
       leaderRows:
-        document.getElementById('leaderRows'),
+        document.getElementById(
+          'leaderRows'
+        ),
+
 
       leaderUpdateNote:
-        document.getElementById('leaderUpdateNote'),
+        document.getElementById(
+          'leaderUpdateNote'
+        ),
+
 
       leaderScorecardButton:
-        document.getElementById('leaderScorecardButton'),
+        document.getElementById(
+          'leaderScorecardButton'
+        ),
+
 
       modalOverlay:
-        document.getElementById('modalOverlay'),
+        document.getElementById(
+          'modalOverlay'
+        ),
+
 
       modalTitle:
-        document.getElementById('modalTitle'),
+        document.getElementById(
+          'modalTitle'
+        ),
+
 
       modalBody:
-        document.getElementById('modalBody'),
+        document.getElementById(
+          'modalBody'
+        ),
+
 
       modalInput:
-        document.getElementById('modalInput'),
+        document.getElementById(
+          'modalInput'
+        ),
+
 
       modalActions:
-        document.getElementById('modalActions'),
+        document.getElementById(
+          'modalActions'
+        ),
+
 
       scoreEntryOverlay:
-        document.getElementById('scoreEntryOverlay'),
+        document.getElementById(
+          'scoreEntryOverlay'
+        ),
 
-      scoreEntryBox:
-        document.getElementById('scoreEntryBox'),
 
       scoreEntryHole:
-        document.getElementById('scoreEntryHole'),
+        document.getElementById(
+          'scoreEntryHole'
+        ),
+
 
       scoreEntryPar:
-        document.getElementById('scoreEntryPar'),
+        document.getElementById(
+          'scoreEntryPar'
+        ),
+
 
       scoreEntryInput:
-        document.getElementById('scoreEntryInput'),
+        document.getElementById(
+          'scoreEntryInput'
+        ),
+
 
       scoreEntryEnter:
-        document.getElementById('scoreEntryEnter')
+        document.getElementById(
+          'scoreEntryEnter'
+        )
+
     };
 
 
     let holes = [];
+
     let teams = [];
+
     let selectedTeam = null;
+
 
     let localScores =
       Array(18).fill(null);
 
+
     let savedScores =
       Array(18).fill(null);
 
-    let activeScoreIndex = null;
-    let scoreEntryClosing = false;
 
-    let currentView = 'home';
-
-    let leaderboardTimer = null;
-    let leaderboardHasLoaded = false;
-    let scorecardHasLoaded = false;
-
-    let saveInProgress = false;
-    let scorecardLoadInProgress = false;
+    let activeScoreIndex =
+      null;
 
 
-    // ----------------------------------------------------------
+    let scoreEntryClosing =
+      false;
+
+
+    let currentView =
+      'home';
+
+
+    let scorecardHasLoaded =
+      false;
+
+
+    let scorecardLoadInProgress =
+      false;
+
+
+    let leaderboardHasLoaded =
+      false;
+
+
+    let leaderboardTimer =
+      null;
+
+
+    let leaderboardLoadInProgress =
+      false;
+
+
+    let saveInProgress =
+      false;
+
+
+    // ==========================================================
     // STORAGE
-    // ----------------------------------------------------------
+    // ==========================================================
+
 
     function getAuthorizedTeam() {
 
@@ -1328,7 +2391,9 @@
     }
 
 
-    function setAuthorizedTeam(teamName) {
+    function setAuthorizedTeam(
+      teamName
+    ) {
 
       localStorage.setItem(
         'rotbAuthorizedTeam',
@@ -1349,7 +2414,9 @@
     }
 
 
-    function rememberSelectedTeam(teamName) {
+    function rememberSelectedTeam(
+      teamName
+    ) {
 
       localStorage.setItem(
         'rotbSelectedTeam',
@@ -1359,9 +2426,13 @@
     }
 
 
-    function rememberCurrentView(view) {
+    function rememberCurrentView(
+      view
+    ) {
 
-      currentView = view;
+      currentView =
+        view;
+
 
       sessionStorage.setItem(
         'rotbCurrentView',
@@ -1373,46 +2444,64 @@
 
     function getRememberedView() {
 
-      const view =
+      const value =
         sessionStorage.getItem(
           'rotbCurrentView'
         );
 
-      return (
-        [
-          'home',
-          'scorecard',
-          'leaderboard'
-        ].includes(view)
-          ? view
-          : 'home'
-      );
+
+      if (
+        value === 'scorecard' ||
+        value === 'leaderboard' ||
+        value === 'home'
+      ) {
+
+        return value;
+
+      }
+
+
+      return 'home';
 
     }
 
 
-    // ----------------------------------------------------------
+    // ==========================================================
     // VIEW CONTROL
-    // ----------------------------------------------------------
+    // ==========================================================
 
-    function setActiveView(view) {
 
-      els.homeView.classList.toggle(
-        'active',
-        view === 'home'
+    function setActiveView(
+      view
+    ) {
+
+      els.homeView
+        .classList
+        .toggle(
+          'active',
+          view === 'home'
+        );
+
+
+      els.scorecardView
+        .classList
+        .toggle(
+          'active',
+          view === 'scorecard'
+        );
+
+
+      els.leaderboardView
+        .classList
+        .toggle(
+          'active',
+          view === 'leaderboard'
+        );
+
+
+      rememberCurrentView(
+        view
       );
-
-      els.scorecardView.classList.toggle(
-        'active',
-        view === 'scorecard'
-      );
-
-      els.leaderboardView.classList.toggle(
-        'active',
-        view === 'leaderboard'
-      );
-
-      rememberCurrentView(view);
 
     }
 
@@ -1420,10 +2509,21 @@
     function showHome() {
 
       clearLeaderboardTimer();
-      closeModal();
-      closeScoreEntry(false);
 
-      setActiveView('home');
+      closeModal();
+
+      closeScoreEntry(
+        false
+      );
+
+      setActiveView(
+        'home'
+      );
+
+      window.scrollTo(
+        0,
+        0
+      );
 
     }
 
@@ -1431,9 +2531,19 @@
     async function showScorecard() {
 
       clearLeaderboardTimer();
+
       closeModal();
 
-      setActiveView('scorecard');
+      setActiveView(
+        'scorecard'
+      );
+
+
+      window.scrollTo(
+        0,
+        0
+      );
+
 
       if (
         !scorecardHasLoaded &&
@@ -1450,15 +2560,30 @@
     async function showLeaderboard() {
 
       closeModal();
-      closeScoreEntry(true);
 
-      setActiveView('leaderboard');
+      closeScoreEntry(
+        true
+      );
 
-      await loadLeaderboard({
-        showErrorIfEmpty: true
-      });
+
+      setActiveView(
+        'leaderboard'
+      );
+
+
+      window.scrollTo(
+        0,
+        0
+      );
+
+
+      await loadLeaderboard(
+        true
+      );
+
 
       clearLeaderboardTimer();
+
 
       leaderboardTimer =
         setInterval(
@@ -1469,9 +2594,9 @@
               'leaderboard'
             ) {
 
-              loadLeaderboard({
-                showErrorIfEmpty: false
-              });
+              loadLeaderboard(
+                false
+              );
 
             }
 
@@ -1484,149 +2609,32 @@
 
     function clearLeaderboardTimer() {
 
-      if (leaderboardTimer) {
+      if (
+        leaderboardTimer
+      ) {
 
         clearInterval(
           leaderboardTimer
         );
 
-        leaderboardTimer = null;
+
+        leaderboardTimer =
+          null;
 
       }
 
     }
 
 
-    // ----------------------------------------------------------
-    // READ REQUEST
-    // ----------------------------------------------------------
+    // ==========================================================
+    // SCORECARD READ
+    //
+    // SIMPLE PLAIN FETCH
+    //
+    // NO TIMEOUT
+    // NO AUTO RETRY
+    // ==========================================================
 
-    function wait(ms) {
-
-      return new Promise(
-        resolve =>
-          setTimeout(resolve, ms)
-      );
-
-    }
-
-
-    async function fetchJsonRead(
-      url,
-      attempts
-    ) {
-
-      let lastError = null;
-
-      for (
-        let attempt = 1;
-        attempt <= attempts;
-        attempt++
-      ) {
-
-        const controller =
-          new AbortController();
-
-        const timeout =
-          setTimeout(
-            () =>
-              controller.abort(),
-            READ_TIMEOUT_MS
-          );
-
-        try {
-
-          const separator =
-            url.includes('?')
-              ? '&'
-              : '?';
-
-          const freshUrl =
-            url +
-            separator +
-            'refresh=' +
-            Date.now() +
-            '-' +
-            attempt;
-
-          const response =
-            await fetch(
-              freshUrl,
-              {
-                cache: 'no-store',
-                signal:
-                  controller.signal
-              }
-            );
-
-          if (!response.ok) {
-
-            throw new Error(
-              'HTTP ' +
-              response.status
-            );
-
-          }
-
-          const data =
-            await response.json();
-
-          if (
-            !data ||
-            data.success !== true
-          ) {
-
-            throw new Error(
-              (
-                data &&
-                data.error
-              ) ||
-              'ROTB returned an invalid response.'
-            );
-
-          }
-
-          clearTimeout(timeout);
-
-          return data;
-
-        }
-        catch (error) {
-
-          clearTimeout(timeout);
-
-          lastError = error;
-
-          if (
-            attempt <
-            attempts
-          ) {
-
-            await wait(
-              attempt === 1
-                ? 650
-                : 1250
-            );
-
-          }
-
-        }
-
-      }
-
-      throw (
-        lastError ||
-        new Error(
-          'ROTB request failed.'
-        )
-      );
-
-    }
-
-
-    // ----------------------------------------------------------
-    // SCORECARD LOAD
-    // ----------------------------------------------------------
 
     async function loadScorecard() {
 
@@ -1638,54 +2646,95 @@
 
       }
 
-      scorecardLoadInProgress = true;
+
+      scorecardLoadInProgress =
+        true;
+
 
       startLoadingLine();
 
+
       try {
 
-        const data =
-          await fetchJsonRead(
-            SCRIPT_URL,
-            SCORECARD_READ_ATTEMPTS
+        const url =
+          SCRIPT_URL +
+          '?refresh=' +
+          Date.now();
+
+
+        const response =
+          await fetch(
+            url,
+            {
+              cache:
+                'no-store'
+            }
           );
 
-        const newHoles =
-          Array.isArray(data.holes)
-            ? data.holes
-            : [];
-
-        const newTeams =
-          Array.isArray(data.teams)
-            ? data.teams
-            : [];
 
         if (
-          newHoles.length !== 18
+          !response.ok
         ) {
 
           throw new Error(
-            'ROTB did not return all 18 holes.'
+            'Scorecard request failed.'
           );
 
         }
 
-        holes = newHoles;
 
-        teams =
-          newTeams.filter(
-            team =>
-              team &&
-              String(
-                team.name || ''
-              ).trim() !== ''
+        const data =
+          await response.json();
+
+
+        if (
+          !data ||
+          data.success !== true
+        ) {
+
+          throw new Error(
+            (
+              data &&
+              data.error
+            ) ||
+            'Scorecard data unavailable.'
           );
 
+        }
+
+
+        holes =
+          Array.isArray(
+            data.holes
+          )
+            ? data.holes
+            : [];
+
+
+        teams =
+          Array.isArray(
+            data.teams
+          )
+            ? data.teams.filter(
+                team =>
+                  team &&
+                  String(
+                    team.name || ''
+                  ).trim() !== ''
+              )
+            : [];
+
+
         buildTeamSelect();
+
         restoreOrSelectTeam();
+
         renderScorecard();
 
-        scorecardHasLoaded = true;
+
+        scorecardHasLoaded =
+          true;
+
 
         completeLoadingLine();
 
@@ -1694,15 +2743,20 @@
 
         stopLoadingLine();
 
+
         showLoadError(
           'Scorecard Could Not Load',
+
           'The ROTB scorecard could not be loaded.',
+
           async () => {
 
             closeModal();
 
+
             scorecardHasLoaded =
               false;
+
 
             await loadScorecard();
 
@@ -1720,14 +2774,16 @@
     }
 
 
-    // ----------------------------------------------------------
+    // ==========================================================
     // TEAM SELECT
-    // ----------------------------------------------------------
+    // ==========================================================
+
 
     function buildTeamSelect() {
 
       els.teamSelect.innerHTML =
         '<option value="">SELECT TEAM</option>';
+
 
       teams.forEach(
         team => {
@@ -1737,11 +2793,16 @@
               'option'
             );
 
+
           option.value =
-            String(team.slot);
+            String(
+              team.slot
+            );
+
 
           option.textContent =
             team.name;
+
 
           els.teamSelect.appendChild(
             option
@@ -1750,7 +2811,13 @@
         }
       );
 
-      els.teamSelect.value = '';
+
+      /*
+        Closed control always says SELECT TEAM.
+      */
+
+      els.teamSelect.value =
+        '';
 
     }
 
@@ -1760,16 +2827,20 @@
       const remembered =
         getRememberedSelectedTeam();
 
+
       const team =
         teams.find(
           item =>
+
             normalizeName(
               item.name
             ) ===
+
             normalizeName(
               remembered
             )
         );
+
 
       if (team) {
 
@@ -1796,9 +2867,14 @@
       const team =
         teams.find(
           item =>
-            Number(item.slot) ===
-            Number(slot)
+            Number(
+              item.slot
+            ) ===
+            Number(
+              slot
+            )
         );
+
 
       if (!team) {
 
@@ -1806,44 +2882,62 @@
 
       }
 
-      selectedTeam = team;
+
+      selectedTeam =
+        team;
+
 
       localScores =
         normalizeScores(
           team.scores
         );
 
+
       savedScores =
         normalizeScores(
           team.scores
         );
 
+
       rememberSelectedTeam(
         team.name
       );
 
+
       els.teamHeading.textContent =
         team.name;
 
-      els.teamHeading.classList.toggle(
-        'long',
-        String(
-          team.name
-        ).length > 15
-      );
+
+      els.teamHeading
+        .classList
+        .toggle(
+          'long',
+          String(
+            team.name
+          ).length > 15
+        );
+
 
       els.submitBtn.disabled =
         false;
 
+
       /*
-        SELECT TEAM is an action menu,
-        not the permanent team display.
+        SELECT TEAM remains an action control.
+
+        Selected team is shown below it.
       */
-      els.teamSelect.value = '';
+
+      els.teamSelect.value =
+        '';
+
 
       renderScorecard();
 
-      if (scrollToTop) {
+
+      if (
+        scrollToTop
+      ) {
 
         els.scoreScroll.scrollTop =
           0;
@@ -1855,32 +2949,49 @@
 
     function clearSelectedTeam() {
 
-      selectedTeam = null;
+      selectedTeam =
+        null;
+
 
       localScores =
-        Array(18).fill(null);
+        Array(18).fill(
+          null
+        );
+
 
       savedScores =
-        Array(18).fill(null);
+        Array(18).fill(
+          null
+        );
+
 
       els.teamHeading.textContent =
         'SELECT A TEAM';
 
-      els.teamHeading.classList.remove(
-        'long'
-      );
+
+      els.teamHeading
+        .classList
+        .remove(
+          'long'
+        );
+
+
+      els.teamSelect.value =
+        '';
+
 
       els.submitBtn.disabled =
         true;
 
-      els.teamSelect.value = '';
 
       renderScorecard();
 
     }
 
 
-    function normalizeName(value) {
+    function normalizeName(
+      value
+    ) {
 
       return String(
         value || ''
@@ -1891,12 +3002,17 @@
     }
 
 
-    function normalizeScores(scores) {
+    function normalizeScores(
+      values
+    ) {
 
       const source =
-        Array.isArray(scores)
-          ? scores
+        Array.isArray(
+          values
+        )
+          ? values
           : [];
+
 
       return Array.from(
         {
@@ -1905,7 +3021,10 @@
         (_, index) => {
 
           const value =
-            source[index];
+            source[
+              index
+            ];
+
 
           if (
             value === '' ||
@@ -1917,17 +3036,26 @@
 
           }
 
-          const number =
-            Number(value);
 
-          return (
+          const number =
+            Number(
+              value
+            );
+
+
+          if (
             Number.isInteger(
               number
             ) &&
             number > 0
-          )
-            ? number
-            : null;
+          ) {
+
+            return number;
+
+          }
+
+
+          return null;
 
         }
       );
@@ -1935,31 +3063,37 @@
     }
 
 
-    // ----------------------------------------------------------
+    // ==========================================================
     // SCORECARD RENDER
-    // ----------------------------------------------------------
+    // ==========================================================
+
 
     function renderScorecard() {
 
-      els.scoreRows.innerHTML = '';
+      els.scoreRows.innerHTML =
+        '';
+
 
       holes.forEach(
-        (hole, index) => {
+        (
+          hole,
+          index
+        ) => {
 
-          if (index === 9) {
+
+          if (
+            index === 9
+          ) {
 
             const breakRow =
               document.createElement(
                 'div'
               );
 
+
             breakRow.className =
               'nine-break';
 
-            breakRow.setAttribute(
-              'aria-label',
-              'Back nine begins'
-            );
 
             els.scoreRows.appendChild(
               breakRow
@@ -1967,43 +3101,56 @@
 
           }
 
+
           const row =
             document.createElement(
               'div'
             );
 
+
           row.className =
             'score-row';
 
+
+          // HOLE
 
           const holeCell =
             document.createElement(
               'div'
             );
 
+
           holeCell.className =
             'hole-cell';
+
 
           holeCell.textContent =
             hole.hole;
 
+
+          // PAR
 
           const parCell =
             document.createElement(
               'div'
             );
 
+
           parCell.className =
             'par-cell';
+
 
           parCell.textContent =
             hole.par;
 
 
+          // YARDS
+
           const yardageCell =
             document.createElement(
               'div'
             );
+
 
           yardageCell.className =
             'yardage-cell';
@@ -2014,8 +3161,10 @@
               'span'
             );
 
+
           white.className =
             'yard-white';
+
 
           white.textContent =
             hole.white;
@@ -2026,8 +3175,10 @@
               'span'
             );
 
+
           slash.className =
             'yard-slash';
+
 
           slash.textContent =
             '/';
@@ -2038,8 +3189,10 @@
               'span'
             );
 
+
           gold.className =
             'yard-gold';
+
 
           gold.textContent =
             hole.gold;
@@ -2052,87 +3205,96 @@
           );
 
 
+          // SCORE
+
           const scoreCell =
             document.createElement(
               'div'
             );
 
+
           scoreCell.className =
             'score-cell';
 
 
-          const scoreButton =
+          const button =
             document.createElement(
               'button'
             );
 
-          scoreButton.type =
+
+          button.type =
             'button';
 
-          scoreButton.className =
+
+          button.className =
             'score-button';
 
-          scoreButton.dataset.index =
-            String(index);
 
-          scoreButton.setAttribute(
-            'aria-label',
-            'Hole ' +
-            hole.hole +
-            ' score'
-          );
+          if (
+            !selectedTeam
+          ) {
+
+            button.disabled =
+              true;
 
 
-          if (!selectedTeam) {
-
-            scoreButton.classList.add(
+            button.classList.add(
               'empty'
             );
 
-            scoreButton.disabled =
-              true;
 
-            scoreButton.textContent =
+            button.textContent =
               '';
 
           }
           else {
 
             const local =
-              localScores[index];
+              localScores[
+                index
+              ];
+
 
             const saved =
-              savedScores[index];
+              savedScores[
+                index
+              ];
+
 
             if (
               local === null
             ) {
 
-              scoreButton.classList.add(
+              button.classList.add(
                 'empty'
               );
 
-              scoreButton.textContent =
+
+              button.textContent =
                 '';
 
             }
             else {
 
-              scoreButton.textContent =
-                String(local);
+              button.textContent =
+                String(
+                  local
+                );
+
 
               if (
                 local === saved
               ) {
 
-                scoreButton.classList.add(
+                button.classList.add(
                   'saved'
                 );
 
               }
               else {
 
-                scoreButton.classList.add(
+                button.classList.add(
                   'unsaved'
                 );
 
@@ -2140,7 +3302,8 @@
 
             }
 
-            scoreButton.addEventListener(
+
+            button.addEventListener(
               'click',
               () => {
 
@@ -2155,7 +3318,7 @@
 
 
           scoreCell.appendChild(
-            scoreButton
+            button
           );
 
 
@@ -2177,47 +3340,63 @@
     }
 
 
-    // ----------------------------------------------------------
+    // ==========================================================
     // AUTHORIZATION
-    // ----------------------------------------------------------
+    // ==========================================================
+
 
     function isSelectedTeamAuthorized() {
 
-      if (!selectedTeam) {
+      if (
+        !selectedTeam
+      ) {
 
         return false;
 
       }
 
+
       return (
+
         normalizeName(
           getAuthorizedTeam()
         ) ===
+
         normalizeName(
           selectedTeam.name
         )
+
       );
 
     }
 
 
-    function requestScoreEntry(index) {
+    function requestScoreEntry(
+      index
+    ) {
 
-      if (!selectedTeam) {
+      if (
+        !selectedTeam
+      ) {
 
         return;
 
       }
+
 
       if (
         isSelectedTeamAuthorized()
       ) {
 
-        openScoreEntry(index);
+        openScoreEntry(
+          index
+        );
+
 
         return;
 
       }
+
 
       showAuthorizationModal(
         index
@@ -2226,12 +3405,16 @@
     }
 
 
-    function showAuthorizationModal(index) {
+    function showAuthorizationModal(
+      index
+    ) {
 
       closeModal();
 
+
       els.modalTitle.textContent =
         'Authorize Scoring';
+
 
       els.modalBody.innerHTML =
         'Enter your team name to unlock scoring for <strong>' +
@@ -2240,11 +3423,14 @@
         ) +
         '</strong>.';
 
+
       els.modalInput.style.display =
         'block';
 
+
       els.modalInput.value =
         '';
+
 
       els.modalInput.placeholder =
         'Enter team name';
@@ -2265,31 +3451,40 @@
           () => {
 
             if (
+
               normalizeName(
                 els.modalInput.value
               ) !==
+
               normalizeName(
                 selectedTeam.name
               )
+
             ) {
 
               els.modalInput.value =
                 '';
 
+
               els.modalInput.placeholder =
                 'Team name does not match';
 
+
               els.modalInput.focus();
+
 
               return;
 
             }
 
+
             setAuthorizedTeam(
               selectedTeam.name
             );
 
+
             closeModal();
+
 
             openScoreEntry(
               index
@@ -2302,29 +3497,38 @@
       els.modalActions.className =
         'modal-actions';
 
+
       els.modalActions.replaceChildren(
         cancel,
         unlock
       );
 
+
       els.modalOverlay.classList.add(
         'open'
       );
 
+
       setTimeout(
-        () =>
-          els.modalInput.focus(),
+        () => {
+
+          els.modalInput.focus();
+
+        },
         60
       );
+
 
       els.modalInput.onkeydown =
         event => {
 
           if (
-            event.key === 'Enter'
+            event.key ===
+            'Enter'
           ) {
 
             event.preventDefault();
+
 
             unlock.click();
 
@@ -2335,14 +3539,20 @@
     }
 
 
-    // ----------------------------------------------------------
+    // ==========================================================
     // SCORE ENTRY
-    // ----------------------------------------------------------
+    // ==========================================================
 
-    function openScoreEntry(index) {
+
+    function openScoreEntry(
+      index
+    ) {
 
       const hole =
-        holes[index];
+        holes[
+          index
+        ];
+
 
       if (
         !hole ||
@@ -2353,31 +3563,42 @@
 
       }
 
+
       activeScoreIndex =
         index;
 
+
       scoreEntryClosing =
         false;
+
 
       els.scoreEntryHole.textContent =
         'HOLE ' +
         hole.hole;
 
+
       els.scoreEntryPar.textContent =
         'PAR ' +
         hole.par;
 
+
       /*
-        Input intentionally opens blank.
-        Existing score remains unchanged
-        unless a replacement is entered.
+        Input always opens blank.
+
+        Existing score is NOT changed
+        unless user types replacement.
       */
+
       els.scoreEntryInput.value =
         '';
 
-      els.scoreEntryOverlay.classList.add(
-        'open'
-      );
+
+      els.scoreEntryOverlay
+        .classList
+        .add(
+          'open'
+        );
+
 
       setTimeout(
         () => {
@@ -2388,7 +3609,69 @@
         50
       );
 
+
       positionScoreEntry();
+
+    }
+
+
+    function commitScoreEntryValue() {
+
+      if (
+        activeScoreIndex ===
+        null
+      ) {
+
+        return;
+
+      }
+
+
+      const raw =
+        String(
+          els.scoreEntryInput.value ||
+          ''
+        ).trim();
+
+
+      /*
+        Blank = no change.
+      */
+
+      if (
+        raw === ''
+      ) {
+
+        return;
+
+      }
+
+
+      const value =
+        Number(
+          raw
+        );
+
+
+      if (
+        !Number.isInteger(
+          value
+        ) ||
+        value <= 0
+      ) {
+
+        return;
+
+      }
+
+
+      localScores[
+        activeScoreIndex
+      ] =
+        value;
+
+
+      renderScorecard();
 
     }
 
@@ -2400,7 +3683,9 @@
       if (
         !els.scoreEntryOverlay
           .classList
-          .contains('open') ||
+          .contains(
+            'open'
+          ) ||
         scoreEntryClosing
       ) {
 
@@ -2408,26 +3693,37 @@
 
       }
 
+
       scoreEntryClosing =
         true;
 
-      if (commitTypedValue) {
+
+      if (
+        commitTypedValue
+      ) {
 
         commitScoreEntryValue();
 
       }
 
-      els.scoreEntryOverlay.classList.remove(
-        'open'
-      );
+
+      els.scoreEntryOverlay
+        .classList
+        .remove(
+          'open'
+        );
+
 
       els.scoreEntryInput.blur();
+
 
       els.scoreEntryInput.value =
         '';
 
+
       activeScoreIndex =
         null;
+
 
       setTimeout(
         () => {
@@ -2442,83 +3738,49 @@
     }
 
 
-    function commitScoreEntryValue() {
-
-      if (
-        activeScoreIndex === null
-      ) {
-
-        return;
-
-      }
-
-      const raw =
-        String(
-          els.scoreEntryInput.value ||
-          ''
-        ).trim();
-
-      /*
-        Blank = cancel/no change.
-      */
-      if (raw === '') {
-
-        return;
-
-      }
-
-      const value =
-        Number(raw);
-
-      if (
-        !Number.isInteger(value) ||
-        value <= 0
-      ) {
-
-        return;
-
-      }
-
-      localScores[
-        activeScoreIndex
-      ] = value;
-
-      renderScorecard();
-
-    }
-
-
     function positionScoreEntry() {
 
       if (
         !window.visualViewport ||
         !els.scoreEntryOverlay
           .classList
-          .contains('open')
+          .contains(
+            'open'
+          )
       ) {
 
         return;
 
       }
 
-      const vv =
+
+      const viewport =
         window.visualViewport;
+
 
       const top =
         Math.max(
           12,
-          vv.offsetTop + 18
+          viewport.offsetTop +
+          18
         );
 
+
       els.scoreEntryOverlay.style.paddingTop =
-        top + 'px';
+        top +
+        'px';
 
     }
 
 
-    // ----------------------------------------------------------
-    // SAVE
-    // ----------------------------------------------------------
+    // ==========================================================
+    // SAVE SCORES
+    //
+    // ONE PLAIN REQUEST
+    // NO TIMEOUT
+    // NO RETRY
+    // ==========================================================
+
 
     async function submitScores() {
 
@@ -2531,23 +3793,32 @@
 
       }
 
+
       if (
         els.scoreEntryOverlay
           .classList
-          .contains('open')
+          .contains(
+            'open'
+          )
       ) {
 
-        closeScoreEntry(true);
+        closeScoreEntry(
+          true
+        );
 
       }
+
 
       saveInProgress =
         true;
 
+
       els.submitBtn.disabled =
         true;
 
+
       startLoadingLine();
+
 
       try {
 
@@ -2558,60 +3829,51 @@
             )
           );
 
+
         const url =
           SCRIPT_URL +
+
           '?action=saveScores' +
+
           '&slot=' +
           encodeURIComponent(
             selectedTeam.slot
           ) +
+
           '&scores=' +
           encodedScores +
+
           '&refresh=' +
           Date.now();
 
 
         /*
           IMPORTANT:
-          WRITES ARE ATTEMPTED ONCE.
-          We do not blindly retry a write.
+
+          Exactly ONE save request.
+
+          If response is slow,
+          we WAIT.
+
+          We do not abort it after an
+          arbitrary number of seconds.
+
+          We do not automatically retry it.
         */
 
-        const controller =
-          new AbortController();
-
-        const timeout =
-          setTimeout(
-            () =>
-              controller.abort(),
-            READ_TIMEOUT_MS
+        const response =
+          await fetch(
+            url,
+            {
+              cache:
+                'no-store'
+            }
           );
 
-        let response;
 
-        try {
-
-          response =
-            await fetch(
-              url,
-              {
-                cache: 'no-store',
-                signal:
-                  controller.signal
-              }
-            );
-
-        }
-        finally {
-
-          clearTimeout(
-            timeout
-          );
-
-        }
-
-
-        if (!response.ok) {
+        if (
+          !response.ok
+        ) {
 
           throw new Error(
             'Save request failed.'
@@ -2641,26 +3903,31 @@
 
 
         /*
-          Server response is authoritative.
+          Apps Script response is authoritative.
+
+          Scores become GOLD only now.
         */
 
-        const authoritative =
+        savedScores =
           normalizeScores(
             data.scores
           );
 
 
-        savedScores =
-          [...authoritative];
-
         localScores =
-          [...authoritative];
+          normalizeScores(
+            data.scores
+          );
 
 
         const teamIndex =
           teams.findIndex(
             team =>
-              Number(team.slot) ===
+
+              Number(
+                team.slot
+              ) ===
+
               Number(
                 selectedTeam.slot
               )
@@ -2674,7 +3941,10 @@
           teams[
             teamIndex
           ].scores =
-            [...authoritative];
+            [
+              ...savedScores
+            ];
+
 
           selectedTeam =
             teams[
@@ -2686,6 +3956,7 @@
 
         renderScorecard();
 
+
         completeLoadingLine();
 
       }
@@ -2693,9 +3964,19 @@
 
         stopLoadingLine();
 
+
+        /*
+          Do NOT mark gray scores gold.
+
+          They remain visibly unsaved.
+        */
+
         showMessageModal(
+
           'Save Failed',
-          'The save was not confirmed. Your entered scores are still on this screen and remain gray. Do not assume they were saved.'
+
+          'The save was not confirmed. Your entered scores are still on this screen and remain gray.'
+
         );
 
       }
@@ -2703,6 +3984,7 @@
 
         saveInProgress =
           false;
+
 
         els.submitBtn.disabled =
           !selectedTeam;
@@ -2712,17 +3994,33 @@
     }
 
 
-    // ----------------------------------------------------------
-    // LEADERBOARD
-    // ----------------------------------------------------------
+    // ==========================================================
+    // LEADERBOARD READ
+    //
+    // SIMPLE PLAIN FETCH
+    // ==========================================================
+
 
     async function loadLeaderboard(
-      options = {}
+      showErrorIfEmpty
     ) {
 
-      const showErrorIfEmpty =
-        options.showErrorIfEmpty !==
-        false;
+      /*
+        Prevent overlapping automatic
+        leaderboard requests.
+      */
+
+      if (
+        leaderboardLoadInProgress
+      ) {
+
+        return;
+
+      }
+
+
+      leaderboardLoadInProgress =
+        true;
 
 
       els.leaderUpdateNote.textContent =
@@ -2733,12 +4031,54 @@
 
       try {
 
-        const data =
-          await fetchJsonRead(
-            SCRIPT_URL +
-            '?action=leaderboard',
-            LEADERBOARD_READ_ATTEMPTS
+        const url =
+          SCRIPT_URL +
+
+          '?action=leaderboard' +
+
+          '&refresh=' +
+          Date.now();
+
+
+        const response =
+          await fetch(
+            url,
+            {
+              cache:
+                'no-store'
+            }
           );
+
+
+        if (
+          !response.ok
+        ) {
+
+          throw new Error(
+            'Leaderboard request failed.'
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !data ||
+          data.success !== true
+        ) {
+
+          throw new Error(
+            (
+              data &&
+              data.error
+            ) ||
+            'Leaderboard unavailable.'
+          );
+
+        }
 
 
         const rows =
@@ -2769,12 +4109,15 @@
         ) {
 
           /*
-            Keep last known good
-            leaderboard visible.
+            Keep last good standings visible.
+
+            Next 8-second refresh will
+            simply try again.
           */
 
           els.leaderUpdateNote.textContent =
-            'Update delayed • trying again automatically';
+            'Update delayed • will try again';
+
 
           return;
 
@@ -2790,25 +4133,40 @@
         ) {
 
           showLoadError(
+
             'Leaderboard Could Not Load',
+
             'The live leaderboard could not be loaded.',
+
             async () => {
 
               closeModal();
 
-              await loadLeaderboard({
-                showErrorIfEmpty:
-                  true
-              });
+
+              await loadLeaderboard(
+                true
+              );
 
             }
+
           );
 
         }
 
       }
+      finally {
+
+        leaderboardLoadInProgress =
+          false;
+
+      }
 
     }
+
+
+    // ==========================================================
+    // LEADERBOARD RENDER
+    // ==========================================================
 
 
     function renderLeaderboard(
@@ -2822,19 +4180,24 @@
       rows.forEach(
         row => {
 
+
           const line =
             document.createElement(
               'div'
             );
 
+
           line.className =
             'leader-row';
 
+
+          // TEAM
 
           const teamCell =
             document.createElement(
               'div'
             );
+
 
           teamCell.className =
             'leader-team-cell';
@@ -2845,19 +4208,13 @@
               'div'
             );
 
+
           teamName.className =
             'leader-team-name';
 
+
           teamName.textContent =
             row.team || '';
-
-
-          const matchingTeam =
-            teams.find(
-              team =>
-                Number(team.slot) ===
-                Number(row.slot)
-            );
 
 
           const hcp =
@@ -2865,25 +4222,60 @@
               'div'
             );
 
+
           hcp.className =
             'leader-hcp';
 
 
-          const handicapValue =
-            row.hcp !== undefined &&
-            row.hcp !== null
-              ? row.hcp
-              : matchingTeam
-                ? matchingTeam.handicap
-                : '';
+          let handicapValue =
+            row.hcp;
 
 
-          hcp.textContent =
-            handicapValue === '' ||
-            handicapValue === null
-              ? ''
-              : 'HCP ' +
-                handicapValue;
+          if (
+            handicapValue === undefined ||
+            handicapValue === null ||
+            handicapValue === ''
+          ) {
+
+            const match =
+              teams.find(
+                team =>
+                  Number(
+                    team.slot
+                  ) ===
+                  Number(
+                    row.slot
+                  )
+              );
+
+
+            if (match) {
+
+              handicapValue =
+                match.handicap;
+
+            }
+
+          }
+
+
+          if (
+            handicapValue === undefined ||
+            handicapValue === null ||
+            handicapValue === ''
+          ) {
+
+            hcp.textContent =
+              '';
+
+          }
+          else {
+
+            hcp.textContent =
+              'HCP ' +
+              handicapValue;
+
+          }
 
 
           teamCell.append(
@@ -2892,10 +4284,13 @@
           );
 
 
+          // THROUGH
+
           const throughCell =
             document.createElement(
               'div'
             );
+
 
           throughCell.className =
             'leader-through-cell';
@@ -2906,11 +4301,13 @@
               'div'
             );
 
+
           throughScore.className =
             'leader-through-score ' +
             scoreClass(
               row.gross
             );
+
 
           throughScore.textContent =
             formatGolfScore(
@@ -2923,8 +4320,10 @@
               'div'
             );
 
+
           throughLabel.className =
             'leader-through-label';
+
 
           throughLabel.textContent =
             'THRU ' +
@@ -2937,16 +4336,20 @@
           );
 
 
+          // TOTAL
+
           const total =
             document.createElement(
               'div'
             );
+
 
           total.className =
             'leader-total ' +
             scoreClass(
               row.net
             );
+
 
           total.textContent =
             formatGolfScore(
@@ -2976,7 +4379,10 @@
     ) {
 
       const number =
-        Number(value);
+        Number(
+          value
+        );
+
 
       if (
         !Number.isFinite(
@@ -2988,6 +4394,7 @@
 
       }
 
+
       if (
         number === 0
       ) {
@@ -2996,10 +4403,13 @@
 
       }
 
+
       return (
         number > 0
           ? '+' + number
-          : String(number)
+          : String(
+              number
+            )
       );
 
     }
@@ -3010,7 +4420,10 @@
     ) {
 
       const number =
-        Number(value);
+        Number(
+          value
+        );
+
 
       return (
         number < 0
@@ -3021,9 +4434,10 @@
     }
 
 
-    // ----------------------------------------------------------
+    // ==========================================================
     // MODALS
-    // ----------------------------------------------------------
+    // ==========================================================
+
 
     function makeModalButton(
       text,
@@ -3036,24 +4450,30 @@
           'button'
         );
 
+
       button.type =
         'button';
+
 
       button.className =
         'modal-btn' +
         (
           className
-            ? ' ' + className
+            ? ' ' +
+              className
             : ''
         );
 
+
       button.textContent =
         text;
+
 
       button.addEventListener(
         'click',
         onClick
       );
+
 
       return button;
 
@@ -3067,11 +4487,14 @@
 
       closeModal();
 
+
       els.modalTitle.textContent =
         title;
 
+
       els.modalBody.textContent =
         message;
+
 
       els.modalInput.style.display =
         'none';
@@ -3088,13 +4511,17 @@
       els.modalActions.className =
         'modal-actions single';
 
+
       els.modalActions.replaceChildren(
         close
       );
 
-      els.modalOverlay.classList.add(
-        'open'
-      );
+
+      els.modalOverlay
+        .classList
+        .add(
+          'open'
+        );
 
     }
 
@@ -3107,11 +4534,14 @@
 
       closeModal();
 
+
       els.modalTitle.textContent =
         title;
 
+
       els.modalBody.textContent =
         message;
+
 
       els.modalInput.style.display =
         'none';
@@ -3136,14 +4566,18 @@
       els.modalActions.className =
         'modal-actions';
 
+
       els.modalActions.replaceChildren(
         home,
         retry
       );
 
-      els.modalOverlay.classList.add(
-        'open'
-      );
+
+      els.modalOverlay
+        .classList
+        .add(
+          'open'
+        );
 
     }
 
@@ -3152,11 +4586,13 @@
 
       closeModal();
 
+
       els.modalTitle.textContent =
         'QUICK GUIDE';
 
 
       els.modalBody.innerHTML =
+
         '<ol class="quick-list">' +
 
           '<li>Select Your Team</li>' +
@@ -3199,34 +4635,45 @@
       els.modalActions.className =
         'modal-actions single';
 
+
       els.modalActions.replaceChildren(
         close
       );
 
-      els.modalOverlay.classList.add(
-        'open'
-      );
+
+      els.modalOverlay
+        .classList
+        .add(
+          'open'
+        );
 
     }
 
 
     function closeModal() {
 
-      els.modalOverlay.classList.remove(
-        'open'
-      );
+      els.modalOverlay
+        .classList
+        .remove(
+          'open'
+        );
+
 
       els.modalInput.style.display =
         'none';
 
+
       els.modalInput.value =
         '';
+
 
       els.modalInput.onkeydown =
         null;
 
+
       els.modalActions.innerHTML =
         '';
+
 
       els.modalActions.className =
         'modal-actions';
@@ -3234,9 +4681,13 @@
     }
 
 
-    function escapeHtml(value) {
+    function escapeHtml(
+      value
+    ) {
 
-      return String(value)
+      return String(
+        value
+      )
         .replaceAll(
           '&',
           '&amp;'
@@ -3261,42 +4712,56 @@
     }
 
 
-    // ----------------------------------------------------------
+    // ==========================================================
     // LOADING LINE
-    // ----------------------------------------------------------
+    // ==========================================================
+
 
     function startLoadingLine() {
 
-      els.topLoading.classList.remove(
-        'done'
-      );
+      els.topLoading
+        .classList
+        .remove(
+          'done'
+        );
 
-      els.topLoading.classList.add(
-        'active'
-      );
+
+      els.topLoading
+        .classList
+        .add(
+          'active'
+        );
 
     }
 
 
     function completeLoadingLine() {
 
-      els.topLoading.classList.remove(
-        'active'
-      );
+      els.topLoading
+        .classList
+        .remove(
+          'active'
+        );
 
-      els.topLoading.classList.add(
-        'done'
-      );
+
+      els.topLoading
+        .classList
+        .add(
+          'done'
+        );
+
 
       setTimeout(
         () => {
 
-          els.topLoading.classList.remove(
-            'done'
-          );
+          els.topLoading
+            .classList
+            .remove(
+              'done'
+            );
 
         },
-        320
+        300
       );
 
     }
@@ -3304,58 +4769,68 @@
 
     function stopLoadingLine() {
 
-      els.topLoading.classList.remove(
-        'active',
-        'done'
-      );
+      els.topLoading
+        .classList
+        .remove(
+          'active',
+          'done'
+        );
 
     }
 
 
-    // ----------------------------------------------------------
+    // ==========================================================
     // EVENTS
-    // ----------------------------------------------------------
-
-    els.homeScorecardButton.addEventListener(
-      'click',
-      showScorecard
-    );
+    // ==========================================================
 
 
-    els.homeLeaderboardButton.addEventListener(
-      'click',
-      showLeaderboard
-    );
+    els.homeScorecardButton
+      .addEventListener(
+        'click',
+        showScorecard
+      );
 
 
-    els.scoreHomeButton.addEventListener(
-      'click',
-      showHome
-    );
+    els.homeLeaderboardButton
+      .addEventListener(
+        'click',
+        showLeaderboard
+      );
 
 
-    els.leaderHomeButton.addEventListener(
-      'click',
-      showHome
-    );
+    els.scoreHomeButton
+      .addEventListener(
+        'click',
+        showHome
+      );
 
 
-    els.scoreLeaderboardButton.addEventListener(
-      'click',
-      showLeaderboard
-    );
+    els.leaderHomeButton
+      .addEventListener(
+        'click',
+        showHome
+      );
 
 
-    els.leaderScorecardButton.addEventListener(
-      'click',
-      showScorecard
-    );
+    els.scoreLeaderboardButton
+      .addEventListener(
+        'click',
+        showLeaderboard
+      );
 
 
-    els.submitBtn.addEventListener(
-      'click',
-      submitScores
-    );
+    els.leaderScorecardButton
+      .addEventListener(
+        'click',
+        showScorecard
+      );
+
+
+    els.submitBtn
+      .addEventListener(
+        'click',
+        submitScores
+      );
 
 
     document
@@ -3374,153 +4849,178 @@
       );
 
 
-    els.teamSelect.addEventListener(
-      'change',
-      () => {
+    els.teamSelect
+      .addEventListener(
+        'change',
+        () => {
 
-        const slot =
-          Number(
-            els.teamSelect.value
-          );
+          const slot =
+            Number(
+              els.teamSelect.value
+            );
 
-        if (slot) {
 
-          selectTeam(
+          if (
             slot
-          );
+          ) {
+
+            selectTeam(
+              slot
+            );
+
+          }
+
+
+          /*
+            Always return closed selector
+            to SELECT TEAM.
+          */
+
+          els.teamSelect.value =
+            '';
 
         }
-
-        /*
-          Always return control
-          to SELECT TEAM.
-        */
-
-        els.teamSelect.value =
-          '';
-
-      }
-    );
+      );
 
 
-    els.scoreEntryEnter.addEventListener(
-      'click',
-      () => {
-
-        closeScoreEntry(
-          true
-        );
-
-      }
-    );
-
-
-    els.scoreEntryInput.addEventListener(
-      'keydown',
-      event => {
-
-        if (
-          event.key === 'Enter'
-        ) {
-
-          event.preventDefault();
+    els.scoreEntryEnter
+      .addEventListener(
+        'click',
+        () => {
 
           closeScoreEntry(
             true
           );
 
         }
-
-      }
-    );
+      );
 
 
-    els.scoreEntryInput.addEventListener(
-      'blur',
-      () => {
+    els.scoreEntryInput
+      .addEventListener(
+        'keydown',
+        event => {
 
-        if (
-          els.scoreEntryOverlay
-            .classList
-            .contains('open') &&
-          !scoreEntryClosing
-        ) {
+          if (
+            event.key ===
+            'Enter'
+          ) {
 
-          setTimeout(
-            () => {
+            event.preventDefault();
 
-              if (
-                els.scoreEntryOverlay
-                  .classList
-                  .contains('open') &&
-                !scoreEntryClosing
-              ) {
 
-                closeScoreEntry(
-                  true
-                );
+            closeScoreEntry(
+              true
+            );
 
-              }
-
-            },
-            80
-          );
+          }
 
         }
-
-      }
-    );
+      );
 
 
-    els.scoreEntryOverlay.addEventListener(
-      'pointerdown',
-      event => {
+    els.scoreEntryInput
+      .addEventListener(
+        'blur',
+        () => {
 
-        if (
-          event.target ===
-          els.scoreEntryOverlay
-        ) {
+          if (
 
-          closeScoreEntry(
-            true
-          );
+            els.scoreEntryOverlay
+              .classList
+              .contains(
+                'open'
+              ) &&
+
+            !scoreEntryClosing
+
+          ) {
+
+            setTimeout(
+              () => {
+
+                if (
+
+                  els.scoreEntryOverlay
+                    .classList
+                    .contains(
+                      'open'
+                    ) &&
+
+                  !scoreEntryClosing
+
+                ) {
+
+                  closeScoreEntry(
+                    true
+                  );
+
+                }
+
+              },
+              80
+            );
+
+          }
 
         }
-
-      }
-    );
+      );
 
 
-    els.modalOverlay.addEventListener(
-      'pointerdown',
-      event => {
+    els.scoreEntryOverlay
+      .addEventListener(
+        'pointerdown',
+        event => {
 
-        if (
-          event.target ===
-          els.modalOverlay
-        ) {
+          if (
+            event.target ===
+            els.scoreEntryOverlay
+          ) {
 
-          closeModal();
+            closeScoreEntry(
+              true
+            );
+
+          }
 
         }
+      );
 
-      }
-    );
+
+    els.modalOverlay
+      .addEventListener(
+        'pointerdown',
+        event => {
+
+          if (
+            event.target ===
+            els.modalOverlay
+          ) {
+
+            closeModal();
+
+          }
+
+        }
+      );
 
 
     if (
       window.visualViewport
     ) {
 
-      window.visualViewport.addEventListener(
-        'resize',
-        positionScoreEntry
-      );
+      window.visualViewport
+        .addEventListener(
+          'resize',
+          positionScoreEntry
+        );
 
-      window.visualViewport.addEventListener(
-        'scroll',
-        positionScoreEntry
-      );
+
+      window.visualViewport
+        .addEventListener(
+          'scroll',
+          positionScoreEntry
+        );
 
     }
 
@@ -3531,9 +5031,10 @@
     );
 
 
-    // ----------------------------------------------------------
+    // ==========================================================
     // STARTUP
-    // ----------------------------------------------------------
+    // ==========================================================
+
 
     async function initialize() {
 
@@ -3548,6 +5049,7 @@
 
         await showScorecard();
 
+
         return;
 
       }
@@ -3559,6 +5061,7 @@
       ) {
 
         await showLeaderboard();
+
 
         return;
 
