@@ -24,17 +24,14 @@
       --line-strong: rgba(255,255,255,.72);
       --red: #ff4242;
     }
-
     * {
       box-sizing: border-box;
     }
-
     html {
       margin: 0;
       min-height: 100%;
       background: #000;
     }
-
     body {
       margin: 0;
       min-height: 100%;
@@ -44,7 +41,6 @@
       overflow-x: hidden;
       overflow-y: auto;
     }
-
     body::before {
       content: "";
       position: fixed;
@@ -61,36 +57,29 @@
         repeat-y;
       pointer-events: none;
     }
-
     button,
     input,
     select {
       font: inherit;
     }
-
     button,
     select {
       -webkit-tap-highlight-color: transparent;
     }
-
     button {
       cursor: pointer;
     }
-
     .view {
       display: none;
       width: 100%;
       min-height: 100dvh;
     }
-
     .view.active {
       display: block;
     }
-
     /* =========================================================
        TOP LOADING LINE
        ========================================================= */
-
     .top-loading {
       position: fixed;
       top: 0;
@@ -104,7 +93,6 @@
         width .2s ease,
         opacity .2s ease;
     }
-
     .top-loading.active {
       width: 72%;
       opacity: 1;
@@ -115,26 +103,21 @@
         infinite
         alternate;
     }
-
     .top-loading.done {
       width: 100%;
       opacity: 1;
     }
-
     @keyframes loadingSweep {
       from {
         width: 24%;
       }
-
       to {
         width: 84%;
       }
     }
-
     /* =========================================================
        SHARED HEADER BUTTONS
        ========================================================= */
-
     .nav-button {
       width: 74px;
       height: 40px;
@@ -150,16 +133,13 @@
       font-weight: 600;
       letter-spacing: .25px;
     }
-
     /* =========================================================
        HOME / SPLASH
        ========================================================= */
-
     #homeView {
       text-align: center;
       overflow: visible;
     }
-
     .home-shell {
       width: 100%;
       max-width: 760px;
@@ -171,28 +151,23 @@
           env(safe-area-inset-bottom)
         );
     }
-
     .splash-image-wrap {
       width: 100%;
       margin: 0 auto;
     }
-
     .splash-image {
       display: block;
       width: 100%;
       height: auto;
       margin: 0 auto;
     }
-
     /* TESTING ONLY */
-
     .reset-user-float {
       position: relative;
       width: 100%;
       height: 0;
       z-index: 10;
     }
-
     .reset-user-button {
       position: absolute;
       left: 50%;
@@ -217,7 +192,6 @@
       font-weight: 600;
       letter-spacing: .4px;
     }
-
     .home-actions {
       width:
         calc(
@@ -230,7 +204,6 @@
       flex-direction: column;
       gap: 13px;
     }
-
     .home-main-button {
       width: 100%;
       min-height: 58px;
@@ -247,13 +220,11 @@
       font-weight: 600;
       letter-spacing: .5px;
     }
-
     .home-main-button:active {
       background:
         var(--gold);
       color: #000;
     }
-
     .quick-guide-button {
       align-self: center;
       width:
@@ -273,15 +244,12 @@
       font-weight: 600;
       letter-spacing: .4px;
     }
-
     /* =========================================================
        SCORECARD
        ========================================================= */
-
     #scorecardView {
       height: 100dvh;
     }
-
     .scorecard-screen {
       width:
         min(
@@ -294,7 +262,6 @@
       flex-direction: column;
       overflow: visible;
     }
-
     .score-fixed-top {
       flex:
         0 0 auto;
@@ -312,7 +279,6 @@
       backdrop-filter:
         blur(7px);
     }
-
     .score-nav {
       display: grid;
       grid-template-columns:
@@ -322,11 +288,9 @@
       align-items: center;
       gap: 8px;
     }
-
     /* =========================================================
        TEST TIMING
        ========================================================= */
-
     .test-timing {
       min-width: 0;
       min-height: 0;
@@ -342,11 +306,9 @@
       letter-spacing: .1px;
       white-space: nowrap;
     }
-
     /* =========================================================
        TEAM SELECT / TEAM IDENTITY
        ========================================================= */
-
     .team-select-wrap {
       position: relative;
       width: 100%;
@@ -354,7 +316,6 @@
         6px 10px
         6px;
     }
-
     .team-select-wrap::after {
       content: "";
       position: absolute;
@@ -373,7 +334,6 @@
         rotate(45deg);
       pointer-events: none;
     }
-
     .top-team-select {
       display: block;
       width: 100%;
@@ -396,14 +356,12 @@
       -webkit-appearance: none;
       -moz-appearance: none;
     }
-
     .top-team-select.has-team {
       color:
         var(--gold);
       font-size: 19px;
       font-weight: 700;
     }
-
     .top-team-select:focus {
       border-color:
         var(--gold);
@@ -411,11 +369,9 @@
         0 0 0 1px
         var(--gold);
     }
-
     /* =========================================================
        SCORECARD TABLE HEADER
        ========================================================= */
-
     .score-table-head {
       display: grid;
       grid-template-columns:
@@ -443,7 +399,6 @@
       font-weight: 600;
       letter-spacing: .35px;
     }
-
     .score-table-head > div {
       height: 100%;
       display: flex;
@@ -453,17 +408,14 @@
         1px solid
         var(--line);
     }
-
     .score-table-head > div:last-child {
       border-right: 0;
       color: #fff;
       font-weight: 700;
     }
-
     /* =========================================================
        SCORECARD SCROLL
        ========================================================= */
-
     .score-scroll {
       flex:
         1 1 auto;
@@ -485,11 +437,9 @@
       background:
         rgba(0,0,0,.28);
     }
-
     #scoreRows {
       height: 100%;
     }
-
     .score-row {
       display: grid;
       grid-template-columns:
@@ -509,22 +459,18 @@
       background:
         rgba(0,0,0,.47);
     }
-
     #scoreRows > .score-row:nth-child(9) {
       border-bottom: 0;
     }
-
     .score-row > div {
       min-width: 0;
       border-right:
         1px solid
         var(--line);
     }
-
     .score-row > div:last-child {
       border-right: 0;
     }
-
     .hole-cell,
     .par-cell,
     .yardage-cell,
@@ -534,41 +480,33 @@
       justify-content: center;
       text-align: center;
     }
-
     .hole-cell {
       font-size: 22px;
       font-weight: 700;
     }
-
     .par-cell {
       font-size: 20px;
       font-weight: 500;
     }
-
     .yardage-cell {
       gap: 4px;
       white-space: nowrap;
       font-size: 18px;
       font-weight: 500;
     }
-
     .yard-white {
       color: #fff;
     }
-
     .yard-slash {
       color: #aaa;
     }
-
     .yard-gold {
       color:
         var(--gold);
     }
-
     /* =========================================================
        SCORE BUTTONS
        ========================================================= */
-
     .score-button {
       width: 58px;
       height: 40px;
@@ -583,13 +521,11 @@
       font-weight: 700;
       line-height: 1;
     }
-
     .score-button.empty {
       background:
         rgba(0,0,0,.72);
       color: #aaa;
     }
-
     .score-button.unsaved {
       border-color:
         #e0e0e0;
@@ -597,7 +533,6 @@
         #b7b7b7;
       color: #111;
     }
-
     .score-button.saved {
       border-color:
         var(--gold);
@@ -605,21 +540,17 @@
         var(--gold);
       color: #111;
     }
-
     /* =========================================================
        FRONT / BACK NINE DIVIDER
        ========================================================= */
-
     .nine-break {
       height: 3px;
       background:
         var(--gold);
     }
-
     /* =========================================================
        SCORECARD BOTTOM
        ========================================================= */
-
     .score-fixed-bottom {
       flex:
         0 0 auto;
@@ -636,7 +567,6 @@
       backdrop-filter:
         blur(7px);
     }
-
     .score-bottom-actions {
       display: grid;
       grid-template-columns:
@@ -644,7 +574,6 @@
         1fr;
       gap: 11px;
     }
-
     .bottom-action {
       min-height: 55px;
       border-radius: 9px;
@@ -652,7 +581,6 @@
       font-weight: 700;
       letter-spacing: .25px;
     }
-
     .leaderboard-button {
       border:
         1px solid
@@ -661,7 +589,6 @@
         #050505;
       color: #fff;
     }
-
     .submit-button {
       border:
         1px solid
@@ -670,21 +597,17 @@
         #050505;
       color: #fff;
     }
-
     .submit-button:disabled {
       opacity: 1;
       color: #fff;
       cursor: default;
     }
-
     /* =========================================================
        LIVE LEADERBOARD
        ========================================================= */
-
     #leaderboardView {
       min-height: 100dvh;
     }
-
     .leaderboard-screen {
       width:
         min(
@@ -696,7 +619,6 @@
       display: flex;
       flex-direction: column;
     }
-
     .leader-top {
       flex:
         0 0 auto;
@@ -710,7 +632,6 @@
       background:
         rgba(0,0,0,.94);
     }
-
     .leader-nav {
       display: grid;
       grid-template-columns:
@@ -720,7 +641,6 @@
       gap: 8px;
       align-items: center;
     }
-
     .leader-test-timing {
       min-width: 0;
       min-height: 0;
@@ -737,7 +657,6 @@
       margin: 0;
       white-space: nowrap;
     }
-
     .leader-title-bar {
       position: relative;
       min-height: 43px;
@@ -746,7 +665,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .leader-title {
       color: #fff;
       text-align: center;
@@ -755,7 +673,6 @@
       line-height: 1;
       letter-spacing: .35px;
     }
-
     .leader-refresh-button {
       position: absolute;
       right: 0;
@@ -769,18 +686,16 @@
       background:
         #050505;
       color:
-        var(--gold);
+        #fff;
       font-size: 14px;
       font-weight: 700;
       letter-spacing: .25px;
     }
-
     .leader-refresh-button:disabled {
       opacity: 1;
       color: #777;
       cursor: default;
     }
-
     .leader-content {
       flex:
         1 1 auto;
@@ -793,7 +708,6 @@
       -webkit-overflow-scrolling:
         touch;
     }
-
     .leader-table {
       width: 100%;
       max-width: 640px;
@@ -807,7 +721,6 @@
       background:
         rgba(0,0,0,.42);
     }
-
     .leader-row {
       display: grid;
       grid-template-columns:
@@ -821,11 +734,9 @@
       background:
         rgba(0,0,0,.46);
     }
-
     .leader-row:last-child {
       border-bottom: 0;
     }
-
     .leader-row.header {
       min-height: 42px;
       color: #e0e0e0;
@@ -836,7 +747,6 @@
       font-weight: 700;
       letter-spacing: .3px;
     }
-
     .leader-row > div {
       min-width: 0;
       display: flex;
@@ -848,11 +758,9 @@
         1px solid
         var(--line);
     }
-
     .leader-row > div:last-child {
       border-right: 0;
     }
-
     .leader-team-cell {
       flex-direction: column;
       align-items:
@@ -861,7 +769,6 @@
         center !important;
       text-align: center;
     }
-
     .leader-team-name {
       width: 100%;
       color: #fff;
@@ -870,7 +777,6 @@
       line-height: 1.08;
       overflow-wrap: anywhere;
     }
-
     .leader-hcp {
       width: 100%;
       margin-top: 4px;
@@ -880,18 +786,15 @@
       font-weight: 500;
       line-height: 1;
     }
-
     .leader-through-cell {
       flex-direction: column;
       text-align: center;
     }
-
     .leader-through-score {
       font-size: 22px;
       font-weight: 700;
       line-height: 1;
     }
-
     .leader-through-label {
       margin-top: 4px;
       color: #aaa;
@@ -899,23 +802,19 @@
       font-weight: 500;
       line-height: 1;
     }
-
     .leader-total {
       font-size: 30px;
       font-weight: 700;
       line-height: 1;
       text-align: center;
     }
-
     .under {
       color:
         var(--red);
     }
-
     .even-over {
       color: #fff;
     }
-
     .leader-update-note {
       min-height: 18px;
       margin:
@@ -925,7 +824,6 @@
       text-align: center;
       font-size: 11px;
     }
-
     .leader-bottom {
       flex:
         0 0 auto;
@@ -939,7 +837,6 @@
       background:
         rgba(0,0,0,.96);
     }
-
     .access-scorecard {
       width: 100%;
       min-height: 53px;
@@ -953,11 +850,9 @@
       font-size: 18px;
       font-weight: 700;
     }
-
     /* =========================================================
        MODALS
        ========================================================= */
-
     .modal-overlay,
     .score-entry-overlay {
       position: fixed;
@@ -972,12 +867,10 @@
       backdrop-filter:
         blur(7px);
     }
-
     .modal-overlay.open,
     .score-entry-overlay.open {
       display: flex;
     }
-
     .modal-box {
       width:
         min(
@@ -999,7 +892,6 @@
       background: #050505;
       text-align: left;
     }
-
     .modal-title {
       margin-bottom: 16px;
       color:
@@ -1008,18 +900,15 @@
       font-weight: 700;
       line-height: 1.1;
     }
-
     .modal-title.testing {
       color:
         var(--test-blue);
     }
-
     .modal-text {
       color: #ddd;
       font-size: 18px;
       line-height: 1.42;
     }
-
     .modal-input {
       width: 100%;
       height: 56px;
@@ -1035,7 +924,6 @@
       color: #fff;
       font-size: 21px;
     }
-
     .modal-actions {
       display: grid;
       grid-template-columns:
@@ -1044,12 +932,10 @@
       gap: 13px;
       margin-top: 20px;
     }
-
     .modal-actions.single {
       grid-template-columns:
         1fr;
     }
-
     .modal-btn {
       min-height: 54px;
       border:
@@ -1061,7 +947,6 @@
       font-size: 18px;
       font-weight: 700;
     }
-
     .modal-btn.primary {
       border-color:
         var(--gold);
@@ -1069,7 +954,6 @@
         var(--gold);
       color: #111;
     }
-
     .modal-btn.testing {
       border-color:
         var(--test-blue);
@@ -1077,32 +961,26 @@
       color:
         var(--test-blue);
     }
-
     .quick-list {
       margin: 0;
       padding-left: 23px;
     }
-
     .quick-list li {
       margin-bottom: 8px;
     }
-
     .quick-correction {
       margin-top: 17px;
       color: #fff;
     }
-
     /* =========================================================
        SCORE ENTRY
        ========================================================= */
-
     .score-entry-overlay {
       align-items:
         flex-start;
       padding-top: 11vh;
       z-index: 5200;
     }
-
     .score-entry-box {
       position: relative;
       width:
@@ -1118,7 +996,6 @@
       background: #050505;
       text-align: center;
     }
-
     .score-entry-cancel {
       position: absolute;
       top: 8px;
@@ -1136,18 +1013,15 @@
       text-align: center;
       opacity: .88;
     }
-
     .score-entry-hole {
       font-size: 28px;
       font-weight: 700;
     }
-
     .score-entry-par {
       margin-top: 2px;
       color: #aaa;
       font-size: 20px;
     }
-
     .score-entry-input {
       width: 100%;
       height: 68px;
@@ -1163,7 +1037,6 @@
       font-size: 34px;
       font-weight: 700;
     }
-
     .score-entry-enter {
       width: 100%;
       min-height: 58px;
@@ -1178,23 +1051,18 @@
       font-size: 21px;
       font-weight: 700;
     }
-
     /* =========================================================
        SMALL PHONES
        ========================================================= */
-
     @media (max-width: 420px) {
-
       .score-fixed-top {
         padding-left: 12px;
         padding-right: 12px;
       }
-
       .score-scroll {
         margin-left: 12px;
         margin-right: 12px;
       }
-
       .score-nav,
       .leader-nav {
         grid-template-columns:
@@ -1202,139 +1070,106 @@
           minmax(0,1fr)
           72px;
       }
-
       .nav-button {
         width: 72px;
         height: 40px;
         font-size: 15px;
       }
-
       .test-timing,
       .leader-test-timing {
         font-size: 10px;
       }
-
       .team-select-wrap {
         padding-left: 4px;
         padding-right: 4px;
       }
-
       .team-select-wrap::after {
         right: 23px;
       }
-
       .top-team-select {
         height: 44px;
         font-size: 17px;
       }
-
       .top-team-select.has-team {
         font-size: 18px;
       }
-
       .score-table-head {
         font-size: 15px;
       }
-
       .yardage-cell {
         font-size: 17px;
       }
-
       .bottom-action {
         font-size: 17px;
       }
-
       .leader-title {
         font-size: 22px;
       }
-
       .leader-refresh-button {
         width: 68px;
         height: 31px;
         font-size: 13px;
       }
-
       .leader-row {
         min-height: 58px;
       }
-
       .leader-row.header {
         min-height: 40px;
         font-size: 16px;
       }
-
       .leader-team-name {
         font-size: 17px;
       }
-
       .leader-hcp {
         font-size: 13px;
       }
-
       .leader-through-score {
         font-size: 21px;
       }
-
       .leader-through-label {
         font-size: 12px;
       }
-
       .leader-total {
         font-size: 29px;
       }
-
       .modal-box {
         padding:
           23px 20px
           25px;
       }
     }
-
     @media (orientation: landscape) {
-
       body::before {
         background-size:
           50% auto;
       }
-
       .splash-image {
         width: 50%;
       }
     }
-
   </style>
 </head>
-
 <body>
-
   <div
     id="topLoading"
     class="top-loading"
   ></div>
-
   <!-- =======================================================
        HOME
        ======================================================= -->
-
   <section
     id="homeView"
     class="view active"
   >
-
     <div class="home-shell">
-
       <div class="splash-image-wrap">
-
         <img
           src="Splash.jpg"
           class="splash-image"
           alt="Running of the Bulls 2026"
         >
-
       </div>
-
       <div class="reset-user-float">
-
         <button
           id="resetUserButton"
           class="reset-user-button"
@@ -1342,11 +1177,8 @@
         >
           RESET USER
         </button>
-
       </div>
-
       <div class="home-actions">
-
         <button
           id="homeScorecardButton"
           class="home-main-button"
@@ -1354,7 +1186,6 @@
         >
           ACCESS SCORECARD
         </button>
-
         <button
           id="homeLeaderboardButton"
           class="home-main-button"
@@ -1362,7 +1193,6 @@
         >
           VIEW LIVE LEADERBOARD
         </button>
-
         <button
           class="quick-guide-button"
           type="button"
@@ -1370,28 +1200,19 @@
         >
           QUICK GUIDE
         </button>
-
       </div>
-
     </div>
-
   </section>
-
   <!-- =======================================================
        SCORECARD
        ======================================================= -->
-
   <section
     id="scorecardView"
     class="view"
   >
-
     <div class="scorecard-screen">
-
       <div class="score-fixed-top">
-
         <div class="score-nav">
-
           <button
             id="scoreHomeButton"
             class="nav-button"
@@ -1399,12 +1220,10 @@
           >
             HOME
           </button>
-
           <div
             id="scoreTiming"
             class="test-timing"
           ></div>
-
           <button
             class="nav-button"
             type="button"
@@ -1412,52 +1231,33 @@
           >
             INFO
           </button>
-
         </div>
-
         <div class="team-select-wrap">
-
           <select
             id="teamSelect"
             class="top-team-select"
             aria-label="Select Team"
           >
-
             <option value="">
               SELECT TEAM
             </option>
-
           </select>
-
         </div>
-
         <div class="score-table-head">
-
           <div>HOLE</div>
-
           <div>PAR</div>
-
           <div>YARDS</div>
-
           <div>SCORE</div>
-
         </div>
-
       </div>
-
       <div
         id="scoreScroll"
         class="score-scroll"
       >
-
         <div id="scoreRows"></div>
-
       </div>
-
       <div class="score-fixed-bottom">
-
         <div class="score-bottom-actions">
-
           <button
             id="scoreLeaderboardButton"
             class="bottom-action leaderboard-button"
@@ -1465,7 +1265,6 @@
           >
             LIVE LEADERBOARD
           </button>
-
           <button
             id="submitBtn"
             class="bottom-action submit-button"
@@ -1474,30 +1273,20 @@
           >
             SUBMIT SCORES
           </button>
-
         </div>
-
       </div>
-
     </div>
-
   </section>
-
   <!-- =======================================================
        LEADERBOARD
        ======================================================= -->
-
   <section
     id="leaderboardView"
     class="view"
   >
-
     <div class="leaderboard-screen">
-
       <div class="leader-top">
-
         <div class="leader-nav">
-
           <button
             id="leaderHomeButton"
             class="nav-button"
@@ -1505,12 +1294,10 @@
           >
             HOME
           </button>
-
           <div
             id="leaderTiming"
             class="leader-test-timing"
           ></div>
-
           <button
             class="nav-button"
             type="button"
@@ -1518,15 +1305,11 @@
           >
             INFO
           </button>
-
         </div>
-
         <div class="leader-title-bar">
-
           <div class="leader-title">
             LIVE LEADERBOARD
           </div>
-
           <button
             id="leaderRefreshButton"
             class="leader-refresh-button"
@@ -1534,40 +1317,25 @@
           >
             REFRESH
           </button>
-
         </div>
-
       </div>
-
       <div class="leader-content">
-
         <div class="leader-table">
-
           <div class="leader-row header">
-
             <div>TEAM</div>
-
             <div>STATUS</div>
-
             <div>TOTAL</div>
-
           </div>
-
           <div id="leaderRows"></div>
-
         </div>
-
         <div
           id="leaderUpdateNote"
           class="leader-update-note"
         >
           Tap REFRESH for latest standings
         </div>
-
       </div>
-
       <div class="leader-bottom">
-
         <button
           id="leaderScorecardButton"
           class="access-scorecard"
@@ -1575,34 +1343,25 @@
         >
           ACCESS SCORECARD
         </button>
-
       </div>
-
     </div>
-
   </section>
-
   <!-- =======================================================
        GENERAL MODAL
        ======================================================= -->
-
   <div
     id="modalOverlay"
     class="modal-overlay"
   >
-
     <div class="modal-box">
-
       <div
         id="modalTitle"
         class="modal-title"
       ></div>
-
       <div
         id="modalBody"
         class="modal-text"
       ></div>
-
       <input
         id="modalInput"
         class="modal-input"
@@ -1611,27 +1370,20 @@
         autocapitalize="characters"
         style="display:none;"
       >
-
       <div
         id="modalActions"
         class="modal-actions"
       ></div>
-
     </div>
-
   </div>
-
   <!-- =======================================================
        SCORE ENTRY
        ======================================================= -->
-
   <div
     id="scoreEntryOverlay"
     class="score-entry-overlay"
   >
-
     <div class="score-entry-box">
-
       <button
         id="scoreEntryCancel"
         class="score-entry-cancel"
@@ -1640,21 +1392,18 @@
       >
         ×
       </button>
-
       <div
         id="scoreEntryHole"
         class="score-entry-hole"
       >
         HOLE
       </div>
-
       <div
         id="scoreEntryPar"
         class="score-entry-par"
       >
         PAR
       </div>
-
       <input
         id="scoreEntryInput"
         class="score-entry-input"
@@ -1665,7 +1414,6 @@
         enterkeyhint="done"
         autocomplete="off"
       >
-
       <button
         id="scoreEntryEnter"
         class="score-entry-enter"
@@ -1673,13 +1421,9 @@
       >
         ENTER
       </button>
-
     </div>
-
   </div>
-
   <script>
-
     // ==========================================================
     // ROTB 2026
     // TEST BUILD
@@ -1706,181 +1450,120 @@
     // The experimental 3-second forced page reload
     // has been removed.
     // ==========================================================
-
     const SCRIPT_URL =
       'https://script.google.com/macros/s/AKfycbx4r2MORk4rPjUf28W_7EoarbgKEJzVTIOuaewqKf5cqUpehQlqKFa0ZyyKDjpy7Fc9/exec';
-
     const els = {
-
       topLoading:
         document.getElementById('topLoading'),
-
       homeView:
         document.getElementById('homeView'),
-
       scorecardView:
         document.getElementById('scorecardView'),
-
       leaderboardView:
         document.getElementById('leaderboardView'),
-
       homeScorecardButton:
         document.getElementById('homeScorecardButton'),
-
       homeLeaderboardButton:
         document.getElementById('homeLeaderboardButton'),
-
       resetUserButton:
         document.getElementById('resetUserButton'),
-
       scoreHomeButton:
         document.getElementById('scoreHomeButton'),
-
       leaderHomeButton:
         document.getElementById('leaderHomeButton'),
-
       teamSelect:
         document.getElementById('teamSelect'),
-
       scoreRows:
         document.getElementById('scoreRows'),
-
       scoreScroll:
         document.getElementById('scoreScroll'),
-
       scoreTiming:
         document.getElementById('scoreTiming'),
-
       scoreLeaderboardButton:
         document.getElementById('scoreLeaderboardButton'),
-
       submitBtn:
         document.getElementById('submitBtn'),
-
       leaderRows:
         document.getElementById('leaderRows'),
-
       leaderUpdateNote:
         document.getElementById('leaderUpdateNote'),
-
       leaderTiming:
         document.getElementById('leaderTiming'),
-
       leaderRefreshButton:
         document.getElementById('leaderRefreshButton'),
-
       leaderScorecardButton:
         document.getElementById('leaderScorecardButton'),
-
       modalOverlay:
         document.getElementById('modalOverlay'),
-
       modalTitle:
         document.getElementById('modalTitle'),
-
       modalBody:
         document.getElementById('modalBody'),
-
       modalInput:
         document.getElementById('modalInput'),
-
       modalActions:
         document.getElementById('modalActions'),
-
       scoreEntryOverlay:
         document.getElementById('scoreEntryOverlay'),
-
       scoreEntryHole:
         document.getElementById('scoreEntryHole'),
-
       scoreEntryPar:
         document.getElementById('scoreEntryPar'),
-
       scoreEntryInput:
         document.getElementById('scoreEntryInput'),
-
       scoreEntryEnter:
         document.getElementById('scoreEntryEnter'),
-
       scoreEntryCancel:
         document.getElementById('scoreEntryCancel')
-
     };
-
     let holes = [];
-
     let teams = [];
-
     let selectedTeam = null;
-
     let localScores =
       Array(18).fill(null);
-
     let savedScores =
       Array(18).fill(null);
-
     let activeScoreIndex =
       null;
-
     let scoreEntryClosing =
       false;
-
     let currentView =
       'home';
-
     let scorecardHasLoaded =
       false;
-
     let scorecardLoadInProgress =
       false;
-
     let leaderboardHasLoaded =
       false;
-
     let leaderboardLoadInProgress =
       false;
-
     let saveInProgress =
       false;
-
     let scorecardLoadSeconds =
       null;
-
     let scoreSaveSeconds =
       null;
-
     let leaderboardLoadSeconds =
       null;
-
     let leaderboardRefreshSeconds =
       null;
-
     let scorecardBackendTiming =
       null;
-
     let scoreSaveBackendTiming =
       null;
-
     let leaderboardLoadBackendTiming =
       null;
-
     let leaderboardRefreshBackendTiming =
       null;
-
     /* =========================================================
        TIMING
        ========================================================= */
-
     function timerStart() {
-
       return performance.now();
-
     }
-
     function timerSeconds(
       start
     ) {
-
       return (
         (
           performance.now() -
@@ -1888,205 +1571,145 @@
         ) /
         1000
       ).toFixed(2);
-
     }
-
     function timingSecondsFromMs(
       value
     ) {
-
       const number =
         Number(value);
-
       if (
         !Number.isFinite(number)
       ) {
-
         return null;
-
       }
-
       return (
         number /
         1000
       ).toFixed(2);
-
     }
-
     function updateScoreTiming() {
-
       if (
         scoreSaveSeconds !==
         null
       ) {
-
         const parts = [
           'SAVE ' +
           scoreSaveSeconds +
           's'
         ];
-
         const timing =
           scoreSaveBackendTiming;
-
         if (timing) {
-
           const server =
             timingSecondsFromMs(
               timing.serverMs
             );
-
           const read =
             timingSecondsFromMs(
               timing.sheetReadMs
             );
-
           const write =
             timingSecondsFromMs(
               timing.writeMs
             );
-
           const flush =
             timingSecondsFromMs(
               timing.flushMs
             );
-
           if (server !== null) {
-
             parts.push(
               'SVR ' +
               server +
               's'
             );
-
           }
-
           if (read !== null) {
-
             parts.push(
               'RD ' +
               read +
               's'
             );
-
           }
-
           if (write !== null) {
-
             parts.push(
               'WR ' +
               write +
               's'
             );
-
           }
-
           if (flush !== null) {
-
             parts.push(
               'FL ' +
               flush +
               's'
             );
-
           }
-
         }
-
         els.scoreTiming.textContent =
           'TEST • ' +
           parts.join(' • ');
-
         return;
-
       }
-
       if (
         scorecardLoadSeconds !==
         null
       ) {
-
         const parts = [
           'LOAD ' +
           scorecardLoadSeconds +
           's'
         ];
-
         const timing =
           scorecardBackendTiming;
-
         if (timing) {
-
           const server =
             timingSecondsFromMs(
               timing.serverMs
             );
-
           const read =
             timingSecondsFromMs(
               timing.sheetReadMs
             );
-
           if (server !== null) {
-
             parts.push(
               'SVR ' +
               server +
               's'
             );
-
           }
-
           if (read !== null) {
-
             parts.push(
               'RD ' +
               read +
               's'
             );
-
           }
-
         }
-
         els.scoreTiming.textContent =
           'TEST • ' +
           parts.join(' • ');
-
         return;
-
       }
-
       els.scoreTiming.textContent =
         '';
-
     }
-
     function updateLeaderboardTiming() {
-
       const isRefresh =
         leaderboardRefreshSeconds !==
         null;
-
       const seconds =
         isRefresh
           ? leaderboardRefreshSeconds
           : leaderboardLoadSeconds;
-
       const timing =
         isRefresh
           ? leaderboardRefreshBackendTiming
           : leaderboardLoadBackendTiming;
-
       if (seconds === null) {
-
         els.leaderTiming.textContent =
           '';
-
         return;
-
       }
-
       const parts = [
         (
           isRefresh
@@ -2096,364 +1719,255 @@
         seconds +
         's'
       ];
-
       if (timing) {
-
         const server =
           timingSecondsFromMs(
             timing.serverMs
           );
-
         const read =
           timingSecondsFromMs(
             timing.sheetReadMs
           );
-
         if (server !== null) {
-
           parts.push(
             'SVR ' +
             server +
             's'
           );
-
         }
-
         if (read !== null) {
-
           parts.push(
             'RD ' +
             read +
             's'
           );
-
         }
-
       }
-
       els.leaderTiming.textContent =
         'TEST • ' +
         parts.join(' • ');
-
     }
-
     /* =========================================================
        STORAGE
        ========================================================= */
-
     function getAuthorizedTeam() {
-
       return (
         localStorage.getItem(
           'rotbAuthorizedTeam'
         ) || ''
       );
-
     }
-
     function setAuthorizedTeam(
       teamName
     ) {
-
       localStorage.setItem(
         'rotbAuthorizedTeam',
         teamName
       );
-
     }
-
     function getRememberedSelectedTeam() {
-
       return (
         localStorage.getItem(
           'rotbSelectedTeam'
         ) || ''
       );
-
     }
-
     function rememberSelectedTeam(
       teamName
     ) {
-
       localStorage.setItem(
         'rotbSelectedTeam',
         teamName
       );
-
     }
-
     function rememberCurrentView(
       view
     ) {
-
       currentView =
         view;
-
       sessionStorage.setItem(
         'rotbCurrentView',
         view
       );
-
     }
-
     function getRememberedView() {
-
       const value =
         sessionStorage.getItem(
           'rotbCurrentView'
         );
-
       if (
         value === 'scorecard' ||
         value === 'leaderboard' ||
         value === 'home'
       ) {
-
         return value;
-
       }
-
       return 'home';
-
     }
-
     /* =========================================================
        RESET USER
        TESTING ONLY
        ========================================================= */
-
     function resetUser() {
-
       localStorage.removeItem(
         'rotbAuthorizedTeam'
       );
-
       localStorage.removeItem(
         'rotbSelectedTeam'
       );
-
       sessionStorage.removeItem(
         'rotbCurrentView'
       );
-
       selectedTeam =
         null;
-
       holes = [];
-
       teams = [];
-
       localScores =
         Array(18).fill(null);
-
       savedScores =
         Array(18).fill(null);
-
       scorecardHasLoaded =
         false;
-
       leaderboardHasLoaded =
         false;
-
       scorecardLoadSeconds =
         null;
-
       scoreSaveSeconds =
         null;
-
       leaderboardLoadSeconds =
         null;
-
       leaderboardRefreshSeconds =
         null;
-
       scorecardBackendTiming =
         null;
-
       scoreSaveBackendTiming =
         null;
-
       leaderboardLoadBackendTiming =
         null;
-
       leaderboardRefreshBackendTiming =
         null;
-
       els.scoreTiming.textContent =
         '';
-
       els.leaderTiming.textContent =
         '';
-
       els.scoreRows.innerHTML =
         '';
-
       els.leaderRows.innerHTML =
         '';
-
       els.teamSelect.innerHTML =
         '<option value="">SELECT TEAM</option>';
-
       els.teamSelect.value =
         '';
-
       els.teamSelect
         .classList
         .remove(
           'has-team'
         );
-
       els.submitBtn.disabled =
         true;
-
       currentView =
         'home';
-
       showTestingMessage(
         'USER RESET',
         'This device will now behave like a new ROTB user. No Google Sheet scores were changed.'
       );
-
     }
-
     /* =========================================================
        VIEW CONTROL
        ========================================================= */
-
     function setActiveView(
       view
     ) {
-
       els.homeView
         .classList
         .toggle(
           'active',
           view === 'home'
         );
-
       els.scorecardView
         .classList
         .toggle(
           'active',
           view === 'scorecard'
         );
-
       els.leaderboardView
         .classList
         .toggle(
           'active',
           view === 'leaderboard'
         );
-
       rememberCurrentView(
         view
       );
-
     }
-
     function showHome() {
-
       closeModal();
-
       closeScoreEntry(
         false
       );
-
       setActiveView(
         'home'
       );
-
       window.scrollTo(
         0,
         0
       );
-
     }
-
     async function showScorecard() {
-
       closeModal();
-
       setActiveView(
         'scorecard'
       );
-
       window.scrollTo(
         0,
         0
       );
-
       if (
         !scorecardHasLoaded &&
         !scorecardLoadInProgress
       ) {
-
         await loadScorecard();
-
       }
-
     }
-
     async function showLeaderboard() {
-
       closeModal();
-
       closeScoreEntry(
         true
       );
-
       setActiveView(
         'leaderboard'
       );
-
       window.scrollTo(
         0,
         0
       );
-
       if (
-        !leaderboardHasLoaded &&
         !leaderboardLoadInProgress
       ) {
-
         await loadLeaderboard(
           true
         );
-
       }
-
     }
-
     /* =========================================================
        SCORECARD READ
        ========================================================= */
-
     async function loadScorecard() {
-
       if (
         scorecardLoadInProgress
       ) {
-
         return;
-
       }
-
       scorecardLoadInProgress =
         true;
-
       const started =
         timerStart();
-
       startLoadingLine();
-
       try {
-
         const url =
           SCRIPT_URL +
           '?refresh=' +
           Date.now();
-
         const response =
           await fetch(
             url,
@@ -2462,25 +1976,19 @@
                 'no-store'
             }
           );
-
         if (
           !response.ok
         ) {
-
           throw new Error(
             'Scorecard request failed.'
           );
-
         }
-
         const data =
           await response.json();
-
         if (
           !data ||
           data.success !== true
         ) {
-
           throw new Error(
             (
               data &&
@@ -2488,16 +1996,13 @@
             ) ||
             'Scorecard data unavailable.'
           );
-
         }
-
         holes =
           Array.isArray(
             data.holes
           )
             ? data.holes
             : [];
-
         teams =
           Array.isArray(
             data.teams
@@ -2510,129 +2015,88 @@
                   ).trim() !== ''
               )
             : [];
-
         buildTeamSelect();
-
         restoreOrSelectTeam();
-
         renderScorecard();
-
         scorecardHasLoaded =
           true;
-
         scorecardLoadSeconds =
           timerSeconds(
             started
           );
-
         scorecardBackendTiming =
           data.timing ||
           null;
-
         scoreSaveSeconds =
           null;
-
         scoreSaveBackendTiming =
           null;
-
         updateScoreTiming();
-
         completeLoadingLine();
-
       }
       catch (error) {
-
         scorecardLoadSeconds =
           timerSeconds(
             started
           );
-
         scorecardBackendTiming =
           null;
-
         scoreSaveSeconds =
           null;
-
         scoreSaveBackendTiming =
           null;
-
         updateScoreTiming();
-
         stopLoadingLine();
-
         showLoadError(
           'Scorecard Could Not Load',
           'The ROTB scorecard could not be loaded.',
           async () => {
-
             closeModal();
-
             scorecardHasLoaded =
               false;
-
             await loadScorecard();
-
           }
         );
-
       }
       finally {
-
         scorecardLoadInProgress =
           false;
-
       }
-
     }
-
     /* =========================================================
        TEAM SELECT
        ========================================================= */
-
     function buildTeamSelect() {
-
       els.teamSelect.innerHTML =
         '<option value="">SELECT TEAM</option>';
-
       teams.forEach(
         team => {
-
           const option =
             document.createElement(
               'option'
             );
-
           option.value =
             String(
               team.slot
             );
-
           option.textContent =
             team.name;
-
           els.teamSelect.appendChild(
             option
           );
-
         }
       );
-
       els.teamSelect.value =
         '';
-
       els.teamSelect
         .classList
         .remove(
           'has-team'
         );
-
     }
-
     function restoreOrSelectTeam() {
-
       const remembered =
         getRememberedSelectedTeam();
-
       const team =
         teams.find(
           item =>
@@ -2643,28 +2107,20 @@
               remembered
             )
         );
-
       if (team) {
-
         selectTeam(
           team.slot,
           false
         );
-
       }
       else {
-
         clearSelectedTeam();
-
       }
-
     }
-
     function selectTeam(
       slot,
       scrollToTop = true
     ) {
-
       const team =
         teams.find(
           item =>
@@ -2675,418 +2131,305 @@
               slot
             )
         );
-
       if (!team) {
-
         return;
-
       }
-
       selectedTeam =
         team;
-
       localScores =
         normalizeScores(
           team.scores
         );
-
       savedScores =
         normalizeScores(
           team.scores
         );
-
       rememberSelectedTeam(
         team.name
       );
-
       els.teamSelect.value =
         String(
           team.slot
         );
-
       els.teamSelect
         .classList
         .add(
           'has-team'
         );
-
       els.submitBtn.disabled =
         false;
-
       renderScorecard();
-
       if (
         scrollToTop
       ) {
-
         els.scoreScroll.scrollTop =
           0;
-
       }
-
     }
-
     function clearSelectedTeam() {
-
       selectedTeam =
         null;
-
       localScores =
         Array(18).fill(
           null
         );
-
       savedScores =
         Array(18).fill(
           null
         );
-
       els.teamSelect.value =
         '';
-
       els.teamSelect
         .classList
         .remove(
           'has-team'
         );
-
       els.submitBtn.disabled =
         true;
-
       renderScorecard();
-
     }
-
     function normalizeName(
       value
     ) {
-
       return String(
         value || ''
       )
         .trim()
         .toLowerCase();
-
     }
-
     function normalizeScores(
       values
     ) {
-
       const source =
         Array.isArray(
           values
         )
           ? values
           : [];
-
       return Array.from(
         {
           length: 18
         },
         (_, index) => {
-
           const value =
             source[
               index
             ];
-
           if (
             value === '' ||
             value === null ||
             value === undefined
           ) {
-
             return null;
-
           }
-
           const number =
             Number(
               value
             );
-
           if (
             Number.isInteger(
               number
             ) &&
             number > 0
           ) {
-
             return number;
-
           }
-
           return null;
-
         }
       );
-
     }
-
     function scoresEqual(
       first,
       second
     ) {
-
       const a =
         normalizeScores(
           first
         );
-
       const b =
         normalizeScores(
           second
         );
-
       return a.every(
         (value, index) =>
           value === b[index]
       );
-
     }
-
     /* =========================================================
        SCORECARD RENDER
        ========================================================= */
-
     function renderScorecard() {
-
       els.scoreRows.innerHTML =
         '';
-
       holes.forEach(
         (
           hole,
           index
         ) => {
-
           if (
             index === 9
           ) {
-
             const breakRow =
               document.createElement(
                 'div'
               );
-
             breakRow.className =
               'nine-break';
-
             els.scoreRows.appendChild(
               breakRow
             );
-
           }
-
           const row =
             document.createElement(
               'div'
             );
-
           row.className =
             'score-row';
-
           const holeCell =
             document.createElement(
               'div'
             );
-
           holeCell.className =
             'hole-cell';
-
           holeCell.textContent =
             hole.hole;
-
           const parCell =
             document.createElement(
               'div'
             );
-
           parCell.className =
             'par-cell';
-
           parCell.textContent =
             hole.par;
-
           const yardageCell =
             document.createElement(
               'div'
             );
-
           yardageCell.className =
             'yardage-cell';
-
           const white =
             document.createElement(
               'span'
             );
-
           white.className =
             'yard-white';
-
           white.textContent =
             hole.white;
-
           const slash =
             document.createElement(
               'span'
             );
-
           slash.className =
             'yard-slash';
-
           slash.textContent =
             '/';
-
           const gold =
             document.createElement(
               'span'
             );
-
           gold.className =
             'yard-gold';
-
           gold.textContent =
             hole.gold;
-
           yardageCell.append(
             white,
             slash,
             gold
           );
-
           const scoreCell =
             document.createElement(
               'div'
             );
-
           scoreCell.className =
             'score-cell';
-
           const button =
             document.createElement(
               'button'
             );
-
           button.type =
             'button';
-
           button.className =
             'score-button';
-
           if (
             !selectedTeam
           ) {
-
             button.disabled =
               true;
-
             button.classList.add(
               'empty'
             );
-
             button.textContent =
               '';
-
           }
           else {
-
             const local =
               localScores[
                 index
               ];
-
             const saved =
               savedScores[
                 index
               ];
-
             if (
               local === null
             ) {
-
               button.classList.add(
                 'empty'
               );
-
               button.textContent =
                 '';
-
             }
             else {
-
               button.textContent =
                 String(
                   local
                 );
-
               if (
                 local === saved
               ) {
-
                 button.classList.add(
                   'saved'
                 );
-
               }
               else {
-
                 button.classList.add(
                   'unsaved'
                 );
-
               }
-
             }
-
             button.addEventListener(
               'click',
               () => {
-
                 requestScoreEntry(
                   index
                 );
-
               }
             );
-
           }
-
           scoreCell.appendChild(
             button
           );
-
           row.append(
             holeCell,
             parCell,
             yardageCell,
             scoreCell
           );
-
           els.scoreRows.appendChild(
             row
           );
-
         }
       );
-
     }
-
     /* =========================================================
        AUTHORIZATION
        ========================================================= */
-
     function isSelectedTeamAuthorized() {
-
       if (
         !selectedTeam
       ) {
-
         return false;
-
       }
-
       return (
         normalizeName(
           getAuthorizedTeam()
@@ -3095,262 +2438,185 @@
           selectedTeam.name
         )
       );
-
     }
-
     function requestScoreEntry(
       index
     ) {
-
       if (
         !selectedTeam
       ) {
-
         return;
-
       }
-
       if (
         isSelectedTeamAuthorized()
       ) {
-
         openScoreEntry(
           index
         );
-
         return;
-
       }
-
       showAuthorizationModal(
         index
       );
-
     }
-
     function showAuthorizationModal(
       index
     ) {
-
       closeModal();
-
       els.modalTitle.textContent =
         'Authorize Scoring';
-
       els.modalBody.innerHTML =
         'For the team <strong>' +
         escapeHtml(
           selectedTeam.name
         ) +
         '</strong>, type <strong>OK</strong> below.';
-
       els.modalInput.style.display =
         'block';
-
       els.modalInput.value =
         '';
-
       els.modalInput.placeholder =
         'Type OK';
-
       const cancel =
         makeModalButton(
           'CANCEL',
           '',
           closeModal
         );
-
       const unlock =
         makeModalButton(
           'UNLOCK',
           'primary',
           () => {
-
             if (
               normalizeName(
                 els.modalInput.value
               ) !==
               'ok'
             ) {
-
               els.modalInput.value =
                 '';
-
               els.modalInput.placeholder =
                 'Please type OK';
-
               els.modalInput.focus();
-
               return;
-
             }
-
             setAuthorizedTeam(
               selectedTeam.name
             );
-
             closeModal();
-
             openScoreEntry(
               index
             );
-
           }
         );
-
       els.modalActions.className =
         'modal-actions';
-
       els.modalActions.replaceChildren(
         cancel,
         unlock
       );
-
       els.modalOverlay
         .classList
         .add(
           'open'
         );
-
       setTimeout(
         () => {
-
           els.modalInput.focus();
-
         },
         60
       );
-
       els.modalInput.onkeydown =
         event => {
-
           if (
             event.key ===
             'Enter'
           ) {
-
             event.preventDefault();
-
             unlock.click();
-
           }
-
         };
-
     }
-
     /* =========================================================
        SCORE ENTRY
        ========================================================= */
-
     function openScoreEntry(
       index
     ) {
-
       const hole =
         holes[
           index
         ];
-
       if (
         !hole ||
         !selectedTeam
       ) {
-
         return;
-
       }
-
       activeScoreIndex =
         index;
-
       scoreEntryClosing =
         false;
-
       els.scoreEntryHole.textContent =
         'HOLE ' +
         hole.hole;
-
       els.scoreEntryPar.textContent =
         'PAR ' +
         hole.par;
-
       els.scoreEntryInput.value =
         '';
-
       els.scoreEntryOverlay
         .classList
         .add(
           'open'
         );
-
       setTimeout(
         () => {
-
           els.scoreEntryInput.focus();
-
         },
         50
       );
-
       positionScoreEntry();
-
     }
-
     function commitScoreEntryValue() {
-
       if (
         activeScoreIndex ===
         null
       ) {
-
         return;
-
       }
-
       const raw =
         String(
           els.scoreEntryInput.value ||
           ''
         ).trim();
-
       if (
         raw === ''
       ) {
-
         return;
-
       }
-
       const value =
         Number(
           raw
         );
-
       if (
         !Number.isInteger(
           value
         ) ||
         value <= 0
       ) {
-
         return;
-
       }
-
       localScores[
         activeScoreIndex
       ] =
         value;
-
       renderScorecard();
-
     }
-
     function closeScoreEntry(
       commitTypedValue
     ) {
-
       if (
         !els.scoreEntryOverlay
           .classList
@@ -3359,50 +2625,34 @@
           ) ||
         scoreEntryClosing
       ) {
-
         return;
-
       }
-
       scoreEntryClosing =
         true;
-
       if (
         commitTypedValue
       ) {
-
         commitScoreEntryValue();
-
       }
-
       els.scoreEntryOverlay
         .classList
         .remove(
           'open'
         );
-
       els.scoreEntryInput.blur();
-
       els.scoreEntryInput.value =
         '';
-
       activeScoreIndex =
         null;
-
       setTimeout(
         () => {
-
           scoreEntryClosing =
             false;
-
         },
         0
       );
-
     }
-
     function positionScoreEntry() {
-
       if (
         !window.visualViewport ||
         !els.scoreEntryOverlay
@@ -3411,43 +2661,31 @@
             'open'
           )
       ) {
-
         return;
-
       }
-
       const viewport =
         window.visualViewport;
-
       const top =
         Math.max(
           12,
           viewport.offsetTop +
           18
         );
-
       els.scoreEntryOverlay.style.paddingTop =
         top +
         'px';
-
     }
-
     /* =========================================================
        SAVE SCORES
        EV-INSPIRED: WRITE, THEN INDEPENDENTLY VERIFY
        ========================================================= */
-
     async function submitScores() {
-
       if (
         !selectedTeam ||
         saveInProgress
       ) {
-
         return;
-
       }
-
       if (
         els.scoreEntryOverlay
           .classList
@@ -3455,39 +2693,30 @@
             'open'
           )
       ) {
-
         closeScoreEntry(
           true
         );
-
       }
-
       saveInProgress =
         true;
-
       els.submitBtn.disabled =
         true;
-
       const started =
         timerStart();
-
       const expectedScores =
         normalizeScores(
           localScores
         );
-
       const expectedSlot =
         Number(
           selectedTeam.slot
         );
-
       const encodedScores =
         encodeURIComponent(
           JSON.stringify(
             expectedScores
           )
         );
-
       const writeUrl =
         SCRIPT_URL +
         '?action=saveScores' +
@@ -3499,18 +2728,17 @@
         encodedScores +
         '&refresh=' +
         Date.now();
-
       startLoadingLine();
 
       /*
-        Like the EV app, send the write request
-        without making the golfer wait for that
-        specific response to come back.
+        EV-STYLE TEST:
+        Send the write ONCE and do not wait for
+        either the write response or an immediate
+        verification read before releasing the UI.
 
-        The write is attempted ONCE only.
-        There is NO automatic write retry.
+        Google Sheets remains authoritative on the
+        next normal Scorecard / Leaderboard read.
       */
-
       fetch(
         writeUrl,
         {
@@ -3524,278 +2752,80 @@
         )
         .then(
           data => {
-
             if (
               !data ||
               data.success !== true
             ) {
-
               console.error(
                 'ROTB save response did not confirm success:',
                 data
               );
-
             }
-
           }
         )
         .catch(
           error => {
-
             console.error(
               'ROTB save response error:',
               error
             );
-
           }
         );
 
       /*
-        Give Google Sheets a brief moment, then
-        independently read OFFICIAL again.
-
-        The scores remain gray until this read
-        confirms the exact 18 values we sent.
+        Keep the entered scores gray because we have
+        NOT reread Google Sheets yet. Force the next
+        Scorecard visit to perform a fresh authoritative
+        read instead of using the already-loaded data.
       */
-
-      setTimeout(
-        () => {
-
-          verifySavedScores(
-            expectedSlot,
-            expectedScores,
-            started
-          );
-
-        },
-        1200
-      );
-
-    }
-
-    async function verifySavedScores(
-      expectedSlot,
-      expectedScores,
-      started
-    ) {
-
-      try {
-
-        const verifyUrl =
-          SCRIPT_URL +
-          '?refresh=' +
-          Date.now();
-
-        const response =
-          await fetch(
-            verifyUrl,
-            {
-              cache:
-                'no-store'
-            }
-          );
-
-        if (
-          !response.ok
-        ) {
-
-          throw new Error(
-            'Save verification request failed.'
-          );
-
-        }
-
-        const data =
-          await response.json();
-
-        if (
-          !data ||
-          data.success !== true ||
-          !Array.isArray(
-            data.teams
-          )
-        ) {
-
-          throw new Error(
-            'Save verification data unavailable.'
-          );
-
-        }
-
-        const verifiedTeam =
-          data.teams.find(
-            team =>
-              Number(
-                team.slot
-              ) ===
-              Number(
-                expectedSlot
-              )
-          );
-
-        if (
-          !verifiedTeam ||
-          !scoresEqual(
-            verifiedTeam.scores,
-            expectedScores
-          )
-        ) {
-
-          throw new Error(
-            'Saved scores are not yet confirmed.'
-          );
-
-        }
-
-        holes =
-          Array.isArray(
-            data.holes
-          )
-            ? data.holes
-            : holes;
-
-        teams =
-          data.teams.filter(
-            team =>
-              team &&
-              String(
-                team.name || ''
-              ).trim() !== ''
-          );
-
-        const refreshedTeam =
-          teams.find(
-            team =>
-              Number(
-                team.slot
-              ) ===
-              Number(
-                expectedSlot
-              )
-          );
-
-        if (
-          refreshedTeam
-        ) {
-
-          selectedTeam =
-            refreshedTeam;
-
-          savedScores =
-            normalizeScores(
-              refreshedTeam.scores
-            );
-
-          localScores =
-            normalizeScores(
-              refreshedTeam.scores
-            );
-
-          els.teamSelect.value =
-            String(
-              refreshedTeam.slot
-            );
-
-          els.teamSelect
-            .classList
-            .add(
-              'has-team'
-            );
-
-        }
-
-        renderScorecard();
-
-        scoreSaveSeconds =
-          timerSeconds(
-            started
-          );
-
-        scoreSaveBackendTiming =
-          data.timing ||
-          null;
-
-        updateScoreTiming();
-
-        completeLoadingLine();
-
-      }
-      catch (error) {
-
-        scoreSaveSeconds =
-          timerSeconds(
-            started
-          );
-
-        scoreSaveBackendTiming =
-          null;
-
-        updateScoreTiming();
-
-        stopLoadingLine();
-
-        showMessageModal(
-          'Save Not Yet Confirmed',
-          'Google Sheets has not confirmed the new scores yet. Your entered scores remain gray. No automatic second write was sent.'
+      scorecardHasLoaded =
+        false;
+      scoreSaveSeconds =
+        timerSeconds(
+          started
         );
+      scoreSaveBackendTiming =
+        null;
+      updateScoreTiming();
+      completeLoadingLine();
 
-      }
-      finally {
-
-        saveInProgress =
-          false;
-
-        els.submitBtn.disabled =
-          !selectedTeam;
-
-      }
-
+      saveInProgress =
+        false;
+      els.submitBtn.disabled =
+        !selectedTeam;
     }
-
+    
     /* =========================================================
        LEADERBOARD READ
        MANUAL REFRESH
        ========================================================= */
-
     async function loadLeaderboard(
       showErrorIfEmpty
     ) {
-
       if (
         leaderboardLoadInProgress
       ) {
-
         return;
-
       }
-
       leaderboardLoadInProgress =
         true;
-
       els.leaderRefreshButton.disabled =
         true;
-
       const wasAlreadyLoaded =
         leaderboardHasLoaded;
-
       const started =
         timerStart();
-
       els.leaderUpdateNote.textContent =
         wasAlreadyLoaded
           ? 'Refreshing leaderboard...'
           : 'Loading leaderboard...';
-
       startLoadingLine();
-
       try {
-
         const url =
           SCRIPT_URL +
           '?action=leaderboard' +
           '&refresh=' +
           Date.now();
-
         const response =
           await fetch(
             url,
@@ -3804,25 +2834,19 @@
                 'no-store'
             }
           );
-
         if (
           !response.ok
         ) {
-
           throw new Error(
             'Leaderboard request failed.'
           );
-
         }
-
         const data =
           await response.json();
-
         if (
           !data ||
           data.success !== true
         ) {
-
           throw new Error(
             (
               data &&
@@ -3830,196 +2854,138 @@
             ) ||
             'Leaderboard unavailable.'
           );
-
         }
-
         const rows =
           Array.isArray(
             data.leaderboard
           )
             ? data.leaderboard
             : [];
-
         renderLeaderboard(
           rows
         );
-
         const seconds =
           timerSeconds(
             started
           );
-
         if (
           wasAlreadyLoaded
         ) {
-
           leaderboardRefreshSeconds =
             seconds;
-
           leaderboardRefreshBackendTiming =
             data.timing ||
             null;
-
         }
         else {
-
           leaderboardLoadSeconds =
             seconds;
-
           leaderboardLoadBackendTiming =
             data.timing ||
             null;
-
         }
-
         updateLeaderboardTiming();
-
         leaderboardHasLoaded =
           true;
-
         els.leaderUpdateNote.textContent =
           'Tap REFRESH for latest standings';
-
         completeLoadingLine();
-
       }
       catch (error) {
-
         const seconds =
           timerSeconds(
             started
           );
-
         if (
           wasAlreadyLoaded
         ) {
-
           leaderboardRefreshSeconds =
             seconds;
-
           leaderboardRefreshBackendTiming =
             null;
-
         }
         else {
-
           leaderboardLoadSeconds =
             seconds;
-
           leaderboardLoadBackendTiming =
             null;
-
         }
-
         updateLeaderboardTiming();
-
         stopLoadingLine();
-
         if (
           leaderboardHasLoaded
         ) {
-
           els.leaderUpdateNote.textContent =
             'Refresh failed • standings unchanged';
-
           return;
-
         }
-
         els.leaderUpdateNote.textContent =
           'Leaderboard could not be loaded';
-
         if (
           showErrorIfEmpty
         ) {
-
           showLoadError(
             'Leaderboard Could Not Load',
             'The live leaderboard could not be loaded.',
             async () => {
-
               closeModal();
-
               await loadLeaderboard(
                 true
               );
-
             }
           );
-
         }
-
       }
       finally {
-
         leaderboardLoadInProgress =
           false;
-
         els.leaderRefreshButton.disabled =
           false;
-
       }
-
     }
-
     /* =========================================================
        LEADERBOARD RENDER
        ========================================================= */
-
     function renderLeaderboard(
       rows
     ) {
-
       els.leaderRows.innerHTML =
         '';
-
       rows.forEach(
         row => {
-
           const line =
             document.createElement(
               'div'
             );
-
           line.className =
             'leader-row';
-
           const teamCell =
             document.createElement(
               'div'
             );
-
           teamCell.className =
             'leader-team-cell';
-
           const teamName =
             document.createElement(
               'div'
             );
-
           teamName.className =
             'leader-team-name';
-
           teamName.textContent =
             row.team || '';
-
           const hcp =
             document.createElement(
               'div'
             );
-
           hcp.className =
             'leader-hcp';
-
           let handicapValue =
             row.hcp;
-
           if (
             handicapValue === undefined ||
             handicapValue === null ||
             handicapValue === ''
           ) {
-
             const match =
               teams.find(
                 team =>
@@ -4030,16 +2996,11 @@
                     row.slot
                   )
               );
-
             if (match) {
-
               handicapValue =
                 match.handicap;
-
             }
-
           }
-
           hcp.textContent =
             (
               handicapValue === undefined ||
@@ -4049,111 +3010,85 @@
               ? ''
               : 'HCP ' +
                 handicapValue;
-
           teamCell.append(
             teamName,
             hcp
           );
-
           const throughCell =
             document.createElement(
               'div'
             );
-
           throughCell.className =
             'leader-through-cell';
-
           const throughScore =
             document.createElement(
               'div'
             );
-
           throughScore.className =
             'leader-through-score ' +
             scoreClass(
               row.gross
             );
-
           throughScore.textContent =
             formatGolfScore(
               row.gross
             );
-
           const throughLabel =
             document.createElement(
               'div'
             );
-
           throughLabel.className =
             'leader-through-label';
-
           throughLabel.textContent =
             'THRU ' +
             row.thru;
-
           throughCell.append(
             throughScore,
             throughLabel
           );
-
           const total =
             document.createElement(
               'div'
             );
-
           total.className =
             'leader-total ' +
             scoreClass(
               row.net
             );
-
           total.textContent =
             formatGolfScore(
               row.net
             );
-
           line.append(
             teamCell,
             throughCell,
             total
           );
-
           els.leaderRows.appendChild(
             line
           );
-
         }
       );
-
     }
-
     function formatGolfScore(
       value
     ) {
-
       const number =
         Number(
           value
         );
-
       if (
         !Number.isFinite(
           number
         )
       ) {
-
         return '';
-
       }
-
       if (
         number === 0
       ) {
-
         return 'E';
-
       }
-
       return (
         number > 0
           ? '+' +
@@ -4162,44 +3097,34 @@
               number
             )
       );
-
     }
-
     function scoreClass(
       value
     ) {
-
       const number =
         Number(
           value
         );
-
       return (
         number < 0
           ? 'under'
           : 'even-over'
       );
-
     }
-
     /* =========================================================
        MODALS
        ========================================================= */
-
     function makeModalButton(
       text,
       className,
       onClick
     ) {
-
       const button =
         document.createElement(
           'button'
         );
-
       button.type =
         'button';
-
       button.className =
         'modal-btn' +
         (
@@ -4208,179 +3133,133 @@
               className
             : ''
         );
-
       button.textContent =
         text;
-
       button.addEventListener(
         'click',
         onClick
       );
-
       return button;
-
     }
-
     function showMessageModal(
       title,
       message
     ) {
-
       closeModal();
-
       els.modalTitle.textContent =
         title;
-
       els.modalTitle
         .classList
         .remove(
           'testing'
         );
-
       els.modalBody.textContent =
         message;
-
       els.modalInput.style.display =
         'none';
-
       const close =
         makeModalButton(
           'CLOSE',
           'primary',
           closeModal
         );
-
       els.modalActions.className =
         'modal-actions single';
-
       els.modalActions.replaceChildren(
         close
       );
-
       els.modalOverlay
         .classList
         .add(
           'open'
         );
-
     }
-
     function showTestingMessage(
       title,
       message
     ) {
-
       closeModal();
-
       els.modalTitle.textContent =
         title;
-
       els.modalTitle
         .classList
         .add(
           'testing'
         );
-
       els.modalBody.textContent =
         message;
-
       els.modalInput.style.display =
         'none';
-
       const close =
         makeModalButton(
           'CLOSE',
           'testing',
           () => {
-
             closeModal();
-
             showHome();
-
           }
         );
-
       els.modalActions.className =
         'modal-actions single';
-
       els.modalActions.replaceChildren(
         close
       );
-
       els.modalOverlay
         .classList
         .add(
           'open'
         );
-
     }
-
     function showLoadError(
       title,
       message,
       retryFunction
     ) {
-
       closeModal();
-
       els.modalTitle.textContent =
         title;
-
       els.modalTitle
         .classList
         .remove(
           'testing'
         );
-
       els.modalBody.textContent =
         message;
-
       els.modalInput.style.display =
         'none';
-
       const home =
         makeModalButton(
           'RETURN HOME',
           '',
           showHome
         );
-
       const retry =
         makeModalButton(
           'TRY AGAIN',
           'primary',
           retryFunction
         );
-
       els.modalActions.className =
         'modal-actions';
-
       els.modalActions.replaceChildren(
         home,
         retry
       );
-
       els.modalOverlay
         .classList
         .add(
           'open'
         );
-
     }
-
     function showQuickGuide() {
-
       closeModal();
-
       els.modalTitle.textContent =
         'QUICK GUIDE';
-
       els.modalTitle
         .classList
         .remove(
           'testing'
         );
-
       els.modalBody.innerHTML =
         '<ol class="quick-list">' +
           '<li>Select Your Team</li>' +
@@ -4396,67 +3275,50 @@
           '<strong>Need to correct a score?</strong> ' +
           'Tap the score, enter the new score, and submit again.' +
         '</div>';
-
       els.modalInput.style.display =
         'none';
-
       const close =
         makeModalButton(
           'CLOSE',
           'primary',
           closeModal
         );
-
       els.modalActions.className =
         'modal-actions single';
-
       els.modalActions.replaceChildren(
         close
       );
-
       els.modalOverlay
         .classList
         .add(
           'open'
         );
-
     }
-
     function closeModal() {
-
       els.modalOverlay
         .classList
         .remove(
           'open'
         );
-
       els.modalTitle
         .classList
         .remove(
           'testing'
         );
-
       els.modalInput.style.display =
         'none';
-
       els.modalInput.value =
         '';
-
       els.modalInput.onkeydown =
         null;
-
       els.modalActions.innerHTML =
         '';
-
       els.modalActions.className =
         'modal-actions';
-
     }
-
     function escapeHtml(
       value
     ) {
-
       return String(
         value
       )
@@ -4480,230 +3342,176 @@
           "'",
           '&#039;'
         );
-
     }
-
     /* =========================================================
        LOADING LINE
        ========================================================= */
-
     function startLoadingLine() {
-
       els.topLoading
         .classList
         .remove(
           'done'
         );
-
       els.topLoading
         .classList
         .add(
           'active'
         );
-
     }
-
     function completeLoadingLine() {
-
       els.topLoading
         .classList
         .remove(
           'active'
         );
-
       els.topLoading
         .classList
         .add(
           'done'
         );
-
       setTimeout(
         () => {
-
           els.topLoading
             .classList
             .remove(
               'done'
             );
-
         },
         300
       );
-
     }
-
     function stopLoadingLine() {
-
       els.topLoading
         .classList
         .remove(
           'active',
           'done'
         );
-
     }
-
     /* =========================================================
        EVENTS
        ========================================================= */
-
     els.homeScorecardButton
       .addEventListener(
         'click',
         showScorecard
       );
-
     els.homeLeaderboardButton
       .addEventListener(
         'click',
         showLeaderboard
       );
-
     els.resetUserButton
       .addEventListener(
         'click',
         resetUser
       );
-
     els.scoreHomeButton
       .addEventListener(
         'click',
         showHome
       );
-
     els.leaderHomeButton
       .addEventListener(
         'click',
         showHome
       );
-
     els.scoreLeaderboardButton
       .addEventListener(
         'click',
         showLeaderboard
       );
-
     els.leaderRefreshButton
       .addEventListener(
         'click',
         () => {
-
           loadLeaderboard(
             false
           );
-
         }
       );
-
     els.leaderScorecardButton
       .addEventListener(
         'click',
         showScorecard
       );
-
     els.submitBtn
       .addEventListener(
         'click',
         submitScores
       );
-
     document
       .querySelectorAll(
         '[data-guide]'
       )
       .forEach(
         button => {
-
           button.addEventListener(
             'click',
             showQuickGuide
           );
-
         }
       );
-
     els.teamSelect
       .addEventListener(
         'change',
         () => {
-
           const slot =
             Number(
               els.teamSelect.value
             );
-
           if (
             slot
           ) {
-
             selectTeam(
               slot
             );
-
           }
           else {
-
             clearSelectedTeam();
-
           }
-
         }
       );
-
     /*
       X = CANCEL ONLY.
     */
-
     els.scoreEntryCancel
       .addEventListener(
         'click',
         () => {
-
           closeScoreEntry(
             false
           );
-
         }
       );
-
     els.scoreEntryEnter
       .addEventListener(
         'click',
         () => {
-
           closeScoreEntry(
             true
           );
-
         }
       );
-
     els.scoreEntryInput
       .addEventListener(
         'keydown',
         event => {
-
           if (
             event.key ===
             'Enter'
           ) {
-
             event.preventDefault();
-
             closeScoreEntry(
               true
             );
-
           }
-
         }
       );
-
     els.scoreEntryInput
       .addEventListener(
         'blur',
         () => {
-
           if (
             els.scoreEntryOverlay
               .classList
@@ -4712,10 +3520,8 @@
               ) &&
             !scoreEntryClosing
           ) {
-
             setTimeout(
               () => {
-
                 if (
                   els.scoreEntryOverlay
                     .classList
@@ -4724,113 +3530,79 @@
                     ) &&
                   !scoreEntryClosing
                 ) {
-
                   closeScoreEntry(
                     true
                   );
-
                 }
-
               },
               80
             );
-
           }
-
         }
       );
-
     els.scoreEntryOverlay
       .addEventListener(
         'pointerdown',
         event => {
-
           if (
             event.target ===
             els.scoreEntryOverlay
           ) {
-
             closeScoreEntry(
               true
             );
-
           }
-
         }
       );
-
     els.modalOverlay
       .addEventListener(
         'pointerdown',
         event => {
-
           if (
             event.target ===
             els.modalOverlay
           ) {
-
             closeModal();
-
           }
-
         }
       );
-
     if (
       window.visualViewport
     ) {
-
       window.visualViewport
         .addEventListener(
           'resize',
           positionScoreEntry
         );
-
       window.visualViewport
         .addEventListener(
           'scroll',
           positionScoreEntry
         );
-
     }
-
     /* =========================================================
        STARTUP
        ========================================================= */
-
     async function initialize() {
-
       const rememberedView =
         getRememberedView();
-
       if (
         rememberedView ===
         'scorecard'
       ) {
-
         await showScorecard();
-
         return;
-
       }
-
       if (
         rememberedView ===
         'leaderboard'
       ) {
-
         await showLeaderboard();
-
         return;
-
       }
-
       showHome();
-
     }
-
     initialize();
-
   </script>
 </body>
 </html>
