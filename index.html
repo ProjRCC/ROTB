@@ -2460,6 +2460,14 @@
       null;
 
 
+    let scoreTimingDetail =
+      '';
+
+
+    let leaderboardTimingDetail =
+      '';
+
+
     /* =========================================================
        TIMING
        ========================================================= */
@@ -2483,6 +2491,46 @@
         ) /
         1000
       ).toFixed(2);
+
+    }
+
+
+    function intervalSeconds(
+      start,
+      end
+    ) {
+
+      return (
+        (
+          end -
+          start
+        ) /
+        1000
+      ).toFixed(2);
+
+    }
+
+
+    function getServerTimingSeconds(
+      data
+    ) {
+
+      const totalMs =
+        data &&
+        data.timing &&
+        Number(
+          data.timing.totalMs
+        );
+
+
+      return Number.isFinite(
+        totalMs
+      )
+        ? (
+            totalMs /
+            1000
+          ).toFixed(2)
+        : null;
 
     }
 
@@ -2515,6 +2563,17 @@
           'SAVE ' +
           scoreSaveSeconds +
           's'
+        );
+
+      }
+
+
+      if (
+        scoreTimingDetail
+      ) {
+
+        parts.push(
+          scoreTimingDetail
         );
 
       }
@@ -2563,6 +2622,17 @@
       }
 
 
+      if (
+        leaderboardTimingDetail
+      ) {
+
+        parts.push(
+          leaderboardTimingDetail
+        );
+
+      }
+
+
       els.leaderTiming.textContent =
         parts.length
           ? parts.join(' • ')
@@ -2589,8 +2659,20 @@
       const buttonStyle =
         getComputedStyle(referenceButton);
 
+      /*
+        HOME / INFO use a 40px-tall button. For timing text,
+        use that button HEIGHT as the visual reference rather
+        than its CSS font-size. This makes short timing strings
+        visually as tall as HOME / INFO.
+      */
       const maxSize =
-        parseFloat(buttonStyle.fontSize) || 16;
+        Math.min(
+          28,
+          Math.max(
+            24,
+            referenceButton.clientHeight * .68
+          )
+        );
 
       const minSize = 8;
 
@@ -3286,6 +3368,10 @@
           );
 
 
+        const responseReceivedAt =
+          timerStart();
+
+
         if (
           !response.ok
         ) {
@@ -3299,6 +3385,10 @@
 
         const data =
           await response.json();
+
+
+        const jsonParsedAt =
+          timerStart();
 
 
         if (
@@ -3344,6 +3434,37 @@
         restoreOrSelectTeam();
 
         renderScorecard();
+
+
+        const renderedAt =
+          timerStart();
+
+
+        const serverSeconds =
+          getServerTimingSeconds(
+            data
+          );
+
+
+        scoreTimingDetail =
+          'REQ ' +
+          intervalSeconds(
+            started,
+            responseReceivedAt
+          ) +
+          's • CLIENT ' +
+          intervalSeconds(
+            responseReceivedAt,
+            renderedAt
+          ) +
+          's' +
+          (
+            serverSeconds !== null
+              ? ' • SVR ' +
+                serverSeconds +
+                's'
+              : ''
+          );
 
 
         scorecardHasLoaded =
@@ -4372,6 +4493,10 @@
           );
 
 
+        const responseReceivedAt =
+          timerStart();
+
+
         if (
           !response.ok
         ) {
@@ -4385,6 +4510,10 @@
 
         const data =
           await response.json();
+
+
+        const jsonParsedAt =
+          timerStart();
 
 
         if (
@@ -4448,6 +4577,37 @@
 
 
         renderScorecard();
+
+
+        const renderedAt =
+          timerStart();
+
+
+        const serverSeconds =
+          getServerTimingSeconds(
+            data
+          );
+
+
+        scoreTimingDetail =
+          'REQ ' +
+          intervalSeconds(
+            started,
+            responseReceivedAt
+          ) +
+          's • CLIENT ' +
+          intervalSeconds(
+            responseReceivedAt,
+            renderedAt
+          ) +
+          's' +
+          (
+            serverSeconds !== null
+              ? ' • SVR ' +
+                serverSeconds +
+                's'
+              : ''
+          );
 
 
         scoreSaveSeconds =
@@ -4560,6 +4720,10 @@
           );
 
 
+        const responseReceivedAt =
+          timerStart();
+
+
         if (
           !response.ok
         ) {
@@ -4573,6 +4737,10 @@
 
         const data =
           await response.json();
+
+
+        const jsonParsedAt =
+          timerStart();
 
 
         if (
@@ -4602,6 +4770,37 @@
         renderLeaderboard(
           rows
         );
+
+
+        const renderedAt =
+          timerStart();
+
+
+        const serverSeconds =
+          getServerTimingSeconds(
+            data
+          );
+
+
+        leaderboardTimingDetail =
+          'REQ ' +
+          intervalSeconds(
+            started,
+            responseReceivedAt
+          ) +
+          's • CLIENT ' +
+          intervalSeconds(
+            responseReceivedAt,
+            renderedAt
+          ) +
+          's' +
+          (
+            serverSeconds !== null
+              ? ' • SVR ' +
+                serverSeconds +
+                's'
+              : ''
+          );
 
 
         const seconds =
