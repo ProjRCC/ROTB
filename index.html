@@ -171,7 +171,6 @@
 
     /* =========================================================
        SHARED HEADER BUTTONS
-       HOME / INFO ARE IDENTICAL
        ========================================================= */
 
     .nav-button {
@@ -226,7 +225,6 @@
 
     .splash-image-wrap {
       width: 100%;
-
       margin: 0 auto;
     }
 
@@ -241,13 +239,7 @@
     }
 
 
-    /*
-      TESTING ONLY
-
-      RESET USER floats over the open black area at the
-      bottom of the splash artwork. It therefore does not
-      push the real event buttons out of their final position.
-    */
+    /* TESTING ONLY */
 
     .reset-user-float {
       position: relative;
@@ -445,28 +437,8 @@
     }
 
 
-    .score-event-title {
-      min-width: 0;
-
-      color:
-        var(--gold);
-
-      text-align: center;
-
-      font-size: 16px;
-      font-weight: 600;
-
-      line-height: 1.12;
-
-      letter-spacing: .35px;
-
-      white-space: nowrap;
-    }
-
-
     /* =========================================================
        TEST TIMING
-       NOW OCCUPIES CENTER HEADER POSITION
        ========================================================= */
 
     .test-timing {
@@ -495,15 +467,44 @@
 
 
     /* =========================================================
-       TEAM SELECT
+       TEAM SELECT / TEAM IDENTITY
        ========================================================= */
 
     .team-select-wrap {
+      position: relative;
+
       width: 100%;
 
       padding:
-        6px 10px
-        0;
+        7px 10px
+        7px;
+    }
+
+
+    .team-select-wrap::after {
+      content: "";
+
+      position: absolute;
+
+      right: 30px;
+      top: 50%;
+
+      width: 11px;
+      height: 11px;
+
+      border-right:
+        3px solid
+        var(--gold);
+
+      border-bottom:
+        3px solid
+        var(--gold);
+
+      transform:
+        translateY(-72%)
+        rotate(45deg);
+
+      pointer-events: none;
     }
 
 
@@ -511,11 +512,11 @@
       display: block;
 
       width: 100%;
-      height: 42px;
+      height: 49px;
 
       padding:
-        0 38px
-        0 14px;
+        0 58px
+        0 18px;
 
       border:
         1px solid
@@ -529,11 +530,24 @@
 
       color: #fff;
 
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 600;
 
       text-align: center;
       text-align-last: center;
+
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+
+    .top-team-select.has-team {
+      color:
+        var(--gold);
+
+      font-size: 20px;
+      font-weight: 700;
     }
 
 
@@ -544,54 +558,6 @@
       box-shadow:
         0 0 0 1px
         var(--gold);
-    }
-
-
-    /* =========================================================
-       TEAM NAME
-       ========================================================= */
-
-    .team-title {
-      min-height: 51px;
-
-      padding:
-        5px 2px
-        7px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      color:
-        var(--gold);
-
-      text-align: center;
-
-      font-size:
-        clamp(
-          30px,
-          8vw,
-          36px
-        );
-
-      font-weight: 700;
-
-      line-height: 1;
-
-      letter-spacing: .45px;
-
-      white-space: nowrap;
-    }
-
-
-    .team-title.long {
-      font-size:
-        clamp(
-          23px,
-          6vw,
-          29px
-        );
     }
 
 
@@ -666,8 +632,10 @@
     /* =========================================================
        SCORECARD SCROLL
 
-       9 rows + 3px gold divider = exactly one visible
-       front-nine screen.
+       The inner scoreRows container now has an actual
+       reference height.
+
+       9 hole rows + 3px divider = one complete front nine.
        ========================================================= */
 
     .score-scroll {
@@ -701,6 +669,11 @@
     }
 
 
+    #scoreRows {
+      height: 100%;
+    }
+
+
     .score-row {
       display: grid;
 
@@ -727,11 +700,6 @@
         rgba(0,0,0,.47);
     }
 
-
-    /*
-      Remove the normal gray border after Hole 9 so
-      the front/back divider is one clean gold line.
-    */
 
     #scoreRows > .score-row:nth-child(9) {
       border-bottom: 0;
@@ -1007,26 +975,6 @@
       align-items: center;
     }
 
-
-    .leader-event-top {
-      color:
-        var(--gold);
-
-      text-align: center;
-
-      font-size: 16px;
-      font-weight: 600;
-
-      letter-spacing: .35px;
-
-      white-space: nowrap;
-    }
-
-
-    /*
-      TESTING timing temporarily replaces
-      RUNNING OF THE BULLS 2026 in the header.
-    */
 
     .leader-test-timing {
       min-width: 0;
@@ -1552,11 +1500,6 @@
     }
 
 
-    /*
-      X = CANCEL ONLY.
-      It does not commit anything typed into the score box.
-    */
-
     .score-entry-cancel {
       position: absolute;
 
@@ -1692,32 +1635,26 @@
       }
 
 
-      .score-event-title,
-      .leader-event-top {
-        font-size: 14px;
-      }
-
-
       .team-select-wrap {
         padding-left: 4px;
         padding-right: 4px;
       }
 
 
+      .team-select-wrap::after {
+        right: 23px;
+      }
+
+
       .top-team-select {
-        height: 41px;
+        height: 48px;
 
-        font-size: 17px;
+        font-size: 18px;
       }
 
 
-      .team-title {
-        font-size: 31px;
-      }
-
-
-      .team-title.long {
-        font-size: 23px;
+      .top-team-select.has-team {
+        font-size: 19px;
       }
 
 
@@ -1835,8 +1772,6 @@
       </div>
 
 
-      <!-- TESTING ONLY - FLOATS WITHOUT MOVING REAL BUTTONS -->
-
       <div class="reset-user-float">
 
         <button
@@ -1911,8 +1846,6 @@
           </button>
 
 
-          <!-- TESTING TEMPORARILY REPLACES EVENT TITLE -->
-
           <div
             id="scoreTiming"
             class="test-timing"
@@ -1935,6 +1868,7 @@
           <select
             id="teamSelect"
             class="top-team-select"
+            aria-label="Select Team"
           >
 
             <option value="">
@@ -1943,14 +1877,6 @@
 
           </select>
 
-        </div>
-
-
-        <div
-          id="teamHeading"
-          class="team-title"
-        >
-          SELECT A TEAM
         </div>
 
 
@@ -2034,8 +1960,6 @@
             HOME
           </button>
 
-
-          <!-- TESTING TEMPORARILY REPLACES EVENT TITLE -->
 
           <div
             id="leaderTiming"
@@ -2225,10 +2149,14 @@
     //
     // Google Sheets remains source of truth.
     //
-    // One read request.
+    // One read request per page load.
     // One write request.
-    // No arbitrary abort timeout.
     // No automatic write retry.
+    //
+    // INITIAL READ RECOVERY:
+    // If an initial scorecard or leaderboard read is still
+    // waiting at 3 seconds, perform one real page reload.
+    // The reload is allowed only once until a read succeeds.
     // ==========================================================
 
 
@@ -2238,6 +2166,14 @@
 
     const LEADERBOARD_REFRESH_MS =
       8000;
+
+
+    const INITIAL_READ_RELOAD_MS =
+      3000;
+
+
+    const INITIAL_READ_RELOAD_KEY =
+      'rotbInitialReadAutoReloadUsed';
 
 
     const els = {
@@ -2271,9 +2207,6 @@
 
       teamSelect:
         document.getElementById('teamSelect'),
-
-      teamHeading:
-        document.getElementById('teamHeading'),
 
       scoreRows:
         document.getElementById('scoreRows'),
@@ -2403,6 +2336,71 @@
 
     let leaderboardRefreshSeconds =
       null;
+
+
+    /* =========================================================
+       INITIAL READ AUTO-RELOAD
+       ========================================================= */
+
+
+    function startInitialReadReloadWatch() {
+
+      if (
+        sessionStorage.getItem(
+          INITIAL_READ_RELOAD_KEY
+        ) === '1'
+      ) {
+
+        return null;
+
+      }
+
+
+      return setTimeout(
+        () => {
+
+          sessionStorage.setItem(
+            INITIAL_READ_RELOAD_KEY,
+            '1'
+          );
+
+
+          window.location.reload();
+
+        },
+        INITIAL_READ_RELOAD_MS
+      );
+
+    }
+
+
+    function finishInitialReadReloadWatch(
+      timer,
+      successful
+    ) {
+
+      if (
+        timer !== null
+      ) {
+
+        clearTimeout(
+          timer
+        );
+
+      }
+
+
+      if (
+        successful
+      ) {
+
+        sessionStorage.removeItem(
+          INITIAL_READ_RELOAD_KEY
+        );
+
+      }
+
+    }
 
 
     /* =========================================================
@@ -2630,6 +2628,11 @@
       );
 
 
+      sessionStorage.removeItem(
+        INITIAL_READ_RELOAD_KEY
+      );
+
+
       clearLeaderboardTimer();
 
 
@@ -2694,14 +2697,14 @@
         '<option value="">SELECT TEAM</option>';
 
 
-      els.teamHeading.textContent =
-        'SELECT A TEAM';
+      els.teamSelect.value =
+        '';
 
 
-      els.teamHeading
+      els.teamSelect
         .classList
         .remove(
-          'long'
+          'has-team'
         );
 
 
@@ -2908,6 +2911,10 @@
         timerStart();
 
 
+      const reloadWatch =
+        startInitialReadReloadWatch();
+
+
       startLoadingLine();
 
 
@@ -3002,10 +3009,22 @@
         updateScoreTiming();
 
 
+        finishInitialReadReloadWatch(
+          reloadWatch,
+          true
+        );
+
+
         completeLoadingLine();
 
       }
       catch (error) {
+
+        finishInitialReadReloadWatch(
+          reloadWatch,
+          false
+        );
+
 
         scorecardLoadSeconds =
           timerSeconds(
@@ -3087,6 +3106,13 @@
 
       els.teamSelect.value =
         '';
+
+
+      els.teamSelect
+        .classList
+        .remove(
+          'has-team'
+        );
 
     }
 
@@ -3171,26 +3197,25 @@
       );
 
 
-      els.teamHeading.textContent =
-        team.name;
+      /*
+        The selected team now remains visible in the dropdown.
+      */
+
+      els.teamSelect.value =
+        String(
+          team.slot
+        );
 
 
-      els.teamHeading
+      els.teamSelect
         .classList
-        .toggle(
-          'long',
-          String(
-            team.name
-          ).length > 15
+        .add(
+          'has-team'
         );
 
 
       els.submitBtn.disabled =
         false;
-
-
-      els.teamSelect.value =
-        '';
 
 
       renderScorecard();
@@ -3226,19 +3251,15 @@
         );
 
 
-      els.teamHeading.textContent =
-        'SELECT A TEAM';
-
-
-      els.teamHeading
-        .classList
-        .remove(
-          'long'
-        );
-
-
       els.teamSelect.value =
         '';
+
+
+      els.teamSelect
+        .classList
+        .remove(
+          'has-team'
+        );
 
 
       els.submitBtn.disabled =
@@ -4011,6 +4032,7 @@
 
     /* =========================================================
        SAVE SCORES
+       UNCHANGED - NO AUTO RELOAD / NO RETRY
        ========================================================= */
 
 
@@ -4247,6 +4269,18 @@
         timerStart();
 
 
+      /*
+        Only the FIRST leaderboard load gets the
+        3-second automatic page reload protection.
+        Normal 8-second refreshes do not.
+      */
+
+      const reloadWatch =
+        !wasAlreadyLoaded
+          ? startInitialReadReloadWatch()
+          : null;
+
+
       els.leaderUpdateNote.textContent =
         leaderboardHasLoaded
           ? 'Updating leaderboard...'
@@ -4347,11 +4381,23 @@
           true;
 
 
+        finishInitialReadReloadWatch(
+          reloadWatch,
+          true
+        );
+
+
         els.leaderUpdateNote.textContent =
           'Live standings • updates automatically';
 
       }
       catch (error) {
+
+        finishInitialReadReloadWatch(
+          reloadWatch,
+          false
+        );
+
 
         const seconds =
           timerSeconds(
@@ -5213,18 +5259,18 @@
             );
 
           }
+          else {
 
+            clearSelectedTeam();
 
-          els.teamSelect.value =
-            '';
+          }
 
         }
       );
 
 
     /*
-      Explicit X = cancel.
-      Nothing typed is committed.
+      X = CANCEL ONLY.
     */
 
     els.scoreEntryCancel
