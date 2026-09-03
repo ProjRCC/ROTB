@@ -2,26 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
-
   <meta name="theme-color" content="#000000">
-
   <title>ROTB 2026</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link
     href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
-
   <style>
-
     :root {
       --gold: #bc961D;
       --test-blue: #6EC8FF;
@@ -32,11 +25,9 @@
       --red: #ff4242;
     }
 
-
     * {
       box-sizing: border-box;
     }
-
 
     html {
       margin: 0;
@@ -44,29 +35,21 @@
       background: #000;
     }
 
-
     body {
       margin: 0;
       min-height: 100%;
-
       background: #000;
       color: var(--text);
-
       font-family: "Oswald", Arial, sans-serif;
-
       overflow-x: hidden;
       overflow-y: auto;
     }
 
-
     body::before {
       content: "";
-
       position: fixed;
       inset: 0;
-
       z-index: -2;
-
       background:
         linear-gradient(
           rgba(0,0,0,.34),
@@ -76,10 +59,8 @@
         center top /
         100% auto
         repeat-y;
-
       pointer-events: none;
     }
-
 
     button,
     input,
@@ -87,30 +68,24 @@
       font: inherit;
     }
 
-
     button,
     select {
       -webkit-tap-highlight-color: transparent;
     }
 
-
     button {
       cursor: pointer;
     }
 
-
     .view {
       display: none;
-
       width: 100%;
       min-height: 100dvh;
     }
 
-
     .view.active {
       display: block;
     }
-
 
     /* =========================================================
        TOP LOADING LINE
@@ -118,29 +93,21 @@
 
     .top-loading {
       position: fixed;
-
       top: 0;
       left: 0;
-
       width: 0;
       height: 3px;
-
       opacity: 0;
-
       background: var(--gold);
-
       z-index: 7000;
-
       transition:
         width .2s ease,
         opacity .2s ease;
     }
 
-
     .top-loading.active {
       width: 72%;
       opacity: 1;
-
       animation:
         loadingSweep
         1.05s
@@ -149,15 +116,12 @@
         alternate;
     }
 
-
     .top-loading.done {
       width: 100%;
       opacity: 1;
     }
 
-
     @keyframes loadingSweep {
-
       from {
         width: 24%;
       }
@@ -165,38 +129,27 @@
       to {
         width: 84%;
       }
-
     }
 
-
     /* =========================================================
-       SHARED NAV BUTTONS
+       SHARED HEADER BUTTONS
        ========================================================= */
 
     .nav-button {
-      width: 78px;
-      height: 46px;
-
-      padding:
-        0 10px;
-
+      width: 74px;
+      height: 40px;
+      padding: 0;
       border:
         1px solid
         var(--line-strong);
-
-      border-radius: 9px;
-
+      border-radius: 8px;
       background:
         rgba(0,0,0,.76);
-
       color: #fff;
-
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
-
       letter-spacing: .25px;
     }
-
 
     /* =========================================================
        HOME / SPLASH
@@ -207,16 +160,11 @@
       overflow: visible;
     }
 
-
     .home-shell {
       width: 100%;
       max-width: 760px;
-
       min-height: 100dvh;
-
-      margin:
-        0 auto;
-
+      margin: 0 auto;
       padding-bottom:
         calc(
           26px +
@@ -224,141 +172,108 @@
         );
     }
 
-
     .splash-image-wrap {
       width: 100%;
-
-      margin:
-        0 auto;
+      margin: 0 auto;
     }
-
 
     .splash-image {
       display: block;
-
       width: 100%;
       height: auto;
-
-      margin:
-        0 auto;
+      margin: 0 auto;
     }
 
+    /* TESTING ONLY */
+
+    .reset-user-float {
+      position: relative;
+      width: 100%;
+      height: 0;
+      z-index: 10;
+    }
+
+    .reset-user-button {
+      position: absolute;
+      left: 50%;
+      bottom: 13px;
+      transform:
+        translateX(-50%);
+      width:
+        min(
+          52%,
+          215px
+        );
+      min-height: 39px;
+      border:
+        1px solid
+        var(--test-blue);
+      border-radius: 8px;
+      background:
+        rgba(0,0,0,.82);
+      color:
+        var(--test-blue);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: .4px;
+    }
 
     .home-actions {
       width:
         calc(
           100% - 34px
         );
-
       max-width: 470px;
-
       margin:
         -2px auto 0;
-
       display: flex;
-
       flex-direction: column;
-
       gap: 13px;
     }
 
-
     .home-main-button {
       width: 100%;
-
       min-height: 58px;
-
       padding:
         12px 14px;
-
       border:
         2px solid
         var(--gold);
-
       border-radius: 9px;
-
       background:
         rgba(0,0,0,.78);
-
       color: #fff;
-
       font-size: 21px;
       font-weight: 600;
-
       letter-spacing: .5px;
     }
-
 
     .home-main-button:active {
       background:
         var(--gold);
-
       color: #000;
     }
 
-
     .quick-guide-button {
       align-self: center;
-
       width:
         min(
           64%,
           260px
         );
-
       min-height: 44px;
-
       margin-top: 7px;
-
       border:
         1px solid #fff;
-
       border-radius: 8px;
-
       background:
         rgba(0,0,0,.78);
-
       color:
         var(--gold);
-
       font-size: 18px;
       font-weight: 600;
-
       letter-spacing: .4px;
     }
-
-
-    .reset-user-button {
-      align-self: center;
-
-      width:
-        min(
-          52%,
-          220px
-        );
-
-      min-height: 39px;
-
-      margin-top: -2px;
-
-      border:
-        1px solid
-        var(--test-blue);
-
-      border-radius: 8px;
-
-      background:
-        rgba(0,0,0,.78);
-
-      color:
-        var(--test-blue);
-
-      font-size: 15px;
-      font-weight: 600;
-
-      letter-spacing: .4px;
-    }
-
 
     /* =========================================================
        SCORECARD
@@ -368,185 +283,135 @@
       height: 100dvh;
     }
 
-
     .scorecard-screen {
       width:
         min(
           760px,
           100%
         );
-
       height: 100dvh;
-
-      margin:
-        0 auto;
-
+      margin: 0 auto;
       display: flex;
-
       flex-direction: column;
-
       overflow: visible;
     }
-
 
     .score-fixed-top {
       flex:
         0 0 auto;
-
       position: relative;
-
       z-index: 50;
-
       padding:
         calc(
-          9px +
+          8px +
           env(safe-area-inset-top)
         )
         14px
         0;
-
       background:
         rgba(0,0,0,.95);
-
       backdrop-filter:
         blur(7px);
     }
 
-
     .score-nav {
       display: grid;
-
       grid-template-columns:
-        78px
+        74px
         minmax(0,1fr)
-        78px;
-
+        74px;
       align-items: center;
-
       gap: 8px;
     }
 
+    /* =========================================================
+       TEST TIMING
+       ========================================================= */
 
-    .score-event-title {
+    .test-timing {
       min-width: 0;
-
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color:
-        var(--gold);
-
+        var(--test-blue);
       text-align: center;
-
-      font-size: 16px;
-      font-weight: 600;
-
-      line-height: 1.12;
-
-      letter-spacing: .35px;
-
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: .1px;
       white-space: nowrap;
     }
 
-
     /* =========================================================
-       TEAM SELECT
+       TEAM SELECT / TEAM IDENTITY
        ========================================================= */
 
     .team-select-wrap {
+      position: relative;
       width: 100%;
-
       padding:
-        8px 10px
-        0;
+        6px 10px
+        6px;
     }
 
+    .team-select-wrap::after {
+      content: "";
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border-right:
+        3px solid
+        var(--gold);
+      border-bottom:
+        3px solid
+        var(--gold);
+      transform:
+        translateY(-72%)
+        rotate(45deg);
+      pointer-events: none;
+    }
 
     .top-team-select {
       display: block;
-
       width: 100%;
-
-      height: 48px;
-
+      height: 45px;
       padding:
-        0 38px
-        0 14px;
-
+        0 58px
+        0 18px;
       border:
         1px solid
         var(--line-strong);
-
       border-radius: 9px;
-
       outline: none;
-
       background: #050505;
-
       color: #fff;
-
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 600;
-
       text-align: center;
       text-align-last: center;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
     }
 
+    .top-team-select.has-team {
+      color:
+        var(--gold);
+      font-size: 19px;
+      font-weight: 700;
+    }
 
     .top-team-select:focus {
       border-color:
         var(--gold);
-
       box-shadow:
         0 0 0 1px
         var(--gold);
     }
-
-
-    /* =========================================================
-       TEAM NAME
-       ========================================================= */
-
-    .team-title {
-      min-height: 51px;
-
-      padding:
-        5px 2px
-        7px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      color:
-        var(--gold);
-
-      text-align: center;
-
-      font-size:
-        clamp(
-          30px,
-          8vw,
-          36px
-        );
-
-      font-weight: 700;
-
-      line-height: 1;
-
-      letter-spacing: .45px;
-
-      white-space: nowrap;
-    }
-
-
-    .team-title.long {
-      font-size:
-        clamp(
-          23px,
-          6vw,
-          29px
-        );
-    }
-
 
     /* =========================================================
        SCORECARD TABLE HEADER
@@ -554,291 +419,203 @@
 
     .score-table-head {
       display: grid;
-
       grid-template-columns:
         19%
         18%
         28%
         35%;
-
       align-items: center;
-
-      min-height: 44px;
-
+      min-height: 42px;
       overflow: hidden;
-
       border:
         1px solid
         var(--line-strong);
-
       border-bottom:
         1px solid
         var(--line);
-
       border-radius:
         9px 9px
         0 0;
-
       background:
         rgba(0,0,0,.94);
-
       color: #d2d2d2;
-
       text-align: center;
-
       font-size: 16px;
       font-weight: 600;
-
       letter-spacing: .35px;
     }
 
-
     .score-table-head > div {
       height: 100%;
-
       display: flex;
-
       align-items: center;
       justify-content: center;
-
       border-right:
         1px solid
         var(--line);
     }
 
-
     .score-table-head > div:last-child {
       border-right: 0;
-
       color: #fff;
-
       font-weight: 700;
     }
 
-
     /* =========================================================
-       SCORECARD SCROLLING HOLES
+       SCORECARD SCROLL
        ========================================================= */
 
     .score-scroll {
       flex:
         1 1 auto;
-
       min-height: 0;
-
       margin:
         0 14px;
-
       overflow-y: auto;
       overflow-x: hidden;
-
       -webkit-overflow-scrolling:
         touch;
-
       overscroll-behavior-y:
         contain;
-
       border-left:
         1px solid
         var(--line-strong);
-
       border-right:
         1px solid
         var(--line-strong);
-
       background:
         rgba(0,0,0,.28);
     }
 
+    #scoreRows {
+      height: 100%;
+    }
 
     .score-row {
       display: grid;
-
       grid-template-columns:
         19%
         18%
         28%
         35%;
-
       align-items: stretch;
-
-      min-height: 57px;
-
+      height:
+        calc(
+          (100% - 3px) / 9
+        );
+      min-height: 48px;
       border-bottom:
         1px solid
         var(--line);
-
       background:
         rgba(0,0,0,.47);
     }
 
+    #scoreRows > .score-row:nth-child(9) {
+      border-bottom: 0;
+    }
 
     .score-row > div {
       min-width: 0;
-
       border-right:
         1px solid
         var(--line);
     }
 
-
     .score-row > div:last-child {
       border-right: 0;
     }
-
 
     .hole-cell,
     .par-cell,
     .yardage-cell,
     .score-cell {
       display: flex;
-
       align-items: center;
       justify-content: center;
-
       text-align: center;
     }
-
 
     .hole-cell {
       font-size: 22px;
       font-weight: 700;
     }
 
-
     .par-cell {
       font-size: 20px;
       font-weight: 500;
     }
 
-
     .yardage-cell {
       gap: 4px;
-
       white-space: nowrap;
-
       font-size: 18px;
       font-weight: 500;
     }
-
 
     .yard-white {
       color: #fff;
     }
 
-
     .yard-slash {
       color: #aaa;
     }
-
 
     .yard-gold {
       color:
         var(--gold);
     }
 
-
     /* =========================================================
-       SCORE BUTTON STATES
+       SCORE BUTTONS
        ========================================================= */
 
     .score-button {
       width: 58px;
-      height: 46px;
-
+      height: 40px;
       border:
         1px solid
         rgba(255,255,255,.48);
-
       border-radius: 8px;
-
       background:
         rgba(0,0,0,.72);
-
       color: #fff;
-
-      font-size: 27px;
+      font-size: 25px;
       font-weight: 700;
-
       line-height: 1;
     }
-
 
     .score-button.empty {
       background:
         rgba(0,0,0,.72);
-
       color: #aaa;
     }
-
 
     .score-button.unsaved {
       border-color:
         #e0e0e0;
-
       background:
         #b7b7b7;
-
       color: #111;
     }
-
 
     .score-button.saved {
       border-color:
         #d9bd52;
-
       background:
         var(--gold);
-
       color: #111;
     }
-
 
     /* =========================================================
        FRONT / BACK NINE DIVIDER
        ========================================================= */
 
     .nine-break {
-      height: 9px;
-
-      background: #000;
-
-      border-top:
-        1px solid
-        rgba(188,150,29,.48);
-
-      border-bottom:
-        1px solid
+      height: 3px;
+      background:
         var(--gold);
     }
-
-
-    /* =========================================================
-       TEST TIMING
-       ========================================================= */
-
-    .score-test-timing,
-    .leader-test-timing {
-      min-height: 18px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      color:
-        var(--test-blue);
-
-      text-align: center;
-
-      font-size: 11px;
-      font-weight: 500;
-
-      line-height: 1.2;
-
-      letter-spacing: .15px;
-    }
-
 
     /* =========================================================
        SCORECARD BOTTOM
@@ -847,82 +624,58 @@
     .score-fixed-bottom {
       flex:
         0 0 auto;
-
       z-index: 60;
-
       padding:
-        3px
+        7px
         14px
         calc(
           9px +
           env(safe-area-inset-bottom)
         );
-
-      border-top:
-        1px solid
-        var(--line-strong);
-
       background:
         rgba(0,0,0,.96);
-
       backdrop-filter:
         blur(7px);
     }
 
-
     .score-bottom-actions {
       display: grid;
-
       grid-template-columns:
         1fr
         1fr;
-
       gap: 11px;
     }
 
-
     .bottom-action {
       min-height: 55px;
-
       border-radius: 9px;
-
       font-size: 18px;
       font-weight: 700;
-
       letter-spacing: .25px;
     }
-
 
     .leaderboard-button {
       border:
         1px solid
         var(--line-strong);
-
       background:
         #050505;
-
       color: #fff;
     }
-
 
     .submit-button {
       border:
         1px solid
         var(--gold);
-
       background:
         var(--gold);
-
       color: #111;
     }
 
-
     .submit-button:disabled {
       opacity: .42;
-
       cursor: default;
     }
-
 
     /* =========================================================
        LIVE LEADERBOARD
@@ -932,29 +685,21 @@
       min-height: 100dvh;
     }
 
-
     .leaderboard-screen {
       width:
         min(
           760px,
           100%
         );
-
       min-height: 100dvh;
-
-      margin:
-        0 auto;
-
+      margin: 0 auto;
       display: flex;
-
       flex-direction: column;
     }
-
 
     .leader-top {
       flex:
         0 0 auto;
-
       padding:
         calc(
           8px +
@@ -962,268 +707,226 @@
         )
         14px
         6px;
-
       background:
         rgba(0,0,0,.94);
     }
 
-
     .leader-nav {
       display: grid;
-
       grid-template-columns:
-        78px
+        74px
         minmax(0,1fr)
-        78px;
-
+        74px;
       gap: 8px;
-
       align-items: center;
     }
 
-
-    .leader-event-top {
+    .leader-test-timing {
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color:
-        var(--gold);
-
+        var(--test-blue);
       text-align: center;
-
-      font-size: 16px;
-      font-weight: 600;
-
-      letter-spacing: .35px;
-
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: .1px;
+      margin: 0;
       white-space: nowrap;
     }
 
+    .leader-title-bar {
+      position: relative;
+      min-height: 43px;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
     .leader-title {
-      margin-top: 6px;
-
       color: #fff;
-
       text-align: center;
-
-      font-size: 25px;
+      font-size: 24px;
       font-weight: 700;
-
       line-height: 1;
-
       letter-spacing: .35px;
     }
 
+    .leader-refresh-button {
+      position: absolute;
+      right: 0;
+      width: 72px;
+      height: 32px;
+      padding: 0;
+      border:
+        1px solid
+        var(--gold);
+      border-radius: 7px;
+      background:
+        #050505;
+      color:
+        var(--gold);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .25px;
+    }
+
+    .leader-refresh-button:disabled {
+      opacity: .45;
+    }
 
     .leader-content {
       flex:
         1 1 auto;
-
       min-height: 0;
-
       padding:
-        6px
-        18px
+        4px
+        24px
         4px;
-
       overflow-y: auto;
-
       -webkit-overflow-scrolling:
         touch;
     }
 
-
     .leader-table {
       width: 100%;
-
-      max-width: 680px;
-
+      max-width: 640px;
       margin:
         0 auto;
-
       overflow: hidden;
-
       border:
         1px solid
         var(--line-strong);
-
       border-radius: 9px;
-
       background:
         rgba(0,0,0,.42);
     }
 
-
     .leader-row {
       display: grid;
-
       grid-template-columns:
         minmax(0,1.75fr)
         .78fr
         .65fr;
-
       min-height: 61px;
-
       border-bottom:
         1px solid
         var(--line);
-
       background:
         rgba(0,0,0,.46);
     }
-
 
     .leader-row:last-child {
       border-bottom: 0;
     }
 
-
     .leader-row.header {
       min-height: 42px;
-
-      color: #d0d0d0;
-
+      color: #e0e0e0;
       background:
         rgba(0,0,0,.90);
-
       text-align: center;
-
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 700;
-
-      letter-spacing: .25px;
+      letter-spacing: .3px;
     }
-
 
     .leader-row > div {
       min-width: 0;
-
       display: flex;
-
       align-items: center;
       justify-content: center;
-
       padding:
         5px 8px;
-
       border-right:
         1px solid
         var(--line);
     }
 
-
     .leader-row > div:last-child {
       border-right: 0;
     }
 
-
     .leader-team-cell {
       flex-direction: column;
-
       align-items:
-        flex-start !important;
-
+        center !important;
       justify-content:
         center !important;
-
-      text-align: left;
+      text-align: center;
     }
-
 
     .leader-team-name {
       width: 100%;
-
       color: #fff;
-
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 700;
-
-      line-height: 1.05;
-
+      line-height: 1.08;
       overflow-wrap: anywhere;
     }
 
-
     .leader-hcp {
       width: 100%;
-
-      margin-top: 3px;
-
+      margin-top: 4px;
       color:
         var(--gold);
-
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 500;
-
       line-height: 1;
     }
-
 
     .leader-through-cell {
       flex-direction: column;
-
       text-align: center;
     }
-
 
     .leader-through-score {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
-
       line-height: 1;
     }
-
 
     .leader-through-label {
-      margin-top: 3px;
-
+      margin-top: 4px;
       color: #aaa;
-
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 500;
-
       line-height: 1;
     }
-
 
     .leader-total {
-      font-size: 24px;
+      font-size: 30px;
       font-weight: 700;
-
       line-height: 1;
-
       text-align: center;
     }
-
 
     .under {
       color:
         var(--red);
     }
 
-
     .even-over {
       color: #fff;
     }
 
-
     .leader-update-note {
       min-height: 18px;
-
       margin:
         4px auto
         0;
-
       color: #888;
-
       text-align: center;
-
       font-size: 11px;
     }
-
 
     .leader-bottom {
       flex:
         0 0 auto;
-
       padding:
         8px
         18px
@@ -1231,36 +934,23 @@
           8px +
           env(safe-area-inset-bottom)
         );
-
-      border-top:
-        1px solid
-        var(--line-strong);
-
       background:
         rgba(0,0,0,.96);
     }
 
-
     .access-scorecard {
       width: 100%;
-
       min-height: 53px;
-
       border:
         1px solid
         var(--gold);
-
       border-radius: 9px;
-
       background:
         var(--gold);
-
       color: #111;
-
       font-size: 18px;
       font-weight: 700;
     }
-
 
     /* =========================================================
        MODALS
@@ -1269,31 +959,22 @@
     .modal-overlay,
     .score-entry-overlay {
       position: fixed;
-
       inset: 0;
-
       z-index: 5000;
-
       display: none;
-
       align-items: center;
       justify-content: center;
-
       padding: 20px;
-
       background:
         rgba(0,0,0,.62);
-
       backdrop-filter:
         blur(7px);
     }
-
 
     .modal-overlay.open,
     .score-entry-overlay.open {
       display: flex;
     }
-
 
     .modal-box {
       width:
@@ -1301,162 +982,113 @@
           650px,
           100%
         );
-
       max-height:
         calc(
           100dvh - 40px
         );
-
       overflow-y: auto;
-
       padding:
         26px 28px
         28px;
-
       border:
         1px solid
         rgba(255,255,255,.82);
-
       border-radius: 17px;
-
       background: #050505;
-
       text-align: left;
     }
 
-
     .modal-title {
       margin-bottom: 16px;
-
       color:
         var(--gold);
-
       font-size: 27px;
       font-weight: 700;
-
       line-height: 1.1;
     }
-
 
     .modal-title.testing {
       color:
         var(--test-blue);
     }
 
-
     .modal-text {
       color: #ddd;
-
       font-size: 18px;
-
       line-height: 1.42;
     }
 
-
     .modal-input {
       width: 100%;
-
       height: 56px;
-
       margin-top: 17px;
-
       padding:
         0 14px;
-
       border:
         2px solid
         var(--gold);
-
       border-radius: 9px;
-
       outline: none;
-
       background: #161616;
-
       color: #fff;
-
       font-size: 21px;
     }
 
-
     .modal-actions {
       display: grid;
-
       grid-template-columns:
         1fr
         1fr;
-
       gap: 13px;
-
       margin-top: 20px;
     }
-
 
     .modal-actions.single {
       grid-template-columns:
         1fr;
     }
 
-
     .modal-btn {
       min-height: 54px;
-
       border:
         1px solid
         var(--line-strong);
-
       border-radius: 9px;
-
       background: #050505;
-
       color: #fff;
-
       font-size: 18px;
       font-weight: 700;
     }
 
-
     .modal-btn.primary {
       border-color:
         var(--gold);
-
       background:
         var(--gold);
-
       color: #111;
     }
-
 
     .modal-btn.testing {
       border-color:
         var(--test-blue);
-
-      background:
-        #050505;
-
+      background: #050505;
       color:
         var(--test-blue);
     }
 
-
     .quick-list {
       margin: 0;
-
       padding-left: 23px;
     }
-
 
     .quick-list li {
       margin-bottom: 8px;
     }
 
-
     .quick-correction {
       margin-top: 17px;
-
       color: #fff;
     }
-
 
     /* =========================================================
        SCORE ENTRY
@@ -1465,100 +1097,88 @@
     .score-entry-overlay {
       align-items:
         flex-start;
-
       padding-top: 11vh;
-
       z-index: 5200;
     }
 
-
     .score-entry-box {
+      position: relative;
       width:
         min(
           420px,
           calc(100% - 10px)
         );
-
       padding: 24px;
-
       border:
         1px solid
         rgba(255,255,255,.84);
-
       border-radius: 14px;
-
       background: #050505;
-
       text-align: center;
     }
 
+    .score-entry-cancel {
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      font-size: 27px;
+      font-weight: 400;
+      line-height: 34px;
+      text-align: center;
+      opacity: .88;
+    }
 
     .score-entry-hole {
       font-size: 28px;
       font-weight: 700;
     }
 
-
     .score-entry-par {
       margin-top: 2px;
-
       color: #aaa;
-
       font-size: 20px;
     }
 
-
     .score-entry-input {
       width: 100%;
-
       height: 68px;
-
       margin-top: 18px;
-
       border:
         2px solid
         var(--gold);
-
       border-radius: 10px;
-
       outline: none;
-
       background: #191919;
-
       color: #fff;
-
       text-align: center;
-
       font-size: 34px;
       font-weight: 700;
     }
 
-
     .score-entry-enter {
       width: 100%;
-
       min-height: 58px;
-
       margin-top: 14px;
-
       border:
         1px solid
         var(--gold);
-
       border-radius: 9px;
-
       background:
         var(--gold);
-
       color: #111;
-
       font-size: 21px;
       font-weight: 700;
     }
 
-
     /* =========================================================
-       SMALLER PHONES
+       SMALL PHONES
        ========================================================= */
 
     @media (max-width: 420px) {
@@ -1568,128 +1188,105 @@
         padding-right: 12px;
       }
 
-
       .score-scroll {
         margin-left: 12px;
         margin-right: 12px;
       }
 
-
       .score-nav,
       .leader-nav {
         grid-template-columns:
-          76px
+          72px
           minmax(0,1fr)
-          76px;
+          72px;
       }
-
 
       .nav-button {
-        width: 76px;
-
-        height: 44px;
-
-        padding:
-          0 8px;
-
-        font-size: 16px;
+        width: 72px;
+        height: 40px;
+        font-size: 15px;
       }
 
-
-      .score-event-title,
-      .leader-event-top {
-        font-size: 14px;
+      .test-timing,
+      .leader-test-timing {
+        font-size: 10px;
       }
-
 
       .team-select-wrap {
         padding-left: 4px;
         padding-right: 4px;
       }
 
+      .team-select-wrap::after {
+        right: 23px;
+      }
 
       .top-team-select {
-        height: 47px;
+        height: 44px;
+        font-size: 17px;
+      }
 
+      .top-team-select.has-team {
         font-size: 18px;
       }
-
-
-      .team-title {
-        font-size: 31px;
-      }
-
-
-      .team-title.long {
-        font-size: 23px;
-      }
-
 
       .score-table-head {
         font-size: 15px;
       }
 
-
       .yardage-cell {
         font-size: 17px;
       }
-
 
       .bottom-action {
         font-size: 17px;
       }
 
-
       .leader-title {
-        font-size: 23px;
+        font-size: 22px;
       }
 
+      .leader-refresh-button {
+        width: 68px;
+        height: 31px;
+        font-size: 13px;
+      }
 
       .leader-row {
         min-height: 58px;
       }
 
-
       .leader-row.header {
         min-height: 40px;
-
-        font-size: 14px;
-      }
-
-
-      .leader-team-name {
         font-size: 16px;
       }
 
+      .leader-team-name {
+        font-size: 17px;
+      }
 
       .leader-hcp {
+        font-size: 13px;
+      }
+
+      .leader-through-score {
+        font-size: 21px;
+      }
+
+      .leader-through-label {
         font-size: 12px;
       }
 
-
-      .leader-through-score {
-        font-size: 19px;
-      }
-
-
-      .leader-through-label {
-        font-size: 11px;
-      }
-
-
       .leader-total {
-        font-size: 23px;
+        font-size: 29px;
       }
-
 
       .modal-box {
         padding:
           23px 20px
           25px;
       }
-
     }
-
 
     @media (orientation: landscape) {
 
@@ -1698,16 +1295,13 @@
           50% auto;
       }
 
-
       .splash-image {
         width: 50%;
       }
-
     }
 
   </style>
 </head>
-
 
 <body>
 
@@ -1716,9 +1310,8 @@
     class="top-loading"
   ></div>
 
-
   <!-- =======================================================
-       HOME / SPLASH
+       HOME
        ======================================================= -->
 
   <section
@@ -1738,35 +1331,7 @@
 
       </div>
 
-
-      <div class="home-actions">
-
-        <button
-          id="homeScorecardButton"
-          class="home-main-button"
-          type="button"
-        >
-          ACCESS SCORECARD
-        </button>
-
-
-        <button
-          id="homeLeaderboardButton"
-          class="home-main-button"
-          type="button"
-        >
-          VIEW LIVE LEADERBOARD
-        </button>
-
-
-        <button
-          class="quick-guide-button"
-          type="button"
-          data-guide
-        >
-          QUICK GUIDE
-        </button>
-
+      <div class="reset-user-float">
 
         <button
           id="resetUserButton"
@@ -1778,10 +1343,37 @@
 
       </div>
 
+      <div class="home-actions">
+
+        <button
+          id="homeScorecardButton"
+          class="home-main-button"
+          type="button"
+        >
+          ACCESS SCORECARD
+        </button>
+
+        <button
+          id="homeLeaderboardButton"
+          class="home-main-button"
+          type="button"
+        >
+          VIEW LIVE LEADERBOARD
+        </button>
+
+        <button
+          class="quick-guide-button"
+          type="button"
+          data-guide
+        >
+          QUICK GUIDE
+        </button>
+
+      </div>
+
     </div>
 
   </section>
-
 
   <!-- =======================================================
        SCORECARD
@@ -1794,9 +1386,7 @@
 
     <div class="scorecard-screen">
 
-
       <div class="score-fixed-top">
-
 
         <div class="score-nav">
 
@@ -1808,11 +1398,10 @@
             HOME
           </button>
 
-
-          <div class="score-event-title">
-            RUNNING OF THE BULLS 2026
-          </div>
-
+          <div
+            id="scoreTiming"
+            class="test-timing"
+          ></div>
 
           <button
             class="nav-button"
@@ -1823,7 +1412,6 @@
           </button>
 
         </div>
-
 
         <div class="team-select-wrap">
 
@@ -1841,37 +1429,19 @@
 
         </div>
 
-
-        <div
-          id="teamHeading"
-          class="team-title"
-        >
-          SELECT A TEAM
-        </div>
-
-
         <div class="score-table-head">
 
-          <div>
-            HOLE
-          </div>
+          <div>HOLE</div>
 
-          <div>
-            PAR
-          </div>
+          <div>PAR</div>
 
-          <div>
-            YARDS
-          </div>
+          <div>YARDS</div>
 
-          <div>
-            SCORE
-          </div>
+          <div>SCORE</div>
 
         </div>
 
       </div>
-
 
       <div
         id="scoreScroll"
@@ -1882,35 +1452,21 @@
 
       </div>
 
-
       <div class="score-fixed-bottom">
-
-        <div
-          id="scoreTiming"
-          class="score-test-timing"
-        ></div>
-
 
         <div class="score-bottom-actions">
 
           <button
             id="scoreLeaderboardButton"
-            class="
-              bottom-action
-              leaderboard-button
-            "
+            class="bottom-action leaderboard-button"
             type="button"
           >
             LIVE LEADERBOARD
           </button>
 
-
           <button
             id="submitBtn"
-            class="
-              bottom-action
-              submit-button
-            "
+            class="bottom-action submit-button"
             type="button"
             disabled
           >
@@ -1925,9 +1481,8 @@
 
   </section>
 
-
   <!-- =======================================================
-       LIVE LEADERBOARD
+       LEADERBOARD
        ======================================================= -->
 
   <section
@@ -1937,9 +1492,7 @@
 
     <div class="leaderboard-screen">
 
-
       <div class="leader-top">
-
 
         <div class="leader-nav">
 
@@ -1951,11 +1504,10 @@
             HOME
           </button>
 
-
-          <div class="leader-event-top">
-            RUNNING OF THE BULLS 2026
-          </div>
-
+          <div
+            id="leaderTiming"
+            class="leader-test-timing"
+          ></div>
 
           <button
             class="nav-button"
@@ -1967,13 +1519,23 @@
 
         </div>
 
+        <div class="leader-title-bar">
 
-        <div class="leader-title">
-          LIVE LEADERBOARD
+          <div class="leader-title">
+            LIVE LEADERBOARD
+          </div>
+
+          <button
+            id="leaderRefreshButton"
+            class="leader-refresh-button"
+            type="button"
+          >
+            REFRESH
+          </button>
+
         </div>
 
       </div>
-
 
       <div class="leader-content">
 
@@ -1981,41 +1543,26 @@
 
           <div class="leader-row header">
 
-            <div>
-              TEAM
-            </div>
+            <div>TEAM</div>
 
-            <div>
-              THROUGH
-            </div>
+            <div>STATUS</div>
 
-            <div>
-              TOTAL
-            </div>
+            <div>TOTAL</div>
 
           </div>
-
 
           <div id="leaderRows"></div>
 
         </div>
 
-
         <div
           id="leaderUpdateNote"
           class="leader-update-note"
         >
-          Live standings • updates automatically
+          Tap REFRESH for latest standings
         </div>
 
-
-        <div
-          id="leaderTiming"
-          class="leader-test-timing"
-        ></div>
-
       </div>
-
 
       <div class="leader-bottom">
 
@@ -2033,7 +1580,6 @@
 
   </section>
 
-
   <!-- =======================================================
        GENERAL MODAL
        ======================================================= -->
@@ -2050,12 +1596,10 @@
         class="modal-title"
       ></div>
 
-
       <div
         id="modalBody"
         class="modal-text"
       ></div>
-
 
       <input
         id="modalInput"
@@ -2066,7 +1610,6 @@
         style="display:none;"
       >
 
-
       <div
         id="modalActions"
         class="modal-actions"
@@ -2075,7 +1618,6 @@
     </div>
 
   </div>
-
 
   <!-- =======================================================
        SCORE ENTRY
@@ -2086,10 +1628,16 @@
     class="score-entry-overlay"
   >
 
-    <div
-      id="scoreEntryBox"
-      class="score-entry-box"
-    >
+    <div class="score-entry-box">
+
+      <button
+        id="scoreEntryCancel"
+        class="score-entry-cancel"
+        type="button"
+        aria-label="Cancel score entry"
+      >
+        ×
+      </button>
 
       <div
         id="scoreEntryHole"
@@ -2098,14 +1646,12 @@
         HOLE
       </div>
 
-
       <div
         id="scoreEntryPar"
         class="score-entry-par"
       >
         PAR
       </div>
-
 
       <input
         id="scoreEntryInput"
@@ -2117,7 +1663,6 @@
         enterkeyhint="done"
         autocomplete="off"
       >
-
 
       <button
         id="scoreEntryEnter"
@@ -2131,221 +1676,131 @@
 
   </div>
 
-
   <script>
 
     // ==========================================================
     // ROTB 2026
     // TEST BUILD
     //
-    // BLUE = TESTING / DIAGNOSTICS
+    // BLUE = TESTING / DIAGNOSTIC ONLY
     //
     // Google Sheets remains source of truth.
     //
-    // READS:
-    // One plain fetch.
-    // No automatic retry.
+    // Scorecard:
+    // One normal read request.
     //
-    // WRITES:
-    // One plain fetch.
-    // No blind retry.
+    // Saves:
+    // One write request.
+    // No automatic write retry.
     //
-    // No artificial abort timeout.
+    // Leaderboard:
+    // Initial load when opened.
+    // Manual REFRESH only.
+    // No automatic polling.
     //
+    // The experimental 3-second forced page reload
+    // has been removed.
     // ==========================================================
-
 
     const SCRIPT_URL =
       'https://script.google.com/macros/s/AKfycbx4r2MORk4rPjUf28W_7EoarbgKEJzVTIOuaewqKf5cqUpehQlqKFa0ZyyKDjpy7Fc9/exec';
 
-
-    const LEADERBOARD_REFRESH_MS =
-      8000;
-
-
     const els = {
 
       topLoading:
-        document.getElementById(
-          'topLoading'
-        ),
-
+        document.getElementById('topLoading'),
 
       homeView:
-        document.getElementById(
-          'homeView'
-        ),
-
+        document.getElementById('homeView'),
 
       scorecardView:
-        document.getElementById(
-          'scorecardView'
-        ),
-
+        document.getElementById('scorecardView'),
 
       leaderboardView:
-        document.getElementById(
-          'leaderboardView'
-        ),
-
+        document.getElementById('leaderboardView'),
 
       homeScorecardButton:
-        document.getElementById(
-          'homeScorecardButton'
-        ),
-
+        document.getElementById('homeScorecardButton'),
 
       homeLeaderboardButton:
-        document.getElementById(
-          'homeLeaderboardButton'
-        ),
-
+        document.getElementById('homeLeaderboardButton'),
 
       resetUserButton:
-        document.getElementById(
-          'resetUserButton'
-        ),
-
+        document.getElementById('resetUserButton'),
 
       scoreHomeButton:
-        document.getElementById(
-          'scoreHomeButton'
-        ),
-
+        document.getElementById('scoreHomeButton'),
 
       leaderHomeButton:
-        document.getElementById(
-          'leaderHomeButton'
-        ),
-
+        document.getElementById('leaderHomeButton'),
 
       teamSelect:
-        document.getElementById(
-          'teamSelect'
-        ),
-
-
-      teamHeading:
-        document.getElementById(
-          'teamHeading'
-        ),
-
+        document.getElementById('teamSelect'),
 
       scoreRows:
-        document.getElementById(
-          'scoreRows'
-        ),
-
+        document.getElementById('scoreRows'),
 
       scoreScroll:
-        document.getElementById(
-          'scoreScroll'
-        ),
-
+        document.getElementById('scoreScroll'),
 
       scoreTiming:
-        document.getElementById(
-          'scoreTiming'
-        ),
-
+        document.getElementById('scoreTiming'),
 
       scoreLeaderboardButton:
-        document.getElementById(
-          'scoreLeaderboardButton'
-        ),
-
+        document.getElementById('scoreLeaderboardButton'),
 
       submitBtn:
-        document.getElementById(
-          'submitBtn'
-        ),
-
+        document.getElementById('submitBtn'),
 
       leaderRows:
-        document.getElementById(
-          'leaderRows'
-        ),
-
+        document.getElementById('leaderRows'),
 
       leaderUpdateNote:
-        document.getElementById(
-          'leaderUpdateNote'
-        ),
-
+        document.getElementById('leaderUpdateNote'),
 
       leaderTiming:
-        document.getElementById(
-          'leaderTiming'
-        ),
+        document.getElementById('leaderTiming'),
 
+      leaderRefreshButton:
+        document.getElementById('leaderRefreshButton'),
 
       leaderScorecardButton:
-        document.getElementById(
-          'leaderScorecardButton'
-        ),
-
+        document.getElementById('leaderScorecardButton'),
 
       modalOverlay:
-        document.getElementById(
-          'modalOverlay'
-        ),
-
+        document.getElementById('modalOverlay'),
 
       modalTitle:
-        document.getElementById(
-          'modalTitle'
-        ),
-
+        document.getElementById('modalTitle'),
 
       modalBody:
-        document.getElementById(
-          'modalBody'
-        ),
-
+        document.getElementById('modalBody'),
 
       modalInput:
-        document.getElementById(
-          'modalInput'
-        ),
-
+        document.getElementById('modalInput'),
 
       modalActions:
-        document.getElementById(
-          'modalActions'
-        ),
-
+        document.getElementById('modalActions'),
 
       scoreEntryOverlay:
-        document.getElementById(
-          'scoreEntryOverlay'
-        ),
-
+        document.getElementById('scoreEntryOverlay'),
 
       scoreEntryHole:
-        document.getElementById(
-          'scoreEntryHole'
-        ),
-
+        document.getElementById('scoreEntryHole'),
 
       scoreEntryPar:
-        document.getElementById(
-          'scoreEntryPar'
-        ),
-
+        document.getElementById('scoreEntryPar'),
 
       scoreEntryInput:
-        document.getElementById(
-          'scoreEntryInput'
-        ),
-
+        document.getElementById('scoreEntryInput'),
 
       scoreEntryEnter:
-        document.getElementById(
-          'scoreEntryEnter'
-        )
+        document.getElementById('scoreEntryEnter'),
+
+      scoreEntryCancel:
+        document.getElementById('scoreEntryCancel')
 
     };
-
 
     let holes = [];
 
@@ -2353,98 +1808,98 @@
 
     let selectedTeam = null;
 
-
     let localScores =
       Array(18).fill(null);
-
 
     let savedScores =
       Array(18).fill(null);
 
-
     let activeScoreIndex =
       null;
-
 
     let scoreEntryClosing =
       false;
 
-
     let currentView =
       'home';
-
 
     let scorecardHasLoaded =
       false;
 
-
     let scorecardLoadInProgress =
       false;
-
 
     let leaderboardHasLoaded =
       false;
 
-
-    let leaderboardTimer =
-      null;
-
-
     let leaderboardLoadInProgress =
       false;
-
 
     let saveInProgress =
       false;
 
+    let scorecardLoadSeconds =
+      null;
 
-    // ==========================================================
-    // TIMING HELPERS
-    // ==========================================================
+    let scoreSaveSeconds =
+      null;
 
+    let leaderboardLoadSeconds =
+      null;
 
-    function beginTimer() {
+    let leaderboardRefreshSeconds =
+      null;
+
+    let scorecardBackendTiming =
+      null;
+
+    let scoreSaveBackendTiming =
+      null;
+
+    let leaderboardLoadBackendTiming =
+      null;
+
+    let leaderboardRefreshBackendTiming =
+      null;
+
+    /* =========================================================
+       TIMING
+       ========================================================= */
+
+    function timerStart() {
 
       return performance.now();
 
     }
 
-
-    function elapsedSeconds(
-      started
+    function timerSeconds(
+      start
     ) {
 
       return (
         (
           performance.now() -
-          started
+          start
         ) /
         1000
       ).toFixed(2);
 
     }
 
-
-    function msToSeconds(
+    function timingSecondsFromMs(
       value
     ) {
 
       const number =
-        Number(
-          value
-        );
-
+        Number(value);
 
       if (
-        !Number.isFinite(
-          number
-        )
+        !Number.isFinite(number)
       ) {
 
         return null;
 
       }
-
 
       return (
         number /
@@ -2453,177 +1908,218 @@
 
     }
 
-
-    function setScoreLoadTiming(
-      phoneSeconds,
-      timing
-    ) {
-
-      let text =
-        'TEST • LOAD ' +
-        phoneSeconds +
-        's';
-
+    function updateScoreTiming() {
 
       if (
-        timing &&
-        timing.serverMs !==
-        undefined
+        scoreSaveSeconds !==
+        null
       ) {
 
-        text +=
-          ' • SERVER ' +
-          msToSeconds(
-            timing.serverMs
-          ) +
-          's';
+        const parts = [
+          'SAVE ' +
+          scoreSaveSeconds +
+          's'
+        ];
+
+        const timing =
+          scoreSaveBackendTiming;
+
+        if (timing) {
+
+          const server =
+            timingSecondsFromMs(
+              timing.serverMs
+            );
+
+          const write =
+            timingSecondsFromMs(
+              timing.writeMs
+            );
+
+          const flush =
+            timingSecondsFromMs(
+              timing.flushMs
+            );
+
+          if (server !== null) {
+
+            parts.push(
+              'SVR ' +
+              server +
+              's'
+            );
+
+          }
+
+          if (write !== null) {
+
+            parts.push(
+              'WR ' +
+              write +
+              's'
+            );
+
+          }
+
+          if (flush !== null) {
+
+            parts.push(
+              'FL ' +
+              flush +
+              's'
+            );
+
+          }
+
+        }
+
+        els.scoreTiming.textContent =
+          'TEST • ' +
+          parts.join(' • ');
+
+        return;
 
       }
 
-
       if (
-        timing &&
-        timing.sheetReadMs !==
-        undefined
+        scorecardLoadSeconds !==
+        null
       ) {
 
-        text +=
-          ' • READ ' +
-          msToSeconds(
-            timing.sheetReadMs
-          ) +
-          's';
+        const parts = [
+          'LOAD ' +
+          scorecardLoadSeconds +
+          's'
+        ];
+
+        const timing =
+          scorecardBackendTiming;
+
+        if (timing) {
+
+          const server =
+            timingSecondsFromMs(
+              timing.serverMs
+            );
+
+          const read =
+            timingSecondsFromMs(
+              timing.sheetReadMs
+            );
+
+          if (server !== null) {
+
+            parts.push(
+              'SVR ' +
+              server +
+              's'
+            );
+
+          }
+
+          if (read !== null) {
+
+            parts.push(
+              'RD ' +
+              read +
+              's'
+            );
+
+          }
+
+        }
+
+        els.scoreTiming.textContent =
+          'TEST • ' +
+          parts.join(' • ');
+
+        return;
 
       }
-
 
       els.scoreTiming.textContent =
-        text;
+        '';
 
     }
 
+    function updateLeaderboardTiming() {
 
-    function setScoreSaveTiming(
-      phoneSeconds,
-      timing
-    ) {
+      const isRefresh =
+        leaderboardRefreshSeconds !==
+        null;
 
-      let text =
-        'TEST • SAVE ' +
-        phoneSeconds +
-        's';
+      const seconds =
+        isRefresh
+          ? leaderboardRefreshSeconds
+          : leaderboardLoadSeconds;
 
+      const timing =
+        isRefresh
+          ? leaderboardRefreshBackendTiming
+          : leaderboardLoadBackendTiming;
 
-      if (
-        timing &&
-        timing.serverMs !==
-        undefined
-      ) {
+      if (seconds === null) {
 
-        text +=
-          ' • SERVER ' +
-          msToSeconds(
+        els.leaderTiming.textContent =
+          '';
+
+        return;
+
+      }
+
+      const parts = [
+        (
+          isRefresh
+            ? 'REFRESH '
+            : 'LOAD '
+        ) +
+        seconds +
+        's'
+      ];
+
+      if (timing) {
+
+        const server =
+          timingSecondsFromMs(
             timing.serverMs
-          ) +
-          's';
+          );
 
-      }
-
-
-      if (
-        timing &&
-        timing.writeMs !==
-        undefined
-      ) {
-
-        text +=
-          ' • WRITE ' +
-          msToSeconds(
-            timing.writeMs
-          ) +
-          's';
-
-      }
-
-
-      if (
-        timing &&
-        timing.flushMs !==
-        undefined
-      ) {
-
-        text +=
-          ' • FLUSH ' +
-          msToSeconds(
-            timing.flushMs
-          ) +
-          's';
-
-      }
-
-
-      els.scoreTiming.textContent =
-        text;
-
-    }
-
-
-    function setLeaderboardTiming(
-      label,
-      phoneSeconds,
-      timing
-    ) {
-
-      let text =
-        'TEST • ' +
-        label +
-        ' ' +
-        phoneSeconds +
-        's';
-
-
-      if (
-        timing &&
-        timing.serverMs !==
-        undefined
-      ) {
-
-        text +=
-          ' • SERVER ' +
-          msToSeconds(
-            timing.serverMs
-          ) +
-          's';
-
-      }
-
-
-      if (
-        timing &&
-        timing.sheetReadMs !==
-        undefined
-      ) {
-
-        text +=
-          ' • READ ' +
-          msToSeconds(
+        const read =
+          timingSecondsFromMs(
             timing.sheetReadMs
-          ) +
-          's';
+          );
+
+        if (server !== null) {
+
+          parts.push(
+            'SVR ' +
+            server +
+            's'
+          );
+
+        }
+
+        if (read !== null) {
+
+          parts.push(
+            'RD ' +
+            read +
+            's'
+          );
+
+        }
 
       }
-
 
       els.leaderTiming.textContent =
-        text;
+        'TEST • ' +
+        parts.join(' • ');
 
     }
 
-
-    // ==========================================================
-    // STORAGE
-    // ==========================================================
-
+    /* =========================================================
+       STORAGE
+       ========================================================= */
 
     function getAuthorizedTeam() {
 
@@ -2634,7 +2130,6 @@
       );
 
     }
-
 
     function setAuthorizedTeam(
       teamName
@@ -2647,7 +2142,6 @@
 
     }
 
-
     function getRememberedSelectedTeam() {
 
       return (
@@ -2657,7 +2151,6 @@
       );
 
     }
-
 
     function rememberSelectedTeam(
       teamName
@@ -2670,14 +2163,12 @@
 
     }
 
-
     function rememberCurrentView(
       view
     ) {
 
       currentView =
         view;
-
 
       sessionStorage.setItem(
         'rotbCurrentView',
@@ -2686,14 +2177,12 @@
 
     }
 
-
     function getRememberedView() {
 
       const value =
         sessionStorage.getItem(
           'rotbCurrentView'
         );
-
 
       if (
         value === 'scorecard' ||
@@ -2705,100 +2194,101 @@
 
       }
 
-
       return 'home';
 
     }
 
-
-    // ==========================================================
-    // RESET USER
-    // TESTING ONLY
-    // ==========================================================
-
+    /* =========================================================
+       RESET USER
+       TESTING ONLY
+       ========================================================= */
 
     function resetUser() {
-
-      localStorage.removeItem(
-        'rotbSelectedTeam'
-      );
-
 
       localStorage.removeItem(
         'rotbAuthorizedTeam'
       );
 
+      localStorage.removeItem(
+        'rotbSelectedTeam'
+      );
 
       sessionStorage.removeItem(
         'rotbCurrentView'
       );
 
-
-      clearLeaderboardTimer();
-
-
       selectedTeam =
         null;
 
+      holes = [];
 
-      holes =
-        [];
-
-
-      teams =
-        [];
-
+      teams = [];
 
       localScores =
         Array(18).fill(null);
 
-
       savedScores =
         Array(18).fill(null);
-
 
       scorecardHasLoaded =
         false;
 
-
       leaderboardHasLoaded =
         false;
 
+      scorecardLoadSeconds =
+        null;
+
+      scoreSaveSeconds =
+        null;
+
+      leaderboardLoadSeconds =
+        null;
+
+      leaderboardRefreshSeconds =
+        null;
+
+      scorecardBackendTiming =
+        null;
+
+      scoreSaveBackendTiming =
+        null;
+
+      leaderboardLoadBackendTiming =
+        null;
+
+      leaderboardRefreshBackendTiming =
+        null;
 
       els.scoreTiming.textContent =
         '';
 
-
       els.leaderTiming.textContent =
         '';
-
 
       els.scoreRows.innerHTML =
         '';
 
-
       els.leaderRows.innerHTML =
         '';
-
 
       els.teamSelect.innerHTML =
         '<option value="">SELECT TEAM</option>';
 
+      els.teamSelect.value =
+        '';
 
-      els.teamHeading.textContent =
-        'SELECT A TEAM';
-
-
-      els.teamHeading
+      els.teamSelect
         .classList
         .remove(
-          'long'
+          'has-team'
         );
-
 
       els.submitBtn.disabled =
         true;
 
+      currentView =
+        'home';
 
       showTestingMessage(
         'USER RESET',
@@ -2807,11 +2297,9 @@
 
     }
 
-
-    // ==========================================================
-    // VIEW CONTROL
-    // ==========================================================
-
+    /* =========================================================
+       VIEW CONTROL
+       ========================================================= */
 
     function setActiveView(
       view
@@ -2824,14 +2312,12 @@
           view === 'home'
         );
 
-
       els.scorecardView
         .classList
         .toggle(
           'active',
           view === 'scorecard'
         );
-
 
       els.leaderboardView
         .classList
@@ -2840,17 +2326,13 @@
           view === 'leaderboard'
         );
 
-
       rememberCurrentView(
         view
       );
 
     }
 
-
     function showHome() {
-
-      clearLeaderboardTimer();
 
       closeModal();
 
@@ -2858,11 +2340,9 @@
         false
       );
 
-
       setActiveView(
         'home'
       );
-
 
       window.scrollTo(
         0,
@@ -2871,24 +2351,18 @@
 
     }
 
-
     async function showScorecard() {
 
-      clearLeaderboardTimer();
-
       closeModal();
-
 
       setActiveView(
         'scorecard'
       );
 
-
       window.scrollTo(
         0,
         0
       );
-
 
       if (
         !scorecardHasLoaded &&
@@ -2901,7 +2375,6 @@
 
     }
 
-
     async function showLeaderboard() {
 
       closeModal();
@@ -2910,71 +2383,31 @@
         true
       );
 
-
       setActiveView(
         'leaderboard'
       );
-
 
       window.scrollTo(
         0,
         0
       );
 
-
-      await loadLeaderboard(
-        true
-      );
-
-
-      clearLeaderboardTimer();
-
-
-      leaderboardTimer =
-        setInterval(
-          () => {
-
-            if (
-              currentView ===
-              'leaderboard'
-            ) {
-
-              loadLeaderboard(
-                false
-              );
-
-            }
-
-          },
-          LEADERBOARD_REFRESH_MS
-        );
-
-    }
-
-
-    function clearLeaderboardTimer() {
-
       if (
-        leaderboardTimer
+        !leaderboardHasLoaded &&
+        !leaderboardLoadInProgress
       ) {
 
-        clearInterval(
-          leaderboardTimer
+        await loadLeaderboard(
+          true
         );
-
-
-        leaderboardTimer =
-          null;
 
       }
 
     }
 
-
-    // ==========================================================
-    // SCORECARD READ
-    // ==========================================================
-
+    /* =========================================================
+       SCORECARD READ
+       ========================================================= */
 
     async function loadScorecard() {
 
@@ -2986,17 +2419,13 @@
 
       }
 
-
       scorecardLoadInProgress =
         true;
 
-
       const started =
-        beginTimer();
-
+        timerStart();
 
       startLoadingLine();
-
 
       try {
 
@@ -3004,7 +2433,6 @@
           SCRIPT_URL +
           '?refresh=' +
           Date.now();
-
 
         const response =
           await fetch(
@@ -3014,7 +2442,6 @@
                 'no-store'
             }
           );
-
 
         if (
           !response.ok
@@ -3026,10 +2453,8 @@
 
         }
 
-
         const data =
           await response.json();
-
 
         if (
           !data ||
@@ -3046,14 +2471,12 @@
 
         }
 
-
         holes =
           Array.isArray(
             data.holes
           )
             ? data.holes
             : [];
-
 
         teams =
           Array.isArray(
@@ -3068,33 +2491,54 @@
               )
             : [];
 
-
         buildTeamSelect();
 
         restoreOrSelectTeam();
 
         renderScorecard();
 
-
         scorecardHasLoaded =
           true;
 
-
-        setScoreLoadTiming(
-          elapsedSeconds(
+        scorecardLoadSeconds =
+          timerSeconds(
             started
-          ),
-          data.timing
-        );
+          );
 
+        scorecardBackendTiming =
+          data.timing ||
+          null;
+
+        scoreSaveSeconds =
+          null;
+
+        scoreSaveBackendTiming =
+          null;
+
+        updateScoreTiming();
 
         completeLoadingLine();
 
       }
       catch (error) {
 
-        stopLoadingLine();
+        scorecardLoadSeconds =
+          timerSeconds(
+            started
+          );
 
+        scorecardBackendTiming =
+          null;
+
+        scoreSaveSeconds =
+          null;
+
+        scoreSaveBackendTiming =
+          null;
+
+        updateScoreTiming();
+
+        stopLoadingLine();
 
         showLoadError(
           'Scorecard Could Not Load',
@@ -3103,10 +2547,8 @@
 
             closeModal();
 
-
             scorecardHasLoaded =
               false;
-
 
             await loadScorecard();
 
@@ -3123,17 +2565,14 @@
 
     }
 
-
-    // ==========================================================
-    // TEAM SELECT
-    // ==========================================================
-
+    /* =========================================================
+       TEAM SELECT
+       ========================================================= */
 
     function buildTeamSelect() {
 
       els.teamSelect.innerHTML =
         '<option value="">SELECT TEAM</option>';
-
 
       teams.forEach(
         team => {
@@ -3143,16 +2582,13 @@
               'option'
             );
 
-
           option.value =
             String(
               team.slot
             );
 
-
           option.textContent =
             team.name;
-
 
           els.teamSelect.appendChild(
             option
@@ -3161,32 +2597,32 @@
         }
       );
 
-
       els.teamSelect.value =
         '';
 
-    }
+      els.teamSelect
+        .classList
+        .remove(
+          'has-team'
+        );
 
+    }
 
     function restoreOrSelectTeam() {
 
       const remembered =
         getRememberedSelectedTeam();
 
-
       const team =
         teams.find(
           item =>
-
             normalizeName(
               item.name
             ) ===
-
             normalizeName(
               remembered
             )
         );
-
 
       if (team) {
 
@@ -3204,7 +2640,6 @@
 
     }
 
-
     function selectTeam(
       slot,
       scrollToTop = true
@@ -3221,59 +2656,44 @@
             )
         );
 
-
       if (!team) {
 
         return;
 
       }
 
-
       selectedTeam =
         team;
-
 
       localScores =
         normalizeScores(
           team.scores
         );
 
-
       savedScores =
         normalizeScores(
           team.scores
         );
 
-
       rememberSelectedTeam(
         team.name
       );
 
-
-      els.teamHeading.textContent =
-        team.name;
-
-
-      els.teamHeading
-        .classList
-        .toggle(
-          'long',
-          String(
-            team.name
-          ).length > 15
+      els.teamSelect.value =
+        String(
+          team.slot
         );
 
+      els.teamSelect
+        .classList
+        .add(
+          'has-team'
+        );
 
       els.submitBtn.disabled =
         false;
 
-
-      els.teamSelect.value =
-        '';
-
-
       renderScorecard();
-
 
       if (
         scrollToTop
@@ -3286,48 +2706,36 @@
 
     }
 
-
     function clearSelectedTeam() {
 
       selectedTeam =
         null;
-
 
       localScores =
         Array(18).fill(
           null
         );
 
-
       savedScores =
         Array(18).fill(
           null
         );
 
-
-      els.teamHeading.textContent =
-        'SELECT A TEAM';
-
-
-      els.teamHeading
-        .classList
-        .remove(
-          'long'
-        );
-
-
       els.teamSelect.value =
         '';
 
+      els.teamSelect
+        .classList
+        .remove(
+          'has-team'
+        );
 
       els.submitBtn.disabled =
         true;
 
-
       renderScorecard();
 
     }
-
 
     function normalizeName(
       value
@@ -3341,7 +2749,6 @@
 
     }
 
-
     function normalizeScores(
       values
     ) {
@@ -3352,7 +2759,6 @@
         )
           ? values
           : [];
-
 
       return Array.from(
         {
@@ -3365,7 +2771,6 @@
               index
             ];
 
-
           if (
             value === '' ||
             value === null ||
@@ -3376,12 +2781,10 @@
 
           }
 
-
           const number =
             Number(
               value
             );
-
 
           if (
             Number.isInteger(
@@ -3394,7 +2797,6 @@
 
           }
 
-
           return null;
 
         }
@@ -3402,24 +2804,20 @@
 
     }
 
-
-    // ==========================================================
-    // SCORECARD RENDER
-    // ==========================================================
-
+    /* =========================================================
+       SCORECARD RENDER
+       ========================================================= */
 
     function renderScorecard() {
 
       els.scoreRows.innerHTML =
         '';
 
-
       holes.forEach(
         (
           hole,
           index
         ) => {
-
 
           if (
             index === 9
@@ -3430,10 +2828,8 @@
                 'div'
               );
 
-
             breakRow.className =
               'nine-break';
-
 
             els.scoreRows.appendChild(
               breakRow
@@ -3441,96 +2837,76 @@
 
           }
 
-
           const row =
             document.createElement(
               'div'
             );
 
-
           row.className =
             'score-row';
-
 
           const holeCell =
             document.createElement(
               'div'
             );
 
-
           holeCell.className =
             'hole-cell';
 
-
           holeCell.textContent =
             hole.hole;
-
 
           const parCell =
             document.createElement(
               'div'
             );
 
-
           parCell.className =
             'par-cell';
 
-
           parCell.textContent =
             hole.par;
-
 
           const yardageCell =
             document.createElement(
               'div'
             );
 
-
           yardageCell.className =
             'yardage-cell';
-
 
           const white =
             document.createElement(
               'span'
             );
 
-
           white.className =
             'yard-white';
 
-
           white.textContent =
             hole.white;
-
 
           const slash =
             document.createElement(
               'span'
             );
 
-
           slash.className =
             'yard-slash';
 
-
           slash.textContent =
             '/';
-
 
           const gold =
             document.createElement(
               'span'
             );
 
-
           gold.className =
             'yard-gold';
 
-
           gold.textContent =
             hole.gold;
-
 
           yardageCell.append(
             white,
@@ -3538,30 +2914,24 @@
             gold
           );
 
-
           const scoreCell =
             document.createElement(
               'div'
             );
 
-
           scoreCell.className =
             'score-cell';
-
 
           const button =
             document.createElement(
               'button'
             );
 
-
           button.type =
             'button';
 
-
           button.className =
             'score-button';
-
 
           if (
             !selectedTeam
@@ -3570,11 +2940,9 @@
             button.disabled =
               true;
 
-
             button.classList.add(
               'empty'
             );
-
 
             button.textContent =
               '';
@@ -3587,12 +2955,10 @@
                 index
               ];
 
-
             const saved =
               savedScores[
                 index
               ];
-
 
             if (
               local === null
@@ -3601,7 +2967,6 @@
               button.classList.add(
                 'empty'
               );
-
 
               button.textContent =
                 '';
@@ -3613,7 +2978,6 @@
                 String(
                   local
                 );
-
 
               if (
                 local === saved
@@ -3634,7 +2998,6 @@
 
             }
 
-
             button.addEventListener(
               'click',
               () => {
@@ -3648,11 +3011,9 @@
 
           }
 
-
           scoreCell.appendChild(
             button
           );
-
 
           row.append(
             holeCell,
@@ -3660,7 +3021,6 @@
             yardageCell,
             scoreCell
           );
-
 
           els.scoreRows.appendChild(
             row
@@ -3671,11 +3031,9 @@
 
     }
 
-
-    // ==========================================================
-    // AUTHORIZATION
-    // ==========================================================
-
+    /* =========================================================
+       AUTHORIZATION
+       ========================================================= */
 
     function isSelectedTeamAuthorized() {
 
@@ -3687,21 +3045,16 @@
 
       }
 
-
       return (
-
         normalizeName(
           getAuthorizedTeam()
         ) ===
-
         normalizeName(
           selectedTeam.name
         )
-
       );
 
     }
-
 
     function requestScoreEntry(
       index
@@ -3715,7 +3068,6 @@
 
       }
 
-
       if (
         isSelectedTeamAuthorized()
       ) {
@@ -3724,11 +3076,9 @@
           index
         );
 
-
         return;
 
       }
-
 
       showAuthorizationModal(
         index
@@ -3736,17 +3086,14 @@
 
     }
 
-
     function showAuthorizationModal(
       index
     ) {
 
       closeModal();
 
-
       els.modalTitle.textContent =
         'Authorize Scoring';
-
 
       els.modalBody.innerHTML =
         'For the team <strong>' +
@@ -3755,18 +3102,14 @@
         ) +
         '</strong>, type <strong>OK</strong> below.';
 
-
       els.modalInput.style.display =
         'block';
-
 
       els.modalInput.value =
         '';
 
-
       els.modalInput.placeholder =
         'Type OK';
-
 
       const cancel =
         makeModalButton(
@@ -3774,7 +3117,6 @@
           '',
           closeModal
         );
-
 
       const unlock =
         makeModalButton(
@@ -3792,26 +3134,20 @@
               els.modalInput.value =
                 '';
 
-
               els.modalInput.placeholder =
                 'Please type OK';
 
-
               els.modalInput.focus();
-
 
               return;
 
             }
 
-
             setAuthorizedTeam(
               selectedTeam.name
             );
 
-
             closeModal();
-
 
             openScoreEntry(
               index
@@ -3820,23 +3156,19 @@
           }
         );
 
-
       els.modalActions.className =
         'modal-actions';
-
 
       els.modalActions.replaceChildren(
         cancel,
         unlock
       );
 
-
       els.modalOverlay
         .classList
         .add(
           'open'
         );
-
 
       setTimeout(
         () => {
@@ -3846,7 +3178,6 @@
         },
         60
       );
-
 
       els.modalInput.onkeydown =
         event => {
@@ -3858,7 +3189,6 @@
 
             event.preventDefault();
 
-
             unlock.click();
 
           }
@@ -3867,11 +3197,9 @@
 
     }
 
-
-    // ==========================================================
-    // SCORE ENTRY
-    // ==========================================================
-
+    /* =========================================================
+       SCORE ENTRY
+       ========================================================= */
 
     function openScoreEntry(
       index
@@ -3882,7 +3210,6 @@
           index
         ];
 
-
       if (
         !hole ||
         !selectedTeam
@@ -3892,35 +3219,28 @@
 
       }
 
-
       activeScoreIndex =
         index;
 
-
       scoreEntryClosing =
         false;
-
 
       els.scoreEntryHole.textContent =
         'HOLE ' +
         hole.hole;
 
-
       els.scoreEntryPar.textContent =
         'PAR ' +
         hole.par;
 
-
       els.scoreEntryInput.value =
         '';
-
 
       els.scoreEntryOverlay
         .classList
         .add(
           'open'
         );
-
 
       setTimeout(
         () => {
@@ -3931,11 +3251,9 @@
         50
       );
 
-
       positionScoreEntry();
 
     }
-
 
     function commitScoreEntryValue() {
 
@@ -3948,13 +3266,11 @@
 
       }
 
-
       const raw =
         String(
           els.scoreEntryInput.value ||
           ''
         ).trim();
-
 
       if (
         raw === ''
@@ -3964,12 +3280,10 @@
 
       }
 
-
       const value =
         Number(
           raw
         );
-
 
       if (
         !Number.isInteger(
@@ -3982,17 +3296,14 @@
 
       }
 
-
       localScores[
         activeScoreIndex
       ] =
         value;
 
-
       renderScorecard();
 
     }
-
 
     function closeScoreEntry(
       commitTypedValue
@@ -4011,10 +3322,8 @@
 
       }
 
-
       scoreEntryClosing =
         true;
-
 
       if (
         commitTypedValue
@@ -4024,24 +3333,19 @@
 
       }
 
-
       els.scoreEntryOverlay
         .classList
         .remove(
           'open'
         );
 
-
       els.scoreEntryInput.blur();
-
 
       els.scoreEntryInput.value =
         '';
 
-
       activeScoreIndex =
         null;
-
 
       setTimeout(
         () => {
@@ -4054,7 +3358,6 @@
       );
 
     }
-
 
     function positionScoreEntry() {
 
@@ -4071,10 +3374,8 @@
 
       }
 
-
       const viewport =
         window.visualViewport;
-
 
       const top =
         Math.max(
@@ -4083,18 +3384,16 @@
           18
         );
 
-
       els.scoreEntryOverlay.style.paddingTop =
         top +
         'px';
 
     }
 
-
-    // ==========================================================
-    // SAVE SCORES
-    // ==========================================================
-
+    /* =========================================================
+       SAVE SCORES
+       UNCHANGED - NO AUTO RELOAD / NO RETRY
+       ========================================================= */
 
     async function submitScores() {
 
@@ -4106,7 +3405,6 @@
         return;
 
       }
-
 
       if (
         els.scoreEntryOverlay
@@ -4122,21 +3420,16 @@
 
       }
 
-
       saveInProgress =
         true;
-
 
       els.submitBtn.disabled =
         true;
 
-
       const started =
-        beginTimer();
-
+        timerStart();
 
       startLoadingLine();
-
 
       try {
 
@@ -4147,23 +3440,17 @@
             )
           );
 
-
         const url =
           SCRIPT_URL +
-
           '?action=saveScores' +
-
           '&slot=' +
           encodeURIComponent(
             selectedTeam.slot
           ) +
-
           '&scores=' +
           encodedScores +
-
           '&refresh=' +
           Date.now();
-
 
         const response =
           await fetch(
@@ -4173,7 +3460,6 @@
                 'no-store'
             }
           );
-
 
         if (
           !response.ok
@@ -4185,10 +3471,8 @@
 
         }
 
-
         const data =
           await response.json();
-
 
         if (
           !data ||
@@ -4205,32 +3489,26 @@
 
         }
 
-
         savedScores =
           normalizeScores(
             data.scores
           );
-
 
         localScores =
           normalizeScores(
             data.scores
           );
 
-
         const teamIndex =
           teams.findIndex(
             team =>
-
               Number(
                 team.slot
               ) ===
-
               Number(
                 selectedTeam.slot
               )
           );
-
 
         if (
           teamIndex >= 0
@@ -4243,7 +3521,6 @@
               ...savedScores
             ];
 
-
           selectedTeam =
             teams[
               teamIndex
@@ -4251,25 +3528,35 @@
 
         }
 
-
         renderScorecard();
 
-
-        setScoreSaveTiming(
-          elapsedSeconds(
+        scoreSaveSeconds =
+          timerSeconds(
             started
-          ),
-          data.timing
-        );
+          );
 
+        scoreSaveBackendTiming =
+          data.timing ||
+          null;
+
+        updateScoreTiming();
 
         completeLoadingLine();
 
       }
       catch (error) {
 
-        stopLoadingLine();
+        scoreSaveSeconds =
+          timerSeconds(
+            started
+          );
 
+        scoreSaveBackendTiming =
+          null;
+
+        updateScoreTiming();
+
+        stopLoadingLine();
 
         showMessageModal(
           'Save Failed',
@@ -4282,7 +3569,6 @@
         saveInProgress =
           false;
 
-
         els.submitBtn.disabled =
           !selectedTeam;
 
@@ -4290,11 +3576,10 @@
 
     }
 
-
-    // ==========================================================
-    // LEADERBOARD READ
-    // ==========================================================
-
+    /* =========================================================
+       LEADERBOARD READ
+       MANUAL REFRESH
+       ========================================================= */
 
     async function loadLeaderboard(
       showErrorIfEmpty
@@ -4308,35 +3593,32 @@
 
       }
 
-
       leaderboardLoadInProgress =
         true;
 
+      els.leaderRefreshButton.disabled =
+        true;
 
       const wasAlreadyLoaded =
         leaderboardHasLoaded;
 
-
       const started =
-        beginTimer();
-
+        timerStart();
 
       els.leaderUpdateNote.textContent =
-        leaderboardHasLoaded
-          ? 'Updating leaderboard...'
+        wasAlreadyLoaded
+          ? 'Refreshing leaderboard...'
           : 'Loading leaderboard...';
 
+      startLoadingLine();
 
       try {
 
         const url =
           SCRIPT_URL +
-
           '?action=leaderboard' +
-
           '&refresh=' +
           Date.now();
-
 
         const response =
           await fetch(
@@ -4346,7 +3628,6 @@
                 'no-store'
             }
           );
-
 
         if (
           !response.ok
@@ -4358,10 +3639,8 @@
 
         }
 
-
         const data =
           await response.json();
-
 
         if (
           !data ||
@@ -4378,7 +3657,6 @@
 
         }
 
-
         const rows =
           Array.isArray(
             data.leaderboard
@@ -4386,71 +3664,111 @@
             ? data.leaderboard
             : [];
 
-
         renderLeaderboard(
           rows
         );
 
-
-        setLeaderboardTiming(
-          wasAlreadyLoaded
-            ? 'REFRESH'
-            : 'LOAD',
-          elapsedSeconds(
+        const seconds =
+          timerSeconds(
             started
-          ),
-          data.timing
-        );
+          );
 
+        if (
+          wasAlreadyLoaded
+        ) {
+
+          leaderboardRefreshSeconds =
+            seconds;
+
+          leaderboardRefreshBackendTiming =
+            data.timing ||
+            null;
+
+        }
+        else {
+
+          leaderboardLoadSeconds =
+            seconds;
+
+          leaderboardLoadBackendTiming =
+            data.timing ||
+            null;
+
+        }
+
+        updateLeaderboardTiming();
 
         leaderboardHasLoaded =
           true;
 
-
         els.leaderUpdateNote.textContent =
-          'Live standings • updates automatically';
+          'Tap REFRESH for latest standings';
+
+        completeLoadingLine();
 
       }
       catch (error) {
+
+        const seconds =
+          timerSeconds(
+            started
+          );
+
+        if (
+          wasAlreadyLoaded
+        ) {
+
+          leaderboardRefreshSeconds =
+            seconds;
+
+          leaderboardRefreshBackendTiming =
+            null;
+
+        }
+        else {
+
+          leaderboardLoadSeconds =
+            seconds;
+
+          leaderboardLoadBackendTiming =
+            null;
+
+        }
+
+        updateLeaderboardTiming();
+
+        stopLoadingLine();
 
         if (
           leaderboardHasLoaded
         ) {
 
           els.leaderUpdateNote.textContent =
-            'Update delayed • will try again';
-
+            'Refresh failed • standings unchanged';
 
           return;
 
         }
 
-
         els.leaderUpdateNote.textContent =
           'Leaderboard could not be loaded';
-
 
         if (
           showErrorIfEmpty
         ) {
 
           showLoadError(
-
             'Leaderboard Could Not Load',
-
             'The live leaderboard could not be loaded.',
-
             async () => {
 
               closeModal();
-
 
               await loadLeaderboard(
                 true
               );
 
             }
-
           );
 
         }
@@ -4461,15 +3779,16 @@
         leaderboardLoadInProgress =
           false;
 
+        els.leaderRefreshButton.disabled =
+          false;
+
       }
 
     }
 
-
-    // ==========================================================
-    // LEADERBOARD RENDER
-    // ==========================================================
-
+    /* =========================================================
+       LEADERBOARD RENDER
+       ========================================================= */
 
     function renderLeaderboard(
       rows
@@ -4478,58 +3797,46 @@
       els.leaderRows.innerHTML =
         '';
 
-
       rows.forEach(
         row => {
-
 
           const line =
             document.createElement(
               'div'
             );
 
-
           line.className =
             'leader-row';
-
 
           const teamCell =
             document.createElement(
               'div'
             );
 
-
           teamCell.className =
             'leader-team-cell';
-
 
           const teamName =
             document.createElement(
               'div'
             );
 
-
           teamName.className =
             'leader-team-name';
 
-
           teamName.textContent =
             row.team || '';
-
 
           const hcp =
             document.createElement(
               'div'
             );
 
-
           hcp.className =
             'leader-hcp';
 
-
           let handicapValue =
             row.hcp;
-
 
           if (
             handicapValue === undefined ||
@@ -4548,7 +3855,6 @@
                   )
               );
 
-
             if (match) {
 
               handicapValue =
@@ -4558,47 +3864,33 @@
 
           }
 
-
-          if (
-            handicapValue === undefined ||
-            handicapValue === null ||
-            handicapValue === ''
-          ) {
-
-            hcp.textContent =
-              '';
-
-          }
-          else {
-
-            hcp.textContent =
-              'HCP ' +
-              handicapValue;
-
-          }
-
+          hcp.textContent =
+            (
+              handicapValue === undefined ||
+              handicapValue === null ||
+              handicapValue === ''
+            )
+              ? ''
+              : 'HCP ' +
+                handicapValue;
 
           teamCell.append(
             teamName,
             hcp
           );
 
-
           const throughCell =
             document.createElement(
               'div'
             );
 
-
           throughCell.className =
             'leader-through-cell';
-
 
           const throughScore =
             document.createElement(
               'div'
             );
-
 
           throughScore.className =
             'leader-through-score ' +
@@ -4606,39 +3898,32 @@
               row.gross
             );
 
-
           throughScore.textContent =
             formatGolfScore(
               row.gross
             );
-
 
           const throughLabel =
             document.createElement(
               'div'
             );
 
-
           throughLabel.className =
             'leader-through-label';
-
 
           throughLabel.textContent =
             'THRU ' +
             row.thru;
-
 
           throughCell.append(
             throughScore,
             throughLabel
           );
 
-
           const total =
             document.createElement(
               'div'
             );
-
 
           total.className =
             'leader-total ' +
@@ -4646,19 +3931,16 @@
               row.net
             );
 
-
           total.textContent =
             formatGolfScore(
               row.net
             );
-
 
           line.append(
             teamCell,
             throughCell,
             total
           );
-
 
           els.leaderRows.appendChild(
             line
@@ -4669,7 +3951,6 @@
 
     }
 
-
     function formatGolfScore(
       value
     ) {
@@ -4678,7 +3959,6 @@
         Number(
           value
         );
-
 
       if (
         !Number.isFinite(
@@ -4690,7 +3970,6 @@
 
       }
 
-
       if (
         number === 0
       ) {
@@ -4699,17 +3978,16 @@
 
       }
 
-
       return (
         number > 0
-          ? '+' + number
+          ? '+' +
+            number
           : String(
               number
             )
       );
 
     }
-
 
     function scoreClass(
       value
@@ -4720,7 +3998,6 @@
           value
         );
 
-
       return (
         number < 0
           ? 'under'
@@ -4729,11 +4006,9 @@
 
     }
 
-
-    // ==========================================================
-    // MODALS
-    // ==========================================================
-
+    /* =========================================================
+       MODALS
+       ========================================================= */
 
     function makeModalButton(
       text,
@@ -4746,10 +4021,8 @@
           'button'
         );
 
-
       button.type =
         'button';
-
 
       button.className =
         'modal-btn' +
@@ -4760,21 +4033,17 @@
             : ''
         );
 
-
       button.textContent =
         text;
-
 
       button.addEventListener(
         'click',
         onClick
       );
 
-
       return button;
 
     }
-
 
     function showMessageModal(
       title,
@@ -4783,10 +4052,8 @@
 
       closeModal();
 
-
       els.modalTitle.textContent =
         title;
-
 
       els.modalTitle
         .classList
@@ -4794,14 +4061,11 @@
           'testing'
         );
 
-
       els.modalBody.textContent =
         message;
 
-
       els.modalInput.style.display =
         'none';
-
 
       const close =
         makeModalButton(
@@ -4810,15 +4074,12 @@
           closeModal
         );
 
-
       els.modalActions.className =
         'modal-actions single';
-
 
       els.modalActions.replaceChildren(
         close
       );
-
 
       els.modalOverlay
         .classList
@@ -4828,7 +4089,6 @@
 
     }
 
-
     function showTestingMessage(
       title,
       message
@@ -4836,10 +4096,8 @@
 
       closeModal();
 
-
       els.modalTitle.textContent =
         title;
-
 
       els.modalTitle
         .classList
@@ -4847,14 +4105,11 @@
           'testing'
         );
 
-
       els.modalBody.textContent =
         message;
 
-
       els.modalInput.style.display =
         'none';
-
 
       const close =
         makeModalButton(
@@ -4869,15 +4124,12 @@
           }
         );
 
-
       els.modalActions.className =
         'modal-actions single';
-
 
       els.modalActions.replaceChildren(
         close
       );
-
 
       els.modalOverlay
         .classList
@@ -4886,7 +4138,6 @@
         );
 
     }
-
 
     function showLoadError(
       title,
@@ -4896,10 +4147,8 @@
 
       closeModal();
 
-
       els.modalTitle.textContent =
         title;
-
 
       els.modalTitle
         .classList
@@ -4907,14 +4156,11 @@
           'testing'
         );
 
-
       els.modalBody.textContent =
         message;
 
-
       els.modalInput.style.display =
         'none';
-
 
       const home =
         makeModalButton(
@@ -4923,7 +4169,6 @@
           showHome
         );
 
-
       const retry =
         makeModalButton(
           'TRY AGAIN',
@@ -4931,16 +4176,13 @@
           retryFunction
         );
 
-
       els.modalActions.className =
         'modal-actions';
-
 
       els.modalActions.replaceChildren(
         home,
         retry
       );
-
 
       els.modalOverlay
         .classList
@@ -4950,15 +4192,12 @@
 
     }
 
-
     function showQuickGuide() {
 
       closeModal();
 
-
       els.modalTitle.textContent =
         'QUICK GUIDE';
-
 
       els.modalTitle
         .classList
@@ -4966,39 +4205,24 @@
           'testing'
         );
 
-
       els.modalBody.innerHTML =
-
         '<ol class="quick-list">' +
-
           '<li>Select Your Team</li>' +
-
           '<li>Tap Score &amp; Type <strong>OK</strong> for Scoring Access (One Time)</li>' +
-
           '<li>Enter Score for Each Hole</li>' +
-
           '<li>Gray = Not Submitted</li>' +
-
           '<li>Tap SUBMIT SCORES to Save</li>' +
-
           '<li>Gold = Successfully Submitted</li>' +
-
           '<li>Tap LIVE LEADERBOARD for Current Standings</li>' +
-
+          '<li>Tap REFRESH for the Latest Standings</li>' +
         '</ol>' +
-
         '<div class="quick-correction">' +
-
           '<strong>Need to correct a score?</strong> ' +
-
           'Tap the score, enter the new score, and submit again.' +
-
         '</div>';
-
 
       els.modalInput.style.display =
         'none';
-
 
       const close =
         makeModalButton(
@@ -5007,15 +4231,12 @@
           closeModal
         );
 
-
       els.modalActions.className =
         'modal-actions single';
-
 
       els.modalActions.replaceChildren(
         close
       );
-
 
       els.modalOverlay
         .classList
@@ -5024,7 +4245,6 @@
         );
 
     }
-
 
     function closeModal() {
 
@@ -5034,35 +4254,28 @@
           'open'
         );
 
-
       els.modalTitle
         .classList
         .remove(
           'testing'
         );
 
-
       els.modalInput.style.display =
         'none';
-
 
       els.modalInput.value =
         '';
 
-
       els.modalInput.onkeydown =
         null;
 
-
       els.modalActions.innerHTML =
         '';
-
 
       els.modalActions.className =
         'modal-actions';
 
     }
-
 
     function escapeHtml(
       value
@@ -5094,11 +4307,9 @@
 
     }
 
-
-    // ==========================================================
-    // LOADING LINE
-    // ==========================================================
-
+    /* =========================================================
+       LOADING LINE
+       ========================================================= */
 
     function startLoadingLine() {
 
@@ -5108,7 +4319,6 @@
           'done'
         );
 
-
       els.topLoading
         .classList
         .add(
@@ -5116,7 +4326,6 @@
         );
 
     }
-
 
     function completeLoadingLine() {
 
@@ -5126,13 +4335,11 @@
           'active'
         );
 
-
       els.topLoading
         .classList
         .add(
           'done'
         );
-
 
       setTimeout(
         () => {
@@ -5149,7 +4356,6 @@
 
     }
 
-
     function stopLoadingLine() {
 
       els.topLoading
@@ -5161,11 +4367,9 @@
 
     }
 
-
-    // ==========================================================
-    // EVENTS
-    // ==========================================================
-
+    /* =========================================================
+       EVENTS
+       ========================================================= */
 
     els.homeScorecardButton
       .addEventListener(
@@ -5173,13 +4377,11 @@
         showScorecard
       );
 
-
     els.homeLeaderboardButton
       .addEventListener(
         'click',
         showLeaderboard
       );
-
 
     els.resetUserButton
       .addEventListener(
@@ -5187,13 +4389,11 @@
         resetUser
       );
 
-
     els.scoreHomeButton
       .addEventListener(
         'click',
         showHome
       );
-
 
     els.leaderHomeButton
       .addEventListener(
@@ -5201,13 +4401,23 @@
         showHome
       );
 
-
     els.scoreLeaderboardButton
       .addEventListener(
         'click',
         showLeaderboard
       );
 
+    els.leaderRefreshButton
+      .addEventListener(
+        'click',
+        () => {
+
+          loadLeaderboard(
+            false
+          );
+
+        }
+      );
 
     els.leaderScorecardButton
       .addEventListener(
@@ -5215,13 +4425,11 @@
         showScorecard
       );
 
-
     els.submitBtn
       .addEventListener(
         'click',
         submitScores
       );
-
 
     document
       .querySelectorAll(
@@ -5238,7 +4446,6 @@
         }
       );
 
-
     els.teamSelect
       .addEventListener(
         'change',
@@ -5249,7 +4456,6 @@
               els.teamSelect.value
             );
 
-
           if (
             slot
           ) {
@@ -5259,14 +4465,30 @@
             );
 
           }
+          else {
 
+            clearSelectedTeam();
 
-          els.teamSelect.value =
-            '';
+          }
 
         }
       );
 
+    /*
+      X = CANCEL ONLY.
+    */
+
+    els.scoreEntryCancel
+      .addEventListener(
+        'click',
+        () => {
+
+          closeScoreEntry(
+            false
+          );
+
+        }
+      );
 
     els.scoreEntryEnter
       .addEventListener(
@@ -5280,7 +4502,6 @@
         }
       );
 
-
     els.scoreEntryInput
       .addEventListener(
         'keydown',
@@ -5293,7 +4514,6 @@
 
             event.preventDefault();
 
-
             closeScoreEntry(
               true
             );
@@ -5303,37 +4523,30 @@
         }
       );
 
-
     els.scoreEntryInput
       .addEventListener(
         'blur',
         () => {
 
           if (
-
             els.scoreEntryOverlay
               .classList
               .contains(
                 'open'
               ) &&
-
             !scoreEntryClosing
-
           ) {
 
             setTimeout(
               () => {
 
                 if (
-
                   els.scoreEntryOverlay
                     .classList
                     .contains(
                       'open'
                     ) &&
-
                   !scoreEntryClosing
-
                 ) {
 
                   closeScoreEntry(
@@ -5350,7 +4563,6 @@
 
         }
       );
-
 
     els.scoreEntryOverlay
       .addEventListener(
@@ -5371,7 +4583,6 @@
         }
       );
 
-
     els.modalOverlay
       .addEventListener(
         'pointerdown',
@@ -5389,7 +4600,6 @@
         }
       );
 
-
     if (
       window.visualViewport
     ) {
@@ -5400,7 +4610,6 @@
           positionScoreEntry
         );
 
-
       window.visualViewport
         .addEventListener(
           'scroll',
@@ -5409,23 +4618,14 @@
 
     }
 
-
-    window.addEventListener(
-      'pagehide',
-      clearLeaderboardTimer
-    );
-
-
-    // ==========================================================
-    // STARTUP
-    // ==========================================================
-
+    /* =========================================================
+       STARTUP
+       ========================================================= */
 
     async function initialize() {
 
       const rememberedView =
         getRememberedView();
-
 
       if (
         rememberedView ===
@@ -5434,11 +4634,9 @@
 
         await showScorecard();
 
-
         return;
 
       }
-
 
       if (
         rememberedView ===
@@ -5447,20 +4645,16 @@
 
         await showLeaderboard();
 
-
         return;
 
       }
-
 
       showHome();
 
     }
 
-
     initialize();
 
   </script>
-
 </body>
 </html>
