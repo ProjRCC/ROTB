@@ -268,8 +268,7 @@
       border-radius: 8px;
       background:
         rgba(0,0,0,.78);
-      color:
-        var(--gold);
+      color: #fff;
       font-size: 18px;
       font-weight: 600;
       letter-spacing: .4px;
@@ -601,7 +600,7 @@
 
     .score-button.saved {
       border-color:
-        #d9bd52;
+        var(--gold);
       background:
         var(--gold);
       color: #111;
@@ -668,12 +667,13 @@
         1px solid
         var(--gold);
       background:
-        var(--gold);
-      color: #111;
+        #050505;
+      color: #fff;
     }
 
     .submit-button:disabled {
-      opacity: .42;
+      opacity: 1;
+      color: #fff;
       cursor: default;
     }
 
@@ -776,7 +776,9 @@
     }
 
     .leader-refresh-button:disabled {
-      opacity: .45;
+      opacity: 1;
+      color: #777;
+      cursor: default;
     }
 
     .leader-content {
@@ -946,8 +948,8 @@
         var(--gold);
       border-radius: 9px;
       background:
-        var(--gold);
-      color: #111;
+        #050505;
+      color: #fff;
       font-size: 18px;
       font-weight: 700;
     }
@@ -1691,6 +1693,9 @@
     //
     // Saves:
     // One write request.
+    // Do not wait for the write response.
+    // Independently re-read the scorecard after a brief delay.
+    // Scores turn gold only after Google Sheets confirms the exact values.
     // No automatic write retry.
     //
     // Leaderboard:
@@ -1931,6 +1936,11 @@
               timing.serverMs
             );
 
+          const read =
+            timingSecondsFromMs(
+              timing.sheetReadMs
+            );
+
           const write =
             timingSecondsFromMs(
               timing.writeMs
@@ -1946,6 +1956,16 @@
             parts.push(
               'SVR ' +
               server +
+              's'
+            );
+
+          }
+
+          if (read !== null) {
+
+            parts.push(
+              'RD ' +
+              read +
               's'
             );
 
@@ -2804,6 +2824,28 @@
 
     }
 
+    function scoresEqual(
+      first,
+      second
+    ) {
+
+      const a =
+        normalizeScores(
+          first
+        );
+
+      const b =
+        normalizeScores(
+          second
+        );
+
+      return a.every(
+        (value, index) =>
+          value === b[index]
+      );
+
+    }
+
     /* =========================================================
        SCORECARD RENDER
        ========================================================= */
@@ -3392,7 +3434,7 @@
 
     /* =========================================================
        SAVE SCORES
-       UNCHANGED - NO AUTO RELOAD / NO RETRY
+       EV-INSPIRED: WRITE, THEN INDEPENDENTLY VERIFY
        ========================================================= */
 
     async function submitScores() {
@@ -3429,32 +3471,124 @@
       const started =
         timerStart();
 
+      const expectedScores =
+        normalizeScores(
+          localScores
+        );
+
+      const expectedSlot =
+        Number(
+          selectedTeam.slot
+        );
+
+      const encodedScores =
+        encodeURIComponent(
+          JSON.stringify(
+            expectedScores
+          )
+        );
+
+      const writeUrl =
+        SCRIPT_URL +
+        '?action=saveScores' +
+        '&slot=' +
+        encodeURIComponent(
+          expectedSlot
+        ) +
+        '&scores=' +
+        encodedScores +
+        '&refresh=' +
+        Date.now();
+
       startLoadingLine();
+
+      /*
+        Like the EV app, send the write request
+        without making the golfer wait for that
+        specific response to come back.
+
+        The write is attempted ONCE only.
+        There is NO automatic write retry.
+      */
+
+      fetch(
+        writeUrl,
+        {
+          cache:
+            'no-store'
+        }
+      )
+        .then(
+          response =>
+            response.json()
+        )
+        .then(
+          data => {
+
+            if (
+              !data ||
+              data.success !== true
+            ) {
+
+              console.error(
+                'ROTB save response did not confirm success:',
+                data
+              );
+
+            }
+
+          }
+        )
+        .catch(
+          error => {
+
+            console.error(
+              'ROTB save response error:',
+              error
+            );
+
+          }
+        );
+
+      /*
+        Give Google Sheets a brief moment, then
+        independently read OFFICIAL again.
+
+        The scores remain gray until this read
+        confirms the exact 18 values we sent.
+      */
+
+      setTimeout(
+        () => {
+
+          verifySavedScores(
+            expectedSlot,
+            expectedScores,
+            started
+          );
+
+        },
+        1200
+      );
+
+    }
+
+    async function verifySavedScores(
+      expectedSlot,
+      expectedScores,
+      started
+    ) {
 
       try {
 
-        const encodedScores =
-          encodeURIComponent(
-            JSON.stringify(
-              localScores
-            )
-          );
-
-        const url =
+        const verifyUrl =
           SCRIPT_URL +
-          '?action=saveScores' +
-          '&slot=' +
-          encodeURIComponent(
-            selectedTeam.slot
-          ) +
-          '&scores=' +
-          encodedScores +
-          '&refresh=' +
+          '?refresh=' +
           Date.now();
 
         const response =
           await fetch(
-            url,
+            verifyUrl,
             {
               cache:
                 'no-store'
@@ -3466,7 +3600,7 @@
         ) {
 
           throw new Error(
-            'Save request failed.'
+            'Save verification request failed.'
           );
 
         }
@@ -3476,55 +3610,97 @@
 
         if (
           !data ||
-          data.success !== true
+          data.success !== true ||
+          !Array.isArray(
+            data.teams
+          )
         ) {
 
           throw new Error(
-            (
-              data &&
-              data.error
-            ) ||
-            'Scores were not saved.'
+            'Save verification data unavailable.'
           );
 
         }
 
-        savedScores =
-          normalizeScores(
-            data.scores
-          );
-
-        localScores =
-          normalizeScores(
-            data.scores
-          );
-
-        const teamIndex =
-          teams.findIndex(
+        const verifiedTeam =
+          data.teams.find(
             team =>
               Number(
                 team.slot
               ) ===
               Number(
-                selectedTeam.slot
+                expectedSlot
               )
           );
 
         if (
-          teamIndex >= 0
+          !verifiedTeam ||
+          !scoresEqual(
+            verifiedTeam.scores,
+            expectedScores
+          )
         ) {
 
-          teams[
-            teamIndex
-          ].scores =
-            [
-              ...savedScores
-            ];
+          throw new Error(
+            'Saved scores are not yet confirmed.'
+          );
+
+        }
+
+        holes =
+          Array.isArray(
+            data.holes
+          )
+            ? data.holes
+            : holes;
+
+        teams =
+          data.teams.filter(
+            team =>
+              team &&
+              String(
+                team.name || ''
+              ).trim() !== ''
+          );
+
+        const refreshedTeam =
+          teams.find(
+            team =>
+              Number(
+                team.slot
+              ) ===
+              Number(
+                expectedSlot
+              )
+          );
+
+        if (
+          refreshedTeam
+        ) {
 
           selectedTeam =
-            teams[
-              teamIndex
-            ];
+            refreshedTeam;
+
+          savedScores =
+            normalizeScores(
+              refreshedTeam.scores
+            );
+
+          localScores =
+            normalizeScores(
+              refreshedTeam.scores
+            );
+
+          els.teamSelect.value =
+            String(
+              refreshedTeam.slot
+            );
+
+          els.teamSelect
+            .classList
+            .add(
+              'has-team'
+            );
 
         }
 
@@ -3559,8 +3735,8 @@
         stopLoadingLine();
 
         showMessageModal(
-          'Save Failed',
-          'The save was not confirmed. Your entered scores are still on this screen and remain gray.'
+          'Save Not Yet Confirmed',
+          'Google Sheets has not confirmed the new scores yet. Your entered scores remain gray. No automatic second write was sent.'
         );
 
       }
