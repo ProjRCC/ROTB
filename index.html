@@ -1812,6 +1812,40 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 @media(max-width:420px){.test-timing,.leader-test-timing{font-size:15px}.leader-bottom .leader-refresh-button{font-size:15px}}
+
+
+/* ===== V3 OVERRIDES ===== */
+/* Splash: primary actions are solid gold; utility actions remain inset outlines. */
+.home-main-button{background:var(--gold);color:#111;border-color:var(--gold)}
+.home-main-button:active{background:var(--gold);color:#111}
+
+/* USER RESET confirmation is no longer testing-blue. */
+.modal-title.testing{color:#fff}
+.modal-btn.testing{border-color:#fff;color:#fff;background:#050505}
+
+/* Scorecard geometry: HOME, team selector and score table share the same left/right edges. */
+.team-select-wrap{padding:6px 0}
+.team-select-wrap::after{right:20px}
+
+/* Use more of the safe center zone for timing text. */
+.test-timing,.leader-test-timing{font-size:18px;font-weight:500;padding:0 4px}
+
+/* Slightly larger submitted-score target and notation without shrinking doubles. */
+.score-button{width:64px;height:44px;font-size:27px}
+.score-mark{width:34px;height:34px;font-size:24px}
+.score-mark.double-circle,.score-mark.double-square{font-size:24px}
+.score-mark.double-circle::after,.score-mark.double-square::after{inset:-4px;border:1.5px solid #111}
+
+/* Scorecard navigation action. */
+.leaderboard-button{border-color:#fff;background:#fff;color:#111}
+
+/* 4 seconds across, 1 second back, repeat while the operation is still running. */
+.top-loading.active{width:0;opacity:1;animation:loadingPulseV3 5s linear infinite}
+.top-loading.done{animation:none;width:100%;opacity:1}
+@keyframes loadingPulseV3{0%{width:0}80%{width:100%}100%{width:0}}
+
+@media(max-width:420px){.test-timing,.leader-test-timing{font-size:17px}}
+
 </style>
 </head>
 
@@ -2204,7 +2238,7 @@
       <input
         id="scoreEntryInput"
         class="score-entry-input"
-        type="number"
+        type="text"
         min="1"
         step="1"
         inputmode="numeric"
@@ -2602,6 +2636,168 @@
     }
 
 
+    function scorePositionKey(
+      teamName
+    ) {
+
+      return (
+        'rotbScoreScroll:' +
+        normalizeName(
+          teamName
+        )
+      );
+
+    }
+
+
+    function rememberScorePosition() {
+
+      if (
+        !selectedTeam ||
+        !els.scoreScroll
+      ) {
+
+        return;
+
+      }
+
+
+      localStorage.setItem(
+        scorePositionKey(
+          selectedTeam.name
+        ),
+        String(
+          els.scoreScroll.scrollTop || 0
+        )
+      );
+
+    }
+
+
+    function getRememberedScorePosition() {
+
+      if (
+        !selectedTeam
+      ) {
+
+        return 0;
+
+      }
+
+
+      const value =
+        Number(
+          localStorage.getItem(
+            scorePositionKey(
+              selectedTeam.name
+            )
+          )
+        );
+
+
+      return Number.isFinite(
+        value
+      )
+        ? Math.max(
+            0,
+            value
+          )
+        : 0;
+
+    }
+
+
+    function getFirstEmptyScoreIndex() {
+
+      if (
+        !selectedTeam
+      ) {
+
+        return -1;
+
+      }
+
+
+      return localScores.findIndex(
+        score =>
+          score === null
+      );
+
+    }
+
+
+    function restoreScorePosition() {
+
+      if (
+        !selectedTeam ||
+        !els.scoreScroll
+      ) {
+
+        return;
+
+      }
+
+
+      requestAnimationFrame(
+        () => {
+
+          requestAnimationFrame(
+            () => {
+
+              const firstEmpty =
+                getFirstEmptyScoreIndex();
+
+
+              if (
+                firstEmpty >= 0
+              ) {
+
+                const row =
+                  els.scoreRows.querySelector(
+                    '.score-row[data-score-index="' +
+                    firstEmpty +
+                    '"]'
+                  );
+
+
+                if (row) {
+
+                  const maxScroll =
+                    Math.max(
+                      0,
+                      els.scoreScroll.scrollHeight -
+                      els.scoreScroll.clientHeight
+                    );
+
+
+                  els.scoreScroll.scrollTop =
+                    Math.min(
+                      row.offsetTop,
+                      maxScroll
+                    );
+
+
+                  rememberScorePosition();
+
+                  return;
+
+                }
+
+              }
+
+
+              els.scoreScroll.scrollTop =
+                getRememberedScorePosition();
+
+            }
+          );
+
+        }
+      );
+
+    }
+
+
     function rememberCurrentView(
       view
     ) {
@@ -2657,6 +2853,27 @@
 
       localStorage.removeItem(
         'rotbSelectedTeam'
+      );
+
+
+      Object.keys(
+        localStorage
+      ).forEach(
+        key => {
+
+          if (
+            key.indexOf(
+              'rotbScoreScroll:'
+            ) === 0
+          ) {
+
+            localStorage.removeItem(
+              key
+            );
+
+          }
+
+        }
       );
 
 
@@ -2802,6 +3019,16 @@
       );
 
 
+      if (
+        currentView ===
+        'scorecard'
+      ) {
+
+        rememberScorePosition();
+
+      }
+
+
       setActiveView(
         'home'
       );
@@ -2840,6 +3067,9 @@
 
       }
 
+
+      restoreScorePosition();
+
     }
 
 
@@ -2850,6 +3080,16 @@
       closeScoreEntry(
         true
       );
+
+
+      if (
+        currentView ===
+        'scorecard'
+      ) {
+
+        rememberScorePosition();
+
+      }
 
 
       setActiveView(
@@ -3191,8 +3431,7 @@
         scrollToTop
       ) {
 
-        els.scoreScroll.scrollTop =
-          0;
+        restoreScorePosition();
 
       }
 
@@ -3354,6 +3593,12 @@
 
           row.className =
             'score-row';
+
+
+          row.dataset.scoreIndex =
+            String(
+              index
+            );
 
 
           const holeCell =
@@ -3661,11 +3906,8 @@
       els.modalInput.maxLength = 1;
       els.modalActions.replaceChildren();
       els.modalActions.className = 'modal-actions single';
-      els.modalOverlay.classList.add('open');
-      setTimeout(() => els.modalInput.focus(), 60);
-      els.modalInput.onkeydown = event => {
-        if (event.key !== 'Enter') return;
-        event.preventDefault();
+
+      const authorizeEnter = () => {
         if (normalizeName(els.modalInput.value) !== 'y') {
           els.modalInput.value = '';
           els.modalInput.placeholder = 'Type Y';
@@ -3675,6 +3917,16 @@
         setAuthorizedTeam(selectedTeam.name);
         closeModal();
         openScoreEntry(index);
+      };
+
+      const enterButton = makeModalButton('ENTER', 'primary', authorizeEnter);
+      els.modalActions.appendChild(enterButton);
+      els.modalOverlay.classList.add('open');
+      setTimeout(() => els.modalInput.focus(), 60);
+      els.modalInput.onkeydown = event => {
+        if (event.key !== 'Enter') return;
+        event.preventDefault();
+        authorizeEnter();
       };
     }
 
@@ -5131,6 +5383,17 @@
       );
 
 
+    els.scoreScroll
+      .addEventListener(
+        'scroll',
+        rememberScorePosition,
+        {
+          passive:
+            true
+        }
+      );
+
+
     els.teamSelect
       .addEventListener(
         'change',
@@ -5178,12 +5441,21 @@
       );
 
 
+    function placeScoreCaretRight() {
+      els.scoreEntryInput.focus();
+      const end = els.scoreEntryInput.value.length;
+      try { els.scoreEntryInput.setSelectionRange(end, end); } catch (_) {}
+    }
+
     function stepScoreEntry(delta) {
       const current = Number(els.scoreEntryInput.value);
       const next = Math.max(1, (Number.isFinite(current) ? current : 1) + delta);
       els.scoreEntryInput.value = String(next);
-      els.scoreEntryInput.focus();
+      placeScoreCaretRight();
     }
+
+    els.scoreEntryInput.addEventListener('focus', () => setTimeout(placeScoreCaretRight, 0));
+    els.scoreEntryInput.addEventListener('click', () => setTimeout(placeScoreCaretRight, 0));
 
     els.scoreEntryMinus.addEventListener('click', () => stepScoreEntry(-1));
     els.scoreEntryPlus.addEventListener('click', () => stepScoreEntry(1));
@@ -5217,48 +5489,6 @@
 
             closeScoreEntry(
               true
-            );
-
-          }
-
-        }
-      );
-
-
-    els.scoreEntryInput
-      .addEventListener(
-        'blur',
-        () => {
-
-          if (
-            els.scoreEntryOverlay
-              .classList
-              .contains(
-                'open'
-              ) &&
-            !scoreEntryClosing
-          ) {
-
-            setTimeout(
-              () => {
-
-                if (
-                  els.scoreEntryOverlay
-                    .classList
-                    .contains(
-                      'open'
-                    ) &&
-                  !scoreEntryClosing
-                ) {
-
-                  closeScoreEntry(
-                    true
-                  );
-
-                }
-
-              },
-              80
             );
 
           }
