@@ -1828,7 +1828,7 @@
 .team-select-wrap::after{right:20px}
 
 /* Use more of the safe center zone for timing text. */
-.test-timing,.leader-test-timing{font-size:18px;font-weight:500;padding:0 4px}
+.test-timing,.leader-test-timing{font-size:18px;font-weight:600;line-height:1;padding:0 4px}
 
 /* Slightly larger submitted-score target and notation without shrinking doubles. */
 .score-button{width:64px;height:44px;font-size:27px}
@@ -2584,14 +2584,47 @@
           ? nav.querySelector('.nav-button')
           : null;
 
+      if (!referenceButton) return;
+
+      const buttonStyle =
+        getComputedStyle(referenceButton);
+
       const maxSize =
-        referenceButton
-          ? parseFloat(
-              getComputedStyle(referenceButton).fontSize
-            ) || 16
-          : 16;
+        parseFloat(buttonStyle.fontSize) || 16;
 
       const minSize = 8;
+
+      /*
+        V6 TIMING TEXT:
+        - Short text matches HOME / INFO height and weight.
+        - It stays centered in the middle column.
+        - It never wraps.
+        - Only the font size shrinks when the timing string
+          becomes too long to fit on one line.
+      */
+      element.style.fontFamily =
+        buttonStyle.fontFamily;
+
+      element.style.fontWeight =
+        buttonStyle.fontWeight;
+
+      element.style.letterSpacing =
+        buttonStyle.letterSpacing;
+
+      element.style.lineHeight = '1';
+
+      element.style.whiteSpace =
+        'nowrap';
+
+      element.style.textAlign =
+        'center';
+
+      element.style.justifyContent =
+        'center';
+
+      element.style.alignItems =
+        'center';
+
       const available =
         Math.max(
           0,
@@ -2615,7 +2648,6 @@
 
       }
     }
-
 
     /* =========================================================
        STORAGE
