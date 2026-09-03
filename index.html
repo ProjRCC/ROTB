@@ -214,8 +214,8 @@
         var(--gold);
       border-radius: 9px;
       background:
-        rgba(0,0,0,.78);
-      color: #fff;
+        var(--gold);
+      color: #000;
       font-size: 21px;
       font-weight: 600;
       letter-spacing: .5px;
@@ -584,22 +584,22 @@
     .leaderboard-button {
       border:
         1px solid
-        var(--line-strong);
+        #fff;
       background:
-        #050505;
-      color: #fff;
+        #fff;
+      color: #000;
     }
     .submit-button {
       border:
         1px solid
         var(--gold);
       background:
-        #050505;
-      color: #fff;
+        var(--gold);
+      color: #000;
     }
     .submit-button:disabled {
       opacity: 1;
-      color: #fff;
+      color: #000;
       cursor: default;
     }
     /* =========================================================
@@ -845,8 +845,8 @@
         var(--gold);
       border-radius: 9px;
       background:
-        #050505;
-      color: #fff;
+        var(--gold);
+      color: #000;
       font-size: 18px;
       font-weight: 700;
     }
@@ -2731,13 +2731,12 @@
       startLoadingLine();
 
       /*
-        EV-STYLE TEST:
-        Send the write ONCE and do not wait for
-        either the write response or an immediate
-        verification read before releasing the UI.
+        Like the EV app, send the write request
+        without making the golfer wait for that
+        specific response to come back.
 
-        Google Sheets remains authoritative on the
-        next normal Scorecard / Leaderboard read.
+        The write is attempted ONCE only.
+        There is NO automatic write retry.
       */
       fetch(
         writeUrl,
@@ -2773,28 +2772,162 @@
         );
 
       /*
-        Keep the entered scores gray because we have
-        NOT reread Google Sheets yet. Force the next
-        Scorecard visit to perform a fresh authoritative
-        read instead of using the already-loaded data.
-      */
-      scorecardHasLoaded =
-        false;
-      scoreSaveSeconds =
-        timerSeconds(
-          started
-        );
-      scoreSaveBackendTiming =
-        null;
-      updateScoreTiming();
-      completeLoadingLine();
+        Give Google Sheets a brief moment, then
+        independently read OFFICIAL again.
 
-      saveInProgress =
-        false;
-      els.submitBtn.disabled =
-        !selectedTeam;
+        The scores remain gray until this read
+        confirms the exact 18 values we sent.
+      */
+      setTimeout(
+        () => {
+          verifySavedScores(
+            expectedSlot,
+            expectedScores,
+            started
+          );
+        },
+        1200
+      );
     }
-    
+
+    async function verifySavedScores(
+      expectedSlot,
+      expectedScores,
+      started
+    ) {
+      try {
+        const verifyUrl =
+          SCRIPT_URL +
+          '?refresh=' +
+          Date.now();
+        const response =
+          await fetch(
+            verifyUrl,
+            {
+              cache:
+                'no-store'
+            }
+          );
+        if (
+          !response.ok
+        ) {
+          throw new Error(
+            'Save verification request failed.'
+          );
+        }
+        const data =
+          await response.json();
+        if (
+          !data ||
+          data.success !== true ||
+          !Array.isArray(
+            data.teams
+          )
+        ) {
+          throw new Error(
+            'Save verification data unavailable.'
+          );
+        }
+        const verifiedTeam =
+          data.teams.find(
+            team =>
+              Number(
+                team.slot
+              ) ===
+              Number(
+                expectedSlot
+              )
+          );
+        if (
+          !verifiedTeam ||
+          !scoresEqual(
+            verifiedTeam.scores,
+            expectedScores
+          )
+        ) {
+          throw new Error(
+            'Saved scores are not yet confirmed.'
+          );
+        }
+        holes =
+          Array.isArray(
+            data.holes
+          )
+            ? data.holes
+            : holes;
+        teams =
+          data.teams.filter(
+            team =>
+              team &&
+              String(
+                team.name || ''
+              ).trim() !== ''
+          );
+        const refreshedTeam =
+          teams.find(
+            team =>
+              Number(
+                team.slot
+              ) ===
+              Number(
+                expectedSlot
+              )
+          );
+        if (
+          refreshedTeam
+        ) {
+          selectedTeam =
+            refreshedTeam;
+          savedScores =
+            normalizeScores(
+              refreshedTeam.scores
+            );
+          localScores =
+            normalizeScores(
+              refreshedTeam.scores
+            );
+          els.teamSelect.value =
+            String(
+              refreshedTeam.slot
+            );
+          els.teamSelect
+            .classList
+            .add(
+              'has-team'
+            );
+        }
+        renderScorecard();
+        scoreSaveSeconds =
+          timerSeconds(
+            started
+          );
+        scoreSaveBackendTiming =
+          data.timing ||
+          null;
+        updateScoreTiming();
+        completeLoadingLine();
+      }
+      catch (error) {
+        scoreSaveSeconds =
+          timerSeconds(
+            started
+          );
+        scoreSaveBackendTiming =
+          null;
+        updateScoreTiming();
+        stopLoadingLine();
+        showMessageModal(
+          'Save Not Yet Confirmed',
+          'Google Sheets has not confirmed the new scores yet. Your entered scores remain gray. No automatic second write was sent.'
+        );
+      }
+      finally {
+        saveInProgress =
+          false;
+        els.submitBtn.disabled =
+          !selectedTeam;
+      }
+    }
     /* =========================================================
        LEADERBOARD READ
        MANUAL REFRESH
