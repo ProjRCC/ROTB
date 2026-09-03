@@ -174,8 +174,8 @@
        ========================================================= */
 
     .nav-button {
-      width: 78px;
-      height: 44px;
+      width: 74px;
+      height: 40px;
 
       padding: 0;
 
@@ -190,7 +190,7 @@
 
       color: #fff;
 
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
 
       letter-spacing: .25px;
@@ -409,7 +409,7 @@
 
       padding:
         calc(
-          9px +
+          8px +
           env(safe-area-inset-top)
         )
         14px
@@ -427,9 +427,9 @@
       display: grid;
 
       grid-template-columns:
-        78px
+        74px
         minmax(0,1fr)
-        78px;
+        74px;
 
       align-items: center;
 
@@ -476,8 +476,8 @@
       width: 100%;
 
       padding:
-        7px 10px
-        7px;
+        6px 10px
+        6px;
     }
 
 
@@ -489,8 +489,8 @@
       right: 30px;
       top: 50%;
 
-      width: 11px;
-      height: 11px;
+      width: 10px;
+      height: 10px;
 
       border-right:
         3px solid
@@ -512,7 +512,7 @@
       display: block;
 
       width: 100%;
-      height: 49px;
+      height: 45px;
 
       padding:
         0 58px
@@ -530,7 +530,7 @@
 
       color: #fff;
 
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 600;
 
       text-align: center;
@@ -546,7 +546,7 @@
       color:
         var(--gold);
 
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 700;
     }
 
@@ -576,7 +576,7 @@
 
       align-items: center;
 
-      min-height: 44px;
+      min-height: 42px;
 
       overflow: hidden;
 
@@ -631,11 +631,6 @@
 
     /* =========================================================
        SCORECARD SCROLL
-
-       The inner scoreRows container now has an actual
-       reference height.
-
-       9 hole rows + 3px divider = one complete front nine.
        ========================================================= */
 
     .score-scroll {
@@ -777,7 +772,7 @@
 
     .score-button {
       width: 58px;
-      height: 46px;
+      height: 40px;
 
       border:
         1px solid
@@ -790,7 +785,7 @@
 
       color: #fff;
 
-      font-size: 27px;
+      font-size: 25px;
       font-weight: 700;
 
       line-height: 1;
@@ -850,7 +845,7 @@
       z-index: 60;
 
       padding:
-        3px
+        7px
         14px
         calc(
           9px +
@@ -966,9 +961,9 @@
       display: grid;
 
       grid-template-columns:
-        78px
+        74px
         minmax(0,1fr)
-        78px;
+        74px;
 
       gap: 8px;
 
@@ -1003,19 +998,65 @@
     }
 
 
-    .leader-title {
-      margin-top: 6px;
+    .leader-title-bar {
+      position: relative;
 
+      min-height: 43px;
+
+      margin-top: 5px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    .leader-title {
       color: #fff;
 
       text-align: center;
 
-      font-size: 25px;
+      font-size: 24px;
       font-weight: 700;
 
       line-height: 1;
 
       letter-spacing: .35px;
+    }
+
+
+    .leader-refresh-button {
+      position: absolute;
+
+      right: 0;
+
+      width: 72px;
+      height: 32px;
+
+      padding: 0;
+
+      border:
+        1px solid
+        var(--gold);
+
+      border-radius: 7px;
+
+      background:
+        #050505;
+
+      color:
+        var(--gold);
+
+      font-size: 14px;
+      font-weight: 700;
+
+      letter-spacing: .25px;
+    }
+
+
+    .leader-refresh-button:disabled {
+      opacity: .45;
     }
 
 
@@ -1026,7 +1067,7 @@
       min-height: 0;
 
       padding:
-        6px
+        4px
         24px
         4px;
 
@@ -1237,10 +1278,6 @@
           8px +
           env(safe-area-inset-bottom)
         );
-
-      border-top:
-        1px solid
-        var(--line-strong);
 
       background:
         rgba(0,0,0,.96);
@@ -1615,17 +1652,17 @@
       .score-nav,
       .leader-nav {
         grid-template-columns:
-          76px
+          72px
           minmax(0,1fr)
-          76px;
+          72px;
       }
 
 
       .nav-button {
-        width: 76px;
-        height: 44px;
+        width: 72px;
+        height: 40px;
 
-        font-size: 16px;
+        font-size: 15px;
       }
 
 
@@ -1647,14 +1684,14 @@
 
 
       .top-team-select {
-        height: 48px;
+        height: 44px;
 
-        font-size: 18px;
+        font-size: 17px;
       }
 
 
       .top-team-select.has-team {
-        font-size: 19px;
+        font-size: 18px;
       }
 
 
@@ -1674,7 +1711,15 @@
 
 
       .leader-title {
-        font-size: 23px;
+        font-size: 22px;
+      }
+
+
+      .leader-refresh-button {
+        width: 68px;
+        height: 31px;
+
+        font-size: 13px;
       }
 
 
@@ -1978,8 +2023,21 @@
         </div>
 
 
-        <div class="leader-title">
-          LIVE LEADERBOARD
+        <div class="leader-title-bar">
+
+          <div class="leader-title">
+            LIVE LEADERBOARD
+          </div>
+
+
+          <button
+            id="leaderRefreshButton"
+            class="leader-refresh-button"
+            type="button"
+          >
+            REFRESH
+          </button>
+
         </div>
 
       </div>
@@ -2010,7 +2068,7 @@
           id="leaderUpdateNote"
           class="leader-update-note"
         >
-          Live standings • updates automatically
+          Tap REFRESH for latest standings
         </div>
 
       </div>
@@ -2143,37 +2201,31 @@
 
     // ==========================================================
     // ROTB 2026
-    // REV2 TEST BUILD
+    // TEST BUILD
     //
     // BLUE = TESTING / DIAGNOSTIC ONLY
     //
     // Google Sheets remains source of truth.
     //
-    // One read request per page load.
+    // Scorecard:
+    // One normal read request.
+    //
+    // Saves:
     // One write request.
     // No automatic write retry.
     //
-    // INITIAL READ RECOVERY:
-    // If an initial scorecard or leaderboard read is still
-    // waiting at 3 seconds, perform one real page reload.
-    // The reload is allowed only once until a read succeeds.
+    // Leaderboard:
+    // Initial load when opened.
+    // Manual REFRESH only.
+    // No automatic polling.
+    //
+    // The experimental 3-second forced page reload
+    // has been removed.
     // ==========================================================
 
 
     const SCRIPT_URL =
       'https://script.google.com/macros/s/AKfycbx4r2MORk4rPjUf28W_7EoarbgKEJzVTIOuaewqKf5cqUpehQlqKFa0ZyyKDjpy7Fc9/exec';
-
-
-    const LEADERBOARD_REFRESH_MS =
-      8000;
-
-
-    const INITIAL_READ_RELOAD_MS =
-      3000;
-
-
-    const INITIAL_READ_RELOAD_KEY =
-      'rotbInitialReadAutoReloadUsed';
 
 
     const els = {
@@ -2231,6 +2283,9 @@
 
       leaderTiming:
         document.getElementById('leaderTiming'),
+
+      leaderRefreshButton:
+        document.getElementById('leaderRefreshButton'),
 
       leaderScorecardButton:
         document.getElementById('leaderScorecardButton'),
@@ -2310,10 +2365,6 @@
       false;
 
 
-    let leaderboardTimer =
-      null;
-
-
     let leaderboardLoadInProgress =
       false;
 
@@ -2336,71 +2387,6 @@
 
     let leaderboardRefreshSeconds =
       null;
-
-
-    /* =========================================================
-       INITIAL READ AUTO-RELOAD
-       ========================================================= */
-
-
-    function startInitialReadReloadWatch() {
-
-      if (
-        sessionStorage.getItem(
-          INITIAL_READ_RELOAD_KEY
-        ) === '1'
-      ) {
-
-        return null;
-
-      }
-
-
-      return setTimeout(
-        () => {
-
-          sessionStorage.setItem(
-            INITIAL_READ_RELOAD_KEY,
-            '1'
-          );
-
-
-          window.location.reload();
-
-        },
-        INITIAL_READ_RELOAD_MS
-      );
-
-    }
-
-
-    function finishInitialReadReloadWatch(
-      timer,
-      successful
-    ) {
-
-      if (
-        timer !== null
-      ) {
-
-        clearTimeout(
-          timer
-        );
-
-      }
-
-
-      if (
-        successful
-      ) {
-
-        sessionStorage.removeItem(
-          INITIAL_READ_RELOAD_KEY
-        );
-
-      }
-
-    }
 
 
     /* =========================================================
@@ -2628,14 +2614,6 @@
       );
 
 
-      sessionStorage.removeItem(
-        INITIAL_READ_RELOAD_KEY
-      );
-
-
-      clearLeaderboardTimer();
-
-
       selectedTeam =
         null;
 
@@ -2766,8 +2744,6 @@
 
     function showHome() {
 
-      clearLeaderboardTimer();
-
       closeModal();
 
       closeScoreEntry(
@@ -2789,8 +2765,6 @@
 
 
     async function showScorecard() {
-
-      clearLeaderboardTimer();
 
       closeModal();
 
@@ -2838,49 +2812,14 @@
       );
 
 
-      await loadLeaderboard(
-        true
-      );
-
-
-      clearLeaderboardTimer();
-
-
-      leaderboardTimer =
-        setInterval(
-          () => {
-
-            if (
-              currentView ===
-              'leaderboard'
-            ) {
-
-              loadLeaderboard(
-                false
-              );
-
-            }
-
-          },
-          LEADERBOARD_REFRESH_MS
-        );
-
-    }
-
-
-    function clearLeaderboardTimer() {
-
       if (
-        leaderboardTimer
+        !leaderboardHasLoaded &&
+        !leaderboardLoadInProgress
       ) {
 
-        clearInterval(
-          leaderboardTimer
+        await loadLeaderboard(
+          true
         );
-
-
-        leaderboardTimer =
-          null;
 
       }
 
@@ -2909,10 +2848,6 @@
 
       const started =
         timerStart();
-
-
-      const reloadWatch =
-        startInitialReadReloadWatch();
 
 
       startLoadingLine();
@@ -3009,22 +2944,10 @@
         updateScoreTiming();
 
 
-        finishInitialReadReloadWatch(
-          reloadWatch,
-          true
-        );
-
-
         completeLoadingLine();
 
       }
       catch (error) {
-
-        finishInitialReadReloadWatch(
-          reloadWatch,
-          false
-        );
-
 
         scorecardLoadSeconds =
           timerSeconds(
@@ -3196,10 +3119,6 @@
         team.name
       );
 
-
-      /*
-        The selected team now remains visible in the dropdown.
-      */
 
       els.teamSelect.value =
         String(
@@ -4241,6 +4160,7 @@
 
     /* =========================================================
        LEADERBOARD READ
+       MANUAL REFRESH
        ========================================================= */
 
 
@@ -4261,6 +4181,10 @@
         true;
 
 
+      els.leaderRefreshButton.disabled =
+        true;
+
+
       const wasAlreadyLoaded =
         leaderboardHasLoaded;
 
@@ -4269,22 +4193,13 @@
         timerStart();
 
 
-      /*
-        Only the FIRST leaderboard load gets the
-        3-second automatic page reload protection.
-        Normal 8-second refreshes do not.
-      */
-
-      const reloadWatch =
-        !wasAlreadyLoaded
-          ? startInitialReadReloadWatch()
-          : null;
-
-
       els.leaderUpdateNote.textContent =
-        leaderboardHasLoaded
-          ? 'Updating leaderboard...'
+        wasAlreadyLoaded
+          ? 'Refreshing leaderboard...'
           : 'Loading leaderboard...';
+
+
+      startLoadingLine();
 
 
       try {
@@ -4381,23 +4296,14 @@
           true;
 
 
-        finishInitialReadReloadWatch(
-          reloadWatch,
-          true
-        );
-
-
         els.leaderUpdateNote.textContent =
-          'Live standings • updates automatically';
+          'Tap REFRESH for latest standings';
+
+
+        completeLoadingLine();
 
       }
       catch (error) {
-
-        finishInitialReadReloadWatch(
-          reloadWatch,
-          false
-        );
-
 
         const seconds =
           timerSeconds(
@@ -4424,12 +4330,15 @@
         updateLeaderboardTiming();
 
 
+        stopLoadingLine();
+
+
         if (
           leaderboardHasLoaded
         ) {
 
           els.leaderUpdateNote.textContent =
-            'Update delayed • will try again';
+            'Refresh failed • standings unchanged';
 
 
           return;
@@ -4466,6 +4375,10 @@
       finally {
 
         leaderboardLoadInProgress =
+          false;
+
+
+        els.leaderRefreshButton.disabled =
           false;
 
       }
@@ -4985,6 +4898,8 @@
 
           '<li>Tap LIVE LEADERBOARD for Current Standings</li>' +
 
+          '<li>Tap REFRESH for the Latest Standings</li>' +
+
         '</ol>' +
 
         '<div class="quick-correction">' +
@@ -5209,6 +5124,19 @@
       );
 
 
+    els.leaderRefreshButton
+      .addEventListener(
+        'click',
+        () => {
+
+          loadLeaderboard(
+            false
+          );
+
+        }
+      );
+
+
     els.leaderScorecardButton
       .addEventListener(
         'click',
@@ -5420,12 +5348,6 @@
         );
 
     }
-
-
-    window.addEventListener(
-      'pagehide',
-      clearLeaderboardTimer
-    );
 
 
     /* =========================================================
