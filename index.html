@@ -98,7 +98,7 @@
       opacity: 1;
       animation:
         loadingSweep
-        1.05s
+        2.10s
         ease-in-out
         infinite
         alternate;
@@ -1077,7 +1077,7 @@
       }
       .test-timing,
       .leader-test-timing {
-        font-size: 10px;
+        font-size: 5px;
       }
       .team-select-wrap {
         padding-left: 4px;
@@ -1425,33 +1425,20 @@
   </div>
   <script>
     // ==========================================================
-    // ROTB 2026
-    // TEST BUILD
+    // ROTB 2026 - REV 1 / V1 DRAFT
     //
     // BLUE = TESTING / DIAGNOSTIC ONLY
     //
-    // Google Sheets remains source of truth.
+    // Google Sheets remains the source of truth.
+    // Cloudflare Worker is the app-facing backend.
     //
-    // Scorecard:
-    // One normal read request.
-    //
-    // Saves:
-    // One write request.
-    // Do not wait for the write response.
-    // Independently re-read the scorecard after a brief delay.
-    // Scores turn gold only after Google Sheets confirms the exact values.
-    // No automatic write retry.
-    //
-    // Leaderboard:
-    // Initial load when opened.
-    // Manual REFRESH only.
-    // No automatic polling.
-    //
-    // The experimental 3-second forced page reload
-    // has been removed.
+    // Scorecard: one fresh read.
+    // Save: one write request; Worker writes, reads back, and verifies.
+    // Scores turn gold only after verified Google Sheets readback.
+    // Leaderboard: fresh read on entry + manual REFRESH only.
     // ==========================================================
-    const SCRIPT_URL =
-      'https://script.google.com/macros/s/AKfycbx4r2MORk4rPjUf28W_7EoarbgKEJzVTIOuaewqKf5cqUpehQlqKFa0ZyyKDjpy7Fc9/exec';
+    const API_URL =
+      'https://rotbtest.projrcc.workers.dev';
     const els = {
       topLoading:
         document.getElementById('topLoading'),
@@ -1588,164 +1575,62 @@
       ).toFixed(2);
     }
     function updateScoreTiming() {
-      if (
-        scoreSaveSeconds !==
-        null
-      ) {
-        const parts = [
-          'SAVE ' +
-          scoreSaveSeconds +
-          's'
-        ];
-        const timing =
-          scoreSaveBackendTiming;
+      if (scoreSaveSeconds !== null) {
+        const parts = ['SAVE ' + scoreSaveSeconds + 's'];
+        const timing = scoreSaveBackendTiming;
         if (timing) {
-          const server =
-            timingSecondsFromMs(
-              timing.serverMs
-            );
-          const read =
-            timingSecondsFromMs(
-              timing.sheetReadMs
-            );
-          const write =
-            timingSecondsFromMs(
-              timing.writeMs
-            );
-          const flush =
-            timingSecondsFromMs(
-              timing.flushMs
-            );
-          if (server !== null) {
-            parts.push(
-              'SVR ' +
-              server +
-              's'
-            );
-          }
-          if (read !== null) {
-            parts.push(
-              'RD ' +
-              read +
-              's'
-            );
-          }
-          if (write !== null) {
-            parts.push(
-              'WR ' +
-              write +
-              's'
-            );
-          }
-          if (flush !== null) {
-            parts.push(
-              'FL ' +
-              flush +
-              's'
-            );
-          }
+          const auth = timingSecondsFromMs(timing.authMs);
+          const team = timingSecondsFromMs(timing.teamReadMs);
+          const write = timingSecondsFromMs(timing.writeMs);
+          const verify = timingSecondsFromMs(timing.verifyMs);
+          const total = timingSecondsFromMs(timing.totalMs);
+          if (auth !== null) parts.push('AUTH ' + auth + 's');
+          if (team !== null) parts.push('TEAM ' + team + 's');
+          if (write !== null) parts.push('WR ' + write + 's');
+          if (verify !== null) parts.push('VERIFY ' + verify + 's');
+          if (total !== null) parts.push('CF ' + total + 's');
         }
-        els.scoreTiming.textContent =
-          'TEST • ' +
-          parts.join(' • ');
+        els.scoreTiming.textContent = 'TEST • ' + parts.join(' • ');
         return;
       }
-      if (
-        scorecardLoadSeconds !==
-        null
-      ) {
-        const parts = [
-          'LOAD ' +
-          scorecardLoadSeconds +
-          's'
-        ];
-        const timing =
-          scorecardBackendTiming;
+      if (scorecardLoadSeconds !== null) {
+        const parts = ['LOAD ' + scorecardLoadSeconds + 's'];
+        const timing = scorecardBackendTiming;
         if (timing) {
-          const server =
-            timingSecondsFromMs(
-              timing.serverMs
-            );
-          const read =
-            timingSecondsFromMs(
-              timing.sheetReadMs
-            );
-          if (server !== null) {
-            parts.push(
-              'SVR ' +
-              server +
-              's'
-            );
-          }
-          if (read !== null) {
-            parts.push(
-              'RD ' +
-              read +
-              's'
-            );
-          }
+          const auth = timingSecondsFromMs(timing.authMs);
+          const read = timingSecondsFromMs(timing.readMs);
+          const build = timingSecondsFromMs(timing.buildMs);
+          const total = timingSecondsFromMs(timing.totalMs);
+          if (auth !== null) parts.push('AUTH ' + auth + 's');
+          if (read !== null) parts.push('RD ' + read + 's');
+          if (build !== null) parts.push('BUILD ' + build + 's');
+          if (total !== null) parts.push('CF ' + total + 's');
         }
-        els.scoreTiming.textContent =
-          'TEST • ' +
-          parts.join(' • ');
+        els.scoreTiming.textContent = 'TEST • ' + parts.join(' • ');
         return;
       }
-      els.scoreTiming.textContent =
-        '';
+      els.scoreTiming.textContent = '';
     }
     function updateLeaderboardTiming() {
-      const isRefresh =
-        leaderboardRefreshSeconds !==
-        null;
-      const seconds =
-        isRefresh
-          ? leaderboardRefreshSeconds
-          : leaderboardLoadSeconds;
-      const timing =
-        isRefresh
-          ? leaderboardRefreshBackendTiming
-          : leaderboardLoadBackendTiming;
+      const isRefresh = leaderboardRefreshSeconds !== null;
+      const seconds = isRefresh ? leaderboardRefreshSeconds : leaderboardLoadSeconds;
+      const timing = isRefresh ? leaderboardRefreshBackendTiming : leaderboardLoadBackendTiming;
       if (seconds === null) {
-        els.leaderTiming.textContent =
-          '';
+        els.leaderTiming.textContent = '';
         return;
       }
-      const parts = [
-        (
-          isRefresh
-            ? 'REFRESH '
-            : 'LOAD '
-        ) +
-        seconds +
-        's'
-      ];
+      const parts = [(isRefresh ? 'REFRESH ' : 'LOAD ') + seconds + 's'];
       if (timing) {
-        const server =
-          timingSecondsFromMs(
-            timing.serverMs
-          );
-        const read =
-          timingSecondsFromMs(
-            timing.sheetReadMs
-          );
-        if (server !== null) {
-          parts.push(
-            'SVR ' +
-            server +
-            's'
-          );
-        }
-        if (read !== null) {
-          parts.push(
-            'RD ' +
-            read +
-            's'
-          );
-        }
+        const auth = timingSecondsFromMs(timing.authMs);
+        const read = timingSecondsFromMs(timing.readMs);
+        const build = timingSecondsFromMs(timing.buildMs);
+        const total = timingSecondsFromMs(timing.totalMs);
+        if (auth !== null) parts.push('AUTH ' + auth + 's');
+        if (read !== null) parts.push('RD ' + read + 's');
+        if (build !== null) parts.push('BUILD ' + build + 's');
+        if (total !== null) parts.push('CF ' + total + 's');
       }
-      els.leaderTiming.textContent =
-        'TEST • ' +
-        parts.join(' • ');
+      els.leaderTiming.textContent = 'TEST • ' + parts.join(' • ');
     }
     /* =========================================================
        STORAGE
@@ -1965,7 +1850,7 @@
       startLoadingLine();
       try {
         const url =
-          SCRIPT_URL +
+          API_URL +
           '?refresh=' +
           Date.now();
         const response =
@@ -1987,7 +1872,7 @@
           await response.json();
         if (
           !data ||
-          data.success !== true
+          data.ok !== true
         ) {
           throw new Error(
             (
@@ -1999,9 +1884,9 @@
         }
         holes =
           Array.isArray(
-            data.holes
+            data.course && data.course.holes
           )
-            ? data.holes
+            ? data.course.holes
             : [];
         teams =
           Array.isArray(
@@ -2680,252 +2565,67 @@
        EV-INSPIRED: WRITE, THEN INDEPENDENTLY VERIFY
        ========================================================= */
     async function submitScores() {
-      if (
-        !selectedTeam ||
-        saveInProgress
-      ) {
+      if (!selectedTeam || saveInProgress) {
         return;
       }
-      if (
-        els.scoreEntryOverlay
-          .classList
-          .contains(
-            'open'
-          )
-      ) {
-        closeScoreEntry(
-          true
-        );
+      if (els.scoreEntryOverlay.classList.contains('open')) {
+        closeScoreEntry(true);
       }
-      saveInProgress =
-        true;
-      els.submitBtn.disabled =
-        true;
-      const started =
-        timerStart();
-      const expectedScores =
-        normalizeScores(
-          localScores
-        );
-      const expectedSlot =
-        Number(
-          selectedTeam.slot
-        );
-      const encodedScores =
-        encodeURIComponent(
-          JSON.stringify(
-            expectedScores
-          )
-        );
-      const writeUrl =
-        SCRIPT_URL +
+      saveInProgress = true;
+      els.submitBtn.disabled = true;
+      const started = timerStart();
+      const expectedScores = normalizeScores(localScores);
+      const expectedSlot = Number(selectedTeam.slot);
+      const apiScores = expectedScores.map(score => score === null ? '' : score);
+      const encodedScores = encodeURIComponent(JSON.stringify(apiScores));
+      const saveUrl =
+        API_URL +
         '?action=saveScores' +
-        '&slot=' +
-        encodeURIComponent(
-          expectedSlot
-        ) +
-        '&scores=' +
-        encodedScores +
-        '&refresh=' +
-        Date.now();
+        '&slot=' + encodeURIComponent(expectedSlot) +
+        '&scores=' + encodedScores +
+        '&refresh=' + Date.now();
       startLoadingLine();
-
-      /*
-        Like the EV app, send the write request
-        without making the golfer wait for that
-        specific response to come back.
-
-        The write is attempted ONCE only.
-        There is NO automatic write retry.
-      */
-      fetch(
-        writeUrl,
-        {
-          cache:
-            'no-store'
-        }
-      )
-        .then(
-          response =>
-            response.json()
-        )
-        .then(
-          data => {
-            if (
-              !data ||
-              data.success !== true
-            ) {
-              console.error(
-                'ROTB save response did not confirm success:',
-                data
-              );
-            }
-          }
-        )
-        .catch(
-          error => {
-            console.error(
-              'ROTB save response error:',
-              error
-            );
-          }
-        );
-
-      /*
-        Give Google Sheets a brief moment, then
-        independently read OFFICIAL again.
-
-        The scores remain gray until this read
-        confirms the exact 18 values we sent.
-      */
-      setTimeout(
-        () => {
-          verifySavedScores(
-            expectedSlot,
-            expectedScores,
-            started
-          );
-        },
-        1200
-      );
-    }
-
-    async function verifySavedScores(
-      expectedSlot,
-      expectedScores,
-      started
-    ) {
       try {
-        const verifyUrl =
-          SCRIPT_URL +
-          '?refresh=' +
-          Date.now();
-        const response =
-          await fetch(
-            verifyUrl,
-            {
-              cache:
-                'no-store'
-            }
-          );
-        if (
-          !response.ok
-        ) {
-          throw new Error(
-            'Save verification request failed.'
-          );
+        const response = await fetch(saveUrl, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error('Save request failed.');
         }
-        const data =
-          await response.json();
-        if (
-          !data ||
-          data.success !== true ||
-          !Array.isArray(
-            data.teams
-          )
-        ) {
-          throw new Error(
-            'Save verification data unavailable.'
-          );
+        const data = await response.json();
+        if (!data || data.ok !== true || data.verified !== true) {
+          throw new Error((data && data.error) || 'Scores were not verified.');
         }
-        const verifiedTeam =
-          data.teams.find(
-            team =>
-              Number(
-                team.slot
-              ) ===
-              Number(
-                expectedSlot
-              )
-          );
-        if (
-          !verifiedTeam ||
-          !scoresEqual(
-            verifiedTeam.scores,
-            expectedScores
-          )
-        ) {
-          throw new Error(
-            'Saved scores are not yet confirmed.'
-          );
+        const confirmedScores = normalizeScores(data.verifiedScores);
+        if (!scoresEqual(confirmedScores, expectedScores)) {
+          throw new Error('Verified scores did not match submitted scores.');
         }
-        holes =
-          Array.isArray(
-            data.holes
-          )
-            ? data.holes
-            : holes;
-        teams =
-          data.teams.filter(
-            team =>
-              team &&
-              String(
-                team.name || ''
-              ).trim() !== ''
-          );
-        const refreshedTeam =
-          teams.find(
-            team =>
-              Number(
-                team.slot
-              ) ===
-              Number(
-                expectedSlot
-              )
-          );
-        if (
-          refreshedTeam
-        ) {
-          selectedTeam =
-            refreshedTeam;
-          savedScores =
-            normalizeScores(
-              refreshedTeam.scores
-            );
-          localScores =
-            normalizeScores(
-              refreshedTeam.scores
-            );
-          els.teamSelect.value =
-            String(
-              refreshedTeam.slot
-            );
-          els.teamSelect
-            .classList
-            .add(
-              'has-team'
-            );
+        savedScores = [...confirmedScores];
+        localScores = [...confirmedScores];
+        const teamIndex = teams.findIndex(
+          team => Number(team.slot) === expectedSlot
+        );
+        if (teamIndex >= 0) {
+          teams[teamIndex].scores = [...confirmedScores];
+          selectedTeam = teams[teamIndex];
         }
         renderScorecard();
-        scoreSaveSeconds =
-          timerSeconds(
-            started
-          );
-        scoreSaveBackendTiming =
-          data.timing ||
-          null;
+        scoreSaveSeconds = timerSeconds(started);
+        scoreSaveBackendTiming = data.timing || null;
         updateScoreTiming();
         completeLoadingLine();
       }
       catch (error) {
-        scoreSaveSeconds =
-          timerSeconds(
-            started
-          );
-        scoreSaveBackendTiming =
-          null;
+        scoreSaveSeconds = timerSeconds(started);
+        scoreSaveBackendTiming = null;
         updateScoreTiming();
         stopLoadingLine();
         showMessageModal(
-          'Save Not Yet Confirmed',
-          'Google Sheets has not confirmed the new scores yet. Your entered scores remain gray. No automatic second write was sent.'
+          'Save Not Confirmed',
+          'Google Sheets did not confirm the new scores. Your entered scores remain gray. No automatic second write was sent.'
         );
       }
       finally {
-        saveInProgress =
-          false;
-        els.submitBtn.disabled =
-          !selectedTeam;
+        saveInProgress = false;
+        els.submitBtn.disabled = !selectedTeam;
       }
     }
     /* =========================================================
@@ -2955,10 +2655,19 @@
       startLoadingLine();
       try {
         const url =
-          SCRIPT_URL +
+          API_URL +
           '?action=leaderboard' +
           '&refresh=' +
           Date.now();
+        const teamMetadataPromise =
+          teams.length
+            ? Promise.resolve(null)
+            : fetch(
+                API_URL + '?refresh=' + Date.now() + '-teams',
+                { cache: 'no-store' }
+              )
+                .then(response => response.ok ? response.json() : null)
+                .catch(() => null);
         const response =
           await fetch(
             url,
@@ -2978,7 +2687,7 @@
           await response.json();
         if (
           !data ||
-          data.success !== true
+          data.ok !== true
         ) {
           throw new Error(
             (
@@ -2994,6 +2703,17 @@
           )
             ? data.leaderboard
             : [];
+        const teamMetadata = await teamMetadataPromise;
+        if (
+          teams.length === 0 &&
+          teamMetadata &&
+          teamMetadata.ok === true &&
+          Array.isArray(teamMetadata.teams)
+        ) {
+          teams = teamMetadata.teams.filter(
+            team => team && String(team.name || '').trim() !== ''
+          );
+        }
         renderLeaderboard(
           rows
         );
@@ -3122,11 +2842,11 @@
             const match =
               teams.find(
                 team =>
-                  Number(
-                    team.slot
+                  normalizeName(
+                    team.name
                   ) ===
-                  Number(
-                    row.slot
+                  normalizeName(
+                    row.team
                   )
               );
             if (match) {
