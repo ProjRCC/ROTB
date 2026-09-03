@@ -2,19 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
+
   <meta name="theme-color" content="#000000">
+
   <title>ROTB 2026</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
+
   <style>
+
     :root {
       --gold: #bc961D;
       --test-blue: #6EC8FF;
@@ -24,28 +31,42 @@
       --line-strong: rgba(255,255,255,.72);
       --red: #ff4242;
     }
+
+
     * {
       box-sizing: border-box;
     }
+
+
     html {
       margin: 0;
       min-height: 100%;
       background: #000;
     }
+
+
     body {
       margin: 0;
       min-height: 100%;
+
       background: #000;
       color: var(--text);
+
       font-family: "Oswald", Arial, sans-serif;
+
       overflow-x: hidden;
       overflow-y: auto;
     }
+
+
     body::before {
       content: "";
+
       position: fixed;
       inset: 0;
+
       z-index: -2;
+
       background:
         linear-gradient(
           rgba(0,0,0,.34),
@@ -55,47 +76,71 @@
         center top /
         100% auto
         repeat-y;
+
       pointer-events: none;
     }
+
+
     button,
     input,
     select {
       font: inherit;
     }
+
+
     button,
     select {
       -webkit-tap-highlight-color: transparent;
     }
+
+
     button {
       cursor: pointer;
     }
+
+
     .view {
       display: none;
+
       width: 100%;
       min-height: 100dvh;
     }
+
+
     .view.active {
       display: block;
     }
+
+
     /* =========================================================
        TOP LOADING LINE
        ========================================================= */
+
     .top-loading {
       position: fixed;
+
       top: 0;
       left: 0;
+
       width: 0;
       height: 3px;
+
       opacity: 0;
+
       background: var(--gold);
+
       z-index: 7000;
+
       transition:
         width .2s ease,
         opacity .2s ease;
     }
+
+
     .top-loading.active {
       width: 72%;
       opacity: 1;
+
       animation:
         loadingSweep
         1.05s
@@ -103,170 +148,265 @@
         infinite
         alternate;
     }
+
+
     .top-loading.done {
       width: 100%;
       opacity: 1;
     }
+
+
     @keyframes loadingSweep {
+
       from {
         width: 24%;
       }
+
       to {
         width: 84%;
       }
+
     }
+
+
     /* =========================================================
        SHARED HEADER BUTTONS
        ========================================================= */
+
     .nav-button {
       width: 74px;
       height: 40px;
+
       padding: 0;
+
       border:
         1px solid
         var(--line-strong);
+
       border-radius: 8px;
+
       background:
         rgba(0,0,0,.76);
+
       color: #fff;
+
       font-size: 16px;
       font-weight: 600;
+
       letter-spacing: .25px;
     }
+
+
     /* =========================================================
        HOME / SPLASH
        ========================================================= */
+
     #homeView {
       text-align: center;
       overflow: visible;
     }
+
+
     .home-shell {
       width: 100%;
       max-width: 760px;
+
       min-height: 100dvh;
+
       margin: 0 auto;
+
       padding-bottom:
         calc(
           26px +
           env(safe-area-inset-bottom)
         );
     }
+
+
     .splash-image-wrap {
       width: 100%;
       margin: 0 auto;
     }
+
+
     .splash-image {
       display: block;
+
       width: 100%;
       height: auto;
+
       margin: 0 auto;
     }
+
+
     /* TESTING ONLY */
+
     .reset-user-float {
       position: relative;
+
       width: 100%;
       height: 0;
+
       z-index: 10;
     }
+
+
     .reset-user-button {
       position: absolute;
+
       left: 50%;
       bottom: 13px;
+
       transform:
         translateX(-50%);
+
       width:
         min(
           52%,
           215px
         );
+
       min-height: 39px;
+
       border:
         1px solid
         var(--test-blue);
+
       border-radius: 8px;
+
       background:
         rgba(0,0,0,.82);
+
       color:
         var(--test-blue);
+
       font-size: 15px;
       font-weight: 600;
+
       letter-spacing: .4px;
     }
+
+
     .home-actions {
       width:
         calc(
           100% - 34px
         );
+
       max-width: 470px;
+
       margin:
         -2px auto 0;
+
       display: flex;
+
       flex-direction: column;
+
       gap: 13px;
     }
+
+
     .home-main-button {
       width: 100%;
+
       min-height: 58px;
+
       padding:
         12px 14px;
+
       border:
         2px solid
         var(--gold);
+
       border-radius: 9px;
+
       background:
-        var(--gold);
-      color: #000;
+        rgba(0,0,0,.78);
+
+      color: #fff;
+
       font-size: 21px;
       font-weight: 600;
+
       letter-spacing: .5px;
     }
+
+
     .home-main-button:active {
       background:
         var(--gold);
+
       color: #000;
     }
+
+
     .quick-guide-button {
       align-self: center;
+
       width:
         min(
           64%,
           260px
         );
+
       min-height: 44px;
+
       margin-top: 7px;
+
       border:
         1px solid #fff;
+
       border-radius: 8px;
+
       background:
         rgba(0,0,0,.78);
-      color: #fff;
+
+      color:
+        var(--gold);
+
       font-size: 18px;
       font-weight: 600;
+
       letter-spacing: .4px;
     }
+
+
     /* =========================================================
        SCORECARD
        ========================================================= */
+
     #scorecardView {
       height: 100dvh;
     }
+
+
     .scorecard-screen {
       width:
         min(
           760px,
           100%
         );
+
       height: 100dvh;
+
       margin: 0 auto;
+
       display: flex;
+
       flex-direction: column;
+
       overflow: visible;
     }
+
+
     .score-fixed-top {
       flex:
         0 0 auto;
+
       position: relative;
+
       z-index: 50;
+
       padding:
         calc(
           8px +
@@ -274,287 +414,436 @@
         )
         14px
         0;
+
       background:
         rgba(0,0,0,.95);
+
       backdrop-filter:
         blur(7px);
     }
+
+
     .score-nav {
       display: grid;
+
       grid-template-columns:
         74px
         minmax(0,1fr)
         74px;
+
       align-items: center;
+
       gap: 8px;
     }
+
+
     /* =========================================================
        TEST TIMING
        ========================================================= */
+
     .test-timing {
       min-width: 0;
       min-height: 0;
+
       display: flex;
+
       align-items: center;
       justify-content: center;
+
       color:
         var(--test-blue);
+
       text-align: center;
+
       font-size: 11px;
       font-weight: 500;
+
       line-height: 1.15;
+
       letter-spacing: .1px;
+
       white-space: nowrap;
     }
+
+
     /* =========================================================
        TEAM SELECT / TEAM IDENTITY
        ========================================================= */
+
     .team-select-wrap {
       position: relative;
+
       width: 100%;
+
       padding:
         6px 10px
         6px;
     }
+
+
     .team-select-wrap::after {
       content: "";
+
       position: absolute;
+
       right: 30px;
       top: 50%;
+
       width: 10px;
       height: 10px;
+
       border-right:
         3px solid
         var(--gold);
+
       border-bottom:
         3px solid
         var(--gold);
+
       transform:
         translateY(-72%)
         rotate(45deg);
+
       pointer-events: none;
     }
+
+
     .top-team-select {
       display: block;
+
       width: 100%;
       height: 45px;
+
       padding:
         0 58px
         0 18px;
+
       border:
         1px solid
         var(--line-strong);
+
       border-radius: 9px;
+
       outline: none;
+
       background: #050505;
+
       color: #fff;
+
       font-size: 18px;
       font-weight: 600;
+
       text-align: center;
       text-align-last: center;
+
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
     }
+
+
     .top-team-select.has-team {
       color:
         var(--gold);
+
       font-size: 19px;
       font-weight: 700;
     }
+
+
     .top-team-select:focus {
       border-color:
         var(--gold);
+
       box-shadow:
         0 0 0 1px
         var(--gold);
     }
+
+
     /* =========================================================
        SCORECARD TABLE HEADER
        ========================================================= */
+
     .score-table-head {
       display: grid;
+
       grid-template-columns:
         19%
         18%
         28%
         35%;
+
       align-items: center;
+
       min-height: 42px;
+
       overflow: hidden;
+
       border:
         1px solid
         var(--line-strong);
+
       border-bottom:
         1px solid
         var(--line);
+
       border-radius:
         9px 9px
         0 0;
+
       background:
         rgba(0,0,0,.94);
+
       color: #d2d2d2;
+
       text-align: center;
+
       font-size: 16px;
       font-weight: 600;
+
       letter-spacing: .35px;
     }
+
+
     .score-table-head > div {
       height: 100%;
+
       display: flex;
+
       align-items: center;
       justify-content: center;
+
       border-right:
         1px solid
         var(--line);
     }
+
+
     .score-table-head > div:last-child {
       border-right: 0;
+
       color: #fff;
+
       font-weight: 700;
     }
+
+
     /* =========================================================
        SCORECARD SCROLL
        ========================================================= */
+
     .score-scroll {
       flex:
         1 1 auto;
+
       min-height: 0;
+
       margin:
         0 14px;
+
       overflow-y: auto;
       overflow-x: hidden;
+
       -webkit-overflow-scrolling:
         touch;
+
       overscroll-behavior-y:
         contain;
+
       border-left:
         1px solid
         var(--line-strong);
+
       border-right:
         1px solid
         var(--line-strong);
+
       background:
         rgba(0,0,0,.28);
     }
+
+
     #scoreRows {
       height: 100%;
     }
+
+
     .score-row {
       display: grid;
+
       grid-template-columns:
         19%
         18%
         28%
         35%;
+
       align-items: stretch;
+
       height:
         calc(
           (100% - 3px) / 9
         );
+
       min-height: 48px;
+
       border-bottom:
         1px solid
         var(--line);
+
       background:
         rgba(0,0,0,.47);
     }
+
+
     #scoreRows > .score-row:nth-child(9) {
       border-bottom: 0;
     }
+
+
     .score-row > div {
       min-width: 0;
+
       border-right:
         1px solid
         var(--line);
     }
+
+
     .score-row > div:last-child {
       border-right: 0;
     }
+
+
     .hole-cell,
     .par-cell,
     .yardage-cell,
     .score-cell {
       display: flex;
+
       align-items: center;
       justify-content: center;
+
       text-align: center;
     }
+
+
     .hole-cell {
       font-size: 22px;
       font-weight: 700;
     }
+
+
     .par-cell {
       font-size: 20px;
       font-weight: 500;
     }
+
+
     .yardage-cell {
       gap: 4px;
+
       white-space: nowrap;
+
       font-size: 18px;
       font-weight: 500;
     }
+
+
     .yard-white {
       color: #fff;
     }
+
+
     .yard-slash {
       color: #aaa;
     }
+
+
     .yard-gold {
       color:
         var(--gold);
     }
+
+
     /* =========================================================
        SCORE BUTTONS
        ========================================================= */
+
     .score-button {
       width: 58px;
       height: 40px;
+
       border:
         1px solid
         rgba(255,255,255,.48);
+
       border-radius: 8px;
+
       background:
         rgba(0,0,0,.72);
+
       color: #fff;
+
       font-size: 25px;
       font-weight: 700;
+
       line-height: 1;
     }
+
+
     .score-button.empty {
       background:
         rgba(0,0,0,.72);
+
       color: #aaa;
     }
+
+
     .score-button.unsaved {
       border-color:
         #e0e0e0;
+
       background:
         #b7b7b7;
+
       color: #111;
     }
+
+
     .score-button.saved {
       border-color:
-        var(--gold);
+        #d9bd52;
+
       background:
         var(--gold);
+
       color: #111;
     }
+
+
     /* =========================================================
        FRONT / BACK NINE DIVIDER
        ========================================================= */
+
     .nine-break {
       height: 3px;
+
       background:
         var(--gold);
     }
+
+
     /* =========================================================
        SCORECARD BOTTOM
        ========================================================= */
+
     .score-fixed-bottom {
       flex:
         0 0 auto;
+
       z-index: 60;
+
       padding:
         7px
         14px
@@ -562,66 +851,99 @@
           9px +
           env(safe-area-inset-bottom)
         );
+
       background:
         rgba(0,0,0,.96);
+
       backdrop-filter:
         blur(7px);
     }
+
+
     .score-bottom-actions {
       display: grid;
+
       grid-template-columns:
         1fr
         1fr;
+
       gap: 11px;
     }
+
+
     .bottom-action {
       min-height: 55px;
+
       border-radius: 9px;
+
       font-size: 18px;
       font-weight: 700;
+
       letter-spacing: .25px;
     }
+
+
     .leaderboard-button {
       border:
         1px solid
-        #fff;
+        var(--line-strong);
+
       background:
-        #fff;
-      color: #000;
+        #050505;
+
+      color: #fff;
     }
+
+
     .submit-button {
       border:
         1px solid
         var(--gold);
+
       background:
         var(--gold);
-      color: #000;
+
+      color: #111;
     }
+
+
     .submit-button:disabled {
-      opacity: 1;
-      color: #000;
+      opacity: .42;
+
       cursor: default;
     }
+
+
     /* =========================================================
        LIVE LEADERBOARD
        ========================================================= */
+
     #leaderboardView {
       min-height: 100dvh;
     }
+
+
     .leaderboard-screen {
       width:
         min(
           760px,
           100%
         );
+
       min-height: 100dvh;
+
       margin: 0 auto;
+
       display: flex;
+
       flex-direction: column;
     }
+
+
     .leader-top {
       flex:
         0 0 auto;
+
       padding:
         calc(
           8px +
@@ -629,204 +951,326 @@
         )
         14px
         6px;
+
       background:
         rgba(0,0,0,.94);
     }
+
+
     .leader-nav {
       display: grid;
+
       grid-template-columns:
         74px
         minmax(0,1fr)
         74px;
+
       gap: 8px;
+
       align-items: center;
     }
+
+
     .leader-test-timing {
       min-width: 0;
       min-height: 0;
+
       display: flex;
+
       align-items: center;
       justify-content: center;
+
       color:
         var(--test-blue);
+
       text-align: center;
+
       font-size: 11px;
       font-weight: 500;
+
       line-height: 1.15;
+
       letter-spacing: .1px;
+
       margin: 0;
+
       white-space: nowrap;
     }
+
+
     .leader-title-bar {
       position: relative;
+
       min-height: 43px;
+
       margin-top: 5px;
+
       display: flex;
+
       align-items: center;
       justify-content: center;
     }
+
+
     .leader-title {
       color: #fff;
+
       text-align: center;
+
       font-size: 24px;
       font-weight: 700;
+
       line-height: 1;
+
       letter-spacing: .35px;
     }
+
+
     .leader-refresh-button {
       position: absolute;
+
       right: 0;
+
       width: 72px;
       height: 32px;
+
       padding: 0;
+
       border:
         1px solid
         var(--gold);
+
       border-radius: 7px;
+
       background:
         #050505;
+
       color:
-        #fff;
+        var(--gold);
+
       font-size: 14px;
       font-weight: 700;
+
       letter-spacing: .25px;
     }
+
+
     .leader-refresh-button:disabled {
-      opacity: 1;
-      color: #777;
-      cursor: default;
+      opacity: .45;
     }
+
+
     .leader-content {
       flex:
         1 1 auto;
+
       min-height: 0;
+
       padding:
         4px
         24px
         4px;
+
       overflow-y: auto;
+
       -webkit-overflow-scrolling:
         touch;
     }
+
+
     .leader-table {
       width: 100%;
+
       max-width: 640px;
+
       margin:
         0 auto;
+
       overflow: hidden;
+
       border:
         1px solid
         var(--line-strong);
+
       border-radius: 9px;
+
       background:
         rgba(0,0,0,.42);
     }
+
+
     .leader-row {
       display: grid;
+
       grid-template-columns:
         minmax(0,1.75fr)
         .78fr
         .65fr;
+
       min-height: 61px;
+
       border-bottom:
         1px solid
         var(--line);
+
       background:
         rgba(0,0,0,.46);
     }
+
+
     .leader-row:last-child {
       border-bottom: 0;
     }
+
+
     .leader-row.header {
       min-height: 42px;
+
       color: #e0e0e0;
+
       background:
         rgba(0,0,0,.90);
+
       text-align: center;
+
       font-size: 17px;
       font-weight: 700;
+
       letter-spacing: .3px;
     }
+
+
     .leader-row > div {
       min-width: 0;
+
       display: flex;
+
       align-items: center;
       justify-content: center;
+
       padding:
         5px 8px;
+
       border-right:
         1px solid
         var(--line);
     }
+
+
     .leader-row > div:last-child {
       border-right: 0;
     }
+
+
     .leader-team-cell {
       flex-direction: column;
+
       align-items:
         center !important;
+
       justify-content:
         center !important;
+
       text-align: center;
     }
+
+
     .leader-team-name {
       width: 100%;
+
       color: #fff;
+
       font-size: 18px;
       font-weight: 700;
+
       line-height: 1.08;
+
       overflow-wrap: anywhere;
     }
+
+
     .leader-hcp {
       width: 100%;
+
       margin-top: 4px;
+
       color:
         var(--gold);
+
       font-size: 14px;
       font-weight: 500;
+
       line-height: 1;
     }
+
+
     .leader-through-cell {
       flex-direction: column;
+
       text-align: center;
     }
+
+
     .leader-through-score {
       font-size: 22px;
       font-weight: 700;
+
       line-height: 1;
     }
+
+
     .leader-through-label {
       margin-top: 4px;
+
       color: #aaa;
+
       font-size: 13px;
       font-weight: 500;
+
       line-height: 1;
     }
+
+
     .leader-total {
       font-size: 30px;
       font-weight: 700;
+
       line-height: 1;
+
       text-align: center;
     }
+
+
     .under {
       color:
         var(--red);
     }
+
+
     .even-over {
       color: #fff;
     }
+
+
     .leader-update-note {
       min-height: 18px;
+
       margin:
         4px auto
         0;
+
       color: #888;
+
       text-align: center;
+
       font-size: 11px;
     }
+
+
     .leader-bottom {
       flex:
         0 0 auto;
+
       padding:
         8px
         18px
@@ -834,235 +1278,377 @@
           8px +
           env(safe-area-inset-bottom)
         );
+
       background:
         rgba(0,0,0,.96);
     }
+
+
     .access-scorecard {
       width: 100%;
+
       min-height: 53px;
+
       border:
         1px solid
         var(--gold);
+
       border-radius: 9px;
+
       background:
         var(--gold);
-      color: #000;
+
+      color: #111;
+
       font-size: 18px;
       font-weight: 700;
     }
+
+
     /* =========================================================
        MODALS
        ========================================================= */
+
     .modal-overlay,
     .score-entry-overlay {
       position: fixed;
+
       inset: 0;
+
       z-index: 5000;
+
       display: none;
+
       align-items: center;
       justify-content: center;
+
       padding: 20px;
+
       background:
         rgba(0,0,0,.62);
+
       backdrop-filter:
         blur(7px);
     }
+
+
     .modal-overlay.open,
     .score-entry-overlay.open {
       display: flex;
     }
+
+
     .modal-box {
       width:
         min(
           650px,
           100%
         );
+
       max-height:
         calc(
           100dvh - 40px
         );
+
       overflow-y: auto;
+
       padding:
         26px 28px
         28px;
+
       border:
         1px solid
         rgba(255,255,255,.82);
+
       border-radius: 17px;
+
       background: #050505;
+
       text-align: left;
     }
+
+
     .modal-title {
       margin-bottom: 16px;
+
       color:
         var(--gold);
+
       font-size: 27px;
       font-weight: 700;
+
       line-height: 1.1;
     }
+
+
     .modal-title.testing {
       color:
         var(--test-blue);
     }
+
+
     .modal-text {
       color: #ddd;
+
       font-size: 18px;
+
       line-height: 1.42;
     }
+
+
     .modal-input {
       width: 100%;
+
       height: 56px;
+
       margin-top: 17px;
+
       padding:
         0 14px;
+
       border:
         2px solid
         var(--gold);
+
       border-radius: 9px;
+
       outline: none;
+
       background: #161616;
+
       color: #fff;
+
       font-size: 21px;
     }
+
+
     .modal-actions {
       display: grid;
+
       grid-template-columns:
         1fr
         1fr;
+
       gap: 13px;
+
       margin-top: 20px;
     }
+
+
     .modal-actions.single {
       grid-template-columns:
         1fr;
     }
+
+
     .modal-btn {
       min-height: 54px;
+
       border:
         1px solid
         var(--line-strong);
+
       border-radius: 9px;
+
       background: #050505;
+
       color: #fff;
+
       font-size: 18px;
       font-weight: 700;
     }
+
+
     .modal-btn.primary {
       border-color:
         var(--gold);
+
       background:
         var(--gold);
+
       color: #111;
     }
+
+
     .modal-btn.testing {
       border-color:
         var(--test-blue);
+
       background: #050505;
+
       color:
         var(--test-blue);
     }
+
+
     .quick-list {
       margin: 0;
+
       padding-left: 23px;
     }
+
+
     .quick-list li {
       margin-bottom: 8px;
     }
+
+
     .quick-correction {
       margin-top: 17px;
+
       color: #fff;
     }
+
+
     /* =========================================================
        SCORE ENTRY
        ========================================================= */
+
     .score-entry-overlay {
       align-items:
         flex-start;
+
       padding-top: 11vh;
+
       z-index: 5200;
     }
+
+
     .score-entry-box {
       position: relative;
+
       width:
         min(
           420px,
           calc(100% - 10px)
         );
+
       padding: 24px;
+
       border:
         1px solid
         rgba(255,255,255,.84);
+
       border-radius: 14px;
+
       background: #050505;
+
       text-align: center;
     }
+
+
     .score-entry-cancel {
       position: absolute;
+
       top: 8px;
       left: 10px;
+
       width: 34px;
       height: 34px;
+
       padding: 0;
+
       border: 0;
+
       background: transparent;
+
       color: #fff;
+
       font-family: Arial, sans-serif;
+
       font-size: 27px;
       font-weight: 400;
+
       line-height: 34px;
+
       text-align: center;
+
       opacity: .88;
     }
+
+
     .score-entry-hole {
       font-size: 28px;
       font-weight: 700;
     }
+
+
     .score-entry-par {
       margin-top: 2px;
+
       color: #aaa;
+
       font-size: 20px;
     }
+
+
     .score-entry-input {
       width: 100%;
+
       height: 68px;
+
       margin-top: 18px;
+
       border:
         2px solid
         var(--gold);
+
       border-radius: 10px;
+
       outline: none;
+
       background: #191919;
+
       color: #fff;
+
       text-align: center;
+
       font-size: 34px;
       font-weight: 700;
     }
+
+
     .score-entry-enter {
       width: 100%;
+
       min-height: 58px;
+
       margin-top: 14px;
+
       border:
         1px solid
         var(--gold);
+
       border-radius: 9px;
+
       background:
         var(--gold);
+
       color: #111;
+
       font-size: 21px;
       font-weight: 700;
     }
+
+
     /* =========================================================
        SMALL PHONES
        ========================================================= */
+
     @media (max-width: 420px) {
+
       .score-fixed-top {
         padding-left: 12px;
         padding-right: 12px;
       }
+
+
       .score-scroll {
         margin-left: 12px;
         margin-right: 12px;
       }
+
+
       .score-nav,
       .leader-nav {
         grid-template-columns:
@@ -1070,106 +1656,232 @@
           minmax(0,1fr)
           72px;
       }
+
+
       .nav-button {
         width: 72px;
         height: 40px;
+
         font-size: 15px;
       }
+
+
       .test-timing,
       .leader-test-timing {
         font-size: 10px;
       }
+
+
       .team-select-wrap {
         padding-left: 4px;
         padding-right: 4px;
       }
+
+
       .team-select-wrap::after {
         right: 23px;
       }
+
+
       .top-team-select {
         height: 44px;
+
         font-size: 17px;
       }
+
+
       .top-team-select.has-team {
         font-size: 18px;
       }
+
+
       .score-table-head {
         font-size: 15px;
       }
+
+
       .yardage-cell {
         font-size: 17px;
       }
+
+
       .bottom-action {
         font-size: 17px;
       }
+
+
       .leader-title {
         font-size: 22px;
       }
+
+
       .leader-refresh-button {
         width: 68px;
         height: 31px;
+
         font-size: 13px;
       }
+
+
       .leader-row {
         min-height: 58px;
       }
+
+
       .leader-row.header {
         min-height: 40px;
+
         font-size: 16px;
       }
+
+
       .leader-team-name {
         font-size: 17px;
       }
+
+
       .leader-hcp {
         font-size: 13px;
       }
+
+
       .leader-through-score {
         font-size: 21px;
       }
+
+
       .leader-through-label {
         font-size: 12px;
       }
+
+
       .leader-total {
         font-size: 29px;
       }
+
+
       .modal-box {
         padding:
           23px 20px
           25px;
       }
+
     }
+
+
     @media (orientation: landscape) {
+
       body::before {
         background-size:
           50% auto;
       }
+
+
       .splash-image {
         width: 50%;
       }
+
     }
-  </style>
+
+  
+/* ===== V2 OVERRIDES ===== */
+.top-loading.active{width:0;opacity:1;animation:loadingSweepV2 3s linear forwards;}
+@keyframes loadingSweepV2{from{width:0}to{width:96%}}
+.reset-user-float{display:none!important}
+.home-utility-row{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:0 13px;margin-top:7px}
+.home-utility-row .reset-user-button,.home-utility-row .quick-guide-button{position:static;transform:none;width:100%;min-height:44px;margin:0;border:1px solid #fff;border-radius:8px;background:rgba(0,0,0,.78);color:#fff;font-size:16px;font-weight:600;letter-spacing:.3px}
+.test-timing,.leader-test-timing{color:var(--gold);font-size:16px;line-height:1;overflow:hidden;padding:0 6px}
+.submit-button:disabled{border-color:#777;background:#777;color:#222;opacity:1;cursor:default}
+.score-mark{position:relative;width:31px;height:31px;display:inline-flex;align-items:center;justify-content:center;color:#111;font-size:22px;font-weight:700;line-height:1}
+.score-mark.single-circle,.score-mark.double-circle{border:2px solid #111;border-radius:50%}
+.score-mark.single-square,.score-mark.double-square,.score-mark.bold-square{border:2px solid #111;border-radius:1px}
+.score-mark.double-circle::after,.score-mark.double-square::after{content:"";position:absolute;inset:3px;border:1.5px solid #111;pointer-events:none}
+.score-mark.double-circle::after{border-radius:50%}
+.score-mark.double-circle,.score-mark.double-square{font-size:21px}
+.score-mark.bold-square{border-width:4px}
+.score-mark.par-mark{width:auto;height:auto}
+.leader-title-bar .leader-refresh-button{display:none!important}
+.leader-bottom{display:grid;grid-template-columns:2fr 1fr;gap:11px}
+.leader-bottom .leader-refresh-button{position:static;display:block;width:100%;height:auto;min-height:53px;padding:0;border:1px solid var(--gold);border-radius:9px;background:#050505;color:var(--gold);font-size:17px;font-weight:700;letter-spacing:.25px}
+.modal-overlay.authorization .modal-box{text-align:center}
+.modal-overlay.authorization .modal-title{margin-bottom:10px;color:#fff;text-align:center;font-size:21px}
+.auth-team-name{margin:5px 0 14px;color:var(--gold);font-size:28px;font-weight:700;line-height:1.1}
+.auth-instruction{color:#ddd;font-size:18px}
+.modal-overlay.authorization .modal-input{width:min(150px,60%);margin:17px auto 0;text-align:center;text-transform:uppercase}
+.score-entry-control{margin-top:18px;display:grid;grid-template-columns:58px minmax(0,1fr) 58px;gap:10px;align-items:center}
+.score-entry-control .score-entry-input{margin-top:0}
+.score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
+@media(max-width:420px){.test-timing,.leader-test-timing{font-size:15px}.leader-bottom .leader-refresh-button{font-size:15px}}
+
+
+/* ===== V3 OVERRIDES ===== */
+/* Splash: primary actions are solid gold; utility actions remain inset outlines. */
+.home-main-button{background:var(--gold);color:#111;border-color:var(--gold)}
+.home-main-button:active{background:var(--gold);color:#111}
+
+/* USER RESET confirmation is no longer testing-blue. */
+.modal-title.testing{color:#fff}
+.modal-btn.testing{border-color:#fff;color:#fff;background:#050505}
+
+/* Scorecard geometry: HOME, team selector and score table share the same left/right edges. */
+.team-select-wrap{padding:6px 0}
+.team-select-wrap::after{right:20px}
+
+/* Use more of the safe center zone for timing text. */
+.test-timing,.leader-test-timing{font-size:18px;font-weight:500;padding:0 4px}
+
+/* Slightly larger submitted-score target and notation without shrinking doubles. */
+.score-button{width:64px;height:44px;font-size:27px}
+.score-mark{width:34px;height:34px;font-size:24px}
+.score-mark.double-circle,.score-mark.double-square{font-size:24px}
+.score-mark.double-circle::after,.score-mark.double-square::after{inset:-4px;border:1.5px solid #111}
+
+/* Scorecard navigation action. */
+.leaderboard-button{border-color:#fff;background:#fff;color:#111}
+
+/* 4 seconds across, 1 second back, repeat while the operation is still running. */
+.top-loading.active{width:0;opacity:1;animation:loadingPulseV3 5s linear infinite}
+.top-loading.done{animation:none;width:100%;opacity:1}
+@keyframes loadingPulseV3{0%{width:0}80%{width:100%}100%{width:0}}
+
+@media(max-width:420px){.test-timing,.leader-test-timing{font-size:17px}}
+
+</style>
 </head>
+
+
 <body>
+
   <div
     id="topLoading"
     class="top-loading"
   ></div>
+
+
   <!-- =======================================================
        HOME
        ======================================================= -->
+
   <section
     id="homeView"
     class="view active"
   >
+
     <div class="home-shell">
+
       <div class="splash-image-wrap">
+
         <img
           src="Splash.jpg"
           class="splash-image"
           alt="Running of the Bulls 2026"
         >
+
       </div>
+
+
       <div class="reset-user-float">
+
         <button
           id="resetUserButton"
           class="reset-user-button"
@@ -1177,8 +1889,12 @@
         >
           RESET USER
         </button>
+
       </div>
+
+
       <div class="home-actions">
+
         <button
           id="homeScorecardButton"
           class="home-main-button"
@@ -1186,6 +1902,8 @@
         >
           ACCESS SCORECARD
         </button>
+
+
         <button
           id="homeLeaderboardButton"
           class="home-main-button"
@@ -1193,26 +1911,37 @@
         >
           VIEW LIVE LEADERBOARD
         </button>
-        <button
-          class="quick-guide-button"
-          type="button"
-          data-guide
-        >
-          QUICK GUIDE
-        </button>
+
+
+        <div class="home-utility-row">
+          <button id="resetUserButtonV2" class="reset-user-button" type="button">RESET USER</button>
+          <button class="quick-guide-button" type="button" data-guide>QUICK GUIDE</button>
+        </div>
+
       </div>
+
     </div>
+
   </section>
+
+
   <!-- =======================================================
        SCORECARD
        ======================================================= -->
+
   <section
     id="scorecardView"
     class="view"
   >
+
     <div class="scorecard-screen">
+
+
       <div class="score-fixed-top">
+
+
         <div class="score-nav">
+
           <button
             id="scoreHomeButton"
             class="nav-button"
@@ -1220,10 +1949,14 @@
           >
             HOME
           </button>
+
+
           <div
             id="scoreTiming"
             class="test-timing"
           ></div>
+
+
           <button
             class="nav-button"
             type="button"
@@ -1231,33 +1964,56 @@
           >
             INFO
           </button>
+
         </div>
+
+
         <div class="team-select-wrap">
+
           <select
             id="teamSelect"
             class="top-team-select"
             aria-label="Select Team"
           >
+
             <option value="">
               SELECT TEAM
             </option>
+
           </select>
+
         </div>
+
+
         <div class="score-table-head">
+
           <div>HOLE</div>
+
           <div>PAR</div>
+
           <div>YARDS</div>
+
           <div>SCORE</div>
+
         </div>
+
       </div>
+
+
       <div
         id="scoreScroll"
         class="score-scroll"
       >
+
         <div id="scoreRows"></div>
+
       </div>
+
+
       <div class="score-fixed-bottom">
+
         <div class="score-bottom-actions">
+
           <button
             id="scoreLeaderboardButton"
             class="bottom-action leaderboard-button"
@@ -1265,6 +2021,8 @@
           >
             LIVE LEADERBOARD
           </button>
+
+
           <button
             id="submitBtn"
             class="bottom-action submit-button"
@@ -1273,20 +2031,32 @@
           >
             SUBMIT SCORES
           </button>
+
         </div>
+
       </div>
+
     </div>
+
   </section>
+
+
   <!-- =======================================================
        LEADERBOARD
        ======================================================= -->
+
   <section
     id="leaderboardView"
     class="view"
   >
+
     <div class="leaderboard-screen">
+
+
       <div class="leader-top">
+
         <div class="leader-nav">
+
           <button
             id="leaderHomeButton"
             class="nav-button"
@@ -1294,10 +2064,14 @@
           >
             HOME
           </button>
+
+
           <div
             id="leaderTiming"
             class="leader-test-timing"
           ></div>
+
+
           <button
             class="nav-button"
             type="button"
@@ -1305,37 +2079,63 @@
           >
             INFO
           </button>
+
         </div>
+
+
         <div class="leader-title-bar">
+
           <div class="leader-title">
             LIVE LEADERBOARD
           </div>
+
+
           <button
-            id="leaderRefreshButton"
+            id="leaderRefreshButtonTop"
             class="leader-refresh-button"
             type="button"
           >
             REFRESH
           </button>
+
         </div>
+
       </div>
+
+
       <div class="leader-content">
+
         <div class="leader-table">
+
+
           <div class="leader-row header">
+
             <div>TEAM</div>
+
             <div>STATUS</div>
+
             <div>TOTAL</div>
+
           </div>
+
+
           <div id="leaderRows"></div>
+
         </div>
+
+
         <div
           id="leaderUpdateNote"
           class="leader-update-note"
         >
           Tap REFRESH for latest standings
         </div>
+
       </div>
+
+
       <div class="leader-bottom">
+
         <button
           id="leaderScorecardButton"
           class="access-scorecard"
@@ -1343,25 +2143,38 @@
         >
           ACCESS SCORECARD
         </button>
+        <button id="leaderRefreshButton" class="leader-refresh-button" type="button">REFRESH</button>
+
       </div>
+
     </div>
+
   </section>
+
+
   <!-- =======================================================
        GENERAL MODAL
        ======================================================= -->
+
   <div
     id="modalOverlay"
     class="modal-overlay"
   >
+
     <div class="modal-box">
+
       <div
         id="modalTitle"
         class="modal-title"
       ></div>
+
+
       <div
         id="modalBody"
         class="modal-text"
       ></div>
+
+
       <input
         id="modalInput"
         class="modal-input"
@@ -1370,20 +2183,30 @@
         autocapitalize="characters"
         style="display:none;"
       >
+
+
       <div
         id="modalActions"
         class="modal-actions"
       ></div>
+
     </div>
+
   </div>
+
+
   <!-- =======================================================
        SCORE ENTRY
        ======================================================= -->
+
   <div
     id="scoreEntryOverlay"
     class="score-entry-overlay"
   >
+
     <div class="score-entry-box">
+
+
       <button
         id="scoreEntryCancel"
         class="score-entry-cancel"
@@ -1392,28 +2215,40 @@
       >
         ×
       </button>
+
+
       <div
         id="scoreEntryHole"
         class="score-entry-hole"
       >
         HOLE
       </div>
+
+
       <div
         id="scoreEntryPar"
         class="score-entry-par"
       >
         PAR
       </div>
+
+
+      <div class="score-entry-control">
+        <button id="scoreEntryMinus" class="score-step-button" type="button" aria-label="Decrease score">−</button>
       <input
         id="scoreEntryInput"
         class="score-entry-input"
-        type="number"
+        type="text"
         min="1"
         step="1"
         inputmode="numeric"
         enterkeyhint="done"
         autocomplete="off"
       >
+        <button id="scoreEntryPlus" class="score-step-button" type="button" aria-label="Increase score">+</button>
+      </div>
+
+
       <button
         id="scoreEntryEnter"
         class="score-entry-enter"
@@ -1421,9 +2256,14 @@
       >
         ENTER
       </button>
+
     </div>
+
   </div>
+
+
   <script>
+
     // ==========================================================
     // ROTB 2026
     // TEST BUILD
@@ -1437,9 +2277,6 @@
     //
     // Saves:
     // One write request.
-    // Do not wait for the write response.
-    // Independently re-read the scorecard after a brief delay.
-    // Scores turn gold only after Google Sheets confirms the exact values.
     // No automatic write retry.
     //
     // Leaderboard:
@@ -1450,120 +2287,195 @@
     // The experimental 3-second forced page reload
     // has been removed.
     // ==========================================================
+
+
     const SCRIPT_URL =
       'https://script.google.com/macros/s/AKfycbx4r2MORk4rPjUf28W_7EoarbgKEJzVTIOuaewqKf5cqUpehQlqKFa0ZyyKDjpy7Fc9/exec';
+
+
     const els = {
+
       topLoading:
         document.getElementById('topLoading'),
+
       homeView:
         document.getElementById('homeView'),
+
       scorecardView:
         document.getElementById('scorecardView'),
+
       leaderboardView:
         document.getElementById('leaderboardView'),
+
       homeScorecardButton:
         document.getElementById('homeScorecardButton'),
+
       homeLeaderboardButton:
         document.getElementById('homeLeaderboardButton'),
+
       resetUserButton:
-        document.getElementById('resetUserButton'),
+        document.getElementById('resetUserButtonV2'),
+
       scoreHomeButton:
         document.getElementById('scoreHomeButton'),
+
       leaderHomeButton:
         document.getElementById('leaderHomeButton'),
+
       teamSelect:
         document.getElementById('teamSelect'),
+
       scoreRows:
         document.getElementById('scoreRows'),
+
       scoreScroll:
         document.getElementById('scoreScroll'),
+
       scoreTiming:
         document.getElementById('scoreTiming'),
+
       scoreLeaderboardButton:
         document.getElementById('scoreLeaderboardButton'),
+
       submitBtn:
         document.getElementById('submitBtn'),
+
       leaderRows:
         document.getElementById('leaderRows'),
+
       leaderUpdateNote:
         document.getElementById('leaderUpdateNote'),
+
       leaderTiming:
         document.getElementById('leaderTiming'),
+
       leaderRefreshButton:
         document.getElementById('leaderRefreshButton'),
+
       leaderScorecardButton:
         document.getElementById('leaderScorecardButton'),
+
       modalOverlay:
         document.getElementById('modalOverlay'),
+
       modalTitle:
         document.getElementById('modalTitle'),
+
       modalBody:
         document.getElementById('modalBody'),
+
       modalInput:
         document.getElementById('modalInput'),
+
       modalActions:
         document.getElementById('modalActions'),
+
       scoreEntryOverlay:
         document.getElementById('scoreEntryOverlay'),
+
       scoreEntryHole:
         document.getElementById('scoreEntryHole'),
+
       scoreEntryPar:
         document.getElementById('scoreEntryPar'),
+
       scoreEntryInput:
         document.getElementById('scoreEntryInput'),
+
+      scoreEntryMinus:
+        document.getElementById('scoreEntryMinus'),
+
+      scoreEntryPlus:
+        document.getElementById('scoreEntryPlus'),
+
       scoreEntryEnter:
         document.getElementById('scoreEntryEnter'),
+
       scoreEntryCancel:
         document.getElementById('scoreEntryCancel')
+
     };
+
+
     let holes = [];
+
     let teams = [];
+
     let selectedTeam = null;
+
+
     let localScores =
       Array(18).fill(null);
+
+
     let savedScores =
       Array(18).fill(null);
+
+
     let activeScoreIndex =
       null;
+
+
     let scoreEntryClosing =
       false;
+
+
     let currentView =
       'home';
+
+
     let scorecardHasLoaded =
       false;
+
+
     let scorecardLoadInProgress =
       false;
+
+
     let leaderboardHasLoaded =
       false;
+
+
     let leaderboardLoadInProgress =
       false;
+
+
     let saveInProgress =
       false;
+
+
     let scorecardLoadSeconds =
       null;
+
+
     let scoreSaveSeconds =
       null;
+
+
     let leaderboardLoadSeconds =
       null;
+
+
     let leaderboardRefreshSeconds =
       null;
-    let scorecardBackendTiming =
-      null;
-    let scoreSaveBackendTiming =
-      null;
-    let leaderboardLoadBackendTiming =
-      null;
-    let leaderboardRefreshBackendTiming =
-      null;
+
+
     /* =========================================================
        TIMING
        ========================================================= */
+
+
     function timerStart() {
+
       return performance.now();
+
     }
+
+
     function timerSeconds(
       start
     ) {
+
       return (
         (
           performance.now() -
@@ -1571,403 +2483,767 @@
         ) /
         1000
       ).toFixed(2);
+
     }
-    function timingSecondsFromMs(
-      value
-    ) {
-      const number =
-        Number(value);
-      if (
-        !Number.isFinite(number)
-      ) {
-        return null;
-      }
-      return (
-        number /
-        1000
-      ).toFixed(2);
-    }
+
+
     function updateScoreTiming() {
-      if (
-        scoreSaveSeconds !==
-        null
-      ) {
-        const parts = [
-          'SAVE ' +
-          scoreSaveSeconds +
-          's'
-        ];
-        const timing =
-          scoreSaveBackendTiming;
-        if (timing) {
-          const server =
-            timingSecondsFromMs(
-              timing.serverMs
-            );
-          const read =
-            timingSecondsFromMs(
-              timing.sheetReadMs
-            );
-          const write =
-            timingSecondsFromMs(
-              timing.writeMs
-            );
-          const flush =
-            timingSecondsFromMs(
-              timing.flushMs
-            );
-          if (server !== null) {
-            parts.push(
-              'SVR ' +
-              server +
-              's'
-            );
-          }
-          if (read !== null) {
-            parts.push(
-              'RD ' +
-              read +
-              's'
-            );
-          }
-          if (write !== null) {
-            parts.push(
-              'WR ' +
-              write +
-              's'
-            );
-          }
-          if (flush !== null) {
-            parts.push(
-              'FL ' +
-              flush +
-              's'
-            );
-          }
-        }
-        els.scoreTiming.textContent =
-          'TEST • ' +
-          parts.join(' • ');
-        return;
-      }
+
+      const parts = [];
+
+
       if (
         scorecardLoadSeconds !==
         null
       ) {
-        const parts = [
+
+        parts.push(
           'LOAD ' +
           scorecardLoadSeconds +
           's'
-        ];
-        const timing =
-          scorecardBackendTiming;
-        if (timing) {
-          const server =
-            timingSecondsFromMs(
-              timing.serverMs
-            );
-          const read =
-            timingSecondsFromMs(
-              timing.sheetReadMs
-            );
-          if (server !== null) {
-            parts.push(
-              'SVR ' +
-              server +
-              's'
-            );
-          }
-          if (read !== null) {
-            parts.push(
-              'RD ' +
-              read +
-              's'
-            );
-          }
-        }
-        els.scoreTiming.textContent =
-          'TEST • ' +
-          parts.join(' • ');
-        return;
+        );
+
       }
+
+
+      if (
+        scoreSaveSeconds !==
+        null
+      ) {
+
+        parts.push(
+          'SAVE ' +
+          scoreSaveSeconds +
+          's'
+        );
+
+      }
+
+
       els.scoreTiming.textContent =
-        '';
+        parts.length
+          ? parts.join(' • ')
+          : '';
+
+      fitTimingText(els.scoreTiming);
+
     }
+
+
     function updateLeaderboardTiming() {
-      const isRefresh =
+
+      const parts = [];
+
+
+      if (
+        leaderboardLoadSeconds !==
+        null
+      ) {
+
+        parts.push(
+          'LOAD ' +
+          leaderboardLoadSeconds +
+          's'
+        );
+
+      }
+
+
+      if (
         leaderboardRefreshSeconds !==
-        null;
-      const seconds =
-        isRefresh
-          ? leaderboardRefreshSeconds
-          : leaderboardLoadSeconds;
-      const timing =
-        isRefresh
-          ? leaderboardRefreshBackendTiming
-          : leaderboardLoadBackendTiming;
-      if (seconds === null) {
-        els.leaderTiming.textContent =
-          '';
-        return;
+        null
+      ) {
+
+        parts.push(
+          'REFRESH ' +
+          leaderboardRefreshSeconds +
+          's'
+        );
+
       }
-      const parts = [
-        (
-          isRefresh
-            ? 'REFRESH '
-            : 'LOAD '
-        ) +
-        seconds +
-        's'
-      ];
-      if (timing) {
-        const server =
-          timingSecondsFromMs(
-            timing.serverMs
-          );
-        const read =
-          timingSecondsFromMs(
-            timing.sheetReadMs
-          );
-        if (server !== null) {
-          parts.push(
-            'SVR ' +
-            server +
-            's'
-          );
-        }
-        if (read !== null) {
-          parts.push(
-            'RD ' +
-            read +
-            's'
-          );
-        }
-      }
+
+
       els.leaderTiming.textContent =
-        'TEST • ' +
-        parts.join(' • ');
+        parts.length
+          ? parts.join(' • ')
+          : '';
+
+      fitTimingText(els.leaderTiming);
+
     }
+
+
+    function fitTimingText(element) {
+      if (!element) return;
+
+      const nav =
+        element.closest('.score-nav, .leader-nav');
+
+      const referenceButton =
+        nav
+          ? nav.querySelector('.nav-button')
+          : null;
+
+      const maxSize =
+        referenceButton
+          ? parseFloat(
+              getComputedStyle(referenceButton).fontSize
+            ) || 16
+          : 16;
+
+      const minSize = 8;
+      const available =
+        Math.max(
+          0,
+          element.clientWidth - 8
+        );
+
+      let size = maxSize;
+
+      element.style.fontSize =
+        size + 'px';
+
+      while (
+        size > minSize &&
+        element.scrollWidth > available
+      ) {
+
+        size -= .25;
+
+        element.style.fontSize =
+          size + 'px';
+
+      }
+    }
+
+
     /* =========================================================
        STORAGE
        ========================================================= */
+
+
     function getAuthorizedTeam() {
+
       return (
         localStorage.getItem(
           'rotbAuthorizedTeam'
         ) || ''
       );
+
     }
+
+
     function setAuthorizedTeam(
       teamName
     ) {
+
       localStorage.setItem(
         'rotbAuthorizedTeam',
         teamName
       );
+
     }
+
+
     function getRememberedSelectedTeam() {
+
       return (
         localStorage.getItem(
           'rotbSelectedTeam'
         ) || ''
       );
+
     }
+
+
     function rememberSelectedTeam(
       teamName
     ) {
+
       localStorage.setItem(
         'rotbSelectedTeam',
         teamName
       );
+
     }
+
+
+    function scorePositionKey(
+      teamName
+    ) {
+
+      return (
+        'rotbScoreScroll:' +
+        normalizeName(
+          teamName
+        )
+      );
+
+    }
+
+
+    function rememberScorePosition() {
+
+      if (
+        !selectedTeam ||
+        !els.scoreScroll
+      ) {
+
+        return;
+
+      }
+
+
+      localStorage.setItem(
+        scorePositionKey(
+          selectedTeam.name
+        ),
+        String(
+          els.scoreScroll.scrollTop || 0
+        )
+      );
+
+    }
+
+
+    function getRememberedScorePosition() {
+
+      if (
+        !selectedTeam
+      ) {
+
+        return 0;
+
+      }
+
+
+      const value =
+        Number(
+          localStorage.getItem(
+            scorePositionKey(
+              selectedTeam.name
+            )
+          )
+        );
+
+
+      return Number.isFinite(
+        value
+      )
+        ? Math.max(
+            0,
+            value
+          )
+        : 0;
+
+    }
+
+
+    function getFirstEmptyScoreIndex() {
+
+      if (
+        !selectedTeam
+      ) {
+
+        return -1;
+
+      }
+
+
+      return localScores.findIndex(
+        score =>
+          score === null
+      );
+
+    }
+
+
+    function restoreScorePosition() {
+
+      if (
+        !selectedTeam ||
+        !els.scoreScroll
+      ) {
+
+        return;
+
+      }
+
+
+      requestAnimationFrame(
+        () => {
+
+          requestAnimationFrame(
+            () => {
+
+              /*
+                V5 progress positioning:
+                use this team's SUBMITTED / GOLD scores only.
+
+                The score viewport is exactly nine holes tall.
+
+                Through Hole 5  -> show 1-9
+                Through Hole 6  -> show 2-10
+                Through Hole 7  -> show 3-11
+                ...
+                Through Hole 14 -> show 10-18
+                Hole 15+        -> remain at 10-18
+              */
+              let lastCompletedIndex =
+                -1;
+
+
+              savedScores.forEach(
+                (
+                  score,
+                  index
+                ) => {
+
+                  if (
+                    score !== null
+                  ) {
+
+                    lastCompletedIndex =
+                      index;
+
+                  }
+
+                }
+              );
+
+
+              if (
+                lastCompletedIndex >= 0
+              ) {
+
+                const targetIndex =
+                  Math.min(
+                    9,
+                    Math.max(
+                      0,
+                      lastCompletedIndex - 4
+                    )
+                  );
+
+
+                const row =
+                  els.scoreRows.querySelector(
+                    '.score-row[data-score-index="' +
+                    targetIndex +
+                    '"]'
+                  );
+
+
+                if (row) {
+
+                  const maxScroll =
+                    Math.max(
+                      0,
+                      els.scoreScroll.scrollHeight -
+                      els.scoreScroll.clientHeight
+                    );
+
+
+                  const scrollRect =
+                    els.scoreScroll.getBoundingClientRect();
+
+                  const rowRect =
+                    row.getBoundingClientRect();
+
+                  const targetScroll =
+                    els.scoreScroll.scrollTop +
+                    (
+                      rowRect.top -
+                      scrollRect.top
+                    );
+
+
+                  els.scoreScroll.scrollTop =
+                    Math.min(
+                      Math.max(
+                        0,
+                        targetScroll
+                      ),
+                      maxScroll
+                    );
+
+
+                  rememberScorePosition();
+
+                  return;
+
+                }
+
+              }
+
+
+              els.scoreScroll.scrollTop =
+                0;
+
+              rememberScorePosition();
+
+            }
+          );
+
+        }
+      );
+
+    }
+
     function rememberCurrentView(
       view
     ) {
+
       currentView =
         view;
+
+
       sessionStorage.setItem(
         'rotbCurrentView',
         view
       );
+
     }
+
+
     function getRememberedView() {
+
       const value =
         sessionStorage.getItem(
           'rotbCurrentView'
         );
+
+
       if (
         value === 'scorecard' ||
         value === 'leaderboard' ||
         value === 'home'
       ) {
+
         return value;
+
       }
+
+
       return 'home';
+
     }
+
+
     /* =========================================================
        RESET USER
        TESTING ONLY
        ========================================================= */
+
+
     function resetUser() {
+
       localStorage.removeItem(
         'rotbAuthorizedTeam'
       );
+
+
       localStorage.removeItem(
         'rotbSelectedTeam'
       );
+
+
+      Object.keys(
+        localStorage
+      ).forEach(
+        key => {
+
+          if (
+            key.indexOf(
+              'rotbScoreScroll:'
+            ) === 0
+          ) {
+
+            localStorage.removeItem(
+              key
+            );
+
+          }
+
+        }
+      );
+
+
       sessionStorage.removeItem(
         'rotbCurrentView'
       );
+
+
       selectedTeam =
         null;
+
+
       holes = [];
+
       teams = [];
+
+
       localScores =
         Array(18).fill(null);
+
+
       savedScores =
         Array(18).fill(null);
+
+
       scorecardHasLoaded =
         false;
+
+
       leaderboardHasLoaded =
         false;
+
+
       scorecardLoadSeconds =
         null;
+
+
       scoreSaveSeconds =
         null;
+
+
       leaderboardLoadSeconds =
         null;
+
+
       leaderboardRefreshSeconds =
         null;
-      scorecardBackendTiming =
-        null;
-      scoreSaveBackendTiming =
-        null;
-      leaderboardLoadBackendTiming =
-        null;
-      leaderboardRefreshBackendTiming =
-        null;
+
+
       els.scoreTiming.textContent =
         '';
+
+
       els.leaderTiming.textContent =
         '';
+
+
       els.scoreRows.innerHTML =
         '';
+
+
       els.leaderRows.innerHTML =
         '';
+
+
       els.teamSelect.innerHTML =
         '<option value="">SELECT TEAM</option>';
+
+
       els.teamSelect.value =
         '';
+
+
       els.teamSelect
         .classList
         .remove(
           'has-team'
         );
+
+
       els.submitBtn.disabled =
         true;
+
+
       currentView =
         'home';
+
+
       showTestingMessage(
         'USER RESET',
         'This device will now behave like a new ROTB user. No Google Sheet scores were changed.'
       );
+
     }
+
+
     /* =========================================================
        VIEW CONTROL
        ========================================================= */
+
+
     function setActiveView(
       view
     ) {
+
       els.homeView
         .classList
         .toggle(
           'active',
           view === 'home'
         );
+
+
       els.scorecardView
         .classList
         .toggle(
           'active',
           view === 'scorecard'
         );
+
+
       els.leaderboardView
         .classList
         .toggle(
           'active',
           view === 'leaderboard'
         );
+
+
       rememberCurrentView(
         view
       );
+
     }
+
+
     function showHome() {
+
       closeModal();
+
       closeScoreEntry(
         false
       );
+
+
+      if (
+        currentView ===
+        'scorecard'
+      ) {
+
+        rememberScorePosition();
+
+      }
+
+
       setActiveView(
         'home'
       );
+
+
       window.scrollTo(
         0,
         0
       );
+
     }
+
+
     async function showScorecard() {
+
       closeModal();
+
+
       setActiveView(
         'scorecard'
       );
+
+
       window.scrollTo(
         0,
         0
       );
+
+
       if (
         !scorecardHasLoaded &&
         !scorecardLoadInProgress
       ) {
+
         await loadScorecard();
+
       }
+
+
+      restoreScorePosition();
+
     }
+
+
     async function showLeaderboard() {
+
       closeModal();
+
       closeScoreEntry(
         true
       );
+
+
+      if (
+        currentView ===
+        'scorecard'
+      ) {
+
+        rememberScorePosition();
+
+      }
+
+
       setActiveView(
         'leaderboard'
       );
+
+
       window.scrollTo(
         0,
         0
       );
+
+
       if (
+        !leaderboardHasLoaded &&
         !leaderboardLoadInProgress
       ) {
+
         await loadLeaderboard(
           true
         );
+
       }
+
     }
+
+
     /* =========================================================
        SCORECARD READ
        ========================================================= */
+
+
     async function loadScorecard() {
+
       if (
         scorecardLoadInProgress
       ) {
+
         return;
+
       }
+
+
       scorecardLoadInProgress =
         true;
+
+
       const started =
         timerStart();
+
+
       startLoadingLine();
+
+
       try {
+
         const url =
           SCRIPT_URL +
           '?refresh=' +
           Date.now();
+
+
         const response =
           await fetch(
             url,
@@ -1976,19 +3252,28 @@
                 'no-store'
             }
           );
+
+
         if (
           !response.ok
         ) {
+
           throw new Error(
             'Scorecard request failed.'
           );
+
         }
+
+
         const data =
           await response.json();
+
+
         if (
           !data ||
           data.success !== true
         ) {
+
           throw new Error(
             (
               data &&
@@ -1996,13 +3281,18 @@
             ) ||
             'Scorecard data unavailable.'
           );
+
         }
+
+
         holes =
           Array.isArray(
             data.holes
           )
             ? data.holes
             : [];
+
+
         teams =
           Array.isArray(
             data.teams
@@ -2015,88 +3305,130 @@
                   ).trim() !== ''
               )
             : [];
+
+
         buildTeamSelect();
+
         restoreOrSelectTeam();
+
         renderScorecard();
+
+
         scorecardHasLoaded =
           true;
+
+
         scorecardLoadSeconds =
           timerSeconds(
             started
           );
-        scorecardBackendTiming =
-          data.timing ||
-          null;
-        scoreSaveSeconds =
-          null;
-        scoreSaveBackendTiming =
-          null;
+
+
         updateScoreTiming();
+
+
         completeLoadingLine();
+
       }
       catch (error) {
+
         scorecardLoadSeconds =
           timerSeconds(
             started
           );
-        scorecardBackendTiming =
-          null;
-        scoreSaveSeconds =
-          null;
-        scoreSaveBackendTiming =
-          null;
+
+
         updateScoreTiming();
+
+
         stopLoadingLine();
+
+
         showLoadError(
           'Scorecard Could Not Load',
           'The ROTB scorecard could not be loaded.',
           async () => {
+
             closeModal();
+
+
             scorecardHasLoaded =
               false;
+
+
             await loadScorecard();
+
           }
         );
+
       }
       finally {
+
         scorecardLoadInProgress =
           false;
+
       }
+
     }
+
+
     /* =========================================================
        TEAM SELECT
        ========================================================= */
+
+
     function buildTeamSelect() {
+
       els.teamSelect.innerHTML =
         '<option value="">SELECT TEAM</option>';
+
+
       teams.forEach(
         team => {
+
           const option =
             document.createElement(
               'option'
             );
+
+
           option.value =
             String(
               team.slot
             );
+
+
           option.textContent =
             team.name;
+
+
           els.teamSelect.appendChild(
             option
           );
+
         }
       );
+
+
       els.teamSelect.value =
         '';
+
+
       els.teamSelect
         .classList
         .remove(
           'has-team'
         );
+
     }
+
+
     function restoreOrSelectTeam() {
+
       const remembered =
         getRememberedSelectedTeam();
+
+
       const team =
         teams.find(
           item =>
@@ -2107,20 +3439,30 @@
               remembered
             )
         );
+
+
       if (team) {
+
         selectTeam(
           team.slot,
           false
         );
+
       }
       else {
+
         clearSelectedTeam();
+
       }
+
     }
+
+
     function selectTeam(
       slot,
       scrollToTop = true
     ) {
+
       const team =
         teams.find(
           item =>
@@ -2131,305 +3473,474 @@
               slot
             )
         );
+
+
       if (!team) {
+
         return;
+
       }
+
+
       selectedTeam =
         team;
+
+
       localScores =
         normalizeScores(
           team.scores
         );
+
+
       savedScores =
         normalizeScores(
           team.scores
         );
+
+
       rememberSelectedTeam(
         team.name
       );
+
+
       els.teamSelect.value =
         String(
           team.slot
         );
+
+
       els.teamSelect
         .classList
         .add(
           'has-team'
         );
-      els.submitBtn.disabled =
-        false;
+
+
       renderScorecard();
+
+
       if (
         scrollToTop
       ) {
-        els.scoreScroll.scrollTop =
-          0;
+
+        restoreScorePosition();
+
       }
+
     }
+
+
     function clearSelectedTeam() {
+
       selectedTeam =
         null;
+
+
       localScores =
         Array(18).fill(
           null
         );
+
+
       savedScores =
         Array(18).fill(
           null
         );
+
+
       els.teamSelect.value =
         '';
+
+
       els.teamSelect
         .classList
         .remove(
           'has-team'
         );
-      els.submitBtn.disabled =
-        true;
+
+
       renderScorecard();
+
     }
+
+
     function normalizeName(
       value
     ) {
+
       return String(
         value || ''
       )
         .trim()
         .toLowerCase();
+
     }
+
+
     function normalizeScores(
       values
     ) {
+
       const source =
         Array.isArray(
           values
         )
           ? values
           : [];
+
+
       return Array.from(
         {
           length: 18
         },
         (_, index) => {
+
           const value =
             source[
               index
             ];
+
+
           if (
             value === '' ||
             value === null ||
             value === undefined
           ) {
+
             return null;
+
           }
+
+
           const number =
             Number(
               value
             );
+
+
           if (
             Number.isInteger(
               number
             ) &&
             number > 0
           ) {
+
             return number;
+
           }
+
+
           return null;
+
         }
       );
+
     }
-    function scoresEqual(
-      first,
-      second
-    ) {
-      const a =
-        normalizeScores(
-          first
-        );
-      const b =
-        normalizeScores(
-          second
-        );
-      return a.every(
-        (value, index) =>
-          value === b[index]
-      );
-    }
+
+
     /* =========================================================
        SCORECARD RENDER
        ========================================================= */
+
+
     function renderScorecard() {
+
       els.scoreRows.innerHTML =
         '';
+
+
       holes.forEach(
         (
           hole,
           index
         ) => {
+
+
           if (
             index === 9
           ) {
+
             const breakRow =
               document.createElement(
                 'div'
               );
+
+
             breakRow.className =
               'nine-break';
+
+
             els.scoreRows.appendChild(
               breakRow
             );
+
           }
+
+
           const row =
             document.createElement(
               'div'
             );
+
+
           row.className =
             'score-row';
+
+
+          row.dataset.scoreIndex =
+            String(
+              index
+            );
+
+
           const holeCell =
             document.createElement(
               'div'
             );
+
+
           holeCell.className =
             'hole-cell';
+
+
           holeCell.textContent =
             hole.hole;
+
+
           const parCell =
             document.createElement(
               'div'
             );
+
+
           parCell.className =
             'par-cell';
+
+
           parCell.textContent =
             hole.par;
+
+
           const yardageCell =
             document.createElement(
               'div'
             );
+
+
           yardageCell.className =
             'yardage-cell';
+
+
           const white =
             document.createElement(
               'span'
             );
+
+
           white.className =
             'yard-white';
+
+
           white.textContent =
             hole.white;
+
+
           const slash =
             document.createElement(
               'span'
             );
+
+
           slash.className =
             'yard-slash';
+
+
           slash.textContent =
             '/';
+
+
           const gold =
             document.createElement(
               'span'
             );
+
+
           gold.className =
             'yard-gold';
+
+
           gold.textContent =
             hole.gold;
+
+
           yardageCell.append(
             white,
             slash,
             gold
           );
+
+
           const scoreCell =
             document.createElement(
               'div'
             );
+
+
           scoreCell.className =
             'score-cell';
+
+
           const button =
             document.createElement(
               'button'
             );
+
+
           button.type =
             'button';
+
+
           button.className =
             'score-button';
+
+
           if (
             !selectedTeam
           ) {
+
             button.disabled =
               true;
+
+
             button.classList.add(
               'empty'
             );
+
+
             button.textContent =
               '';
+
           }
           else {
+
             const local =
               localScores[
                 index
               ];
+
+
             const saved =
               savedScores[
                 index
               ];
+
+
             if (
               local === null
             ) {
+
               button.classList.add(
                 'empty'
               );
+
+
               button.textContent =
                 '';
+
             }
             else {
-              button.textContent =
-                String(
-                  local
-                );
-              if (
-                local === saved
-              ) {
-                button.classList.add(
-                  'saved'
-                );
+
+              if (local === saved) {
+                button.classList.add('saved');
+                button.appendChild(makeSubmittedScoreMark(local, hole.par));
               }
               else {
-                button.classList.add(
-                  'unsaved'
-                );
+                button.textContent = String(local);
+                button.classList.add('unsaved');
               }
+
             }
+
+
             button.addEventListener(
               'click',
               () => {
+
                 requestScoreEntry(
                   index
                 );
+
               }
             );
+
           }
+
+
           scoreCell.appendChild(
             button
           );
+
+
           row.append(
             holeCell,
             parCell,
             yardageCell,
             scoreCell
           );
+
+
           els.scoreRows.appendChild(
             row
           );
+
         }
       );
+
+      updateSubmitButtonState();
+
     }
+
+
+    function makeSubmittedScoreMark(score, par) {
+      const mark = document.createElement('span');
+      const relative = Number(score) - Number(par);
+      mark.className = 'score-mark';
+      mark.textContent = String(score);
+      if (relative === -1) mark.classList.add('single-circle');
+      else if (relative <= -2) mark.classList.add('double-circle');
+      else if (relative === 1) mark.classList.add('single-square');
+      else if (relative === 2) mark.classList.add('double-square');
+      else if (relative >= 3) mark.classList.add('bold-square');
+      else mark.classList.add('par-mark');
+      return mark;
+    }
+
+    function hasPendingScores() {
+      if (!selectedTeam) return false;
+      return localScores.some((score,index) => score !== savedScores[index]);
+    }
+
+    function updateSubmitButtonState() {
+      els.submitBtn.disabled = saveInProgress || !hasPendingScores();
+    }
+
+
     /* =========================================================
        AUTHORIZATION
        ========================================================= */
+
+
     function isSelectedTeamAuthorized() {
+
       if (
         !selectedTeam
       ) {
+
         return false;
+
       }
+
+
       return (
         normalizeName(
           getAuthorizedTeam()
@@ -2438,185 +3949,218 @@
           selectedTeam.name
         )
       );
+
     }
+
+
     function requestScoreEntry(
       index
     ) {
+
       if (
         !selectedTeam
       ) {
+
         return;
+
       }
+
+
       if (
         isSelectedTeamAuthorized()
       ) {
+
         openScoreEntry(
           index
         );
+
+
         return;
+
       }
+
+
       showAuthorizationModal(
         index
       );
+
     }
-    function showAuthorizationModal(
-      index
-    ) {
+
+
+    function showAuthorizationModal(index) {
       closeModal();
-      els.modalTitle.textContent =
-        'Authorize Scoring';
-      els.modalBody.innerHTML =
-        'For the team <strong>' +
-        escapeHtml(
-          selectedTeam.name
-        ) +
-        '</strong>, type <strong>OK</strong> below.';
-      els.modalInput.style.display =
-        'block';
-      els.modalInput.value =
-        '';
-      els.modalInput.placeholder =
-        'Type OK';
-      const cancel =
-        makeModalButton(
-          'CANCEL',
-          '',
-          closeModal
-        );
-      const unlock =
-        makeModalButton(
-          'UNLOCK',
-          'primary',
-          () => {
-            if (
-              normalizeName(
-                els.modalInput.value
-              ) !==
-              'ok'
-            ) {
-              els.modalInput.value =
-                '';
-              els.modalInput.placeholder =
-                'Please type OK';
-              els.modalInput.focus();
-              return;
-            }
-            setAuthorizedTeam(
-              selectedTeam.name
-            );
-            closeModal();
-            openScoreEntry(
-              index
-            );
-          }
-        );
-      els.modalActions.className =
-        'modal-actions';
-      els.modalActions.replaceChildren(
-        cancel,
-        unlock
-      );
-      els.modalOverlay
-        .classList
-        .add(
-          'open'
-        );
-      setTimeout(
-        () => {
+      els.modalOverlay.classList.add('authorization');
+      els.modalTitle.textContent = 'Authorize Scoring For:';
+      els.modalBody.innerHTML = '<div class="auth-team-name">' + escapeHtml(selectedTeam.name) + '</div><div class="auth-instruction">Type <strong>Y</strong> for YES and press Enter</div>';
+      els.modalInput.style.display = 'block';
+      els.modalInput.value = '';
+      els.modalInput.placeholder = 'Y';
+      els.modalInput.maxLength = 1;
+      els.modalActions.replaceChildren();
+      els.modalActions.className = 'modal-actions single';
+
+      const authorizeEnter = () => {
+        if (normalizeName(els.modalInput.value) !== 'y') {
+          els.modalInput.value = '';
+          els.modalInput.placeholder = 'Type Y';
           els.modalInput.focus();
-        },
-        60
-      );
-      els.modalInput.onkeydown =
-        event => {
-          if (
-            event.key ===
-            'Enter'
-          ) {
-            event.preventDefault();
-            unlock.click();
-          }
-        };
+          return;
+        }
+        setAuthorizedTeam(selectedTeam.name);
+        closeModal();
+        openScoreEntry(index);
+      };
+
+      const enterButton = makeModalButton('ENTER', 'primary', authorizeEnter);
+      els.modalActions.appendChild(enterButton);
+      els.modalOverlay.classList.add('open');
+      setTimeout(() => els.modalInput.focus(), 60);
+      els.modalInput.onkeydown = event => {
+        if (event.key !== 'Enter') return;
+        event.preventDefault();
+        authorizeEnter();
+      };
     }
+
+
     /* =========================================================
        SCORE ENTRY
        ========================================================= */
+
+
     function openScoreEntry(
       index
     ) {
+
       const hole =
         holes[
           index
         ];
+
+
       if (
         !hole ||
         !selectedTeam
       ) {
+
         return;
+
       }
+
+
       activeScoreIndex =
         index;
+
+
       scoreEntryClosing =
         false;
+
+
       els.scoreEntryHole.textContent =
         'HOLE ' +
         hole.hole;
+
+
       els.scoreEntryPar.textContent =
         'PAR ' +
         hole.par;
+
+
       els.scoreEntryInput.value =
-        '';
+        String(
+          localScores[index] === null
+            ? hole.par
+            : localScores[index]
+        );
+
+
       els.scoreEntryOverlay
         .classList
         .add(
           'open'
         );
+
+
       setTimeout(
         () => {
+
           els.scoreEntryInput.focus();
+          try {
+            const end = els.scoreEntryInput.value.length;
+            els.scoreEntryInput.setSelectionRange(end, end);
+          } catch (_) {}
+
         },
         50
       );
+
+
       positionScoreEntry();
+
     }
+
+
     function commitScoreEntryValue() {
+
       if (
         activeScoreIndex ===
         null
       ) {
+
         return;
+
       }
+
+
       const raw =
         String(
           els.scoreEntryInput.value ||
           ''
         ).trim();
+
+
       if (
         raw === ''
       ) {
+
         return;
+
       }
+
+
       const value =
         Number(
           raw
         );
+
+
       if (
         !Number.isInteger(
           value
         ) ||
         value <= 0
       ) {
+
         return;
+
       }
+
+
       localScores[
         activeScoreIndex
       ] =
         value;
+
+
       renderScorecard();
+
     }
+
+
     function closeScoreEntry(
       commitTypedValue
     ) {
+
       if (
         !els.scoreEntryOverlay
           .classList
@@ -2625,34 +4169,58 @@
           ) ||
         scoreEntryClosing
       ) {
+
         return;
+
       }
+
+
       scoreEntryClosing =
         true;
+
+
       if (
         commitTypedValue
       ) {
+
         commitScoreEntryValue();
+
       }
+
+
       els.scoreEntryOverlay
         .classList
         .remove(
           'open'
         );
+
+
       els.scoreEntryInput.blur();
+
+
       els.scoreEntryInput.value =
         '';
+
+
       activeScoreIndex =
         null;
+
+
       setTimeout(
         () => {
+
           scoreEntryClosing =
             false;
+
         },
         0
       );
+
     }
+
+
     function positionScoreEntry() {
+
       if (
         !window.visualViewport ||
         !els.scoreEntryOverlay
@@ -2661,31 +4229,50 @@
             'open'
           )
       ) {
+
         return;
+
       }
+
+
       const viewport =
         window.visualViewport;
+
+
       const top =
         Math.max(
           12,
           viewport.offsetTop +
           18
         );
+
+
       els.scoreEntryOverlay.style.paddingTop =
         top +
         'px';
+
     }
+
+
     /* =========================================================
        SAVE SCORES
-       EV-INSPIRED: WRITE, THEN INDEPENDENTLY VERIFY
+       UNCHANGED - NO AUTO RELOAD / NO RETRY
        ========================================================= */
+
+
     async function submitScores() {
+
       if (
         !selectedTeam ||
-        saveInProgress
+        saveInProgress ||
+        !hasPendingScores()
       ) {
+
         return;
+
       }
+
+
       if (
         els.scoreEntryOverlay
           .classList
@@ -2693,272 +4280,56 @@
             'open'
           )
       ) {
+
         closeScoreEntry(
           true
         );
+
       }
+
+
       saveInProgress =
         true;
+
+
       els.submitBtn.disabled =
         true;
+
+
       const started =
         timerStart();
-      const expectedScores =
-        normalizeScores(
-          localScores
-        );
-      const expectedSlot =
-        Number(
-          selectedTeam.slot
-        );
-      const encodedScores =
-        encodeURIComponent(
-          JSON.stringify(
-            expectedScores
-          )
-        );
-      const writeUrl =
-        SCRIPT_URL +
-        '?action=saveScores' +
-        '&slot=' +
-        encodeURIComponent(
-          expectedSlot
-        ) +
-        '&scores=' +
-        encodedScores +
-        '&refresh=' +
-        Date.now();
+
+
       startLoadingLine();
 
-      /*
-        Like the EV app, send the write request
-        without making the golfer wait for that
-        specific response to come back.
 
-        The write is attempted ONCE only.
-        There is NO automatic write retry.
-      */
-      fetch(
-        writeUrl,
-        {
-          cache:
-            'no-store'
-        }
-      )
-        .then(
-          response =>
-            response.json()
-        )
-        .then(
-          data => {
-            if (
-              !data ||
-              data.success !== true
-            ) {
-              console.error(
-                'ROTB save response did not confirm success:',
-                data
-              );
-            }
-          }
-        )
-        .catch(
-          error => {
-            console.error(
-              'ROTB save response error:',
-              error
-            );
-          }
-        );
-
-      /*
-        Give Google Sheets a brief moment, then
-        independently read OFFICIAL again.
-
-        The scores remain gray until this read
-        confirms the exact 18 values we sent.
-      */
-      setTimeout(
-        () => {
-          verifySavedScores(
-            expectedSlot,
-            expectedScores,
-            started
-          );
-        },
-        1200
-      );
-    }
-
-    async function verifySavedScores(
-      expectedSlot,
-      expectedScores,
-      started
-    ) {
       try {
-        const verifyUrl =
-          SCRIPT_URL +
-          '?refresh=' +
-          Date.now();
-        const response =
-          await fetch(
-            verifyUrl,
-            {
-              cache:
-                'no-store'
-            }
+
+        const encodedScores =
+          encodeURIComponent(
+            JSON.stringify(
+              localScores
+            )
           );
-        if (
-          !response.ok
-        ) {
-          throw new Error(
-            'Save verification request failed.'
-          );
-        }
-        const data =
-          await response.json();
-        if (
-          !data ||
-          data.success !== true ||
-          !Array.isArray(
-            data.teams
-          )
-        ) {
-          throw new Error(
-            'Save verification data unavailable.'
-          );
-        }
-        const verifiedTeam =
-          data.teams.find(
-            team =>
-              Number(
-                team.slot
-              ) ===
-              Number(
-                expectedSlot
-              )
-          );
-        if (
-          !verifiedTeam ||
-          !scoresEqual(
-            verifiedTeam.scores,
-            expectedScores
-          )
-        ) {
-          throw new Error(
-            'Saved scores are not yet confirmed.'
-          );
-        }
-        holes =
-          Array.isArray(
-            data.holes
-          )
-            ? data.holes
-            : holes;
-        teams =
-          data.teams.filter(
-            team =>
-              team &&
-              String(
-                team.name || ''
-              ).trim() !== ''
-          );
-        const refreshedTeam =
-          teams.find(
-            team =>
-              Number(
-                team.slot
-              ) ===
-              Number(
-                expectedSlot
-              )
-          );
-        if (
-          refreshedTeam
-        ) {
-          selectedTeam =
-            refreshedTeam;
-          savedScores =
-            normalizeScores(
-              refreshedTeam.scores
-            );
-          localScores =
-            normalizeScores(
-              refreshedTeam.scores
-            );
-          els.teamSelect.value =
-            String(
-              refreshedTeam.slot
-            );
-          els.teamSelect
-            .classList
-            .add(
-              'has-team'
-            );
-        }
-        renderScorecard();
-        scoreSaveSeconds =
-          timerSeconds(
-            started
-          );
-        scoreSaveBackendTiming =
-          data.timing ||
-          null;
-        updateScoreTiming();
-        completeLoadingLine();
-      }
-      catch (error) {
-        scoreSaveSeconds =
-          timerSeconds(
-            started
-          );
-        scoreSaveBackendTiming =
-          null;
-        updateScoreTiming();
-        stopLoadingLine();
-        showMessageModal(
-          'Save Not Yet Confirmed',
-          'Google Sheets has not confirmed the new scores yet. Your entered scores remain gray. No automatic second write was sent.'
-        );
-      }
-      finally {
-        saveInProgress =
-          false;
-        els.submitBtn.disabled =
-          !selectedTeam;
-      }
-    }
-    /* =========================================================
-       LEADERBOARD READ
-       MANUAL REFRESH
-       ========================================================= */
-    async function loadLeaderboard(
-      showErrorIfEmpty
-    ) {
-      if (
-        leaderboardLoadInProgress
-      ) {
-        return;
-      }
-      leaderboardLoadInProgress =
-        true;
-      els.leaderRefreshButton.disabled =
-        true;
-      const wasAlreadyLoaded =
-        leaderboardHasLoaded;
-      const started =
-        timerStart();
-      els.leaderUpdateNote.textContent =
-        wasAlreadyLoaded
-          ? 'Refreshing leaderboard...'
-          : 'Loading leaderboard...';
-      startLoadingLine();
-      try {
+
+
         const url =
           SCRIPT_URL +
-          '?action=leaderboard' +
+
+          '?action=saveScores' +
+
+          '&slot=' +
+          encodeURIComponent(
+            selectedTeam.slot
+          ) +
+
+          '&scores=' +
+          encodedScores +
+
           '&refresh=' +
           Date.now();
+
+
         const response =
           await fetch(
             url,
@@ -2967,19 +4338,216 @@
                 'no-store'
             }
           );
+
+
         if (
           !response.ok
         ) {
+
           throw new Error(
-            'Leaderboard request failed.'
+            'Save request failed.'
           );
+
         }
+
+
         const data =
           await response.json();
+
+
         if (
           !data ||
           data.success !== true
         ) {
+
+          throw new Error(
+            (
+              data &&
+              data.error
+            ) ||
+            'Scores were not saved.'
+          );
+
+        }
+
+
+        savedScores =
+          normalizeScores(
+            data.scores
+          );
+
+
+        localScores =
+          normalizeScores(
+            data.scores
+          );
+
+
+        const teamIndex =
+          teams.findIndex(
+            team =>
+              Number(
+                team.slot
+              ) ===
+              Number(
+                selectedTeam.slot
+              )
+          );
+
+
+        if (
+          teamIndex >= 0
+        ) {
+
+          teams[
+            teamIndex
+          ].scores =
+            [
+              ...savedScores
+            ];
+
+
+          selectedTeam =
+            teams[
+              teamIndex
+            ];
+
+        }
+
+
+        renderScorecard();
+
+
+        scoreSaveSeconds =
+          timerSeconds(
+            started
+          );
+
+
+        updateScoreTiming();
+
+
+        completeLoadingLine();
+
+      }
+      catch (error) {
+
+        scoreSaveSeconds =
+          timerSeconds(
+            started
+          );
+
+
+        updateScoreTiming();
+
+
+        stopLoadingLine();
+
+
+        showMessageModal(
+          'Save Failed',
+          'The save was not confirmed. Your entered scores are still on this screen and remain gray.'
+        );
+
+      }
+      finally {
+
+        saveInProgress =
+          false;
+
+
+        updateSubmitButtonState();
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LEADERBOARD READ
+       MANUAL REFRESH
+       ========================================================= */
+
+
+    async function loadLeaderboard(
+      showErrorIfEmpty
+    ) {
+
+      if (
+        leaderboardLoadInProgress
+      ) {
+
+        return;
+
+      }
+
+
+      leaderboardLoadInProgress =
+        true;
+
+
+      els.leaderRefreshButton.disabled =
+        true;
+
+
+      const wasAlreadyLoaded =
+        leaderboardHasLoaded;
+
+
+      const started =
+        timerStart();
+
+
+      els.leaderUpdateNote.textContent =
+        wasAlreadyLoaded
+          ? 'Refreshing leaderboard...'
+          : 'Loading leaderboard...';
+
+
+      startLoadingLine();
+
+
+      try {
+
+        const url =
+          SCRIPT_URL +
+
+          '?action=leaderboard' +
+
+          '&refresh=' +
+          Date.now();
+
+
+        const response =
+          await fetch(
+            url,
+            {
+              cache:
+                'no-store'
+            }
+          );
+
+
+        if (
+          !response.ok
+        ) {
+
+          throw new Error(
+            'Leaderboard request failed.'
+          );
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !data ||
+          data.success !== true
+        ) {
+
           throw new Error(
             (
               data &&
@@ -2987,138 +4555,213 @@
             ) ||
             'Leaderboard unavailable.'
           );
+
         }
+
+
         const rows =
           Array.isArray(
             data.leaderboard
           )
             ? data.leaderboard
             : [];
+
+
         renderLeaderboard(
           rows
         );
+
+
         const seconds =
           timerSeconds(
             started
           );
+
+
         if (
           wasAlreadyLoaded
         ) {
+
           leaderboardRefreshSeconds =
             seconds;
-          leaderboardRefreshBackendTiming =
-            data.timing ||
-            null;
+
         }
         else {
+
           leaderboardLoadSeconds =
             seconds;
-          leaderboardLoadBackendTiming =
-            data.timing ||
-            null;
+
         }
+
+
         updateLeaderboardTiming();
+
+
         leaderboardHasLoaded =
           true;
+
+
         els.leaderUpdateNote.textContent =
           'Tap REFRESH for latest standings';
+
+
         completeLoadingLine();
+
       }
       catch (error) {
+
         const seconds =
           timerSeconds(
             started
           );
+
+
         if (
           wasAlreadyLoaded
         ) {
+
           leaderboardRefreshSeconds =
             seconds;
-          leaderboardRefreshBackendTiming =
-            null;
+
         }
         else {
+
           leaderboardLoadSeconds =
             seconds;
-          leaderboardLoadBackendTiming =
-            null;
+
         }
+
+
         updateLeaderboardTiming();
+
+
         stopLoadingLine();
+
+
         if (
           leaderboardHasLoaded
         ) {
+
           els.leaderUpdateNote.textContent =
             'Refresh failed • standings unchanged';
+
+
           return;
+
         }
+
+
         els.leaderUpdateNote.textContent =
           'Leaderboard could not be loaded';
+
+
         if (
           showErrorIfEmpty
         ) {
+
           showLoadError(
             'Leaderboard Could Not Load',
             'The live leaderboard could not be loaded.',
             async () => {
+
               closeModal();
+
+
               await loadLeaderboard(
                 true
               );
+
             }
           );
+
         }
+
       }
       finally {
+
         leaderboardLoadInProgress =
           false;
+
+
         els.leaderRefreshButton.disabled =
           false;
+
       }
+
     }
+
+
     /* =========================================================
        LEADERBOARD RENDER
        ========================================================= */
+
+
     function renderLeaderboard(
       rows
     ) {
+
       els.leaderRows.innerHTML =
         '';
+
+
       rows.forEach(
         row => {
+
+
           const line =
             document.createElement(
               'div'
             );
+
+
           line.className =
             'leader-row';
+
+
           const teamCell =
             document.createElement(
               'div'
             );
+
+
           teamCell.className =
             'leader-team-cell';
+
+
           const teamName =
             document.createElement(
               'div'
             );
+
+
           teamName.className =
             'leader-team-name';
+
+
           teamName.textContent =
             row.team || '';
+
+
           const hcp =
             document.createElement(
               'div'
             );
+
+
           hcp.className =
             'leader-hcp';
+
+
           let handicapValue =
             row.hcp;
+
+
           if (
             handicapValue === undefined ||
             handicapValue === null ||
             handicapValue === ''
           ) {
+
             const match =
               teams.find(
                 team =>
@@ -3129,11 +4772,18 @@
                     row.slot
                   )
               );
+
+
             if (match) {
+
               handicapValue =
                 match.handicap;
+
             }
+
           }
+
+
           hcp.textContent =
             (
               handicapValue === undefined ||
@@ -3143,85 +4793,130 @@
               ? ''
               : 'HCP ' +
                 handicapValue;
+
+
           teamCell.append(
             teamName,
             hcp
           );
+
+
           const throughCell =
             document.createElement(
               'div'
             );
+
+
           throughCell.className =
             'leader-through-cell';
+
+
           const throughScore =
             document.createElement(
               'div'
             );
+
+
           throughScore.className =
             'leader-through-score ' +
             scoreClass(
               row.gross
             );
+
+
           throughScore.textContent =
             formatGolfScore(
               row.gross
             );
+
+
           const throughLabel =
             document.createElement(
               'div'
             );
+
+
           throughLabel.className =
             'leader-through-label';
+
+
           throughLabel.textContent =
             'THRU ' +
             row.thru;
+
+
           throughCell.append(
             throughScore,
             throughLabel
           );
+
+
           const total =
             document.createElement(
               'div'
             );
+
+
           total.className =
             'leader-total ' +
             scoreClass(
               row.net
             );
+
+
           total.textContent =
             formatGolfScore(
               row.net
             );
+
+
           line.append(
             teamCell,
             throughCell,
             total
           );
+
+
           els.leaderRows.appendChild(
             line
           );
+
         }
       );
+
     }
+
+
     function formatGolfScore(
       value
     ) {
+
       const number =
         Number(
           value
         );
+
+
       if (
         !Number.isFinite(
           number
         )
       ) {
+
         return '';
+
       }
+
+
       if (
         number === 0
       ) {
+
         return 'E';
+
       }
+
+
       return (
         number > 0
           ? '+' +
@@ -3230,34 +4925,50 @@
               number
             )
       );
+
     }
+
+
     function scoreClass(
       value
     ) {
+
       const number =
         Number(
           value
         );
+
+
       return (
         number < 0
           ? 'under'
           : 'even-over'
       );
+
     }
+
+
     /* =========================================================
        MODALS
        ========================================================= */
+
+
     function makeModalButton(
       text,
       className,
       onClick
     ) {
+
       const button =
         document.createElement(
           'button'
         );
+
+
       button.type =
         'button';
+
+
       button.className =
         'modal-btn' +
         (
@@ -3266,192 +4977,320 @@
               className
             : ''
         );
+
+
       button.textContent =
         text;
+
+
       button.addEventListener(
         'click',
         onClick
       );
+
+
       return button;
+
     }
+
+
     function showMessageModal(
       title,
       message
     ) {
+
       closeModal();
+
+
       els.modalTitle.textContent =
         title;
+
+
       els.modalTitle
         .classList
         .remove(
           'testing'
         );
+
+
       els.modalBody.textContent =
         message;
+
+
       els.modalInput.style.display =
         'none';
+
+
       const close =
         makeModalButton(
           'CLOSE',
           'primary',
           closeModal
         );
+
+
       els.modalActions.className =
         'modal-actions single';
+
+
       els.modalActions.replaceChildren(
         close
       );
+
+
       els.modalOverlay
         .classList
         .add(
           'open'
         );
+
     }
+
+
     function showTestingMessage(
       title,
       message
     ) {
+
       closeModal();
+
+
       els.modalTitle.textContent =
         title;
+
+
       els.modalTitle
         .classList
         .add(
           'testing'
         );
+
+
       els.modalBody.textContent =
         message;
+
+
       els.modalInput.style.display =
         'none';
+
+
       const close =
         makeModalButton(
           'CLOSE',
           'testing',
           () => {
+
             closeModal();
+
             showHome();
+
           }
         );
+
+
       els.modalActions.className =
         'modal-actions single';
+
+
       els.modalActions.replaceChildren(
         close
       );
+
+
       els.modalOverlay
         .classList
         .add(
           'open'
         );
+
     }
+
+
     function showLoadError(
       title,
       message,
       retryFunction
     ) {
+
       closeModal();
+
+
       els.modalTitle.textContent =
         title;
+
+
       els.modalTitle
         .classList
         .remove(
           'testing'
         );
+
+
       els.modalBody.textContent =
         message;
+
+
       els.modalInput.style.display =
         'none';
+
+
       const home =
         makeModalButton(
           'RETURN HOME',
           '',
           showHome
         );
+
+
       const retry =
         makeModalButton(
           'TRY AGAIN',
           'primary',
           retryFunction
         );
+
+
       els.modalActions.className =
         'modal-actions';
+
+
       els.modalActions.replaceChildren(
         home,
         retry
       );
+
+
       els.modalOverlay
         .classList
         .add(
           'open'
         );
+
     }
+
+
     function showQuickGuide() {
+
       closeModal();
+
+
       els.modalTitle.textContent =
         'QUICK GUIDE';
+
+
       els.modalTitle
         .classList
         .remove(
           'testing'
         );
+
+
       els.modalBody.innerHTML =
+
         '<ol class="quick-list">' +
+
           '<li>Select Your Team</li>' +
+
           '<li>Tap Score &amp; Type <strong>OK</strong> for Scoring Access (One Time)</li>' +
+
           '<li>Enter Score for Each Hole</li>' +
+
           '<li>Gray = Not Submitted</li>' +
+
           '<li>Tap SUBMIT SCORES to Save</li>' +
+
           '<li>Gold = Successfully Submitted</li>' +
+
           '<li>Tap LIVE LEADERBOARD for Current Standings</li>' +
+
           '<li>Tap REFRESH for the Latest Standings</li>' +
+
         '</ol>' +
+
         '<div class="quick-correction">' +
+
           '<strong>Need to correct a score?</strong> ' +
+
           'Tap the score, enter the new score, and submit again.' +
+
         '</div>';
+
+
       els.modalInput.style.display =
         'none';
+
+
       const close =
         makeModalButton(
           'CLOSE',
           'primary',
           closeModal
         );
+
+
       els.modalActions.className =
         'modal-actions single';
+
+
       els.modalActions.replaceChildren(
         close
       );
+
+
       els.modalOverlay
         .classList
         .add(
           'open'
         );
+
     }
+
+
     function closeModal() {
+
       els.modalOverlay
         .classList
         .remove(
-          'open'
+          'open',
+          'authorization'
         );
+
+
       els.modalTitle
         .classList
         .remove(
           'testing'
         );
+
+
       els.modalInput.style.display =
         'none';
+
+
       els.modalInput.value =
         '';
+
+
+      els.modalInput.removeAttribute('maxlength');
+
       els.modalInput.onkeydown =
         null;
+
+
       els.modalActions.innerHTML =
         '';
+
+
       els.modalActions.className =
         'modal-actions';
+
     }
+
+
     function escapeHtml(
       value
     ) {
+
       return String(
         value
       )
@@ -3475,268 +5314,382 @@
           "'",
           '&#039;'
         );
+
     }
+
+
     /* =========================================================
        LOADING LINE
        ========================================================= */
+
+
     function startLoadingLine() {
+
       els.topLoading
         .classList
         .remove(
           'done'
         );
+
+
       els.topLoading
         .classList
         .add(
           'active'
         );
+
     }
+
+
     function completeLoadingLine() {
+
       els.topLoading
         .classList
         .remove(
           'active'
         );
+
+
       els.topLoading
         .classList
         .add(
           'done'
         );
+
+
       setTimeout(
         () => {
+
           els.topLoading
             .classList
             .remove(
               'done'
             );
+
         },
         300
       );
+
     }
+
+
     function stopLoadingLine() {
+
       els.topLoading
         .classList
         .remove(
           'active',
           'done'
         );
+
     }
+
+
     /* =========================================================
        EVENTS
        ========================================================= */
+
+
     els.homeScorecardButton
       .addEventListener(
         'click',
         showScorecard
       );
+
+
     els.homeLeaderboardButton
       .addEventListener(
         'click',
         showLeaderboard
       );
+
+
     els.resetUserButton
       .addEventListener(
         'click',
         resetUser
       );
+
+
     els.scoreHomeButton
       .addEventListener(
         'click',
         showHome
       );
+
+
     els.leaderHomeButton
       .addEventListener(
         'click',
         showHome
       );
+
+
     els.scoreLeaderboardButton
       .addEventListener(
         'click',
         showLeaderboard
       );
+
+
     els.leaderRefreshButton
       .addEventListener(
         'click',
         () => {
+
           loadLeaderboard(
             false
           );
+
         }
       );
+
+
     els.leaderScorecardButton
       .addEventListener(
         'click',
         showScorecard
       );
+
+
     els.submitBtn
       .addEventListener(
         'click',
         submitScores
       );
+
+
     document
       .querySelectorAll(
         '[data-guide]'
       )
       .forEach(
         button => {
+
           button.addEventListener(
             'click',
             showQuickGuide
           );
+
         }
       );
+
+
+    els.scoreScroll
+      .addEventListener(
+        'scroll',
+        rememberScorePosition,
+        {
+          passive:
+            true
+        }
+      );
+
+
     els.teamSelect
       .addEventListener(
         'change',
         () => {
+
           const slot =
             Number(
               els.teamSelect.value
             );
+
+
           if (
             slot
           ) {
+
             selectTeam(
               slot
             );
+
           }
           else {
+
             clearSelectedTeam();
+
           }
+
         }
       );
+
+
     /*
       X = CANCEL ONLY.
     */
+
     els.scoreEntryCancel
       .addEventListener(
         'click',
         () => {
+
           closeScoreEntry(
             false
           );
+
         }
       );
+
+
+    function placeScoreCaretRight() {
+      els.scoreEntryInput.focus();
+      const end = els.scoreEntryInput.value.length;
+      try { els.scoreEntryInput.setSelectionRange(end, end); } catch (_) {}
+    }
+
+    function stepScoreEntry(delta) {
+      const current = Number(els.scoreEntryInput.value);
+      const next = Math.max(1, (Number.isFinite(current) ? current : 1) + delta);
+      els.scoreEntryInput.value = String(next);
+      placeScoreCaretRight();
+    }
+
+    els.scoreEntryInput.addEventListener('focus', () => setTimeout(placeScoreCaretRight, 0));
+    els.scoreEntryInput.addEventListener('click', () => setTimeout(placeScoreCaretRight, 0));
+
+    els.scoreEntryMinus.addEventListener('click', () => stepScoreEntry(-1));
+    els.scoreEntryPlus.addEventListener('click', () => stepScoreEntry(1));
+
+
     els.scoreEntryEnter
       .addEventListener(
         'click',
         () => {
+
           closeScoreEntry(
             true
           );
+
         }
       );
+
+
     els.scoreEntryInput
       .addEventListener(
         'keydown',
         event => {
+
           if (
             event.key ===
             'Enter'
           ) {
+
             event.preventDefault();
+
+
             closeScoreEntry(
               true
             );
+
           }
+
         }
       );
-    els.scoreEntryInput
-      .addEventListener(
-        'blur',
-        () => {
-          if (
-            els.scoreEntryOverlay
-              .classList
-              .contains(
-                'open'
-              ) &&
-            !scoreEntryClosing
-          ) {
-            setTimeout(
-              () => {
-                if (
-                  els.scoreEntryOverlay
-                    .classList
-                    .contains(
-                      'open'
-                    ) &&
-                  !scoreEntryClosing
-                ) {
-                  closeScoreEntry(
-                    true
-                  );
-                }
-              },
-              80
-            );
-          }
-        }
-      );
+
+
     els.scoreEntryOverlay
       .addEventListener(
         'pointerdown',
         event => {
+
           if (
             event.target ===
             els.scoreEntryOverlay
           ) {
+
             closeScoreEntry(
               true
             );
+
           }
+
         }
       );
+
+
     els.modalOverlay
       .addEventListener(
         'pointerdown',
         event => {
+
           if (
             event.target ===
             els.modalOverlay
           ) {
+
             closeModal();
+
           }
+
         }
       );
+
+
     if (
       window.visualViewport
     ) {
+
       window.visualViewport
         .addEventListener(
           'resize',
           positionScoreEntry
         );
+
+
       window.visualViewport
         .addEventListener(
           'scroll',
           positionScoreEntry
         );
+
     }
+
+
     /* =========================================================
        STARTUP
        ========================================================= */
+
+
     async function initialize() {
+
       const rememberedView =
         getRememberedView();
+
+
       if (
         rememberedView ===
         'scorecard'
       ) {
+
         await showScorecard();
+
         return;
+
       }
+
+
       if (
         rememberedView ===
         'leaderboard'
       ) {
+
         await showLeaderboard();
+
         return;
+
       }
+
+
       showHome();
+
     }
+
+
     initialize();
+
   </script>
+
 </body>
 </html>
-
