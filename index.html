@@ -2000,7 +2000,7 @@
 
 
 /* =========================================================
-   V9LM.1 — LIGHT MODE REFINEMENT
+   V9LM.2 — LIGHT MODE CONSISTENCY PASS
    ========================================================= */
 .home-team-dropup{max-height:none}
 .score-team-select-wrap{position:relative}
@@ -2152,6 +2152,145 @@ body.score-team-menu-open .score-fixed-top{
     .leader-team-cell.authorized-team-cell,
     .leader-team-cell.authorized-team-cell .leader-team-name {
       color: #000;
+    }
+
+  
+    /* =========================================================
+       V9LM.2 — CONSISTENCY PASS
+       Visual-only corrections from screenshot review.
+       ========================================================= */
+
+    /* GOLD SURFACES = BLACK TEXT / ICONS */
+    #homeLeaderboardButton,
+    .home-main-button,
+    .home-scorecard-main,
+    .home-scorecard-arrow,
+    .leaderboard-button,
+    .access-scorecard,
+    .score-button.saved,
+    .score-entry-enter,
+    .score-step-button,
+    .modal-btn.primary:not(:disabled) {
+      color: #000 !important;
+    }
+
+    /* Splash/home split-button arrow: fully black. */
+    .home-scorecard-arrow {
+      border-left-color: rgba(0,0,0,.28) !important;
+    }
+
+    .home-scorecard-arrow::after {
+      border-left: 3px solid #000 !important;
+      border-top: 3px solid #000 !important;
+      border-right: 0 !important;
+      border-bottom: 0 !important;
+    }
+
+    /* Scorecard team selector:
+       solid gold, no trigger border, black team text + black arrow.
+       Size/position/menu behavior are untouched. */
+    .score-team-select-button,
+    .score-team-select-button.has-team {
+      border: 0 !important;
+      background: var(--gold) !important;
+      color: #000 !important;
+      box-shadow: none !important;
+    }
+
+    .score-team-select-button:focus {
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .score-team-select-button::after {
+      border-right: 2px solid #000 !important;
+      border-bottom: 2px solid #000 !important;
+    }
+
+    /* Submitted score notation must be black on gold:
+       numbers, circles, squares, inner/outer notation strokes. */
+    .score-button.saved .score-mark,
+    .score-button.saved .score-mark-number {
+      color: #000 !important;
+    }
+
+    .score-button.saved .score-mark.single-circle,
+    .score-button.saved .score-mark.double-circle,
+    .score-button.saved .score-mark.single-square,
+    .score-button.saved .score-mark.double-square,
+    .score-button.saved .score-mark.bold-square {
+      border-color: #000 !important;
+    }
+
+    .score-button.saved .score-mark.double-circle::after,
+    .score-button.saved .score-mark.double-square::after {
+      border-color: #000 !important;
+    }
+
+    /* Secondary leaderboard button matches HOME / INFO. */
+    .leader-bottom .leader-refresh-button {
+      border: 1px solid #000 !important;
+      background: #fff !important;
+      color: #000 !important;
+    }
+
+    /* Sticky leaderboard header:
+       opaque white mask + stronger cutoff so rows disappear behind it. */
+    .leader-row.header {
+      top: -4px !important;
+      z-index: 120 !important;
+      background: #fff !important;
+      border-top: 4px solid #fff !important;
+      border-bottom: 3px solid #000 !important;
+      box-shadow: 0 -10px 0 #fff !important;
+    }
+
+    /* Score-entry popup:
+       popup is white; ONLY the score-display field is light gray. */
+    .score-entry-box {
+      background: #fafafa !important;
+    }
+
+    .score-entry-input {
+      background: var(--light-gray) !important;
+      color: #000 !important;
+    }
+
+    /* Score controls exactly as agreed. */
+    .score-step-button {
+      border: 0 !important;
+      background: var(--gold) !important;
+      color: #000 !important;
+    }
+
+    .score-entry-clear {
+      border: 1px solid rgba(0,0,0,.72) !important;
+      background: #f6f6f6 !important;
+      color: #000 !important;
+    }
+
+    .score-entry-enter {
+      border: 0 !important;
+      background: var(--gold) !important;
+      color: #000 !important;
+    }
+
+    /* Authorization check mark is black when checked. */
+    .auth-captcha input:checked + .auth-check-box {
+      color: #000 !important;
+    }
+
+    /* Only blurred popup OUTER borders are thick.
+       Everything else keeps its existing border thickness. */
+    .modal-box,
+    .score-entry-box {
+      border: 2px solid #000 !important;
+    }
+
+    /* Authorized leaderboard highlight remains TEAM cell only. */
+    .leader-team-cell.authorized-team-cell,
+    .leader-team-cell.authorized-team-cell .leader-team-name {
+      color: #000 !important;
     }
 
   </style>
