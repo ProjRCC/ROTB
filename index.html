@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V9.8 -->
+  <!-- ROTB 2026 — V9.9 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2603,6 +2603,48 @@ body.score-team-menu-open .score-fixed-top{
       padding-right: 14px !important;
     }
 
+    /* =========================================================
+       V9.9 — LIVE GROSS / NET SCORECARD HEADER
+       Left: gross score to par (normal weight)
+       Center: existing SCORE label
+       Right: net score to par (bold)
+       Negative = red; E / positive = black
+       ========================================================= */
+
+    .score-running-header {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .score-running-gross,
+    .score-running-net {
+      min-width: 28px;
+      color: #000;
+      font-size: 14px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .score-running-gross {
+      font-weight: 400;
+      text-align: right;
+    }
+
+    .score-running-net {
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .score-running-gross.under-par,
+    .score-running-net.under-par {
+      color: #c93636;
+    }
+
+
+
   
     /* =========================================================
        V9.8 — FINAL TABLE EDGE / SCROLLBAR CLEANUP
@@ -2780,7 +2822,11 @@ body.score-team-menu-open .score-fixed-top{
 
           <div>YARDS</div>
 
-          <div>SCORE</div>
+          <div class="score-running-header">
+            <span id="scoreRunningGross" class="score-running-gross">(E)</span>
+            <span>SCORE</span>
+            <span id="scoreRunningNet" class="score-running-net">(E)</span>
+          </div>
 
         </div>
 
@@ -3202,6 +3248,12 @@ body.score-team-menu-open .score-fixed-top{
 
       scoreRows:
         document.getElementById('scoreRows'),
+
+      scoreRunningGross:
+        document.getElementById('scoreRunningGross'),
+
+      scoreRunningNet:
+        document.getElementById('scoreRunningNet'),
 
       scoreScroll:
         document.getElementById('scoreScroll'),
@@ -4611,6 +4663,82 @@ body.score-team-menu-open .score-fixed-top{
     }
 
 
+
+    /* =========================================================
+       V9.9 — SCORECARD RUNNING GROSS / NET
+       Uses verified (gold) scores only.
+       Net matches the leaderboard convention:
+       gross relative-to-par minus the team's full handicap.
+       ========================================================= */
+
+    function scorecardHandicap(team) {
+      if (!team) return 0;
+
+      const candidates = [
+        team.handicap,
+        team.hcp,
+        team.teamHandicap,
+        team.teamHcp
+      ];
+
+      const value = candidates.find(
+        item =>
+          item !== undefined &&
+          item !== null &&
+          String(item).trim() !== ''
+      );
+
+      const number = Number(value);
+      return Number.isFinite(number) ? Math.abs(number) : 0;
+    }
+
+
+    function formatScorecardRelative(value) {
+      const number = Number(value);
+      if (!Number.isFinite(number) || number === 0) return 'E';
+      return number > 0 ? '+' + number : String(number);
+    }
+
+
+    function updateScorecardRunningScores() {
+      if (!els.scoreRunningGross || !els.scoreRunningNet) return;
+
+      if (!selectedTeam) {
+        els.scoreRunningGross.textContent = '(E)';
+        els.scoreRunningNet.textContent = '(E)';
+        els.scoreRunningGross.classList.remove('under-par');
+        els.scoreRunningNet.classList.remove('under-par');
+        return;
+      }
+
+      let gross = 0;
+
+      savedScores.forEach((score, index) => {
+        if (
+          score === null ||
+          !holes[index] ||
+          !Number.isFinite(Number(score)) ||
+          !Number.isFinite(Number(holes[index].par))
+        ) {
+          return;
+        }
+
+        gross += Number(score) - Number(holes[index].par);
+      });
+
+      const net = gross - scorecardHandicap(selectedTeam);
+
+      els.scoreRunningGross.textContent =
+        '(' + formatScorecardRelative(gross) + ')';
+
+      els.scoreRunningNet.textContent =
+        '(' + formatScorecardRelative(net) + ')';
+
+      els.scoreRunningGross.classList.toggle('under-par', gross < 0);
+      els.scoreRunningNet.classList.toggle('under-par', net < 0);
+    }
+
+
     /* =========================================================
        SCORECARD RENDER
        ========================================================= */
@@ -4870,6 +4998,7 @@ body.score-team-menu-open .score-fixed-top{
       );
 
       updateSubmitButtonState();
+      updateScorecardRunningScores();
 
     }
 
@@ -7030,3 +7159,4 @@ body.score-team-menu-open .score-fixed-top{
 
 </body>
 </html>
+
