@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V9.9 -->
+  <!-- ROTB 2026 — V9.10 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2646,6 +2646,23 @@ body.score-team-menu-open .score-fixed-top{
 
 
   
+    /* =========================================================
+       V9.10 — EIGHT-ROW LEADERBOARD VIEWPORT
+       Preserve the current V9.9 top, header, status-note, bottom controls,
+       and buffers. The remaining leaderboard body fills that exact space.
+       One team row = 1/8 of the body's inner height.
+       ========================================================= */
+
+    .leader-content {
+      flex: 1 1 0 !important;
+    }
+
+    .leader-row {
+      height: var(--leader-row-height, 58px) !important;
+      min-height: var(--leader-row-height, 58px) !important;
+    }
+
+
     /* =========================================================
        V9.8 — FINAL TABLE EDGE / SCROLLBAR CLEANUP
        ========================================================= */
@@ -6259,9 +6276,37 @@ body.score-team-menu-open .score-fixed-top{
         }
       );
 
+      sizeLeaderboardRows();
       scheduleLeaderboardAutoScroll();
 
     }
+
+    /* =========================================================
+       V9.10 — LEADERBOARD ROW SIZING
+       The existing fixed UI keeps its V9.9 dimensions. Because
+       .leader-content flexes into only the remaining screen space,
+       dividing its inner height by 8 produces exactly eight visible rows.
+       ========================================================= */
+
+    function sizeLeaderboardRows() {
+      if (!els.leaderContent) {
+        return;
+      }
+
+      const bodyHeight = els.leaderContent.clientHeight;
+
+      if (!Number.isFinite(bodyHeight) || bodyHeight <= 0) {
+        return;
+      }
+
+      const rowHeight = bodyHeight / 8;
+
+      els.leaderContent.style.setProperty(
+        '--leader-row-height',
+        rowHeight + 'px'
+      );
+    }
+
 
     function cancelLeaderboardAutoScroll() {
       if (leaderboardAutoScrollTimer) {
@@ -6346,10 +6391,23 @@ body.score-team-menu-open .score-fixed-top{
             els.leaderContent.clientHeight
           );
 
+          const rowHeight =
+            target.offsetHeight;
+
+          const halfRow =
+            rowHeight > 0
+              ? rowHeight / 2
+              : 0;
+
+          const snappedDesired =
+            halfRow > 0
+              ? Math.round(desired / halfRow) * halfRow
+              : desired;
+
           els.leaderContent.scrollTo({
             top: Math.max(
               0,
-              Math.min(maxScroll, desired)
+              Math.min(maxScroll, snappedDesired)
             ),
             behavior: 'smooth'
           });
@@ -7118,7 +7176,18 @@ body.score-team-menu-open .score-fixed-top{
 
     async function initialize() {
 
-      updateHomeScorecardAccess();
+  
+    window.addEventListener(
+      'resize',
+      () => {
+        if (currentView === 'leaderboard') {
+          sizeLeaderboardRows();
+        }
+      }
+    );
+
+
+    updateHomeScorecardAccess();
 
       const rememberedView =
         getRememberedView();
