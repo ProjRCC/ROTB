@@ -1079,12 +1079,12 @@
 
 
     .leader-table {
-      width: 100%;
+      width: calc(100% + 28px);
 
-      max-width: 700px;
+      max-width: none;
 
       margin:
-        0 auto;
+        0 -14px;
 
       overflow: hidden;
 
@@ -1104,8 +1104,8 @@
 
       grid-template-columns:
         minmax(0,1fr)
-        30px
-        92px
+        28px
+        84px
         80px;
 
       min-height: 61px;
@@ -2276,7 +2276,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.2
+    // ROTB 2026 — V7-CF.3
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -4996,11 +4996,11 @@
 
 
           /*
-            HCP SOURCE:
-            Prefer handicap carried by the Cloudflare leaderboard row.
-            If the Worker uses either "handicap" or "hcp", accept both.
-            Otherwise fall back to the matching Cloudflare scorecard-team
-            metadata, again accepting either "handicap" or "hcp".
+            HCP SOURCE — OFFICIAL LEADERBOARD:
+            Prefer an explicit handicap value if Cloudflare supplies one.
+            If it does not, derive the handicap directly from the official
+            leaderboard values: GROSS - NET. This keeps HCP correct even
+            when the leaderboard response does not expose a separate HCP field.
           */
           const match =
             teams.find(
@@ -5014,9 +5014,11 @@
             );
 
 
-          const handicapCandidates = [
+          const directHandicapCandidates = [
             row.handicap,
             row.hcp,
+            row.teamHandicap,
+            row.teamHcp,
             match
               ? match.handicap
               : undefined,
@@ -5027,7 +5029,7 @@
 
 
           let handicapValue =
-            handicapCandidates.find(
+            directHandicapCandidates.find(
               value =>
                 value !== undefined &&
                 value !== null &&
@@ -5037,10 +5039,47 @@
             );
 
 
-          const handicapNumber =
+          let handicapNumber =
             Number(
               handicapValue
             );
+
+
+          if (
+            !Number.isFinite(
+              handicapNumber
+            )
+          ) {
+
+            const grossNumber =
+              Number(
+                row.gross
+              );
+
+            const netNumber =
+              Number(
+                row.net
+              );
+
+
+            if (
+              Number.isFinite(
+                grossNumber
+              ) &&
+              Number.isFinite(
+                netNumber
+              )
+            ) {
+
+              handicapNumber =
+                Math.abs(
+                  grossNumber -
+                  netNumber
+                );
+
+            }
+
+          }
 
 
           hcpCell.textContent =
