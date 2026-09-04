@@ -1843,6 +1843,19 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 
+/* V7-CF.13 — THUMB-FIRST SCORE ENTRY */
+.score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(6vh,28px);}
+.score-entry-box{width:min(420px,calc(100% - 4px));padding:24px 24px 22px;border-radius:18px;}
+.score-entry-hole{font-size:28px}
+.score-entry-par{font-size:20px}
+.score-entry-control{width:min(300px,88%);margin:24px auto 0;grid-template-columns:72px minmax(100px,1fr) 72px;gap:14px}
+.score-step-button{height:76px;border-radius:14px;font-size:42px}
+.score-entry-control .score-entry-input{height:76px;border-radius:14px;font-size:40px;caret-color:transparent;user-select:none;-webkit-user-select:none}
+.score-entry-actions{display:grid;grid-template-columns:3fr 7fr;gap:12px;margin-top:18px}
+.score-entry-clear,.score-entry-enter{min-height:62px;margin-top:0;border-radius:11px;font-size:20px;font-weight:700}
+.score-entry-clear{border:1px solid rgba(255,255,255,.72);background:#090909;color:#fff}
+.score-entry-enter{border:1px solid var(--gold);background:var(--gold);color:#111}
+
 /* Loading animation is visual only. It never delays or retries a request. */
 .top-loading.active{width:0;opacity:1;animation:loadingPulseCurrent 5s linear infinite}
 .top-loading.done{animation:none;width:100%;opacity:1}
@@ -2325,21 +2338,31 @@
         type="text"
         min="0"
         step="1"
-        inputmode="numeric"
-        enterkeyhint="done"
+        readonly
+        tabindex="-1"
         autocomplete="off"
       >
         <button id="scoreEntryPlus" class="score-step-button" type="button" aria-label="Increase score">+</button>
       </div>
 
 
-      <button
-        id="scoreEntryEnter"
-        class="score-entry-enter"
-        type="button"
-      >
-        ENTER
-      </button>
+      <div class="score-entry-actions">
+        <button
+          id="scoreEntryClear"
+          class="score-entry-clear"
+          type="button"
+        >
+          CLEAR
+        </button>
+
+        <button
+          id="scoreEntryEnter"
+          class="score-entry-enter"
+          type="button"
+        >
+          ENTER
+        </button>
+      </div>
 
     </div>
 
@@ -2349,7 +2372,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.12
+    // ROTB 2026 — V7-CF.13
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -2508,6 +2531,9 @@
 
       scoreEntryEnter:
         document.getElementById('scoreEntryEnter'),
+
+      scoreEntryClear:
+        document.getElementById('scoreEntryClear'),
 
       scoreEntryCancel:
         document.getElementById('scoreEntryCancel')
@@ -4355,18 +4381,8 @@
         );
 
 
-      setTimeout(
-        () => {
-
-          els.scoreEntryInput.focus();
-          try {
-            const end = els.scoreEntryInput.value.length;
-            els.scoreEntryInput.setSelectionRange(end, end);
-          } catch (_) {}
-
-        },
-        50
-      );
+      // V7-CF.13: keyboard stays closed by default.
+      els.scoreEntryInput.blur();
 
 
       positionScoreEntry();
@@ -4594,35 +4610,12 @@
 
     function positionScoreEntry() {
 
-      if (
-        !window.visualViewport ||
-        !els.scoreEntryOverlay
-          .classList
-          .contains(
-            'open'
-          )
-      ) {
-
-        return;
-
-      }
-
-
-      const viewport =
-        window.visualViewport;
-
-
-      const top =
-        Math.max(
-          12,
-          viewport.offsetTop +
-          18
-        );
-
-
-      els.scoreEntryOverlay.style.paddingTop =
-        top +
-        'px';
+      /*
+        V7-CF.13: The score panel is intentionally anchored in the
+        lower part of the screen for one-thumb use. CSS owns the
+        position; opening the panel never summons the keyboard.
+      */
+      els.scoreEntryOverlay.style.paddingTop = '';
 
     }
 
@@ -6030,24 +6023,19 @@
       );
 
 
-    function placeScoreCaretRight() {
-      els.scoreEntryInput.focus();
-      const end = els.scoreEntryInput.value.length;
-      try { els.scoreEntryInput.setSelectionRange(end, end); } catch (_) {}
-    }
-
     function stepScoreEntry(delta) {
       const current = Number(els.scoreEntryInput.value);
       const next = Math.max(0, (Number.isFinite(current) ? current : 1) + delta);
       els.scoreEntryInput.value = String(next);
-      placeScoreCaretRight();
     }
-
-    els.scoreEntryInput.addEventListener('focus', () => setTimeout(placeScoreCaretRight, 0));
-    els.scoreEntryInput.addEventListener('click', () => setTimeout(placeScoreCaretRight, 0));
 
     els.scoreEntryMinus.addEventListener('click', () => stepScoreEntry(-1));
     els.scoreEntryPlus.addEventListener('click', () => stepScoreEntry(1));
+
+    els.scoreEntryClear.addEventListener('click', () => {
+      els.scoreEntryInput.value = '0';
+      closeScoreEntry(true);
+    });
 
 
     els.scoreEntryEnter
@@ -6062,28 +6050,6 @@
         }
       );
 
-
-    els.scoreEntryInput
-      .addEventListener(
-        'keydown',
-        event => {
-
-          if (
-            event.key ===
-            'Enter'
-          ) {
-
-            event.preventDefault();
-
-
-            closeScoreEntry(
-              true
-            );
-
-          }
-
-        }
-      );
 
 
     els.scoreEntryOverlay
