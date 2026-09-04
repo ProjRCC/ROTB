@@ -1856,7 +1856,7 @@
 
 
 /* =========================================================
-   V7-CF.11 TEST LOG
+   V7-CF.12 TEST LOG
    ========================================================= */
 .home-shell{position:relative}
 .test-log-hotspot{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:44px;height:44px;padding:0;border:0;background:transparent;z-index:20}
@@ -1878,6 +1878,19 @@
 .test-log-fail{color:var(--red)}
 .test-log-empty{padding:24px 10px;color:#999;text-align:center;font-size:13px}
 .test-log-reset{position:sticky;bottom:0;flex:0 0 auto;width:100%;min-height:46px;margin-top:10px;padding-bottom:env(safe-area-inset-bottom);border:1px solid var(--red);border-radius:8px;background:#050505;color:var(--red);font-size:15px;font-weight:700;z-index:5}
+
+
+/* =========================================================
+   V7-CF.12 VISUAL POLISH — TEXT SIZE ONLY
+   No scorecard geometry, row heights, or backend behavior changed.
+   ========================================================= */
+.par-cell{font-style:italic}
+.top-team-select.has-team{font-size:20px}
+.hole-cell{font-size:24px}
+.score-button{font-size:30px}
+.score-mark{width:37px;height:37px;font-size:26px}
+.score-mark.double-circle,.score-mark.double-square{font-size:26px}
+.leader-team-name{font-size:20.5px;white-space:nowrap;overflow:hidden}
 
 </style>
 </head>
@@ -2336,7 +2349,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.11
+    // ROTB 2026 — V7-CF.12
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -5338,6 +5351,22 @@
           els.leaderRows.appendChild(
             line
           );
+
+
+          /*
+            V7-CF.12: Normal one-line team names are about 20% larger.
+            If that larger size would not fit, fall back to the prior
+            mobile size rather than wrapping onto a second line.
+          */
+          if (
+            teamName.scrollWidth >
+            teamName.clientWidth
+          ) {
+
+            teamName.style.fontSize =
+              '17px';
+
+          }
 
         }
       );
