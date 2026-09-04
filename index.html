@@ -1784,22 +1784,30 @@
     }
 
   
-/* ===== V2 OVERRIDES ===== */
-.top-loading.active{width:0;opacity:1;animation:loadingSweepV2 3s linear forwards;}
-@keyframes loadingSweepV2{from{width:0}to{width:96%}}
+/* =========================================================
+   CURRENT ROTB UI RULES — CONSOLIDATED FOR V7-CF
+   These are the authoritative current rules. There are no
+   V2/V3 override layers below this point.
+   ========================================================= */
 .reset-user-float{display:none!important}
 .home-utility-row{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:0 13px;margin-top:7px}
 .home-utility-row .reset-user-button,.home-utility-row .quick-guide-button{position:static;transform:none;width:100%;min-height:44px;margin:0;border:1px solid #fff;border-radius:8px;background:rgba(0,0,0,.78);color:#fff;font-size:16px;font-weight:600;letter-spacing:.3px}
-.test-timing,.leader-test-timing{color:var(--gold);font-size:16px;line-height:1;overflow:hidden;padding:0 6px}
+.home-main-button{background:var(--gold);color:#111;border-color:var(--gold)}
+.home-main-button:active{background:var(--gold);color:#111}
 .submit-button:disabled{border-color:#777;background:#777;color:#222;opacity:1;cursor:default}
-.score-mark{position:relative;width:31px;height:31px;display:inline-flex;align-items:center;justify-content:center;color:#111;font-size:22px;font-weight:700;line-height:1}
+.team-select-wrap{padding:6px 0}
+.team-select-wrap::after{right:20px}
+.test-timing,.leader-test-timing{color:var(--gold);font-size:18px;font-weight:600;line-height:1;overflow:hidden;padding:0 4px}
+.score-button{width:64px;height:44px;font-size:27px}
+.score-mark{position:relative;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;color:#111;font-size:24px;font-weight:700;line-height:1}
 .score-mark.single-circle,.score-mark.double-circle{border:2px solid #111;border-radius:50%}
 .score-mark.single-square,.score-mark.double-square,.score-mark.bold-square{border:2px solid #111;border-radius:1px}
-.score-mark.double-circle::after,.score-mark.double-square::after{content:"";position:absolute;inset:3px;border:1.5px solid #111;pointer-events:none}
+.score-mark.double-circle::after,.score-mark.double-square::after{content:"";position:absolute;inset:-4px;border:1.5px solid #111;pointer-events:none}
 .score-mark.double-circle::after{border-radius:50%}
-.score-mark.double-circle,.score-mark.double-square{font-size:21px}
+.score-mark.double-circle,.score-mark.double-square{font-size:24px}
 .score-mark.bold-square{border-width:4px}
 .score-mark.par-mark{width:auto;height:auto}
+.leaderboard-button{border-color:var(--gold);background:var(--gold);color:#111}
 .leader-title-bar .leader-refresh-button{display:none!important}
 .leader-bottom{display:grid;grid-template-columns:2fr 1fr;gap:11px}
 .leader-bottom .leader-refresh-button{position:static;display:block;width:100%;height:auto;min-height:53px;padding:0;border:1px solid var(--gold);border-radius:9px;background:#050505;color:var(--gold);font-size:17px;font-weight:700;letter-spacing:.25px}
@@ -1808,43 +1816,22 @@
 .auth-team-name{margin:5px 0 14px;color:var(--gold);font-size:28px;font-weight:700;line-height:1.1}
 .auth-instruction{color:#ddd;font-size:18px}
 .modal-overlay.authorization .modal-input{width:min(150px,60%);margin:17px auto 0;text-align:center;text-transform:uppercase}
+.modal-title.testing{color:#fff}
+.modal-btn.testing{border-color:#fff;color:#fff;background:#050505}
 .score-entry-control{margin-top:18px;display:grid;grid-template-columns:58px minmax(0,1fr) 58px;gap:10px;align-items:center}
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
-@media(max-width:420px){.test-timing,.leader-test-timing{font-size:15px}.leader-bottom .leader-refresh-button{font-size:15px}}
 
-
-/* ===== V3 OVERRIDES ===== */
-/* Splash: primary actions are solid gold; utility actions remain inset outlines. */
-.home-main-button{background:var(--gold);color:#111;border-color:var(--gold)}
-.home-main-button:active{background:var(--gold);color:#111}
-
-/* USER RESET confirmation is no longer testing-blue. */
-.modal-title.testing{color:#fff}
-.modal-btn.testing{border-color:#fff;color:#fff;background:#050505}
-
-/* Scorecard geometry: HOME, team selector and score table share the same left/right edges. */
-.team-select-wrap{padding:6px 0}
-.team-select-wrap::after{right:20px}
-
-/* Use more of the safe center zone for timing text. */
-.test-timing,.leader-test-timing{font-size:18px;font-weight:600;line-height:1;padding:0 4px}
-
-/* Slightly larger submitted-score target and notation without shrinking doubles. */
-.score-button{width:64px;height:44px;font-size:27px}
-.score-mark{width:34px;height:34px;font-size:24px}
-.score-mark.double-circle,.score-mark.double-square{font-size:24px}
-.score-mark.double-circle::after,.score-mark.double-square::after{inset:-4px;border:1.5px solid #111}
-
-/* Scorecard navigation action. */
-.leaderboard-button{border-color:var(--gold);background:var(--gold);color:#111}
-
-/* 4 seconds across, 1 second back, repeat while the operation is still running. */
-.top-loading.active{width:0;opacity:1;animation:loadingPulseV3 5s linear infinite}
+/* Loading animation is visual only. It never delays or retries a request. */
+.top-loading.active{width:0;opacity:1;animation:loadingPulseCurrent 5s linear infinite}
 .top-loading.done{animation:none;width:100%;opacity:1}
-@keyframes loadingPulseV3{0%{width:0}80%{width:100%}100%{width:0}}
+@keyframes loadingPulseCurrent{0%{width:0}80%{width:100%}100%{width:0}}
 
-@media(max-width:420px){.test-timing,.leader-test-timing{font-size:17px}}
+/* Landscape is intentionally blocked without reload or state change. */
+.rotate-portrait-overlay{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(0,0,0,.28);backdrop-filter:blur(13px) brightness(.45);-webkit-backdrop-filter:blur(13px) brightness(.45);pointer-events:none}
+.rotate-portrait-box{width:min(420px,calc(100% - 36px));padding:24px 28px;border:2px solid var(--gold);border-radius:14px;background:rgba(0,0,0,.90);color:var(--gold);text-align:center;font-size:28px;font-weight:700;line-height:1.08;letter-spacing:.45px}
+@media(max-width:420px){.test-timing,.leader-test-timing{font-size:17px}.leader-bottom .leader-refresh-button{font-size:15px}}
+@media(orientation:landscape){.rotate-portrait-overlay{display:flex;pointer-events:auto}}
 
 </style>
 </head>
@@ -1856,6 +1843,11 @@
     id="topLoading"
     class="top-loading"
   ></div>
+
+
+  <div class="rotate-portrait-overlay" aria-hidden="true">
+    <div class="rotate-portrait-box">ROTATE TO PORTRAIT</div>
+  </div>
 
 
   <!-- =======================================================
@@ -2265,32 +2257,45 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026
-    // TEST BUILD
+    // ROTB 2026 — V7-CF
     //
-    // BLUE = TESTING / DIAGNOSTIC ONLY
+    // BACKEND ARCHITECTURE — LOCKED
     //
-    // Google Sheets remains source of truth.
+    // FRONTEND:
+    //   GitHub Pages
     //
-    // Scorecard:
-    // One normal read request.
+    // APP-FACING BACKEND:
+    //   CLOUDFLARE WORKER
+    //   https://rotbtest.projrcc.workers.dev
     //
-    // Saves:
-    // One write request.
-    // No automatic write retry.
+    // DATA PATH:
+    //   GitHub ROTB -> Cloudflare Worker -> Google Sheets API
+    //   -> ROTB Google Sheet
     //
-    // Leaderboard:
-    // Initial load when opened.
-    // Manual REFRESH only.
-    // No automatic polling.
+    // IMPORTANT — AUDIT RULE:
+    //   GOOGLE APPS SCRIPT IS NOT USED BY V7-CF.
+    //   There must be NO Google Apps Script endpoint in this file.
+    //   There must be NO Apps Script fallback in this file.
+    //   Search "Cloudflare", "rotbtest", or "Google Apps Script"
+    //   and this architecture should be immediately obvious.
     //
-    // The experimental 3-second forced page reload
-    // has been removed.
+    // SCORECARD READ:
+    //   One fresh Cloudflare read.
+    //
+    // SCORE SAVE:
+    //   One Cloudflare save request. The Worker writes to Sheets,
+    //   reads the values back, verifies the exact scores, and only
+    //   then returns verified:true. Scores turn gold only after that.
+    //   There is NO automatic second write and NO artificial wait.
+    //
+    // LEADERBOARD:
+    //   Fresh Cloudflare read on entry + manual REFRESH only.
+    //   No polling.
     // ==========================================================
 
 
-    const SCRIPT_URL =
-      'https://script.google.com/macros/s/AKfycbx4r2MORk4rPjUf28W_7EoarbgKEJzVTIOuaewqKf5cqUpehQlqKFa0ZyyKDjpy7Fc9/exec';
+    const CLOUDFLARE_API_URL =
+      'https://rotbtest.projrcc.workers.dev';
 
 
     const els = {
@@ -2511,26 +2516,108 @@
     }
 
 
-    function getServerTimingSeconds(
-      data
+    function msSeconds(value) {
+
+      const ms = Number(value);
+
+      return Number.isFinite(ms)
+        ? (ms / 1000).toFixed(3)
+        : null;
+
+    }
+
+
+    function formatCloudflareTiming(
+      timing,
+      operation
     ) {
 
-      const totalMs =
-        data &&
-        data.timing &&
-        Number(
-          data.timing.totalMs
+      if (!timing || typeof timing !== 'object') {
+        return '';
+      }
+
+      const parts = [];
+
+      const expectedKeys =
+        operation === 'save'
+          ? [
+              ['authMs', 'AUTH'],
+              ['parseMs', 'PARSE'],
+              ['teamReadMs', 'TEAM'],
+              ['writeMs', 'WRITE'],
+              ['verifyMs', 'VERIFY'],
+              ['totalMs', 'CF']
+            ]
+          : [
+              ['authMs', 'AUTH'],
+              ['readMs', 'READ'],
+              ['buildMs', 'BUILD'],
+              ['totalMs', 'CF']
+            ];
+
+      expectedKeys.forEach(
+        ([key, label]) => {
+          const seconds =
+            msSeconds(
+              timing[key]
+            );
+
+          if (seconds !== null) {
+            parts.push(
+              label + ' ' + seconds + 's'
+            );
+          }
+        }
+      );
+
+      return parts.join(' • ');
+
+    }
+
+
+    function buildBrowserTimingDetail(
+      started,
+      responseReceivedAt,
+      jsonParsedAt,
+      renderedAt,
+      cloudflareTiming,
+      operation
+    ) {
+
+      const parts = [
+        'REQ ' +
+        intervalSeconds(
+          started,
+          responseReceivedAt
+        ) +
+        's',
+
+        'JSON ' +
+        intervalSeconds(
+          responseReceivedAt,
+          jsonParsedAt
+        ) +
+        's',
+
+        'RENDER ' +
+        intervalSeconds(
+          jsonParsedAt,
+          renderedAt
+        ) +
+        's'
+      ];
+
+      const cf =
+        formatCloudflareTiming(
+          cloudflareTiming,
+          operation
         );
 
+      if (cf) {
+        parts.push(cf);
+      }
 
-      return Number.isFinite(
-        totalMs
-      )
-        ? (
-            totalMs /
-            1000
-          ).toFixed(2)
-        : null;
+      return parts.join(' • ');
 
     }
 
@@ -2677,7 +2764,7 @@
       const minSize = 8;
 
       /*
-        V6 TIMING TEXT:
+        V7-CF TIMING TEXT:
         - Short text matches HOME / INFO height and weight.
         - It stays centered in the middle column.
         - It never wraps.
@@ -3324,7 +3411,8 @@
 
 
     /* =========================================================
-       SCORECARD READ
+       CLOUDFLARE: SCORECARD READ
+       Google Apps Script is NOT used.
        ========================================================= */
 
 
@@ -3333,30 +3421,23 @@
       if (
         scorecardLoadInProgress
       ) {
-
         return;
-
       }
-
 
       scorecardLoadInProgress =
         true;
 
-
       const started =
         timerStart();
 
-
       startLoadingLine();
-
 
       try {
 
         const url =
-          SCRIPT_URL +
+          CLOUDFLARE_API_URL +
           '?refresh=' +
           Date.now();
-
 
         const response =
           await fetch(
@@ -3367,35 +3448,25 @@
             }
           );
 
-
         const responseReceivedAt =
           timerStart();
 
-
-        if (
-          !response.ok
-        ) {
-
+        if (!response.ok) {
           throw new Error(
             'Scorecard request failed.'
           );
-
         }
-
 
         const data =
           await response.json();
 
-
         const jsonParsedAt =
           timerStart();
 
-
         if (
           !data ||
-          data.success !== true
+          data.ok !== true
         ) {
-
           throw new Error(
             (
               data &&
@@ -3403,17 +3474,15 @@
             ) ||
             'Scorecard data unavailable.'
           );
-
         }
-
 
         holes =
           Array.isArray(
-            data.holes
+            data.course &&
+            data.course.holes
           )
-            ? data.holes
+            ? data.course.holes
             : [];
-
 
         teams =
           Array.isArray(
@@ -3428,58 +3497,35 @@
               )
             : [];
 
-
         buildTeamSelect();
-
         restoreOrSelectTeam();
-
         renderScorecard();
-
 
         const renderedAt =
           timerStart();
 
-
-        const serverSeconds =
-          getServerTimingSeconds(
-            data
-          );
-
-
         scoreTimingDetail =
-          'REQ ' +
-          intervalSeconds(
+          buildBrowserTimingDetail(
             started,
-            responseReceivedAt
-          ) +
-          's • CLIENT ' +
-          intervalSeconds(
             responseReceivedAt,
-            renderedAt
-          ) +
-          's' +
-          (
-            serverSeconds !== null
-              ? ' • SVR ' +
-                serverSeconds +
-                's'
-              : ''
+            jsonParsedAt,
+            renderedAt,
+            data.timing,
+            'read'
           );
-
 
         scorecardHasLoaded =
           true;
-
 
         scorecardLoadSeconds =
           timerSeconds(
             started
           );
 
+        scoreSaveSeconds =
+          null;
 
         updateScoreTiming();
-
-
         completeLoadingLine();
 
       }
@@ -3490,27 +3536,20 @@
             started
           );
 
+        scoreTimingDetail =
+          '';
 
         updateScoreTiming();
-
-
         stopLoadingLine();
-
 
         showLoadError(
           'Scorecard Could Not Load',
           'The ROTB scorecard could not be loaded.',
           async () => {
-
             closeModal();
-
-
             scorecardHasLoaded =
               false;
-
-
             await loadScorecard();
-
           }
         );
 
@@ -3786,6 +3825,29 @@
           return null;
 
         }
+      );
+
+    }
+
+
+    function scoresEqual(
+      first,
+      second
+    ) {
+
+      const a =
+        normalizeScores(
+          first
+        );
+
+      const b =
+        normalizeScores(
+          second
+        );
+
+      return a.every(
+        (value, index) =>
+          value === b[index]
       );
 
     }
@@ -4408,8 +4470,13 @@
 
 
     /* =========================================================
-       SAVE SCORES
-       UNCHANGED - NO AUTO RELOAD / NO RETRY
+       CLOUDFLARE: VERIFIED SCORE WRITE
+       Google Apps Script is NOT used.
+
+       One request only:
+       Worker writes -> reads Google Sheets back -> verifies.
+       Gold score state is applied only after verified:true and
+       exact verifiedScores match. No artificial wait. No retry.
        ========================================================= */
 
 
@@ -4420,11 +4487,8 @@
         saveInProgress ||
         !hasPendingScores()
       ) {
-
         return;
-
       }
-
 
       if (
         els.scoreEntryOverlay
@@ -4433,55 +4497,60 @@
             'open'
           )
       ) {
-
         closeScoreEntry(
           true
         );
-
       }
-
 
       saveInProgress =
         true;
 
-
       els.submitBtn.disabled =
         true;
-
 
       const started =
         timerStart();
 
+      const expectedScores =
+        normalizeScores(
+          localScores
+        );
+
+      const expectedSlot =
+        Number(
+          selectedTeam.slot
+        );
+
+      const apiScores =
+        expectedScores.map(
+          score =>
+            score === null
+              ? ''
+              : score
+        );
+
+      const encodedScores =
+        encodeURIComponent(
+          JSON.stringify(
+            apiScores
+          )
+        );
+
+      const url =
+        CLOUDFLARE_API_URL +
+        '?action=saveScores' +
+        '&slot=' +
+        encodeURIComponent(
+          expectedSlot
+        ) +
+        '&scores=' +
+        encodedScores +
+        '&refresh=' +
+        Date.now();
 
       startLoadingLine();
 
-
       try {
-
-        const encodedScores =
-          encodeURIComponent(
-            JSON.stringify(
-              localScores
-            )
-          );
-
-
-        const url =
-          SCRIPT_URL +
-
-          '?action=saveScores' +
-
-          '&slot=' +
-          encodeURIComponent(
-            selectedTeam.slot
-          ) +
-
-          '&scores=' +
-          encodedScores +
-
-          '&refresh=' +
-          Date.now();
-
 
         const response =
           await fetch(
@@ -4492,57 +4561,60 @@
             }
           );
 
-
         const responseReceivedAt =
           timerStart();
 
-
-        if (
-          !response.ok
-        ) {
-
+        if (!response.ok) {
           throw new Error(
             'Save request failed.'
           );
-
         }
-
 
         const data =
           await response.json();
 
-
         const jsonParsedAt =
           timerStart();
 
-
         if (
           !data ||
-          data.success !== true
+          data.ok !== true ||
+          data.verified !== true
         ) {
-
           throw new Error(
             (
               data &&
               data.error
             ) ||
-            'Scores were not saved.'
+            'Scores were not verified.'
           );
-
         }
 
+        const confirmedScores =
+          normalizeScores(
+            data.verifiedScores
+          );
+
+        if (
+          !scoresEqual(
+            confirmedScores,
+            expectedScores
+          )
+        ) {
+          throw new Error(
+            'Verified scores did not match submitted scores.'
+          );
+        }
 
         savedScores =
-          normalizeScores(
-            data.scores
-          );
-
+          [
+            ...confirmedScores
+          ];
 
         localScores =
-          normalizeScores(
-            data.scores
-          );
-
+          [
+            ...confirmedScores
+          ];
 
         const teamIndex =
           teams.findIndex(
@@ -4550,11 +4622,8 @@
               Number(
                 team.slot
               ) ===
-              Number(
-                selectedTeam.slot
-              )
+              expectedSlot
           );
-
 
         if (
           teamIndex >= 0
@@ -4564,9 +4633,8 @@
             teamIndex
           ].scores =
             [
-              ...savedScores
+              ...confirmedScores
             ];
-
 
           selectedTeam =
             teams[
@@ -4575,50 +4643,27 @@
 
         }
 
-
         renderScorecard();
-
 
         const renderedAt =
           timerStart();
 
-
-        const serverSeconds =
-          getServerTimingSeconds(
-            data
-          );
-
-
         scoreTimingDetail =
-          'REQ ' +
-          intervalSeconds(
+          buildBrowserTimingDetail(
             started,
-            responseReceivedAt
-          ) +
-          's • CLIENT ' +
-          intervalSeconds(
             responseReceivedAt,
-            renderedAt
-          ) +
-          's' +
-          (
-            serverSeconds !== null
-              ? ' • SVR ' +
-                serverSeconds +
-                's'
-              : ''
+            jsonParsedAt,
+            renderedAt,
+            data.timing,
+            'save'
           );
-
 
         scoreSaveSeconds =
           timerSeconds(
             started
           );
 
-
         updateScoreTiming();
-
-
         completeLoadingLine();
 
       }
@@ -4629,16 +4674,12 @@
             started
           );
 
-
         updateScoreTiming();
-
-
         stopLoadingLine();
 
-
         showMessageModal(
-          'Save Failed',
-          'The save was not confirmed. Your entered scores are still on this screen and remain gray.'
+          'Save Not Confirmed',
+          'Google Sheets did not confirm the new scores. Your entered scores remain gray. No automatic second write was sent.'
         );
 
       }
@@ -4646,7 +4687,6 @@
 
         saveInProgress =
           false;
-
 
         updateSubmitButtonState();
 
@@ -4656,8 +4696,9 @@
 
 
     /* =========================================================
-       LEADERBOARD READ
-       MANUAL REFRESH
+       CLOUDFLARE: LEADERBOARD READ
+       Google Apps Script is NOT used.
+       Fresh read on entry + manual REFRESH only. No polling.
        ========================================================= */
 
 
@@ -4668,47 +4709,63 @@
       if (
         leaderboardLoadInProgress
       ) {
-
         return;
-
       }
-
 
       leaderboardLoadInProgress =
         true;
 
-
       els.leaderRefreshButton.disabled =
         true;
-
 
       const wasAlreadyLoaded =
         leaderboardHasLoaded;
 
-
       const started =
         timerStart();
-
 
       els.leaderUpdateNote.textContent =
         wasAlreadyLoaded
           ? 'Refreshing leaderboard...'
           : 'Loading leaderboard...';
 
-
       startLoadingLine();
-
 
       try {
 
         const url =
-          SCRIPT_URL +
-
+          CLOUDFLARE_API_URL +
           '?action=leaderboard' +
-
           '&refresh=' +
           Date.now();
 
+        /*
+          If leaderboard is opened before scorecard, get team
+          metadata in parallel so HCP fallback stays available.
+          This is a Cloudflare read too — never Apps Script.
+        */
+        const teamMetadataPromise =
+          teams.length
+            ? Promise.resolve(null)
+            : fetch(
+                CLOUDFLARE_API_URL +
+                '?refresh=' +
+                Date.now() +
+                '-teams',
+                {
+                  cache:
+                    'no-store'
+                }
+              )
+                .then(
+                  response =>
+                    response.ok
+                      ? response.json()
+                      : null
+                )
+                .catch(
+                  () => null
+                );
 
         const response =
           await fetch(
@@ -4719,35 +4776,25 @@
             }
           );
 
-
         const responseReceivedAt =
           timerStart();
 
-
-        if (
-          !response.ok
-        ) {
-
+        if (!response.ok) {
           throw new Error(
             'Leaderboard request failed.'
           );
-
         }
-
 
         const data =
           await response.json();
 
-
         const jsonParsedAt =
           timerStart();
 
-
         if (
           !data ||
-          data.success !== true
+          data.ok !== true
         ) {
-
           throw new Error(
             (
               data &&
@@ -4755,9 +4802,7 @@
             ) ||
             'Leaderboard unavailable.'
           );
-
         }
-
 
         const rows =
           Array.isArray(
@@ -4766,75 +4811,67 @@
             ? data.leaderboard
             : [];
 
+        const teamMetadata =
+          await teamMetadataPromise;
+
+        if (
+          teams.length === 0 &&
+          teamMetadata &&
+          teamMetadata.ok === true &&
+          Array.isArray(
+            teamMetadata.teams
+          )
+        ) {
+          teams =
+            teamMetadata.teams.filter(
+              team =>
+                team &&
+                String(
+                  team.name || ''
+                ).trim() !== ''
+            );
+        }
 
         renderLeaderboard(
           rows
         );
 
-
         const renderedAt =
           timerStart();
 
-
-        const serverSeconds =
-          getServerTimingSeconds(
-            data
-          );
-
-
         leaderboardTimingDetail =
-          'REQ ' +
-          intervalSeconds(
+          buildBrowserTimingDetail(
             started,
-            responseReceivedAt
-          ) +
-          's • CLIENT ' +
-          intervalSeconds(
             responseReceivedAt,
-            renderedAt
-          ) +
-          's' +
-          (
-            serverSeconds !== null
-              ? ' • SVR ' +
-                serverSeconds +
-                's'
-              : ''
+            jsonParsedAt,
+            renderedAt,
+            data.timing,
+            'read'
           );
-
 
         const seconds =
           timerSeconds(
             started
           );
 
-
         if (
           wasAlreadyLoaded
         ) {
-
           leaderboardRefreshSeconds =
             seconds;
-
         }
         else {
-
           leaderboardLoadSeconds =
             seconds;
-
         }
 
-
         updateLeaderboardTiming();
-
 
         leaderboardHasLoaded =
           true;
 
-
         els.leaderUpdateNote.textContent =
           'Tap REFRESH for latest standings';
-
 
         completeLoadingLine();
 
@@ -4846,65 +4883,47 @@
             started
           );
 
+        leaderboardTimingDetail =
+          '';
 
         if (
           wasAlreadyLoaded
         ) {
-
           leaderboardRefreshSeconds =
             seconds;
-
         }
         else {
-
           leaderboardLoadSeconds =
             seconds;
-
         }
 
-
         updateLeaderboardTiming();
-
-
         stopLoadingLine();
-
 
         if (
           leaderboardHasLoaded
         ) {
-
           els.leaderUpdateNote.textContent =
             'Refresh failed • standings unchanged';
-
-
           return;
-
         }
-
 
         els.leaderUpdateNote.textContent =
           'Leaderboard could not be loaded';
 
-
         if (
           showErrorIfEmpty
         ) {
-
           showLoadError(
             'Leaderboard Could Not Load',
             'The live leaderboard could not be loaded.',
             async () => {
-
               closeModal();
-
-
               await loadLeaderboard(
                 true
               );
-
             }
           );
-
         }
 
       }
@@ -4912,7 +4931,6 @@
 
         leaderboardLoadInProgress =
           false;
-
 
         els.leaderRefreshButton.disabled =
           false;
