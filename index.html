@@ -1081,7 +1081,7 @@
     .leader-table {
       width: 100%;
 
-      max-width: 640px;
+      max-width: 700px;
 
       margin:
         0 auto;
@@ -1104,8 +1104,8 @@
 
       grid-template-columns:
         minmax(0,1fr)
-        48px
-        106px
+        30px
+        92px
         80px;
 
       min-height: 61px;
@@ -1203,6 +1203,21 @@
 
       padding-left: 3px !important;
       padding-right: 3px !important;
+    }
+
+
+    .leader-hcp-header {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      overflow: visible;
+    }
+
+
+    .leader-hcp-header span {
+      display: inline-block;
+      transform: rotate(-90deg);
+      transform-origin: center;
+      white-space: nowrap;
     }
 
 
@@ -2106,7 +2121,7 @@
 
             <div>TEAM</div>
 
-            <div>HCP</div>
+            <div class="leader-hcp-header"><span>HCP</span></div>
 
             <div>STATUS</div>
 
@@ -2261,7 +2276,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF
+    // ROTB 2026 — V7-CF.2
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -4980,36 +4995,46 @@
             'leader-hcp-cell';
 
 
+          /*
+            HCP SOURCE:
+            Prefer handicap carried by the Cloudflare leaderboard row.
+            If the Worker uses either "handicap" or "hcp", accept both.
+            Otherwise fall back to the matching Cloudflare scorecard-team
+            metadata, again accepting either "handicap" or "hcp".
+          */
+          const match =
+            teams.find(
+              team =>
+                Number(
+                  team.slot
+                ) ===
+                Number(
+                  row.slot
+                )
+            );
+
+
+          const handicapCandidates = [
+            row.handicap,
+            row.hcp,
+            match
+              ? match.handicap
+              : undefined,
+            match
+              ? match.hcp
+              : undefined
+          ];
+
+
           let handicapValue =
-            row.hcp;
-
-
-          if (
-            handicapValue === undefined ||
-            handicapValue === null ||
-            handicapValue === ''
-          ) {
-
-            const match =
-              teams.find(
-                team =>
-                  Number(
-                    team.slot
-                  ) ===
-                  Number(
-                    row.slot
-                  )
-              );
-
-
-            if (match) {
-
-              handicapValue =
-                match.handicap;
-
-            }
-
-          }
+            handicapCandidates.find(
+              value =>
+                value !== undefined &&
+                value !== null &&
+                String(
+                  value
+                ).trim() !== ''
+            );
 
 
           const handicapNumber =
