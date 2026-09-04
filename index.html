@@ -1356,6 +1356,8 @@
 
 
     .modal-box {
+      position: relative;
+
       width:
         min(
           650px,
@@ -1833,6 +1835,8 @@
 .auth-team-name{margin:5px 0 14px;color:var(--gold);font-size:28px;font-weight:700;line-height:1.1}
 .auth-instruction{color:#ddd;font-size:18px}
 .modal-overlay.authorization .modal-input{width:min(150px,60%);margin:17px auto 0;text-align:center;text-transform:uppercase}
+.modal-close-x{display:none;position:absolute;top:8px;left:10px;width:34px;height:34px;padding:0;border:0;background:transparent;color:#fff;font-family:Arial,sans-serif;font-size:30px;line-height:1;z-index:2}
+.modal-overlay.authorization .modal-close-x{display:block}
 .modal-title.testing{color:#fff}
 .modal-btn.testing{border-color:#fff;color:#fff;background:#050505}
 .score-entry-control{margin-top:18px;display:grid;grid-template-columns:58px minmax(0,1fr) 58px;gap:10px;align-items:center}
@@ -1852,11 +1856,11 @@
 
 
 /* =========================================================
-   V7-CF.7 TEST LOG
+   V7-CF.8 TEST LOG
    ========================================================= */
 .home-shell{position:relative}
 .test-log-hotspot{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:44px;height:44px;padding:0;border:0;background:transparent;z-index:20}
-.test-log-hotspot::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%;background:var(--gold);pointer-events:none}
+.test-log-hotspot::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%;background:#3f3f3f;pointer-events:none}
 .header-brand{color:var(--gold);font-size:14px;font-weight:700;line-height:1.05;letter-spacing:.35px;text-align:center;white-space:normal}
 #testLogView{min-height:100dvh}
 .test-log-screen{width:min(760px,100%);height:100dvh;margin:0 auto;padding:calc(10px + env(safe-area-inset-top)) 12px 0;background:rgba(0,0,0,.92);display:flex;flex-direction:column;overflow:hidden}
@@ -2223,6 +2227,13 @@
 
     <div class="modal-box">
 
+      <button
+        id="modalCloseX"
+        class="modal-close-x"
+        type="button"
+        aria-label="Cancel authorization"
+      >×</button>
+
       <div
         id="modalTitle"
         class="modal-title"
@@ -2299,7 +2310,7 @@
         id="scoreEntryInput"
         class="score-entry-input"
         type="text"
-        min="1"
+        min="0"
         step="1"
         inputmode="numeric"
         enterkeyhint="done"
@@ -2448,6 +2459,9 @@
 
       modalOverlay:
         document.getElementById('modalOverlay'),
+
+      modalCloseX:
+        document.getElementById('modalCloseX'),
 
       modalTitle:
         document.getElementById('modalTitle'),
@@ -4385,8 +4399,31 @@
         !Number.isInteger(
           value
         ) ||
-        value <= 0
+        value < 0
       ) {
+
+        return;
+
+      }
+
+
+      if (
+        value === 0
+      ) {
+
+        localScores[
+          activeScoreIndex
+        ] =
+          null;
+
+        renderScorecard();
+
+        addTestLog(
+          'SCORE H' + (activeScoreIndex + 1),
+          'PENDING',
+          '—',
+          'Cleared to blank'
+        );
 
         return;
 
@@ -5543,7 +5580,7 @@
 
           '<li>Select Your Team</li>' +
 
-          '<li>Tap Score &amp; Type <strong>OK</strong> for Scoring Access (One Time)</li>' +
+          '<li>Tap Score &amp; Type <strong>Y</strong> for Scoring Access (One Time)</li>' +
 
           '<li>Enter Score for Each Hole</li>' +
 
@@ -5613,6 +5650,9 @@
         .remove(
           'testing'
         );
+
+
+      els.modalInput.blur();
 
 
       els.modalInput.style.display =
@@ -5900,7 +5940,7 @@
 
     function stepScoreEntry(delta) {
       const current = Number(els.scoreEntryInput.value);
-      const next = Math.max(1, (Number.isFinite(current) ? current : 1) + delta);
+      const next = Math.max(0, (Number.isFinite(current) ? current : 1) + delta);
       els.scoreEntryInput.value = String(next);
       placeScoreCaretRight();
     }
@@ -5964,6 +6004,15 @@
 
           }
 
+        }
+      );
+
+
+    els.modalCloseX
+      .addEventListener(
+        'click',
+        () => {
+          closeModal();
         }
       );
 
