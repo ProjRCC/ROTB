@@ -1976,6 +1976,26 @@
 .score-bottom-actions .leaderboard-button{width:100%}
 .score-bottom-actions .submit-button{display:none!important}
 
+
+
+/* =========================================================
+   V8-CF.4 — 10-TEAM UI / CUSTOM TEAM MENUS / LEADER POSITION
+   ========================================================= */
+.home-team-dropup{max-height:none}
+.score-team-select-wrap{position:relative}
+.score-team-select-button{position:relative;width:100%;text-align:center;appearance:none;-webkit-appearance:none;padding-right:42px}
+.score-team-select-button::after{content:"";position:absolute;right:18px;top:50%;width:9px;height:9px;border-right:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:translateY(-68%) rotate(45deg)}
+.score-team-select-button.has-team{color:var(--gold)}
+.score-team-dropdown{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:120;display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:6px;border:2px solid var(--gold);border-radius:9px;background:#050505;box-shadow:0 8px 28px rgba(0,0,0,.58)}
+.score-team-dropdown.open{display:block}
+.score-team-option{font-size:18px}
+.leader-row{grid-template-columns:22px minmax(0,1fr) 28px 84px 80px}
+.leader-place-cell{padding:5px 2px!important;font-size:13px;font-weight:700;color:#aaa}
+.leader-row.header .leader-place-cell{padding:0!important}
+#leaderboardView{height:100dvh;min-height:100dvh;overflow:hidden}
+.leaderboard-screen{height:100dvh;min-height:0;overflow:hidden}
+.leader-content{min-height:0;overflow-y:auto}
+.leader-bottom{position:relative;z-index:90;flex:0 0 auto}
 </style>
 </head>
 
@@ -2105,20 +2125,9 @@
         </div>
 
 
-        <div class="team-select-wrap">
-
-          <select
-            id="teamSelect"
-            class="top-team-select"
-            aria-label="Select Team"
-          >
-
-            <option value="">
-              SELECT TEAM
-            </option>
-
-          </select>
-
+        <div class="team-select-wrap score-team-select-wrap">
+          <button id="scoreTeamSelectButton" class="top-team-select score-team-select-button" type="button" aria-haspopup="listbox" aria-expanded="false">SELECT TEAM</button>
+          <div id="scoreTeamDropdown" class="score-team-dropdown" role="listbox" aria-hidden="true"></div>
         </div>
 
 
@@ -2246,6 +2255,8 @@
 
 
           <div class="leader-row header">
+
+            <div class="leader-place-cell" aria-hidden="true"></div>
 
             <div>TEAM</div>
 
@@ -2446,7 +2457,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V8-CF.2
+    // ROTB 2026 — V8-CF.4
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -2540,8 +2551,14 @@
       leaderHomeButton:
         document.getElementById('leaderHomeButton'),
 
-      teamSelect:
-        document.getElementById('teamSelect'),
+      scoreTeamSelectButton:
+        document.getElementById('scoreTeamSelectButton'),
+
+      scoreTeamDropdown:
+        document.getElementById('scoreTeamDropdown'),
+
+      leaderContent:
+        document.querySelector('.leader-content'),
 
       scoreRows:
         document.getElementById('scoreRows'),
@@ -2662,6 +2679,14 @@
 
     let leaderboardLoadInProgress =
       false;
+
+
+    let leaderboardAutoScrollPending =
+      false;
+
+
+    let leaderboardAutoScrollTimer =
+      null;
 
 
     let saveInProgress =
@@ -3249,10 +3274,8 @@
       selectedTeam = null;
       localScores = Array(18).fill(null);
       savedScores = Array(18).fill(null);
-      if (els.teamSelect) {
-        els.teamSelect.value = '';
-        els.teamSelect.classList.remove('has-team');
-      }
+      closeScoreTeamDropdown();
+      updateScoreTeamSelectButton();
       closeModal();
       updateHomeScorecardAccess();
       showHome();
@@ -3429,6 +3452,9 @@
       }
       if (!teams.length) return;
       buildHomeTeamDropup();
+      const accessRect = document.getElementById('homeScorecardAccess').getBoundingClientRect();
+      const available = Math.max(120, accessRect.top - 18);
+      els.homeTeamDropup.style.maxHeight = available + 'px';
       els.homeTeamDropup.classList.add('open');
       els.homeTeamDropup.setAttribute('aria-hidden', 'false');
     }
@@ -3484,6 +3510,12 @@
 
     async function showScorecard() {
 
+      leaderboardAutoScrollPending = false;
+      if (leaderboardAutoScrollTimer) {
+        clearTimeout(leaderboardAutoScrollTimer);
+        leaderboardAutoScrollTimer = null;
+      }
+      closeScoreTeamDropdown();
       closeModal();
 
 
@@ -3537,10 +3569,15 @@
       );
 
 
-      window.scrollTo(
-        0,
-        0
-      );
+      leaderboardAutoScrollPending = true;
+      if (leaderboardAutoScrollTimer) {
+        clearTimeout(leaderboardAutoScrollTimer);
+        leaderboardAutoScrollTimer = null;
+      }
+      if (els.leaderContent) {
+        els.leaderContent.scrollTop = 0;
+      }
+      window.scrollTo(0, 0);
 
 
       if (
@@ -3731,203 +3768,86 @@
 
 
     function buildTeamSelect() {
-
-      els.teamSelect.innerHTML =
-        '<option value="">SELECT TEAM</option>';
-
-
-      teams.forEach(
-        team => {
-
-          const option =
-            document.createElement(
-              'option'
-            );
-
-
-          option.value =
-            String(
-              team.slot
-            );
-
-
-          option.textContent =
-            team.name;
-
-
-          els.teamSelect.appendChild(
-            option
-          );
-
-        }
-      );
-
-
-      els.teamSelect.value =
-        '';
-
-
-      els.teamSelect
-        .classList
-        .remove(
-          'has-team'
-        );
-
+      renderScoreTeamDropdown();
+      updateScoreTeamSelectButton();
     }
 
+    function updateScoreTeamSelectButton() {
+      if (!els.scoreTeamSelectButton) return;
+      els.scoreTeamSelectButton.textContent = selectedTeam ? selectedTeam.name : 'SELECT TEAM';
+      els.scoreTeamSelectButton.classList.toggle('has-team', !!selectedTeam);
+    }
+
+    function closeScoreTeamDropdown() {
+      if (!els.scoreTeamDropdown || !els.scoreTeamSelectButton) return;
+      els.scoreTeamDropdown.classList.remove('open');
+      els.scoreTeamDropdown.setAttribute('aria-hidden', 'true');
+      els.scoreTeamSelectButton.setAttribute('aria-expanded', 'false');
+    }
+
+    function renderScoreTeamDropdown() {
+      if (!els.scoreTeamDropdown) return;
+      els.scoreTeamDropdown.innerHTML = '';
+      teams.forEach(team => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'home-team-option score-team-option';
+        button.textContent = team.name;
+        button.setAttribute('role', 'option');
+        button.addEventListener('click', () => {
+          closeScoreTeamDropdown();
+          selectTeam(team.slot);
+          addTestLog('TEAM SELECT', 'OK', '—', team.name);
+        });
+        els.scoreTeamDropdown.appendChild(button);
+      });
+    }
+
+    function openScoreTeamDropdown() {
+      if (!els.scoreTeamDropdown || !els.scoreTeamSelectButton || !teams.length) return;
+      renderScoreTeamDropdown();
+      const buttonRect = els.scoreTeamSelectButton.getBoundingClientRect();
+      const bottomBar = document.querySelector('.score-fixed-bottom');
+      const bottomTop = bottomBar ? bottomBar.getBoundingClientRect().top : window.innerHeight;
+      const available = Math.max(110, bottomTop - buttonRect.bottom - 8);
+      els.scoreTeamDropdown.style.maxHeight = available + 'px';
+      els.scoreTeamDropdown.classList.add('open');
+      els.scoreTeamDropdown.setAttribute('aria-hidden', 'false');
+      els.scoreTeamSelectButton.setAttribute('aria-expanded', 'true');
+    }
+
+    function toggleScoreTeamDropdown() {
+      if (els.scoreTeamDropdown.classList.contains('open')) closeScoreTeamDropdown();
+      else openScoreTeamDropdown();
+    }
 
     function restoreOrSelectTeam() {
-
-      const remembered =
-        getRememberedSelectedTeam();
-
-
-      const team =
-        teams.find(
-          item =>
-            normalizeName(
-              item.name
-            ) ===
-            normalizeName(
-              remembered
-            )
-        );
-
-
-      if (team) {
-
-        selectTeam(
-          team.slot,
-          false
-        );
-
-      }
-      else {
-
-        clearSelectedTeam();
-
-      }
-
+      const remembered = getRememberedSelectedTeam();
+      const team = teams.find(item => normalizeName(item.name) === normalizeName(remembered));
+      if (team) selectTeam(team.slot, false);
+      else clearSelectedTeam();
     }
 
-
-    function selectTeam(
-      slot,
-      scrollToTop = true
-    ) {
-
-      const team =
-        teams.find(
-          item =>
-            Number(
-              item.slot
-            ) ===
-            Number(
-              slot
-            )
-        );
-
-
-      if (!team) {
-
-        return;
-
-      }
-
-
-      selectedTeam =
-        team;
-
-
-      localScores =
-        normalizeScores(
-          team.scores
-        );
-
-
-      savedScores =
-        normalizeScores(
-          team.scores
-        );
-
-
-      const pendingScores =
-        readPendingScores(
-          team
-        );
-
-
-      if (pendingScores) {
-        localScores =
-          [
-            ...pendingScores
-          ];
-      }
-
-
-      rememberSelectedTeam(
-        team.name
-      );
-
-
-      els.teamSelect.value =
-        String(
-          team.slot
-        );
-
-
-      els.teamSelect
-        .classList
-        .add(
-          'has-team'
-        );
-
-
+    function selectTeam(slot, scrollToTop = true) {
+      const team = teams.find(item => Number(item.slot) === Number(slot));
+      if (!team) return;
+      selectedTeam = team;
+      localScores = normalizeScores(team.scores);
+      savedScores = normalizeScores(team.scores);
+      const pendingScores = readPendingScores(team);
+      if (pendingScores) localScores = [...pendingScores];
+      rememberSelectedTeam(team.name);
+      updateScoreTeamSelectButton();
       renderScorecard();
-
-
-      if (
-        scrollToTop
-      ) {
-
-        restoreScorePosition();
-
-      }
-
+      if (scrollToTop) restoreScorePosition();
     }
-
 
     function clearSelectedTeam() {
-
-      selectedTeam =
-        null;
-
-
-      localScores =
-        Array(18).fill(
-          null
-        );
-
-
-      savedScores =
-        Array(18).fill(
-          null
-        );
-
-
-      els.teamSelect.value =
-        '';
-
-
-      els.teamSelect
-        .classList
-        .remove(
-          'has-team'
-        );
-
-
+      selectedTeam = null;
+      localScores = Array(18).fill(null);
+      savedScores = Array(18).fill(null);
+      updateScoreTeamSelectButton();
       renderScorecard();
-
     }
 
 
@@ -5262,9 +5182,17 @@
         '';
 
 
-      rows.forEach(
-        row => {
+      let previousNet = null;
+      let previousPlace = 0;
 
+      rows.forEach(
+        (row, index) => {
+
+          const netKey = Number(row.net);
+          const samePlace = index > 0 && Number.isFinite(netKey) && Number.isFinite(previousNet) && netKey === previousNet;
+          const place = samePlace ? previousPlace : index + 1;
+          previousNet = netKey;
+          previousPlace = place;
 
           const line =
             document.createElement(
@@ -5274,7 +5202,11 @@
 
           line.className =
             'leader-row';
+          line.dataset.team = normalizeName(row.team || '');
 
+          const placeCell = document.createElement('div');
+          placeCell.className = 'leader-place-cell';
+          placeCell.textContent = String(place);
 
           const teamCell =
             document.createElement(
@@ -5488,6 +5420,7 @@
 
 
           line.append(
+            placeCell,
             teamCell,
             hcpCell,
             throughCell,
@@ -5518,6 +5451,30 @@
         }
       );
 
+      scheduleLeaderboardAutoScroll();
+
+    }
+
+    function scheduleLeaderboardAutoScroll() {
+      if (!leaderboardAutoScrollPending) return;
+      leaderboardAutoScrollPending = false;
+      const authorized = getAuthorizedTeam();
+      if (!authorized || !els.leaderContent) return;
+      if (leaderboardAutoScrollTimer) clearTimeout(leaderboardAutoScrollTimer);
+      leaderboardAutoScrollTimer = setTimeout(() => {
+        leaderboardAutoScrollTimer = null;
+        if (currentView !== 'leaderboard') return;
+        const targetName = normalizeName(authorized);
+        const target = Array.from(els.leaderRows.querySelectorAll('.leader-row')).find(row => row.dataset.team === targetName);
+        if (!target) return;
+        const containerRect = els.leaderContent.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        const fullyVisible = targetRect.top >= containerRect.top && targetRect.bottom <= containerRect.bottom;
+        if (fullyVisible) return;
+        const desired = els.leaderContent.scrollTop + (targetRect.top - containerRect.top) - ((els.leaderContent.clientHeight - target.offsetHeight) / 2);
+        const maxScroll = Math.max(0, els.leaderContent.scrollHeight - els.leaderContent.clientHeight);
+        els.leaderContent.scrollTo({top:Math.max(0,Math.min(maxScroll,desired)),behavior:'smooth'});
+      }, 1500);
     }
 
 
@@ -6143,34 +6100,10 @@
       );
 
 
-    els.teamSelect
+    els.scoreTeamSelectButton
       .addEventListener(
-        'change',
-        () => {
-
-          const slot =
-            Number(
-              els.teamSelect.value
-            );
-
-
-          if (
-            slot
-          ) {
-
-            selectTeam(
-              slot
-            );
-            addTestLog('TEAM SELECT', 'OK', '—', els.teamSelect.options[els.teamSelect.selectedIndex].text);
-
-          }
-          else {
-
-            clearSelectedTeam();
-
-          }
-
-        }
+        'click',
+        toggleScoreTeamDropdown
       );
 
 
