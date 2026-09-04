@@ -1851,7 +1851,7 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 
-/* V8-CF.1 — THUMB-ZONE POPUPS + CAPTCHA AUTHORIZATION */
+/* V8-CF.2 — THUMB-ZONE POPUPS + CAPTCHA AUTHORIZATION */
 .score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(calc(env(safe-area-inset-bottom) + 20px),calc(33dvh - 143px));}
 .score-entry-box{width:min(420px,calc(100% - 4px));padding:28px 24px 22px;border-radius:18px;}
 .score-entry-hole{font-size:28px;margin-top:0}
@@ -1947,7 +1947,7 @@
 
 
 /* =========================================================
-   V8-CF.1 — THUMB-ZONE POSITION CALIBRATION
+   V8-CF.2 — THUMB-ZONE POSITION CALIBRATION
    Primary interaction controls are shifted upward from V7-CF.21.
    ========================================================= */
 /* Move the complete score-entry panel upward by about 80% of
@@ -1964,14 +1964,14 @@
 }
 
 
-/* V8-CF.1 — MATCH SCORECARD / LEADERBOARD BOTTOM ACTION GEOMETRY */
+/* V8-CF.2 — MATCH SCORECARD / LEADERBOARD BOTTOM ACTION GEOMETRY */
 .score-fixed-bottom{padding-left:18px;padding-right:18px}
 .score-bottom-actions{grid-template-columns:3fr 2fr;gap:11px}
 .score-bottom-actions .leaderboard-button{min-height:53px}
 .score-bottom-actions .submit-button{min-height:53px;font-size:17px}
 @media(max-width:420px){.score-bottom-actions .submit-button{font-size:15px}}
 
-/* V8-CF.1 — SCORECARD SINGLE FULL-WIDTH NAVIGATION ACTION */
+/* V8-CF.2 — SCORECARD SINGLE FULL-WIDTH NAVIGATION ACTION */
 .score-bottom-actions{grid-template-columns:1fr}
 .score-bottom-actions .leaderboard-button{width:100%}
 .score-bottom-actions .submit-button{display:none!important}
@@ -2446,7 +2446,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V8-CF.1
+    // ROTB 2026 — V8-CF.2
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -3676,7 +3676,7 @@
         completeLoadingLine();
 
         /*
-          V8-CF.1: If this device had a gray/pending score when the page
+          V8-CF.2: If this device had a gray/pending score when the page
           was refreshed, the fresh read above establishes the official
           Sheets state first. Any still-different local score is then
           written once through the normal verified Cloudflare save path.
@@ -5827,7 +5827,7 @@
 
           '<li>Tap a Score Box, check the authorization box, then tap <strong>AUTHORIZE</strong> (One Time)</li>' +
 
-          '<li>Use <strong>− / +</strong> to set the score, then tap <strong>ENTER</strong></li>' +
+          '<li>Use <strong>− / +</strong> to set score, <strong>CLEAR</strong> to remove, then <strong>ENTER</strong></li>' +
 
           '<li>Gold = Successfully Submitted</li>' +
 
@@ -5843,8 +5843,11 @@
 
           '<strong>Need to correct a score?</strong> ' +
 
-          'Tap the score box, use − / + to set the new score, then tap ENTER. Use CLEAR to remove a score.' +
+          'Tap the score and reenter.' +
 
+        '</div>' +
+        '<div class="quick-correction">' +
+          '<strong>Want to score for a new team?</strong> Reset Authorization on the Home page.' +
         '</div>';
 
 
