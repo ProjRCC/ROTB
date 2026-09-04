@@ -2276,7 +2276,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.3
+    // ROTB 2026 — V7-CF.4
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -2308,7 +2308,7 @@
     //   There is NO automatic second write and NO artificial wait.
     //
     // LEADERBOARD:
-    //   Fresh Cloudflare read on entry + manual REFRESH only.
+    //   Fresh Cloudflare read every time LIVE LEADERBOARD is opened.
     //   No polling.
     // ==========================================================
 
@@ -3391,7 +3391,6 @@
 
 
       if (
-        !leaderboardHasLoaded &&
         !leaderboardLoadInProgress
       ) {
 
@@ -4692,7 +4691,7 @@
     /* =========================================================
        CLOUDFLARE: LEADERBOARD READ
        Google Apps Script is NOT used.
-       Fresh read on entry + manual REFRESH only. No polling.
+       Fresh read every time LIVE LEADERBOARD is opened + manual REFRESH. No polling.
        ========================================================= */
 
 
