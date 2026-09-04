@@ -1851,7 +1851,7 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 
-/* V7-CF.23 — THUMB-ZONE POPUPS + CAPTCHA AUTHORIZATION */
+/* V7-CF.24 — THUMB-ZONE POPUPS + CAPTCHA AUTHORIZATION */
 .score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(calc(env(safe-area-inset-bottom) + 20px),calc(33dvh - 143px));}
 .score-entry-box{width:min(420px,calc(100% - 4px));padding:28px 24px 22px;border-radius:18px;}
 .score-entry-hole{font-size:28px;margin-top:0}
@@ -1947,7 +1947,7 @@
 
 
 /* =========================================================
-   V7-CF.23 — THUMB-ZONE POSITION CALIBRATION
+   V7-CF.24 — THUMB-ZONE POSITION CALIBRATION
    Primary interaction controls are shifted upward from V7-CF.21.
    ========================================================= */
 /* Move the complete score-entry panel upward by about 80% of
@@ -2433,7 +2433,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.23
+    // ROTB 2026 — V7-CF.24
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -3247,7 +3247,7 @@
       els.modalOverlay.classList.add('reset-authorization');
       els.modalTitle.textContent = 'RESET AUTHORIZATION';
       els.modalTitle.classList.remove('testing');
-      els.modalBody.innerHTML = 'This will remove this device’s scoring authorization.<br>No scores will be changed.';
+      els.modalBody.innerHTML = 'This removes all devices scoring authentication/team selection.<br>No scores will be changed.';
       els.modalInput.style.display = 'none';
       const cancel = makeModalButton('CANCEL', '', closeModal);
       const reset = makeModalButton('RESET', 'reset-danger', performAuthorizationReset);
@@ -4339,7 +4339,7 @@
     function showAuthorizationModal(index) {
       closeModal();
       els.modalOverlay.classList.add('authorization');
-      els.modalTitle.textContent = 'TAP TO AUTHORIZE SCORING FOR:';
+      els.modalTitle.textContent = 'AUTHORIZE SCORING FOR:';
       els.modalBody.innerHTML =
         '<div class="auth-team-name">' + escapeHtml(selectedTeam.name) + '</div>' +
         '<label class="auth-captcha">' +
