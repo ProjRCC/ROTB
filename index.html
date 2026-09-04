@@ -1086,13 +1086,17 @@
       margin:
         0 -14px;
 
-      overflow: hidden;
+      overflow: visible;
 
       border:
         1px solid
         var(--line-strong);
 
-      border-radius: 9px;
+      border-radius:
+        9px
+        9px
+        0
+        0;
 
       background:
         rgba(0,0,0,.42);
@@ -1125,12 +1129,16 @@
 
 
     .leader-row.header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+
       min-height: 42px;
 
       color: #e0e0e0;
 
       background:
-        rgba(0,0,0,.90);
+        #000;
 
       text-align: center;
 
@@ -1189,6 +1197,18 @@
       white-space: normal;
       overflow-wrap: normal;
       word-break: normal;
+    }
+
+
+    .leader-team-cell.authorized-team-cell {
+      background:
+        var(--gold);
+    }
+
+
+    .leader-team-cell.authorized-team-cell .leader-team-name {
+      color:
+        #111;
     }
 
 
@@ -1979,7 +1999,7 @@
 
 
 /* =========================================================
-   V8-CF.8 — PERFECT TEAM MENUS / SIMPLE 3S LEADER AUTOSCROLL
+   V8-CF.9 — STICKY LEADER HEADER / AUTHORIZED TEAM CELL
    ========================================================= */
 .home-team-dropup{max-height:none}
 .score-team-select-wrap{position:relative}
@@ -5245,6 +5265,11 @@ body.score-team-menu-open .score-fixed-top{
       let previousNet = null;
       let previousPlace = 0;
 
+      const authorizedTeamName =
+        normalizeName(
+          getAuthorizedTeam() || ''
+        );
+
       rows.forEach(
         (row, index) => {
 
@@ -5276,6 +5301,15 @@ body.score-team-menu-open .score-fixed-top{
 
           teamCell.className =
             'leader-team-cell';
+
+          if (
+            authorizedTeamName &&
+            line.dataset.team === authorizedTeamName
+          ) {
+            teamCell.classList.add(
+              'authorized-team-cell'
+            );
+          }
 
 
           const teamName =
