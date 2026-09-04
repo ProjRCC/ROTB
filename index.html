@@ -1979,7 +1979,7 @@
 
 
 /* =========================================================
-   V8-CF.4 — 10-TEAM UI / CUSTOM TEAM MENUS / LEADER POSITION
+   V8-CF.5 — 10-TEAM UI / CUSTOM TEAM MENUS / LEADER POSITION
    ========================================================= */
 .home-team-dropup{max-height:none}
 .score-team-select-wrap{position:relative}
@@ -1996,6 +1996,12 @@
 .leaderboard-screen{height:100dvh;min-height:0;overflow:hidden}
 .leader-content{min-height:0;overflow-y:auto}
 .leader-bottom{position:relative;z-index:90;flex:0 0 auto}
+
+/* V8-CF.5 — CUSTOM TEAM MENU BACKDROP */
+.team-menu-backdrop{position:fixed;inset:0;z-index:70;display:none;background:rgba(0,0,0,.18);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+.team-menu-backdrop.open{display:block}
+.home-scorecard-access.menu-open{z-index:81}
+.score-team-select-wrap.menu-open{z-index:121}
 </style>
 </head>
 
@@ -2005,6 +2011,12 @@
   <div
     id="topLoading"
     class="top-loading"
+  ></div>
+
+  <div
+    id="teamMenuBackdrop"
+    class="team-menu-backdrop"
+    aria-hidden="true"
   ></div>
 
 
@@ -2586,6 +2598,8 @@
 
       leaderRefreshButton:
         document.getElementById('leaderRefreshButton'),
+      teamMenuBackdrop:
+        document.getElementById('teamMenuBackdrop'),
 
       leaderScorecardButton:
         document.getElementById('leaderScorecardButton'),
@@ -3424,9 +3438,32 @@
       }
     }
 
+    function syncTeamMenuBackdrop() {
+      const homeOpen = els.homeTeamDropup && els.homeTeamDropup.classList.contains('open');
+      const scoreOpen = els.scoreTeamDropdown && els.scoreTeamDropdown.classList.contains('open');
+      const open = !!(homeOpen || scoreOpen);
+
+      if (els.teamMenuBackdrop) {
+        els.teamMenuBackdrop.classList.toggle('open', open);
+        els.teamMenuBackdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+      }
+
+      const homeAccess = document.getElementById('homeScorecardAccess');
+      if (homeAccess) homeAccess.classList.toggle('menu-open', !!homeOpen);
+
+      const scoreWrap = document.querySelector('.score-team-select-wrap');
+      if (scoreWrap) scoreWrap.classList.toggle('menu-open', !!scoreOpen);
+    }
+
+    function closeAllTeamMenus() {
+      closeHomeTeamDropup();
+      closeScoreTeamDropdown();
+    }
+
     function closeHomeTeamDropup() {
       els.homeTeamDropup.classList.remove('open');
       els.homeTeamDropup.setAttribute('aria-hidden', 'true');
+      syncTeamMenuBackdrop();
     }
 
     function buildHomeTeamDropup() {
@@ -3457,6 +3494,7 @@
       els.homeTeamDropup.style.maxHeight = available + 'px';
       els.homeTeamDropup.classList.add('open');
       els.homeTeamDropup.setAttribute('aria-hidden', 'false');
+      syncTeamMenuBackdrop();
     }
 
     async function homeScorecardAccess() {
@@ -3569,15 +3607,6 @@
       );
 
 
-      leaderboardAutoScrollPending = true;
-      if (leaderboardAutoScrollTimer) {
-        clearTimeout(leaderboardAutoScrollTimer);
-        leaderboardAutoScrollTimer = null;
-      }
-      if (els.leaderContent) {
-        els.leaderContent.scrollTop = 0;
-      }
-      window.scrollTo(0, 0);
 
 
       if (
@@ -3783,6 +3812,7 @@
       els.scoreTeamDropdown.classList.remove('open');
       els.scoreTeamDropdown.setAttribute('aria-hidden', 'true');
       els.scoreTeamSelectButton.setAttribute('aria-expanded', 'false');
+      syncTeamMenuBackdrop();
     }
 
     function renderScoreTeamDropdown() {
@@ -3814,6 +3844,7 @@
       els.scoreTeamDropdown.classList.add('open');
       els.scoreTeamDropdown.setAttribute('aria-hidden', 'false');
       els.scoreTeamSelectButton.setAttribute('aria-expanded', 'true');
+      syncTeamMenuBackdrop();
     }
 
     function toggleScoreTeamDropdown() {
@@ -4942,6 +4973,8 @@
       leaderboardLoadInProgress =
         true;
 
+      prepareLeaderboardAutoScroll();
+
       els.leaderRefreshButton.disabled =
         true;
 
@@ -5455,26 +5488,67 @@
 
     }
 
+    function cancelLeaderboardAutoScroll() {
+      leaderboardAutoScrollPending = false;
+      if (leaderboardAutoScrollTimer) {
+        clearTimeout(leaderboardAutoScrollTimer);
+        leaderboardAutoScrollTimer = null;
+      }
+    }
+
+    function prepareLeaderboardAutoScroll() {
+      cancelLeaderboardAutoScroll();
+      if (currentView !== 'leaderboard') return;
+      leaderboardAutoScrollPending = true;
+      if (els.leaderContent) els.leaderContent.scrollTop = 0;
+      window.scrollTo(0, 0);
+    }
+
     function scheduleLeaderboardAutoScroll() {
       if (!leaderboardAutoScrollPending) return;
-      leaderboardAutoScrollPending = false;
+
       const authorized = getAuthorizedTeam();
-      if (!authorized || !els.leaderContent) return;
+      if (!authorized || !els.leaderContent) {
+        leaderboardAutoScrollPending = false;
+        return;
+      }
+
       if (leaderboardAutoScrollTimer) clearTimeout(leaderboardAutoScrollTimer);
+
       leaderboardAutoScrollTimer = setTimeout(() => {
         leaderboardAutoScrollTimer = null;
-        if (currentView !== 'leaderboard') return;
+        if (!leaderboardAutoScrollPending || currentView !== 'leaderboard') return;
+
+        leaderboardAutoScrollPending = false;
+
         const targetName = normalizeName(authorized);
-        const target = Array.from(els.leaderRows.querySelectorAll('.leader-row')).find(row => row.dataset.team === targetName);
+        const target = Array.from(
+          els.leaderRows.querySelectorAll('.leader-row')
+        ).find(row => row.dataset.team === targetName);
         if (!target) return;
+
         const containerRect = els.leaderContent.getBoundingClientRect();
         const targetRect = target.getBoundingClientRect();
-        const fullyVisible = targetRect.top >= containerRect.top && targetRect.bottom <= containerRect.bottom;
+        const fullyVisible =
+          targetRect.top >= containerRect.top &&
+          targetRect.bottom <= containerRect.bottom;
         if (fullyVisible) return;
-        const desired = els.leaderContent.scrollTop + (targetRect.top - containerRect.top) - ((els.leaderContent.clientHeight - target.offsetHeight) / 2);
-        const maxScroll = Math.max(0, els.leaderContent.scrollHeight - els.leaderContent.clientHeight);
-        els.leaderContent.scrollTo({top:Math.max(0,Math.min(maxScroll,desired)),behavior:'smooth'});
-      }, 1500);
+
+        const desired =
+          els.leaderContent.scrollTop +
+          (targetRect.top - containerRect.top) -
+          ((els.leaderContent.clientHeight - target.offsetHeight) / 2);
+
+        const maxScroll = Math.max(
+          0,
+          els.leaderContent.scrollHeight - els.leaderContent.clientHeight
+        );
+
+        els.leaderContent.scrollTo({
+          top: Math.max(0, Math.min(maxScroll, desired)),
+          behavior: 'smooth'
+        });
+      }, 3000);
     }
 
 
@@ -6005,6 +6079,10 @@
         }
       );
 
+    if (els.teamMenuBackdrop) {
+      els.teamMenuBackdrop.addEventListener('click', closeAllTeamMenus);
+    }
+
     els.testLogHotspot.addEventListener('click', showTestLog);
     els.testLogHomeButton.addEventListener('click', showHome);
     els.testLogCloseButton.addEventListener('click', showHome);
@@ -6057,6 +6135,14 @@
 
         }
       );
+
+    els.leaderboardView.addEventListener(
+      'touchstart',
+      () => {
+        if (leaderboardAutoScrollPending) cancelLeaderboardAutoScroll();
+      },
+      {passive:true}
+    );
 
 
     els.leaderScorecardButton
@@ -6268,3 +6354,4 @@
 
 </body>
 </html>
+
