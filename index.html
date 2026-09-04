@@ -2000,7 +2000,7 @@
 
 
 /* =========================================================
-   V9LM.2 — LIGHT MODE CONSISTENCY PASS
+   V9.3 — LIGHT MODE VISUAL CLEANUP
    ========================================================= */
 .home-team-dropup{max-height:none}
 .score-team-select-wrap{position:relative}
@@ -2290,6 +2290,91 @@ body.score-team-menu-open .score-fixed-top{
     /* Authorized leaderboard highlight remains TEAM cell only. */
     .leader-team-cell.authorized-team-cell,
     .leader-team-cell.authorized-team-cell .leader-team-name {
+      color: #000 !important;
+    }
+
+  
+    /* =========================================================
+       V9.3 — VISUAL CLEANUP ONLY
+       Baseline: authoritative V9LM.2
+       No Cloudflare / Sheets / scoring / leaderboard / auth timing changes.
+       ========================================================= */
+
+    /* RESET AUTHORIZATION + QUICK GUIDE:
+       pure white card background, existing popup sizing/position/blur untouched. */
+    .modal-overlay.reset-authorization .modal-box,
+    .modal-overlay.quick-guide .modal-box {
+      background: #fff !important;
+    }
+
+    /* Score-entry popup remains white.
+       ONLY the numeric score display field uses the light-gray surface. */
+    .score-entry-box {
+      background: #fff !important;
+    }
+
+    .score-entry-input {
+      background: var(--light-gray) !important;
+      color: #000 !important;
+    }
+
+    /* Pending / uncertified score:
+       darker gray container with WHITE number + golf notation.
+       Gray->gold verification behavior/timing is untouched. */
+    .score-button.unsaved {
+      background: #666 !important;
+      border-color: #555 !important;
+      color: #fff !important;
+    }
+
+    .score-button.unsaved .score-mark,
+    .score-button.unsaved .score-mark-number {
+      color: #fff !important;
+    }
+
+    .score-button.unsaved .score-mark.single-circle,
+    .score-button.unsaved .score-mark.double-circle,
+    .score-button.unsaved .score-mark.single-square,
+    .score-button.unsaved .score-mark.double-square,
+    .score-button.unsaved .score-mark.bold-square {
+      border-color: #fff !important;
+    }
+
+    .score-button.unsaved .score-mark.double-circle::after,
+    .score-button.unsaved .score-mark.double-square::after {
+      border-color: #fff !important;
+    }
+
+    /* Certified gold score boxes:
+       taller, ~5% narrower, slightly smaller radius.
+       Score number and circle/square contents are NOT resized/repositioned. */
+    .score-button.saved {
+      width: 61px !important;
+      height: calc(100% - 8px) !important;
+      min-height: 48px !important;
+      max-height: 58px !important;
+      border-radius: 6px !important;
+    }
+
+    /* Scorecard team selector:
+       keep gold/no-border trigger, but use the same clean custom black-chevron
+       construction as the splash selector. Geometry/sizing of trigger unchanged. */
+    .score-team-select-button::after {
+      content: "" !important;
+      position: absolute !important;
+      right: 18px !important;
+      top: 50% !important;
+      width: 11px !important;
+      height: 11px !important;
+      border-left: 3px solid #000 !important;
+      border-top: 3px solid #000 !important;
+      border-right: 0 !important;
+      border-bottom: 0 !important;
+      transform: translateY(-65%) rotate(225deg) !important;
+    }
+
+    /* Keep checked authorization mark black on gold. */
+    .auth-captcha input:checked + .auth-check-box {
       color: #000 !important;
     }
 
@@ -6179,6 +6264,10 @@ body.score-team-menu-open .score-fixed-top{
 
       closeModal();
 
+      els.modalOverlay.classList.add(
+        'quick-guide'
+      );
+
 
       els.modalTitle.textContent =
         'QUICK GUIDE';
@@ -6260,7 +6349,8 @@ body.score-team-menu-open .score-fixed-top{
         .remove(
           'open',
           'authorization',
-          'reset-authorization'
+          'reset-authorization',
+          'quick-guide'
         );
 
 
