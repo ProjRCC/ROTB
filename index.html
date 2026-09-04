@@ -12,6 +12,8 @@
 
   <title>ROTB 2026</title>
 
+  <!-- ROTB 2026 — V9.4 -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -2375,6 +2377,58 @@ body.score-team-menu-open .score-fixed-top{
 
     /* Keep checked authorization mark black on gold. */
     .auth-captcha input:checked + .auth-check-box {
+      color: #000 !important;
+    }
+
+  
+
+    /* =========================================================
+       V9.4 — LEADERBOARD HEADER CONSISTENCY + TEAM CHEVRON
+       Visual only. Scorecard and all functional behavior untouched.
+       ========================================================= */
+
+    /* Use the exact splash/home chevron construction on the scorecard selector. */
+    .score-team-select-button::after {
+      content: "" !important;
+      position: absolute !important;
+      right: 18px !important;
+      top: 54% !important;
+      width: 11px !important;
+      height: 11px !important;
+      border-left: 3px solid #000 !important;
+      border-top: 3px solid #000 !important;
+      border-right: 0 !important;
+      border-bottom: 0 !important;
+      transform: translateY(-35%) rotate(45deg) !important;
+    }
+
+    /* Leaderboard table top now speaks the same visual language as scorecard:
+       rounded top corners, clean 1px shell/dividers, opaque sticky white header. */
+    .leader-table {
+      border: 1px solid var(--line-strong) !important;
+      border-radius: 9px 9px 0 0 !important;
+      background: rgba(255,255,255,.42) !important;
+    }
+
+    .leader-row.header {
+      top: 0 !important;
+      z-index: 120 !important;
+      min-height: 42px !important;
+      overflow: hidden !important;
+      border-top: 0 !important;
+      border-bottom: 1px solid var(--line) !important;
+      border-radius: 8px 8px 0 0 !important;
+      background: rgba(255,255,255,.98) !important;
+      box-shadow: none !important;
+      color: #2d2d2d !important;
+    }
+
+    .leader-row.header > div {
+      border-right: 1px solid var(--line) !important;
+    }
+
+    .leader-row.header > div:last-child {
+      border-right: 0 !important;
       color: #000 !important;
     }
 
