@@ -2383,7 +2383,7 @@ body.score-team-menu-open .score-fixed-top{
   
 
     /* =========================================================
-       V9.6 — CONSISTENT TABLE BOUNDS
+       V9.7 — TABLE EDGE FINISHING
        Visual only. Scorecard and all functional behavior untouched.
        ========================================================= */
 
@@ -2434,7 +2434,7 @@ body.score-team-menu-open .score-fixed-top{
 
   
     /* =========================================================
-       V9.6 — CONSISTENT TABLE BOUNDS
+       V9.7 — TABLE EDGE FINISHING
        The scorecard does not let rows scroll behind its header because
        the header lives OUTSIDE the scroll container. Leaderboard now uses
        the same structure. Functional leaderboard behavior is unchanged.
@@ -2505,7 +2505,7 @@ body.score-team-menu-open .score-fixed-top{
 
   
     /* =========================================================
-       V9.6 — CONSISTENT TABLE BOUNDS
+       V9.7 — TABLE EDGE FINISHING
        TOPS ARE NOT REDESIGNED.
        Scorecard + leaderboard now share the same left/right edge,
        rounded-bottom frame, bottom border, and safe button clearance.
@@ -2601,6 +2601,58 @@ body.score-team-menu-open .score-fixed-top{
       padding-top: 14px !important;
       padding-left: 14px !important;
       padding-right: 14px !important;
+    }
+
+  
+    /* =========================================================
+       V9.7 — TABLE EDGE FINISHING ONLY
+       Preserve V9.6 tops, sizing, scroll behavior and arrow.
+       ========================================================= */
+
+    /* Scorecard: align the scrolling body's OUTER edge to the
+       existing header/table edge. Its width already includes the
+       cell border model, so compensate for the added outer borders. */
+    .score-scroll {
+      box-sizing: border-box !important;
+      width: calc(100% - 28px) !important;
+      margin-left: 14px !important;
+      margin-right: 14px !important;
+    }
+
+    /* Only the true final scorecard row (Hole 18) gives up its own
+       bottom rule. The outer rounded viewport supplies the final line. */
+    #scoreRows .score-row:last-child > * {
+      border-bottom: 0 !important;
+    }
+
+    /* Same principle for the leaderboard's true last row. */
+    #leaderRows .leader-row:last-child > * {
+      border-bottom: 0 !important;
+    }
+
+    /* Chrome/Android scrollbar: keep the native indicator visually
+       inside the rounded frame. The transparent top/bottom track border
+       creates an inset so the thumb/track does not run through the curve. */
+    .score-scroll::-webkit-scrollbar,
+    .leader-content::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .score-scroll::-webkit-scrollbar-track,
+    .leader-content::-webkit-scrollbar-track {
+      background: transparent;
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+      background-clip: padding-box;
+    }
+
+    .score-scroll::-webkit-scrollbar-thumb,
+    .leader-content::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,.28);
+      border-radius: 999px;
+      border-top: 2px solid transparent;
+      border-bottom: 2px solid transparent;
+      background-clip: padding-box;
     }
 
   </style>
