@@ -1843,7 +1843,7 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 
-/* V7-CF.16 — HOME AUTHORIZATION / TEAM ACCESS FLOW */
+/* V7-CF.17 — TWO-LINE HOME SCORECARD ACCESS */
 .score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(6vh,28px);}
 .score-entry-box{width:min(420px,calc(100% - 4px));padding:28px 24px 22px;border-radius:18px;}
 .score-entry-hole{font-size:28px;margin-top:0}
@@ -1908,12 +1908,15 @@
 
 
 /* =========================================================
-   V7-CF.16 — HOME TEAM ACCESS + RESET AUTHORIZATION
+   V7-CF.17 — TWO-LINE HOME SCORECARD ACCESS
    ========================================================= */
 .home-scorecard-access{position:relative;width:100%}
-.home-scorecard-split{display:grid;grid-template-columns:minmax(0,1fr) 58px;width:100%;min-height:58px;border:2px solid var(--gold);border-radius:9px;overflow:visible;background:var(--gold)}
+.home-scorecard-split{display:grid;grid-template-columns:minmax(0,1fr) 48px;width:100%;min-height:70px;border:2px solid var(--gold);border-radius:9px;overflow:visible;background:var(--gold)}
 .home-scorecard-main,.home-scorecard-arrow{border:0;background:var(--gold);color:#111;font-weight:700}
-.home-scorecard-main{min-width:0;padding:12px 8px 12px 14px;font-size:19px;letter-spacing:.25px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.home-scorecard-main{min-width:0;padding:8px 0 8px 48px;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.02;overflow:hidden}
+.home-scorecard-action{display:block;width:100%;font-size:20px;font-weight:700;letter-spacing:.25px;white-space:nowrap;text-align:center}
+.home-scorecard-team{display:block;width:100%;margin-top:5px;font-size:18px;font-weight:700;letter-spacing:.15px;white-space:nowrap;text-align:center;overflow:hidden}
+.home-scorecard-team.select-team{font-style:italic;font-weight:600}
 .home-scorecard-arrow{position:relative;border-left:1px solid rgba(0,0,0,.28);font-size:0}
 .home-scorecard-arrow::after{content:"";position:absolute;left:50%;top:54%;width:11px;height:11px;border-left:3px solid #111;border-top:3px solid #111;transform:translate(-50%,-35%) rotate(45deg)}
 .home-scorecard-main:active,.home-scorecard-arrow:active{filter:brightness(.9)}
@@ -2400,7 +2403,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.16
+    // ROTB 2026 — V7-CF.17
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -3333,9 +3336,22 @@
 
     function updateHomeScorecardAccess() {
       const authorized = getAuthorizedTeam();
-      els.homeScorecardButton.textContent = authorized
-        ? authorized.toUpperCase() + ' - ACCESS SCORECARD'
-        : 'SELECT TEAM - ACCESS SCORECARD';
+      const secondLine = authorized ? authorized.toUpperCase() : 'SELECT TEAM';
+      els.homeScorecardButton.innerHTML =
+        '<span class="home-scorecard-action">ACCESS SCORECARD</span>' +
+        '<span class="home-scorecard-team' + (authorized ? '' : ' select-team') + '">' +
+        escapeHtml(secondLine) +
+        '</span>';
+
+      const teamLine = els.homeScorecardButton.querySelector('.home-scorecard-team');
+      if (teamLine && authorized) {
+        let size = 18;
+        teamLine.style.fontSize = size + 'px';
+        while (teamLine.scrollWidth > teamLine.clientWidth && size > 12) {
+          size -= 1;
+          teamLine.style.fontSize = size + 'px';
+        }
+      }
     }
 
     function closeHomeTeamDropup() {
