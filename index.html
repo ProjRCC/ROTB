@@ -1856,11 +1856,11 @@
 
 
 /* =========================================================
-   V7-CF.9 TEST LOG
+   V7-CF.10 TEST LOG
    ========================================================= */
 .home-shell{position:relative}
 .test-log-hotspot{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:44px;height:44px;padding:0;border:0;background:transparent;z-index:20}
-.test-log-hotspot::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%;background:#3f3f3f;pointer-events:none}
+.test-log-hotspot::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%;background:#080808;pointer-events:none}
 .header-brand{color:var(--gold);font-size:14px;font-weight:700;line-height:1.05;letter-spacing:.35px;text-align:center;white-space:normal}
 #testLogView{min-height:100dvh}
 .test-log-screen{width:min(760px,100%);height:100dvh;margin:0 auto;padding:calc(10px + env(safe-area-inset-top)) 12px 0;background:rgba(0,0,0,.92);display:flex;flex-direction:column;overflow:hidden}
@@ -2336,7 +2336,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.4
+    // ROTB 2026 — V7-CF.10
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -4368,9 +4368,17 @@
         null
       ) {
 
-        return;
+        return {
+          committed: false,
+          cleared: false,
+          index: null
+        };
 
       }
+
+
+      const index =
+        activeScoreIndex;
 
 
       const raw =
@@ -4384,7 +4392,11 @@
         raw === ''
       ) {
 
-        return;
+        return {
+          committed: false,
+          cleared: false,
+          index
+        };
 
       }
 
@@ -4402,7 +4414,11 @@
         value < 0
       ) {
 
-        return;
+        return {
+          committed: false,
+          cleared: false,
+          index
+        };
 
       }
 
@@ -4412,52 +4428,53 @@
       ) {
 
         localScores[
-          activeScoreIndex
+          index
         ] =
           null;
 
+
         renderScorecard();
 
+
         addTestLog(
-          'SCORE H' + (activeScoreIndex + 1),
+          'SCORE H' + (index + 1),
           'PENDING',
           '—',
           'Cleared to blank • auto-submit'
         );
 
-        /*
-          V7-CF.9: Entering 0 means CLEAR TO BLANK and immediately
-          submits any resulting pending score changes. Deferring one
-          tick lets the score-entry popup finish closing first.
-        */
-        setTimeout(
-          () => {
-            if (hasPendingScores()) {
-              submitScores();
-            }
-          },
-          0
-        );
 
-        return;
+        return {
+          committed: true,
+          cleared: true,
+          index
+        };
 
       }
 
 
       localScores[
-        activeScoreIndex
+        index
       ] =
         value;
 
 
       renderScorecard();
 
+
       addTestLog(
-        'SCORE H' + (activeScoreIndex + 1),
+        'SCORE H' + (index + 1),
         'PENDING',
         '—',
         'Score ' + value
       );
+
+
+      return {
+        committed: true,
+        cleared: false,
+        index
+      };
 
     }
 
@@ -4484,13 +4501,14 @@
         true;
 
 
-      if (
+      const commitResult =
         commitTypedValue
-      ) {
-
-        commitScoreEntryValue();
-
-      }
+          ? commitScoreEntryValue()
+          : {
+              committed: false,
+              cleared: false,
+              index: activeScoreIndex
+            };
 
 
       els.scoreEntryOverlay
@@ -4509,6 +4527,26 @@
 
       activeScoreIndex =
         null;
+
+
+      /*
+        V7-CF.10: A committed 0 is handled as one atomic CLEAR.
+        The popup is closed first, then the auto-submit is started.
+        This avoids the old deferred clear/close race that could make
+        Android Enter appear to require multiple attempts.
+
+        If the score was only gray/pending and Sheets was already blank,
+        the local clear is complete immediately and submitScores() simply
+        has nothing to write. If a saved score was cleared, the pending
+        blank is written and verified through Cloudflare immediately.
+      */
+      if (
+        commitResult.cleared
+      ) {
+
+        submitScores();
+
+      }
 
 
       setTimeout(
