@@ -1856,7 +1856,7 @@
 
 
 /* =========================================================
-   V7-CF.8 TEST LOG
+   V7-CF.9 TEST LOG
    ========================================================= */
 .home-shell{position:relative}
 .test-log-hotspot{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:44px;height:44px;padding:0;border:0;background:transparent;z-index:20}
@@ -4422,7 +4422,21 @@
           'SCORE H' + (activeScoreIndex + 1),
           'PENDING',
           '—',
-          'Cleared to blank'
+          'Cleared to blank • auto-submit'
+        );
+
+        /*
+          V7-CF.9: Entering 0 means CLEAR TO BLANK and immediately
+          submits any resulting pending score changes. Deferring one
+          tick lets the score-entry popup finish closing first.
+        */
+        setTimeout(
+          () => {
+            if (hasPendingScores()) {
+              submitScores();
+            }
+          },
+          0
         );
 
         return;
