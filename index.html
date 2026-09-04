@@ -2383,7 +2383,7 @@ body.score-team-menu-open .score-fixed-top{
   
 
     /* =========================================================
-       V9.5 — LEADERBOARD HEADER STRUCTURE MATCH
+       V9.6 — CONSISTENT TABLE BOUNDS
        Visual only. Scorecard and all functional behavior untouched.
        ========================================================= */
 
@@ -2434,7 +2434,7 @@ body.score-team-menu-open .score-fixed-top{
 
   
     /* =========================================================
-       V9.5 — LEADERBOARD HEADER STRUCTURE MATCH
+       V9.6 — CONSISTENT TABLE BOUNDS
        The scorecard does not let rows scroll behind its header because
        the header lives OUTSIDE the scroll container. Leaderboard now uses
        the same structure. Functional leaderboard behavior is unchanged.
@@ -2501,6 +2501,106 @@ body.score-team-menu-open .score-fixed-top{
         min-height: 40px;
         font-size: 16px;
       }
+    }
+
+  
+    /* =========================================================
+       V9.6 — CONSISTENT TABLE BOUNDS
+       TOPS ARE NOT REDESIGNED.
+       Scorecard + leaderboard now share the same left/right edge,
+       rounded-bottom frame, bottom border, and safe button clearance.
+       ========================================================= */
+
+    /* HARD RULE: closed scorecard selector uses a simple DOWN triangle.
+       No rotated chevron geometry. */
+    .score-team-select-wrap::after {
+      display: none !important;
+    }
+
+    .score-team-select-button::after {
+      content: "" !important;
+      position: absolute !important;
+      right: 18px !important;
+      top: 50% !important;
+      width: 0 !important;
+      height: 0 !important;
+      border-left: 7px solid transparent !important;
+      border-right: 7px solid transparent !important;
+      border-top: 9px solid #000 !important;
+      border-bottom: 0 !important;
+      transform: translateY(-35%) !important;
+      pointer-events: none !important;
+    }
+
+    /* SCORECARD:
+       Preserve the existing top/header exactly.
+       Finish the existing scroll viewport with a real bottom edge. */
+    .score-scroll {
+      margin-left: 14px !important;
+      margin-right: 14px !important;
+      border-left: 1px solid var(--line-strong) !important;
+      border-right: 1px solid var(--line-strong) !important;
+      border-bottom: 1px solid var(--line-strong) !important;
+      border-radius: 0 0 9px 9px !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+    }
+
+    /* Same horizontal edge as scorecard top/table: 14px.
+       More breathing room above the sticky action. */
+    .score-fixed-bottom {
+      padding-top: 14px !important;
+      padding-left: 14px !important;
+      padding-right: 14px !important;
+    }
+
+    /* LEADERBOARD:
+       Keep V9.5's top/header appearance; only align its outer edges
+       with the 14px system used by scorecard/top controls. */
+    .leader-table-head {
+      margin-left: 14px !important;
+      margin-right: 14px !important;
+    }
+
+    /* The leaderboard body is now the actual bounded scroll viewport.
+       Short leaderboard: natural height.
+       Long leaderboard: shrinks before the sticky controls and scrolls inside. */
+    .leader-content {
+      flex: 0 1 auto !important;
+      min-height: 0 !important;
+      margin: 0 14px !important;
+      padding: 0 !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      border-left: 1px solid var(--line-strong) !important;
+      border-right: 1px solid var(--line-strong) !important;
+      border-bottom: 1px solid var(--line-strong) !important;
+      border-radius: 0 0 9px 9px !important;
+      background: rgba(255,255,255,.42) !important;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+    }
+
+    .leader-table {
+      width: 100% !important;
+      margin: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+    }
+
+    /* Short leaderboards end naturally; remaining screen space lives
+       between the table/update note and the sticky bottom controls. */
+    .leader-update-note {
+      flex: 0 0 auto !important;
+      margin: 4px 14px 0 !important;
+    }
+
+    .leader-bottom {
+      margin-top: auto !important;
+      padding-top: 14px !important;
+      padding-left: 14px !important;
+      padding-right: 14px !important;
     }
 
   </style>
@@ -2785,14 +2885,14 @@ body.score-team-menu-open .score-fixed-top{
 
         </div>
 
+      </div>
 
-        <div
-          id="leaderUpdateNote"
-          class="leader-update-note"
-        >
-          Tap REFRESH for latest standings
-        </div>
 
+      <div
+        id="leaderUpdateNote"
+        class="leader-update-note"
+      >
+        Tap REFRESH for latest standings
       </div>
 
 
