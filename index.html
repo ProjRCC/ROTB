@@ -1813,6 +1813,8 @@
 .home-utility-row .reset-user-button,.home-utility-row .quick-guide-button{position:static;transform:none;width:100%;min-height:44px;margin:0;border:1px solid #fff;border-radius:8px;background:rgba(0,0,0,.78);color:#fff;font-size:16px;font-weight:600;letter-spacing:.3px}
 .home-main-button{background:var(--gold);color:#111;border-color:var(--gold)}
 .home-main-button:active{background:var(--gold);color:#111}
+#homeLeaderboardButton{width:80%;align-self:center;background:#050505;color:var(--gold);border:3px solid var(--gold)}
+#homeLeaderboardButton:active{background:#050505;color:var(--gold)}
 .submit-button:disabled{border-color:#777;background:#777;color:#222;opacity:1;cursor:default}
 .team-select-wrap{padding:6px 0}
 .team-select-wrap::after{right:20px}
@@ -1843,7 +1845,7 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 
-/* V7-CF.18 — TWO-LINE HOME SCORECARD ACCESS */
+/* V7-CF.19 — TWO-LINE HOME SCORECARD ACCESS */
 .score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(6vh,28px);}
 .score-entry-box{width:min(420px,calc(100% - 4px));padding:28px 24px 22px;border-radius:18px;}
 .score-entry-hole{font-size:28px;margin-top:0}
@@ -1903,13 +1905,14 @@
 .score-button{font-size:30px}
 .score-mark{width:37px;height:37px;font-size:26px}
 .score-mark.double-circle,.score-mark.double-square{font-size:26px}
-.score-button .score-mark{transform:translateY(-3px)}
+.score-button .score-mark{transform:none}
+.score-mark-number{display:inline-block;transform:translateY(-3px)}
 .leader-team-name{font-size:20.5px;white-space:nowrap;overflow:hidden}
 
 
 
 /* =========================================================
-   V7-CF.18 — TWO-LINE HOME SCORECARD ACCESS
+   V7-CF.19 — TWO-LINE HOME SCORECARD ACCESS
    ========================================================= */
 .home-scorecard-access{position:relative;width:100%}
 .home-scorecard-split{display:grid;grid-template-columns:minmax(0,1fr) 48px;width:100%;min-height:70px;border:2px solid var(--gold);border-radius:9px;overflow:visible;background:var(--gold)}
@@ -2404,7 +2407,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.18
+    // ROTB 2026 — V7-CF.19
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -4222,7 +4225,10 @@
       const mark = document.createElement('span');
       const relative = Number(score) - Number(par);
       mark.className = 'score-mark';
-      mark.textContent = String(score);
+      const number = document.createElement('span');
+      number.className = 'score-mark-number';
+      number.textContent = String(score);
+      mark.appendChild(number);
       if (relative === -1) mark.classList.add('single-circle');
       else if (relative <= -2) mark.classList.add('double-circle');
       else if (relative === 1) mark.classList.add('single-square');
