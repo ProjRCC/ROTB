@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V9.10 -->
+  <!-- ROTB 2026 — V9.11 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -6375,24 +6375,29 @@ body.score-team-menu-open .score-fixed-top{
             return;
           }
 
-          const desired =
+          /* V9.11:
+             The row height and every row boundary are known.
+             On automatic repositioning, place the CENTER of the
+             authorized team directly on the third row boundary.
+             This creates the intentional half-row landing while
+             keeping useful context above and below the team. */
+          const rowHeight =
+            target.offsetHeight;
+
+          const targetCenter =
             els.leaderContent.scrollTop +
-            (targetRect.top - containerRect.top) -
-            (
-              (
-                els.leaderContent.clientHeight -
-                target.offsetHeight
-              ) / 2
-            );
+            (targetRect.top - containerRect.top) +
+            rowHeight / 2;
+
+          const desired =
+            targetCenter -
+            rowHeight * 3;
 
           const maxScroll = Math.max(
             0,
             els.leaderContent.scrollHeight -
             els.leaderContent.clientHeight
           );
-
-          const rowHeight =
-            target.offsetHeight;
 
           const halfRow =
             rowHeight > 0
