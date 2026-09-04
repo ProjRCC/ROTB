@@ -1843,18 +1843,18 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 
-/* V7-CF.13 — THUMB-FIRST SCORE ENTRY */
+/* V7-CF.14 — THUMB-FIRST SCORE ENTRY, REBALANCED */
 .score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(6vh,28px);}
-.score-entry-box{width:min(420px,calc(100% - 4px));padding:24px 24px 22px;border-radius:18px;}
-.score-entry-hole{font-size:28px}
-.score-entry-par{font-size:20px}
-.score-entry-control{width:min(300px,88%);margin:24px auto 0;grid-template-columns:72px minmax(100px,1fr) 72px;gap:14px}
-.score-step-button{height:76px;border-radius:14px;font-size:42px}
-.score-entry-control .score-entry-input{height:76px;border-radius:14px;font-size:40px;caret-color:transparent;user-select:none;-webkit-user-select:none}
-.score-entry-actions{display:grid;grid-template-columns:3fr 7fr;gap:12px;margin-top:18px}
-.score-entry-clear,.score-entry-enter{min-height:62px;margin-top:0;border-radius:11px;font-size:20px;font-weight:700}
-.score-entry-clear{border:1px solid rgba(255,255,255,.72);background:#090909;color:#fff}
-.score-entry-enter{border:1px solid var(--gold);background:var(--gold);color:#111}
+.score-entry-box{width:min(420px,calc(100% - 4px));padding:28px 24px 22px;border-radius:18px;}
+.score-entry-hole{font-size:28px;margin-top:0}
+.score-entry-par{font-size:20px;margin-top:2px}
+.score-entry-input{display:block;width:min(150px,46%);height:74px;margin:14px auto 0;border-radius:14px;font-size:40px;caret-color:transparent;user-select:none;-webkit-user-select:none}
+.score-entry-control{width:min(330px,92%);margin:18px auto 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:center}
+.score-step-button,.score-entry-clear{height:82px;min-height:82px;margin:0;border-radius:14px;font-weight:700}
+.score-step-button{border:1px solid var(--gold);background:#0b0b0b;color:var(--gold);font-size:46px;line-height:1}
+.score-entry-clear{border:1px solid rgba(255,255,255,.72);background:#090909;color:#fff;font-size:18px}
+.score-entry-actions{width:min(330px,92%);margin:14px auto 0;display:block}
+.score-entry-enter{width:100%;min-height:66px;margin:0;border:1px solid var(--gold);border-radius:11px;background:var(--gold);color:#111;font-size:21px;font-weight:700}
 
 /* Loading animation is visual only. It never delays or retries a request. */
 .top-loading.active{width:0;opacity:1;animation:loadingPulseCurrent 5s linear infinite}
@@ -2330,8 +2330,6 @@
       </div>
 
 
-      <div class="score-entry-control">
-        <button id="scoreEntryMinus" class="score-step-button" type="button" aria-label="Decrease score">−</button>
       <input
         id="scoreEntryInput"
         class="score-entry-input"
@@ -2342,11 +2340,11 @@
         tabindex="-1"
         autocomplete="off"
       >
-        <button id="scoreEntryPlus" class="score-step-button" type="button" aria-label="Increase score">+</button>
-      </div>
 
 
-      <div class="score-entry-actions">
+      <div class="score-entry-control">
+        <button id="scoreEntryMinus" class="score-step-button" type="button" aria-label="Decrease score">−</button>
+
         <button
           id="scoreEntryClear"
           class="score-entry-clear"
@@ -2355,6 +2353,11 @@
           CLEAR
         </button>
 
+        <button id="scoreEntryPlus" class="score-step-button" type="button" aria-label="Increase score">+</button>
+      </div>
+
+
+      <div class="score-entry-actions">
         <button
           id="scoreEntryEnter"
           class="score-entry-enter"
@@ -2372,7 +2375,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.13
+    // ROTB 2026 — V7-CF.14
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -4381,7 +4384,7 @@
         );
 
 
-      // V7-CF.13: keyboard stays closed by default.
+      // V7-CF.14: keyboard stays closed by default.
       els.scoreEntryInput.blur();
 
 
@@ -4611,7 +4614,7 @@
     function positionScoreEntry() {
 
       /*
-        V7-CF.13: The score panel is intentionally anchored in the
+        V7-CF.14: The score panel is intentionally anchored in the
         lower part of the screen for one-thumb use. CSS owns the
         position; opening the panel never summons the keyboard.
       */
