@@ -1856,7 +1856,7 @@
 
 
 /* =========================================================
-   V7-CF.10 TEST LOG
+   V7-CF.11 TEST LOG
    ========================================================= */
 .home-shell{position:relative}
 .test-log-hotspot{position:absolute;top:20px;left:50%;transform:translateX(-50%);width:44px;height:44px;padding:0;border:0;background:transparent;z-index:20}
@@ -2336,7 +2336,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.10
+    // ROTB 2026 — V7-CF.11
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -4116,8 +4116,8 @@
                 button.appendChild(makeSubmittedScoreMark(local, hole.par));
               }
               else {
-                button.textContent = String(local);
                 button.classList.add('unsaved');
+                button.appendChild(makeSubmittedScoreMark(local, hole.par));
               }
 
             }
@@ -4392,9 +4392,26 @@
         raw === ''
       ) {
 
+        localScores[
+          index
+        ] =
+          null;
+
+
+        renderScorecard();
+
+
+        addTestLog(
+          'SCORE H' + (index + 1),
+          'PENDING',
+          '—',
+          'Cleared to blank • auto-submit'
+        );
+
+
         return {
-          committed: false,
-          cleared: false,
+          committed: true,
+          cleared: true,
           index
         };
 
@@ -4530,7 +4547,7 @@
 
 
       /*
-        V7-CF.10: A committed 0 is handled as one atomic CLEAR.
+        V7-CF.11: A committed 0 OR blank value is handled as one atomic CLEAR.
         The popup is closed first, then the auto-submit is started.
         This avoids the old deferred clear/close race that could make
         Android Enter appear to require multiple attempts.
