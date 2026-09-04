@@ -3390,15 +3390,14 @@
       );
 
 
-   if (
-  !leaderboardLoadInProgress
-) {
+      if (
+        !leaderboardHasLoaded &&
+        !leaderboardLoadInProgress
+      ) {
 
-  await loadLeaderboard(
-    true
-  );
-
-}
+        await loadLeaderboard(
+          true
+        );
 
       }
 
