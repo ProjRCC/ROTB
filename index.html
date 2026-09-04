@@ -1843,7 +1843,7 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 
-/* V7-CF.17 — TWO-LINE HOME SCORECARD ACCESS */
+/* V7-CF.18 — TWO-LINE HOME SCORECARD ACCESS */
 .score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(6vh,28px);}
 .score-entry-box{width:min(420px,calc(100% - 4px));padding:28px 24px 22px;border-radius:18px;}
 .score-entry-hole{font-size:28px;margin-top:0}
@@ -1903,12 +1903,13 @@
 .score-button{font-size:30px}
 .score-mark{width:37px;height:37px;font-size:26px}
 .score-mark.double-circle,.score-mark.double-square{font-size:26px}
+.score-button .score-mark{transform:translateY(-3px)}
 .leader-team-name{font-size:20.5px;white-space:nowrap;overflow:hidden}
 
 
 
 /* =========================================================
-   V7-CF.17 — TWO-LINE HOME SCORECARD ACCESS
+   V7-CF.18 — TWO-LINE HOME SCORECARD ACCESS
    ========================================================= */
 .home-scorecard-access{position:relative;width:100%}
 .home-scorecard-split{display:grid;grid-template-columns:minmax(0,1fr) 48px;width:100%;min-height:70px;border:2px solid var(--gold);border-radius:9px;overflow:visible;background:var(--gold)}
@@ -1989,15 +1990,6 @@
 
       <div class="home-actions">
 
-        <div class="home-scorecard-access" id="homeScorecardAccess">
-          <div id="homeTeamDropup" class="home-team-dropup" aria-hidden="true"></div>
-          <div class="home-scorecard-split">
-            <button id="homeScorecardButton" class="home-scorecard-main" type="button">SELECT TEAM - ACCESS SCORECARD</button>
-            <button id="homeTeamArrowButton" class="home-scorecard-arrow" type="button" aria-label="Select team"></button>
-          </div>
-        </div>
-
-
         <button
           id="homeLeaderboardButton"
           class="home-main-button"
@@ -2005,6 +1997,15 @@
         >
           VIEW LIVE LEADERBOARD
         </button>
+
+
+        <div class="home-scorecard-access" id="homeScorecardAccess">
+          <div id="homeTeamDropup" class="home-team-dropup" aria-hidden="true"></div>
+          <div class="home-scorecard-split">
+            <button id="homeScorecardButton" class="home-scorecard-main" type="button">SELECT TEAM - ACCESS SCORECARD</button>
+            <button id="homeTeamArrowButton" class="home-scorecard-arrow" type="button" aria-label="Select team"></button>
+          </div>
+        </div>
 
 
         <div class="home-utility-row">
@@ -2403,7 +2404,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.17
+    // ROTB 2026 — V7-CF.18
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
