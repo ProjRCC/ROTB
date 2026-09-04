@@ -24,6 +24,7 @@
 
     :root {
       --gold: #D0A621;
+      --light-gray: #e6e6e6;
       --test-blue: #6EC8FF;
       --text: #000000;
       --muted: #636363;
@@ -1999,7 +2000,7 @@
 
 
 /* =========================================================
-   V9LM — LIGHT MODE / OUTDOOR
+   V9LM.1 — LIGHT MODE REFINEMENT
    ========================================================= */
 .home-team-dropup{max-height:none}
 .score-team-select-wrap{position:relative}
@@ -2056,6 +2057,100 @@ body.score-team-menu-open .score-fixed-top{
     .submit-button.active,
     .score-cell.saved,
     .modal-button.primary:not(:disabled) {
+      color: #000;
+    }
+
+  
+    /* =========================================================
+       V9LM.1 — LIGHT MODE VISUAL REFINEMENT ONLY
+       Functional/layout behavior remains V8-CF.9 / V9LM.
+       ========================================================= */
+
+    /* Gold-filled controls always use black text/icons. */
+    .home-leaderboard-button,
+    .home-scorecard-main,
+    .home-scorecard-arrow,
+    .submit-button.active,
+    .score-button.saved,
+    .score-entry-enter,
+    .modal-btn.primary:not(:disabled) {
+      color: #000;
+    }
+
+    .home-scorecard-arrow {
+      border-left-color: rgba(0,0,0,.28);
+    }
+
+    .home-scorecard-arrow::after {
+      border-left-color: #000;
+      border-bottom-color: #000;
+    }
+
+    /* Secondary leaderboard REFRESH matches HOME / INFO treatment. */
+    .leader-bottom .leader-refresh-button {
+      border-color: #000;
+      background: #fff;
+      color: #000;
+    }
+
+    /* Scorecard team selector: same visual language as splash selector.
+       Sizing/position/dropdown behavior are intentionally untouched. */
+    .score-team-select-button,
+    .score-team-select-button.has-team {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .score-team-select-button::after {
+      border-right-color: #000;
+      border-bottom-color: #000;
+    }
+
+    /* One light gray for light-mode background/state use. */
+    .score-button.unsaved {
+      border-color: rgba(0,0,0,.48);
+      background: var(--light-gray);
+      color: #000;
+    }
+
+    /* Only blurred popup OUTER borders are doubled and made black. */
+    .modal-box,
+    .score-entry-box {
+      border: 2px solid #000;
+    }
+
+    /* Score popup treatment agreed screen-by-screen. */
+    .score-entry-box {
+      background: var(--light-gray);
+    }
+
+    .score-entry-input {
+      background: var(--light-gray);
+      color: #000;
+    }
+
+    .score-step-button {
+      border: 0;
+      background: var(--gold);
+      color: #000;
+    }
+
+    .score-entry-clear {
+      /* CLEAR intentionally remains as-is. */
+      border: 1px solid rgba(0,0,0,.72);
+      background: #f6f6f6;
+      color: #000;
+    }
+
+    .score-entry-enter {
+      border: 0;
+      background: var(--gold);
+      color: #000;
+    }
+
+    /* Authorized leaderboard highlight remains TEAM cell only. */
+    .leader-team-cell.authorized-team-cell,
+    .leader-team-cell.authorized-team-cell .leader-team-name {
       color: #000;
     }
 
