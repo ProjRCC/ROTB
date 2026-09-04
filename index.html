@@ -2383,7 +2383,7 @@ body.score-team-menu-open .score-fixed-top{
   
 
     /* =========================================================
-       V9.4 — LEADERBOARD HEADER CONSISTENCY + TEAM CHEVRON
+       V9.5 — LEADERBOARD HEADER STRUCTURE MATCH
        Visual only. Scorecard and all functional behavior untouched.
        ========================================================= */
 
@@ -2392,14 +2392,14 @@ body.score-team-menu-open .score-fixed-top{
       content: "" !important;
       position: absolute !important;
       right: 18px !important;
-      top: 54% !important;
+      top: 50% !important;
       width: 11px !important;
       height: 11px !important;
-      border-left: 3px solid #000 !important;
-      border-top: 3px solid #000 !important;
-      border-right: 0 !important;
-      border-bottom: 0 !important;
-      transform: translateY(-35%) rotate(45deg) !important;
+      border-right: 3px solid #000 !important;
+      border-bottom: 3px solid #000 !important;
+      border-left: 0 !important;
+      border-top: 0 !important;
+      transform: translateY(-65%) rotate(45deg) !important;
     }
 
     /* Leaderboard table top now speaks the same visual language as scorecard:
@@ -2430,6 +2430,77 @@ body.score-team-menu-open .score-fixed-top{
     .leader-row.header > div:last-child {
       border-right: 0 !important;
       color: #000 !important;
+    }
+
+  
+    /* =========================================================
+       V9.5 — LEADERBOARD HEADER STRUCTURE MATCH
+       The scorecard does not let rows scroll behind its header because
+       the header lives OUTSIDE the scroll container. Leaderboard now uses
+       the same structure. Functional leaderboard behavior is unchanged.
+       ========================================================= */
+
+    .leader-table-head {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: 22px minmax(0,1fr) 28px 84px 80px;
+      align-items: center;
+      min-height: 42px;
+      margin: 4px 10px 0;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line);
+      border-radius: 9px 9px 0 0;
+      background: #fff;
+      color: #2d2d2d;
+      text-align: center;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      position: relative;
+      z-index: 120;
+    }
+
+    .leader-table-head > div {
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 8px;
+      border-right: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .leader-table-head > div:last-child {
+      border-right: 0;
+      color: #000;
+    }
+
+    .leader-table-head .leader-place-cell {
+      padding: 0 !important;
+    }
+
+    .leader-content {
+      padding-top: 0 !important;
+    }
+
+    .leader-table {
+      margin-top: 0 !important;
+      border-top: 0 !important;
+      border-radius: 0 !important;
+    }
+
+    /* Old sticky header no longer exists in the scrolling body. */
+    .leader-row.header {
+      position: static !important;
+    }
+
+    @media (max-width: 420px) {
+      .leader-table-head {
+        min-height: 40px;
+        font-size: 16px;
+      }
     }
 
   </style>
@@ -2691,25 +2762,24 @@ body.score-team-menu-open .score-fixed-top{
       </div>
 
 
+      <div class="leader-table-head">
+
+        <div class="leader-place-cell" aria-hidden="true"></div>
+
+        <div>TEAM</div>
+
+        <div class="leader-hcp-header"><span>HCP</span></div>
+
+        <div>STATUS</div>
+
+        <div>TOTAL</div>
+
+      </div>
+
+
       <div class="leader-content">
 
         <div class="leader-table">
-
-
-          <div class="leader-row header">
-
-            <div class="leader-place-cell" aria-hidden="true"></div>
-
-            <div>TEAM</div>
-
-            <div class="leader-hcp-header"><span>HCP</span></div>
-
-            <div>STATUS</div>
-
-            <div>TOTAL</div>
-
-          </div>
-
 
           <div id="leaderRows"></div>
 
