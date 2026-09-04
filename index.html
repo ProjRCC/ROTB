@@ -1560,7 +1560,7 @@
       position: absolute;
 
       top: 8px;
-      left: 10px;
+      right: 10px;
 
       width: 34px;
       height: 34px;
@@ -1571,7 +1571,7 @@
 
       background: transparent;
 
-      color: #fff;
+      color: #1a1a1a;
 
       font-family: Arial, sans-serif;
 
@@ -1832,12 +1832,18 @@
 .leader-title-bar .leader-refresh-button{display:none!important}
 .leader-bottom{display:grid;grid-template-columns:2fr 1fr;gap:11px}
 .leader-bottom .leader-refresh-button{position:static;display:block;width:100%;height:auto;min-height:53px;padding:0;border:1px solid var(--gold);border-radius:9px;background:#050505;color:var(--gold);font-size:17px;font-weight:700;letter-spacing:.25px}
-.modal-overlay.authorization .modal-box{text-align:center}
+.modal-overlay.authorization{align-items:flex-end;justify-content:center;padding:20px 20px max(calc(env(safe-area-inset-bottom) + 20px),calc(33dvh - 136px))}
+.modal-overlay.authorization .modal-box{width:min(420px,calc(100% - 4px));padding:28px 24px 22px;text-align:center}
 .modal-overlay.authorization .modal-title{margin-bottom:10px;color:#fff;text-align:center;font-size:21px}
-.auth-team-name{margin:5px 0 14px;color:var(--gold);font-size:28px;font-weight:700;line-height:1.1}
-.auth-instruction{color:#ddd;font-size:18px}
-.modal-overlay.authorization .modal-input{width:min(150px,60%);margin:17px auto 0;text-align:center;text-transform:uppercase}
-.modal-close-x{display:none;position:absolute;top:8px;left:10px;width:34px;height:34px;padding:0;border:0;background:transparent;color:#fff;font-family:Arial,sans-serif;font-size:30px;line-height:1;z-index:2}
+.auth-team-name{margin:5px 0 16px;color:var(--gold);font-size:30px;font-weight:700;line-height:1.1}
+.auth-captcha{width:min(330px,92%);min-height:76px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:14px;padding:11px 16px;border:1px solid rgba(255,255,255,.72);border-radius:12px;background:#0b0b0b;color:#fff;cursor:pointer;user-select:none;-webkit-user-select:none}
+.auth-captcha input{position:absolute;opacity:0;pointer-events:none}
+.auth-check-box{width:38px;height:38px;flex:0 0 38px;display:flex;align-items:center;justify-content:center;border:2px solid #bcbcbc;border-radius:5px;background:#050505;color:#111;font-size:27px;font-weight:800;line-height:1}
+.auth-captcha input:checked + .auth-check-box{border-color:var(--gold);background:var(--gold);color:#111}
+.auth-check-text{font-size:17px;font-weight:700;letter-spacing:.2px;text-align:left}
+.modal-overlay.authorization .modal-actions{width:min(330px,92%);margin:14px auto 0;grid-template-columns:1fr 1fr}
+.modal-overlay.authorization .modal-btn:disabled{border-color:#666;background:#666;color:#262626;opacity:1;cursor:default}
+.modal-close-x{display:none;position:absolute;top:8px;right:10px;width:34px;height:34px;padding:0;border:0;background:transparent;color:#1a1a1a;font-family:Arial,sans-serif;font-size:30px;line-height:1;z-index:2}
 .modal-overlay.authorization .modal-close-x{display:block}
 .modal-title.testing{color:#fff}
 .modal-btn.testing{border-color:#fff;color:#fff;background:#050505}
@@ -1845,8 +1851,8 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#0b0b0b;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 
-/* V7-CF.20 — TWO-LINE HOME SCORECARD ACCESS */
-.score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(6vh,28px);}
+/* V7-CF.21 — THUMB-ZONE POPUPS + CAPTCHA AUTHORIZATION */
+.score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(calc(env(safe-area-inset-bottom) + 20px),calc(33dvh - 143px));}
 .score-entry-box{width:min(420px,calc(100% - 4px));padding:28px 24px 22px;border-radius:18px;}
 .score-entry-hole{font-size:28px;margin-top:0}
 .score-entry-par{font-size:20px;margin-top:2px}
@@ -1931,7 +1937,7 @@
 .home-team-option:last-child{border-bottom:0}
 .home-team-option:active{background:var(--gold);color:#111}
 .home-utility-row .reset-user-button{font-size:12px;letter-spacing:.15px}
-.modal-overlay.reset-authorization{align-items:flex-end;padding-bottom:max(105px,env(safe-area-inset-bottom))}
+.modal-overlay.reset-authorization{align-items:flex-end;justify-content:center;padding:20px 20px max(calc(env(safe-area-inset-bottom) + 20px),calc(33dvh - 55px))}
 .modal-overlay.reset-authorization .modal-box{text-align:center}
 .modal-overlay.reset-authorization .modal-title,.modal-overlay.reset-authorization .modal-text{text-align:center}
 .modal-overlay.reset-authorization .modal-title{color:#fff;font-size:23px}
@@ -2408,7 +2414,7 @@
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V7-CF.20
+    // ROTB 2026 — V7-CF.21
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -4314,36 +4320,39 @@
     function showAuthorizationModal(index) {
       closeModal();
       els.modalOverlay.classList.add('authorization');
-      els.modalTitle.textContent = 'Authorize Scoring For:';
-      els.modalBody.innerHTML = '<div class="auth-team-name">' + escapeHtml(selectedTeam.name) + '</div><div class="auth-instruction">Type <strong>Y</strong> for YES and press Enter</div>';
-      els.modalInput.style.display = 'block';
+      els.modalTitle.textContent = 'TAP TO AUTHORIZE SCORING FOR:';
+      els.modalBody.innerHTML =
+        '<div class="auth-team-name">' + escapeHtml(selectedTeam.name) + '</div>' +
+        '<label class="auth-captcha">' +
+          '<input id="authConfirmCheck" type="checkbox" aria-label="Confirm scoring authorization">' +
+          '<span class="auth-check-box">✓</span>' +
+          '<span class="auth-check-text">CHECK TO CONFIRM</span>' +
+        '</label>';
+      els.modalInput.style.display = 'none';
       els.modalInput.value = '';
-      els.modalInput.placeholder = 'Y';
-      els.modalInput.maxLength = 1;
       els.modalActions.replaceChildren();
-      els.modalActions.className = 'modal-actions single';
+      els.modalActions.className = 'modal-actions';
 
-      const authorizeEnter = () => {
-        if (normalizeName(els.modalInput.value) !== 'y') {
-          els.modalInput.value = '';
-          els.modalInput.placeholder = 'Type Y';
-          els.modalInput.focus();
-          return;
-        }
+      const cancelButton = makeModalButton('CANCEL', '', closeModal);
+      const authorizeButton = makeModalButton('AUTHORIZE', '', () => {
+        const check = document.getElementById('authConfirmCheck');
+        if (!check || !check.checked) return;
         setAuthorizedTeam(selectedTeam.name);
         closeModal();
         openScoreEntry(index);
-      };
+      });
 
-      const enterButton = makeModalButton('ENTER', 'primary', authorizeEnter);
-      els.modalActions.appendChild(enterButton);
+      authorizeButton.disabled = true;
+      els.modalActions.append(cancelButton, authorizeButton);
       els.modalOverlay.classList.add('open');
-      setTimeout(() => els.modalInput.focus(), 60);
-      els.modalInput.onkeydown = event => {
-        if (event.key !== 'Enter') return;
-        event.preventDefault();
-        authorizeEnter();
-      };
+
+      const check = document.getElementById('authConfirmCheck');
+      if (check) {
+        check.addEventListener('change', () => {
+          authorizeButton.disabled = !check.checked;
+          authorizeButton.classList.toggle('primary', check.checked);
+        });
+      }
     }
 
 
@@ -5695,9 +5704,9 @@
 
           '<li>Select Your Team</li>' +
 
-          '<li>Tap Score &amp; Type <strong>Y</strong> for Scoring Access (One Time)</li>' +
+          '<li>Tap a Score, check the authorization box, then tap <strong>AUTHORIZE</strong> (One Time)</li>' +
 
-          '<li>Enter Score for Each Hole</li>' +
+          '<li>Use <strong>− / +</strong> to set the score, then tap <strong>ENTER</strong></li>' +
 
           '<li>Gray = Not Submitted</li>' +
 
@@ -5715,7 +5724,7 @@
 
           '<strong>Need to correct a score?</strong> ' +
 
-          'Tap the score, enter the new score, and submit again.' +
+          'Tap the score, use − / + to set the new score, tap ENTER, and submit again. Use CLEAR to remove a score.' +
 
         '</div>';
 
