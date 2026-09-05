@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V10.7 -->
+  <!-- ROTB 2026 — V10.8 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2819,6 +2819,71 @@ body.score-team-menu-open .score-fixed-top{
         width: auto !important;
         height: auto !important;
       }
+    }
+
+
+
+    /* =========================================================
+       V10.8 — RESPONSIVE SCORE BOX / SCORE CONTENT TEST
+       Goal:
+       - Gold/pending box follows the ACTUAL score-cell height.
+       - Keep a small vertical breathing gap; never force a 48px minimum.
+       - Score number grows/shrinks with available vertical cell space.
+       - Circle/square geometry scales from the same cell-height rule.
+       - Preserve the existing optical correction:
+           plain/par number = translateY(-3px)
+           circle/square number = no vertical translation
+       - No row heights, columns, leaderboard, popup geometry, home,
+         authorization, scoring logic, or backend behavior changed.
+       ========================================================= */
+
+    .score-cell {
+      container-type: size;
+    }
+
+    /* Box nearly fills the score cell, but keeps ~3px top/bottom air.
+       Tall phones still cap at the familiar maximum. */
+    .score-button.saved,
+    .score-button.unsaved {
+      height: calc(100% - 6px) !important;
+      min-height: 0 !important;
+      max-height: 58px !important;
+    }
+
+    /* Text scales with the score-cell height.
+       Approx relationship at the current reference size:
+       ~48px box -> ~30px score text
+       ~58px box -> ~36px score text. */
+    .score-button {
+      font-size: clamp(27px, calc(62.5cqh - 3.75px), 36px) !important;
+    }
+
+    /* Circle/square outer geometry follows the same vertical scale.
+       Current reference relationship is preserved:
+       ~30px score text -> ~37px notation box. */
+    .score-mark {
+      width: clamp(34px, calc(77cqh - 4.5px), 44px) !important;
+      height: clamp(34px, calc(77cqh - 4.5px), 44px) !important;
+      font-size: clamp(24px, calc(54cqh - 3.25px), 31px) !important;
+    }
+
+    .score-mark.double-circle,
+    .score-mark.double-square {
+      font-size: clamp(24px, calc(54cqh - 3.25px), 31px) !important;
+    }
+
+    .score-mark.par-mark {
+      width: auto !important;
+      height: auto !important;
+    }
+
+    /* Preserve the established optical centering rules exactly. */
+    .score-mark-number {
+      transform: translateY(-3px);
+    }
+
+    .score-mark:not(.par-mark) .score-mark-number {
+      transform: none;
     }
 
 </style>
