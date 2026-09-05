@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V9.11 -->
+  <!-- ROTB 2026 — V9.12 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -6375,23 +6375,33 @@ body.score-team-menu-open .score-fixed-top{
             return;
           }
 
-          /* V9.11:
-             The row height and every row boundary are known.
-             On automatic repositioning, place the CENTER of the
-             authorized team directly on the third row boundary.
-             This creates the intentional half-row landing while
-             keeping useful context above and below the team. */
+          /* V9.12:
+             Auto-positioning is only needed when the authorized team
+             is below the initial eight visible rows.
+
+             Preferred scroll = 2.5 row heights. This keeps the
+             authorized team toward the lower part of the viewport,
+             showing more of the teams ahead while still leaving
+             useful context below.
+
+             If the bottom of the leaderboard blocks the full 2.5-row
+             move, do not land flush against that bottom boundary.
+             Back off by 0.5 row from the maximum available scroll. */
           const rowHeight =
             target.offsetHeight;
 
-          const targetCenter =
-            els.leaderContent.scrollTop +
-            (targetRect.top - containerRect.top) +
-            rowHeight / 2;
+          const targetIndex =
+            Array.prototype.indexOf.call(
+              els.leaderRows.children,
+              target
+            );
 
-          const desired =
-            targetCenter -
-            rowHeight * 3;
+          if (targetIndex < 8) {
+            return;
+          }
+
+          const preferredScroll =
+            rowHeight * 2.5;
 
           const maxScroll = Math.max(
             0,
@@ -6399,21 +6409,16 @@ body.score-team-menu-open .score-fixed-top{
             els.leaderContent.clientHeight
           );
 
-          const halfRow =
-            rowHeight > 0
-              ? rowHeight / 2
-              : 0;
-
-          const snappedDesired =
-            halfRow > 0
-              ? Math.round(desired / halfRow) * halfRow
-              : desired;
+          const desired =
+            maxScroll >= preferredScroll
+              ? preferredScroll
+              : Math.max(
+                  0,
+                  maxScroll - rowHeight * 0.5
+                );
 
           els.leaderContent.scrollTo({
-            top: Math.max(
-              0,
-              Math.min(maxScroll, snappedDesired)
-            ),
+            top: desired,
             behavior: 'smooth'
           });
         },
