@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V11.7 -->
+  <!-- ROTB 2026 — V12 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2994,7 +2994,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V11.7</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12</button>
 
       <div class="splash-image-wrap">
 
@@ -6604,6 +6604,226 @@ body.score-team-menu-open .score-fixed-top{
        dividing its inner height by 8 produces exactly eight visible rows.
        ========================================================= */
 
+    /* =========================================================
+       V12 — RESPONSIVE LEADERBOARD TYPOGRAPHY
+       All row typography is driven from the actual leaderboard row height.
+       Width fitting is shared by column group, never row-by-row.
+       ========================================================= */
+
+    function fitLeaderboardTypography() {
+      if (!els.leaderRows) {
+        return;
+      }
+
+      const row =
+        els.leaderRows.querySelector(
+          '.leader-row'
+        );
+
+      if (!row) {
+        return;
+      }
+
+      const rowHeight =
+        row.getBoundingClientRect().height;
+
+      if (
+        !Number.isFinite(rowHeight) ||
+        rowHeight <= 0
+      ) {
+        return;
+      }
+
+      const root =
+        els.leaderRows;
+
+      const setSizes =
+        (
+          mainSize,
+          placeSize,
+          hcpSize,
+          statusSize
+        ) => {
+          root.style.setProperty(
+            '--leader-main-font',
+            mainSize + 'px'
+          );
+
+          root.style.setProperty(
+            '--leader-place-font',
+            placeSize + 'px'
+          );
+
+          root.style.setProperty(
+            '--leader-hcp-font',
+            hcpSize + 'px'
+          );
+
+          root.style.setProperty(
+            '--leader-status-font',
+            statusSize + 'px'
+          );
+
+          root.style.setProperty(
+            '--leader-status-gap',
+            (rowHeight * 0.05) + 'px'
+          );
+        };
+
+      /* TEAM + TOTAL target = 66% of row height. */
+      let mainSize =
+        rowHeight * 0.66;
+
+      /* PLACE = 75% of TEAM/TOTAL.
+         HCP = 66% of PLACE.
+         STATUS lines = 35% of row height each. */
+      let placeSize =
+        mainSize * 0.75;
+
+      let hcpSize =
+        placeSize * 0.66;
+
+      let statusSize =
+        rowHeight * 0.35;
+
+      setSizes(
+        mainSize,
+        placeSize,
+        hcpSize,
+        statusSize
+      );
+
+      /*
+        TEAM is the likely width limiter. Find the single worst fit,
+        then reduce TEAM + TOTAL together so every row uses one size.
+      */
+      let mainScale = 1;
+
+      root
+        .querySelectorAll(
+          '.leader-team-name'
+        )
+        .forEach(
+          element => {
+            const available =
+              element.clientWidth;
+
+            const needed =
+              element.scrollWidth;
+
+            if (
+              available > 0 &&
+              needed > available
+            ) {
+              mainScale =
+                Math.min(
+                  mainScale,
+                  available / needed
+                );
+            }
+          }
+        );
+
+      mainSize *= mainScale;
+
+      /*
+        PLACE remains 75% of the final TEAM/TOTAL size.
+        HCP remains 66% of PLACE. If either column is width-limited,
+        shrink the PLACE/HCP pair together to preserve that relationship.
+      */
+      placeSize =
+        mainSize * 0.75;
+
+      hcpSize =
+        placeSize * 0.66;
+
+      setSizes(
+        mainSize,
+        placeSize,
+        hcpSize,
+        statusSize
+      );
+
+      let placeHcpScale = 1;
+
+      root
+        .querySelectorAll(
+          '.leader-place-cell, .leader-hcp-cell'
+        )
+        .forEach(
+          element => {
+            const available =
+              element.clientWidth;
+
+            const needed =
+              element.scrollWidth;
+
+            if (
+              available > 0 &&
+              needed > available
+            ) {
+              placeHcpScale =
+                Math.min(
+                  placeHcpScale,
+                  available / needed
+                );
+            }
+          }
+        );
+
+      placeSize *= placeHcpScale;
+      hcpSize *= placeHcpScale;
+
+      setSizes(
+        mainSize,
+        placeSize,
+        hcpSize,
+        statusSize
+      );
+
+      /*
+        STATUS uses one shared line size across every row.
+        SCORE and THRU/HOLE are both 35% of row height unless
+        the 20% STATUS column requires one common reduction.
+      */
+      let statusScale = 1;
+
+      root
+        .querySelectorAll(
+          '.leader-through-score, .leader-through-label'
+        )
+        .forEach(
+          element => {
+            const available =
+              element.clientWidth;
+
+            const needed =
+              element.scrollWidth;
+
+            if (
+              available > 0 &&
+              needed > available
+            ) {
+              statusScale =
+                Math.min(
+                  statusScale,
+                  available / needed
+                );
+            }
+          }
+        );
+
+      statusSize *= statusScale;
+
+      setSizes(
+        mainSize,
+        placeSize,
+        hcpSize,
+        statusSize
+      );
+    }
+
+
     function sizeLeaderboardRows() {
       if (!els.leaderContent) {
         return;
@@ -6620,6 +6840,10 @@ body.score-team-menu-open .score-fixed-top{
       els.leaderContent.style.setProperty(
         '--leader-row-height',
         rowHeight + 'px'
+      );
+
+      requestAnimationFrame(
+        fitLeaderboardTypography
       );
     }
 
@@ -7606,6 +7830,138 @@ body.score-team-menu-open .score-fixed-top{
   font-weight: 400 !important;
 }
 .leader-through-value.has-progress {
+  font-weight: 800 !important;
+}
+</style>
+
+
+<style>
+/* =========================================================
+   V12 — RESPONSIVE SCORECARD + LEADERBOARD
+   Scope is intentionally limited to table columns and row content.
+   Headers keep their existing typography; footers/buttons/modal/home/backend
+   remain untouched.
+   ========================================================= */
+
+/* SCORECARD COLUMN PROPORTIONS — approved universal ratio:
+   HOLE 20% | PAR 20% | YARDS 25% | SCORE 35%. */
+.score-table-head,
+.score-row {
+  grid-template-columns:
+    20%
+    20%
+    25%
+    35% !important;
+}
+
+/* Tablet / larger portrait scorecard scaling only.
+   Phones retain the locked V11.7 score-box and PAR/YARDS sizing.
+   On larger viewports:
+   - PAR and YARDS scale to ~60% of the 58cqh HOLE/SCORE rule
+   - never below the existing phone-size floors
+   - SAVED gold boxes follow the same row-derived outer geometry as
+     empty/pending boxes instead of retaining the old 61px/58px cap. */
+@media (min-width: 600px) {
+  .par-cell {
+    container-type: size;
+    font-size: max(20px, 34.8cqh) !important;
+  }
+
+  .yardage-cell {
+    container-type: size;
+    font-size: max(17px, 34.8cqh) !important;
+  }
+
+  .score-button.saved {
+    height: calc(100% - max(4px, 5cqh)) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    width: auto !important;
+    max-width: calc(100% - 6px) !important;
+    aspect-ratio: 1.25 / 1 !important;
+
+    border-radius: 6px !important;
+  }
+}
+
+/* LEADERBOARD COLUMN PROPORTIONS — approved universal ratio:
+   PLACE 10% | TEAM 40% | HCP 5% | STATUS 20% | TOTAL 25%.
+   Applies to header and body for alignment; existing header typography stays. */
+.leader-row {
+  grid-template-columns:
+    10%
+    40%
+    5%
+    20%
+    25% !important;
+}
+
+/* Body-row typography is controlled by the shared V12 JS variables.
+   The !important declarations deliberately override the old per-row
+   17px fallback so every leaderboard row always shares one size. */
+#leaderRows .leader-team-name,
+#leaderRows .leader-total {
+  font-size:
+    var(--leader-main-font, 20.5px) !important;
+
+  line-height: 1 !important;
+}
+
+#leaderRows .leader-team-name {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  width: 100% !important;
+}
+
+#leaderRows .leader-place-cell {
+  font-size:
+    var(--leader-place-font, 15px) !important;
+
+  line-height: 1 !important;
+}
+
+#leaderRows .leader-hcp-cell {
+  font-size:
+    var(--leader-hcp-font, 10px) !important;
+
+  line-height: 1 !important;
+}
+
+#leaderRows .leader-through-score,
+#leaderRows .leader-through-label,
+#leaderRows .leader-through-word,
+#leaderRows .leader-through-value {
+  font-size:
+    var(--leader-status-font, 13px) !important;
+
+  line-height: 1 !important;
+}
+
+#leaderRows .leader-through-score {
+  width: 100% !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  font-weight: 800 !important;
+}
+
+#leaderRows .leader-through-label {
+  width: 100% !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  margin-top:
+    var(--leader-status-gap, 4px) !important;
+
+  font-weight: 400 !important;
+}
+
+#leaderRows .leader-through-word {
+  font-weight: 400 !important;
+}
+
+/* HOLE / through value is always bold; THRU itself remains normal. */
+#leaderRows .leader-through-value,
+#leaderRows .leader-through-value.has-progress {
   font-weight: 800 !important;
 }
 </style>
