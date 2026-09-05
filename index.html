@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V9.12 -->
+  <!-- ROTB 2026 — V10 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2690,6 +2690,80 @@ body.score-team-menu-open .score-fixed-top{
       }
     }
 
+
+
+    /* =========================================================
+       V10 — HOME SPLASH 60 / CONTROLS 40
+       The splash image no longer determines home-page height.
+       Splash_white.jpg is contained inside the top 60% stage;
+       all home controls own the bottom 40%.
+       ========================================================= */
+    #homeView.active {
+      height: 100dvh;
+      min-height: 100dvh;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    #homeView .home-shell {
+      height: 100dvh;
+      min-height: 100dvh;
+      padding-bottom: env(safe-area-inset-bottom);
+      display: grid;
+      grid-template-rows: 60% 40%;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    #homeView .splash-image-wrap {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    #homeView .splash-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      margin: 0;
+    }
+
+    #homeView .home-actions {
+      width: calc(100% - 34px);
+      max-width: 470px;
+      height: 100%;
+      min-height: 0;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 13px;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* =========================================================
+       V9.13 — AUTHORIZED TEAM LEADERBOARD HIGHLIGHT
+       White TEAM cell with a 5px gold inset outline.
+       Inset only: no leaderboard row/column geometry changes.
+       ========================================================= */
+    .leader-team-cell.authorized-team-cell {
+      background: #fff !important;
+      box-shadow: inset 0 0 0 5px var(--gold) !important;
+      color: #000 !important;
+    }
+
+    .leader-team-cell.authorized-team-cell .leader-team-name {
+      color: #000 !important;
+    }
 </style>
 </head>
 
