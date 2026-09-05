@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V10.6 -->
+  <!-- ROTB 2026 — V10.7 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2766,6 +2766,61 @@ body.score-team-menu-open .score-fixed-top{
     .leader-team-cell.authorized-team-cell .leader-team-name {
       color: #000 !important;
     }
+
+
+    /* =========================================================
+       V10.7 — iOS / WebKit COMPATIBILITY PATCH ONLY
+       Targets the two iPhone rendering differences observed:
+       1) score-entry − / CLEAR / + row track sizing
+       2) score number / golf-notation centering inside score boxes
+
+       No outer popup sizing, scorecard row geometry, leaderboard,
+       home/splash, authorization, backend, or Android positioning
+       is intentionally changed.
+       ========================================================= */
+    @supports (-webkit-touch-callout: none) {
+      .score-entry-control > .score-step-button,
+      .score-entry-control > .score-entry-clear {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+      }
+
+      .score-button {
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+      }
+
+      .score-button .score-mark {
+        margin: 0 !important;
+        flex: 0 0 auto !important;
+      }
+
+      .score-button .score-mark-number {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 100% !important;
+        line-height: 1 !important;
+      }
+
+      .score-button .score-mark.par-mark .score-mark-number {
+        width: auto !important;
+        height: auto !important;
+      }
+    }
+
 </style>
 </head>
 
