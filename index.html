@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V10.9 -->
+  <!-- ROTB 2026 — V10.10 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2824,71 +2824,115 @@ body.score-team-menu-open .score-fixed-top{
 
 
     /* =========================================================
-       V10.8 — RESPONSIVE SCORE BOX / SCORE CONTENT TEST
-       Goal:
-       - Gold/pending box follows the ACTUAL score-cell height.
-       - Keep a small vertical breathing gap; never force a 48px minimum.
-       - Score number grows/shrinks with available vertical cell space.
-       - Circle/square geometry scales from the same cell-height rule.
-       - Preserve the existing optical correction:
-           plain/par number = translateY(-3px)
-           circle/square number = no vertical translation
-       - No row heights, columns, leaderboard, popup geometry, home,
-         authorization, scoring logic, or backend behavior changed.
+       V10.10 — PROPORTIONAL SCORE SYSTEM TEST
+
+       One responsive chain:
+       score-cell height
+         -> score-button height
+         -> score-button width (1.25 : 1 aspect ratio)
+         -> score font size
+         -> notation envelope
+
+       Intent:
+       - No phone-sized hard cap on larger portrait displays/tablets.
+       - Gold/pending/empty score box scales from the actual row height.
+       - Keep a minimum sliver of white above/below on short phones.
+       - Plain score numeral gets the known optical upward correction.
+       - Circle/square assemblies get NO shift and remain truly centered.
+       - Circle/square geometry is based on the gold-box environment,
+         NOT on the width/shape of the individual digit.
        ========================================================= */
 
     .score-cell {
       container-type: size;
     }
 
-    /* Box nearly fills the score cell, but keeps ~3px top/bottom air.
-       Tall phones still cap at the familiar maximum. */
-    .score-button.saved,
-    .score-button.unsaved {
-      height: calc(100% - 6px) !important;
-      min-height: 0 !important;
-      max-height: 58px !important;
-    }
-
-    /* Text scales with the score-cell height.
-       Approx relationship at the current reference size:
-       ~48px box -> ~30px score text
-       ~58px box -> ~36px score text. */
+    /* The score box follows the row vertically.
+       Normally ~95% of cell height; on short rows, preserve at least
+       2px of air above and below. Width follows height at 1.25 : 1. */
     .score-button {
-      font-size: clamp(27px, calc(62.5cqh - 3.75px), 36px) !important;
+      height: calc(100% - max(4px, 5cqh)) !important;
+      min-height: 0 !important;
+      max-height: none !important;
+
+      width: auto !important;
+      max-width: calc(100% - 6px) !important;
+      aspect-ratio: 1.25 / 1 !important;
+
+      padding: 0 !important;
+
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+
+      /* ~61% of the gold-box CSS height; visually the glyph occupies
+         roughly the ~40% range we are tuning for. */
+      font-size: 58cqh !important;
+      line-height: 1 !important;
     }
 
-    /* Circle/square outer geometry follows the same vertical scale.
-       Current reference relationship is preserved:
-       ~30px score text -> ~37px notation box. */
-    .score-mark {
-      width: clamp(34px, calc(77cqh - 4.5px), 44px) !important;
-      height: clamp(34px, calc(77cqh - 4.5px), 44px) !important;
-      font-size: clamp(24px, calc(54cqh - 3.25px), 31px) !important;
-    }
-
-    .score-mark.double-circle,
-    .score-mark.double-square {
-      font-size: clamp(24px, calc(54cqh - 3.25px), 31px) !important;
-    }
-
+    /* Plain/par score uses the full responsive score-font size.
+       The -0.10em correction equals about -3px at our familiar
+       ~30px phone score size, but scales naturally on larger screens. */
     .score-mark.par-mark {
       width: auto !important;
       height: auto !important;
+      font-size: 1em !important;
     }
 
-    /* Preserve the established optical centering rules exactly. */
     .score-mark-number {
-      transform: translateY(-3px);
+      transform: translateY(-0.10em) !important;
     }
 
+    /* Circle/square is a fixed proportional ENVELOPE within the score
+       box. It does not resize according to whether the digit is 3/4/5/6/9.
+       The contained numeral scales from the score font, while the shape
+       itself scales from score-cell/gold-box space. */
+    .score-mark:not(.par-mark) {
+      position: relative !important;
+      width: 72cqh !important;
+      height: 72cqh !important;
+
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+
+      flex: 0 0 auto !important;
+
+      /* Slightly smaller numeral inside the notation envelope. */
+      font-size: 0.87em !important;
+      line-height: 1 !important;
+
+      transform: none !important;
+      margin: 0 !important;
+    }
+
+    /* Symbol groups are geometrically centered — absolutely no optical
+       shift on the numeral once it lives inside a circle/square. */
     .score-mark:not(.par-mark) .score-mark-number {
-      transform: none;
+      transform: none !important;
+    }
+
+    /* Let notation stroke spacing scale too, instead of staying phone-only. */
+    .score-mark.single-circle,
+    .score-mark.double-circle,
+    .score-mark.single-square,
+    .score-mark.double-square {
+      border-width: max(2px, 0.055em) !important;
+    }
+
+    .score-mark.bold-square {
+      border-width: max(4px, 0.10em) !important;
+    }
+
+    .score-mark.double-circle::after,
+    .score-mark.double-square::after {
+      inset: -0.12em !important;
+      border-width: max(1.5px, 0.04em) !important;
     }
 
 
-
-    /* V10.9 TEST VERSION MARKER — direct text in the real hotspot button */
+    /* V10.10 TEST VERSION MARKER — direct text in the real hotspot button */
     .test-log-hotspot {
       color: #d4d4d4 !important;
       font-size: 9px !important;
@@ -2937,7 +2981,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V10.9</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V10.10</button>
 
       <div class="splash-image-wrap">
 
