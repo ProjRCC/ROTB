@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V12.1 -->
+  <!-- ROTB 2026 — V12.2 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2961,10 +2961,11 @@ body.score-team-menu-open .score-fixed-top{
     }
 
 
-/* V12.1 — sticky leaderboard column header and body share one exact grid. */
+/* V12.2 — leaderboard header and every body row use the exact same
+   five grid tracks on their real containers so divider lines align. */
+.leader-table-head,
 .leader-row,
-.leader-row.header,
-.leader-table-head .leader-row {
+.leader-row.header {
   grid-template-columns:
     10%
     40%
@@ -3007,7 +3008,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12.1</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12.2</button>
 
       <div class="splash-image-wrap">
 
@@ -5044,6 +5045,55 @@ body.score-team-menu-open .score-fixed-top{
        ========================================================= */
 
 
+    function fitScorecardBodyTypography() {
+      if (!els.scoreRows) {
+        return;
+      }
+
+      const holeNumber =
+        els.scoreRows.querySelector(
+          '.hole-number'
+        );
+
+      if (!holeNumber) {
+        return;
+      }
+
+      const holeFont =
+        parseFloat(
+          window.getComputedStyle(
+            holeNumber
+          ).fontSize
+        );
+
+      if (
+        !Number.isFinite(holeFont) ||
+        holeFont <= 0
+      ) {
+        return;
+      }
+
+      /* PAR and YARDS are exactly 60% of the actual approved
+         HOLE numeral size, regardless of device size. */
+      const secondaryFont =
+        holeFont * 0.60;
+
+      els.scoreRows
+        .querySelectorAll(
+          '.par-cell, .yardage-cell'
+        )
+        .forEach(
+          element => {
+            element.style.setProperty(
+              'font-size',
+              secondaryFont + 'px',
+              'important'
+            );
+          }
+        );
+    }
+
+
     function renderScorecard() {
 
       els.scoreRows.innerHTML =
@@ -5311,6 +5361,11 @@ body.score-team-menu-open .score-fixed-top{
 
       updateSubmitButtonState();
       updateScorecardRunningScores();
+
+
+      requestAnimationFrame(
+        fitScorecardBodyTypography
+      );
 
     }
 
@@ -6650,18 +6705,18 @@ body.score-team-menu-open .score-fixed-top{
       const root =
         els.leaderRows;
 
-      /* V12.1 agreed body typography:
+      /* V12.2 agreed body typography:
          TEAM 40% RH
-         TOTAL 66% RH
+         TOTAL 60% RH
          PLACE 33% RH
          HCP 66% of PLACE
-         STATUS score 35% RH
-         STATUS THRU/hole 30% RH */
+         STATUS score 25% RH
+         STATUS THRU/hole 28% RH */
       const teamSize =
         rowHeight * 0.40;
 
       const totalSize =
-        rowHeight * 0.66;
+        rowHeight * 0.60;
 
       let placeSize =
         rowHeight * 0.33;
@@ -6670,10 +6725,10 @@ body.score-team-menu-open .score-fixed-top{
         placeSize * 0.66;
 
       let statusScoreSize =
-        rowHeight * 0.35;
+        rowHeight * 0.25;
 
       let statusThruSize =
-        rowHeight * 0.30;
+        rowHeight * 0.28;
 
       const statusGap =
         rowHeight * 0.05;
@@ -7758,6 +7813,12 @@ body.score-team-menu-open .score-fixed-top{
         if (currentView === 'leaderboard') {
           sizeLeaderboardRows();
         }
+
+        if (currentView === 'scorecard') {
+          requestAnimationFrame(
+            fitScorecardBodyTypography
+          );
+        }
       }
     );
 
@@ -7874,14 +7935,9 @@ body.score-team-menu-open .score-fixed-top{
     35% !important;
 }
 
-/* V12.1 — universal scorecard body sizing.
-   PAR and YARDS are 60% of the existing approved HOLE/SCORE numeral size.
-   No phone/tablet sizing split. */
-.par-cell,
-.yardage-cell {
-  container-type: size;
-  font-size: 34.8cqh !important;
-}
+/* V12.2 — PAR/YARDS sizing is applied in JS from the actual computed
+   HOLE numeral size. This avoids container-query-unit ambiguity while
+   preserving the already-approved HOLE/SCORE geometry. */
 
 /* Keep the already-approved larger-screen SAVED gold score-box geometry. */
 @media (min-width: 600px) {
@@ -7910,7 +7966,7 @@ body.score-team-menu-open .score-fixed-top{
     25% !important;
 }
 
-/* V12.1 leaderboard body typography — row-height driven. */
+/* V12.2 leaderboard body typography — row-height driven. */
 #leaderRows .leader-team-name {
   font-size:
     var(--leader-team-font, 20px) !important;
