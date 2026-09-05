@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V12.2 -->
+  <!-- ROTB 2026 — V12.3 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2961,15 +2961,15 @@ body.score-team-menu-open .score-fixed-top{
     }
 
 
-/* V12.2 — leaderboard header and every body row use the exact same
+/* V12.3 — leaderboard header and every body row use the exact same
    five grid tracks on their real containers so divider lines align. */
 .leader-table-head,
 .leader-row,
 .leader-row.header {
   grid-template-columns:
-    10%
+    8%
     40%
-    5%
+    7%
     20%
     25% !important;
 }
@@ -3008,7 +3008,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12.2</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12.3</button>
 
       <div class="splash-image-wrap">
 
@@ -5050,33 +5050,51 @@ body.score-team-menu-open .score-fixed-top{
         return;
       }
 
-      const holeNumber =
+      const scoreButton =
         els.scoreRows.querySelector(
-          '.hole-number'
+          '.score-button'
         );
 
-      if (!holeNumber) {
+      if (!scoreButton) {
         return;
       }
 
-      const holeFont =
+      const scoreFont =
         parseFloat(
           window.getComputedStyle(
-            holeNumber
+            scoreButton
           ).fontSize
         );
 
       if (
-        !Number.isFinite(holeFont) ||
-        holeFont <= 0
+        !Number.isFinite(scoreFont) ||
+        scoreFont <= 0
       ) {
         return;
       }
 
-      /* PAR and YARDS are exactly 60% of the actual approved
-         HOLE numeral size, regardless of device size. */
+      /* V12.3 agreed scorecard typography:
+         HOLE = 85% of SCORE.
+         PAR and YARDS = 60% of HOLE. */
+      const holeFont =
+        scoreFont * 0.85;
+
       const secondaryFont =
         holeFont * 0.60;
+
+      els.scoreRows
+        .querySelectorAll(
+          '.hole-number'
+        )
+        .forEach(
+          element => {
+            element.style.setProperty(
+              'font-size',
+              holeFont + 'px',
+              'important'
+            );
+          }
+        );
 
       els.scoreRows
         .querySelectorAll(
@@ -5092,7 +5110,6 @@ body.score-team-menu-open .score-fixed-top{
           }
         );
     }
-
 
     function renderScorecard() {
 
@@ -6705,7 +6722,7 @@ body.score-team-menu-open .score-fixed-top{
       const root =
         els.leaderRows;
 
-      /* V12.2 agreed body typography:
+      /* V12.3 agreed body typography:
          TEAM 40% RH
          TOTAL 60% RH
          PLACE 33% RH
@@ -7930,14 +7947,13 @@ body.score-team-menu-open .score-fixed-top{
 .score-row {
   grid-template-columns:
     20%
-    20%
-    25%
+    15%
+    30%
     35% !important;
 }
 
-/* V12.2 — PAR/YARDS sizing is applied in JS from the actual computed
-   HOLE numeral size. This avoids container-query-unit ambiguity while
-   preserving the already-approved HOLE/SCORE geometry. */
+/* V12.3 — scorecard body typography is applied in JS from the actual
+   computed SCORE numeral size: HOLE = 85% of SCORE; PAR/YARDS = 60% of HOLE. */
 
 /* Keep the already-approved larger-screen SAVED gold score-box geometry. */
 @media (min-width: 600px) {
@@ -7959,14 +7975,14 @@ body.score-team-menu-open .score-fixed-top{
    Applies to header and body for alignment; existing header typography stays. */
 .leader-row {
   grid-template-columns:
-    10%
+    8%
     40%
-    5%
+    7%
     20%
     25% !important;
 }
 
-/* V12.2 leaderboard body typography — row-height driven. */
+/* V12.3 leaderboard body typography — row-height driven. */
 #leaderRows .leader-team-name {
   font-size:
     var(--leader-team-font, 20px) !important;
