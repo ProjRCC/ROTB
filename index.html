@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V10.11 -->
+  <!-- ROTB 2026 — V11.0 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2824,7 +2824,7 @@ body.score-team-menu-open .score-fixed-top{
 
 
     /* =========================================================
-       V10.10 — PROPORTIONAL SCORE SYSTEM TEST
+       V11.0 — PROPORTIONAL SCORE SYSTEM
 
        One responsive chain:
        score-cell height
@@ -2837,8 +2837,8 @@ body.score-team-menu-open .score-fixed-top{
        - No phone-sized hard cap on larger portrait displays/tablets.
        - Gold/pending/empty score box scales from the actual row height.
        - Keep a minimum sliver of white above/below on short phones.
-       - Plain score numeral uses true flex centering with NO manual shift.
-       - Circle/square assemblies also use NO shift and remain truly centered.
+       - One universal gold-box-derived numeral size for every score.
+       - Plain scores and circle/square assemblies use true centering with NO manual shift.
        - Circle/square geometry is based on the gold-box environment,
          NOT on the width/shape of the individual digit.
        ========================================================= */
@@ -2889,8 +2889,8 @@ body.score-team-menu-open .score-fixed-top{
        itself scales from score-cell/gold-box space. */
     .score-mark:not(.par-mark) {
       position: relative !important;
-      width: 72cqh !important;
-      height: 72cqh !important;
+      width: 68cqh !important;
+      height: 68cqh !important;
 
       display: inline-flex !important;
       align-items: center !important;
@@ -2898,8 +2898,8 @@ body.score-team-menu-open .score-fixed-top{
 
       flex: 0 0 auto !important;
 
-      /* Slightly smaller numeral inside the notation envelope. */
-      font-size: 0.87em !important;
+      /* V11.0: every score numeral uses the same gold-box-derived size. */
+      font-size: 1em !important;
       line-height: 1 !important;
 
       transform: none !important;
@@ -2926,12 +2926,12 @@ body.score-team-menu-open .score-fixed-top{
 
     .score-mark.double-circle::after,
     .score-mark.double-square::after {
-      inset: -0.12em !important;
+      inset: -0.075em !important;
       border-width: max(1.5px, 0.04em) !important;
     }
 
 
-    /* V10.11 TEST VERSION MARKER — direct text in the real hotspot button */
+    /* V11.0 VERSION MARKER — direct text in the real hotspot button */
     .test-log-hotspot {
       color: #d4d4d4 !important;
       font-size: 9px !important;
@@ -2980,7 +2980,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V10.11</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V11.0</button>
 
       <div class="splash-image-wrap">
 
