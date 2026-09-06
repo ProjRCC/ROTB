@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V14.1 -->
+  <!-- ROTB 2026 — V14.2 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3018,32 +3018,43 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   ROTB 2026 — V14.1 TOURNAMENT FINISH
+   ROTB 2026 — V14.2 TOURNAMENT FINISH
    Aesthetic/final-results refinement only.
    ========================================================= */
 .leader-final-action {
   display: none;
   position: absolute;
   left: 50%;
-  top: 1px;
+  top: 4px;
   transform: translateX(-50%);
-  width: min(88%, 470px);
-  height: 52px;
-  min-height: 52px;
-  padding: 0 10px;
+  width: min(60%, 360px);
+  height: 46px;
+  min-height: 46px;
+  padding: 3px 10px;
   border: 5px solid #000;
   border-radius: 9px;
   box-sizing: border-box;
   color: #000;
-  font-size: clamp(13px, 4.1vw, 20px);
+  font-size: clamp(13px, 3.8vw, 19px);
   font-weight: 800;
-  line-height: 1;
-  letter-spacing: .2px;
+  line-height: 1.02;
+  letter-spacing: .15px;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
   z-index: 5;
   -webkit-appearance: none;
   appearance: none;
+}
+.leader-final-main {
+  display: block;
+  white-space: nowrap;
+}
+.leader-final-sub {
+  display: block;
+  margin-top: 2px;
+  font-size: .62em;
+  line-height: 1;
+  white-space: nowrap;
 }
 .leader-final-action.break-tie {
   display: block;
@@ -3073,7 +3084,7 @@ body.score-team-menu-open .score-fixed-top{
   border-radius: 18px;
   background: #fff;
   text-align: center;
-  transform: translateY(clamp(24px, 15dvh, 105px));
+  transform: none;
 }
 .modal-overlay.tournament-result .modal-title {
   margin-bottom: clamp(8px, 1.5dvh, 13px);
@@ -3121,7 +3132,7 @@ body.score-team-menu-open .score-fixed-top{
 }
 .modal-overlay.tournament-summary .modal-box {
   width: min(620px, calc(100% - 4px));
-  height: min(66dvh, 610px);
+  height: auto;
   max-height: calc(100dvh - 20px);
   min-height: 0;
   overflow: hidden;
@@ -3131,7 +3142,7 @@ body.score-team-menu-open .score-fixed-top{
   border: 2px solid #000;
   border-radius: 18px;
   background: #fff;
-  transform: translateY(clamp(18px, 15dvh, 95px));
+  transform: none;
 }
 .modal-overlay.tournament-summary .modal-title {
   flex: 0 0 auto;
@@ -3227,34 +3238,26 @@ body.score-team-menu-open .score-fixed-top{
   text-align: left;
 }
 .tournament-summary-remaining-row {
-  display: grid;
-  grid-template-columns: 25px minmax(0, 1fr) auto auto;
-  gap: 5px;
-  align-items: center;
+  display: block;
   min-height: clamp(17px, 2.6dvh, 23px);
   font-size: clamp(10px, 2.75vw, 13px);
-  line-height: 1;
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tournament-summary-remaining-row .bullet-place {
   font-weight: 800;
-  white-space: nowrap;
 }
-.tournament-summary-remaining-row .remaining-team {
-  min-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.tournament-summary-remaining-row .remaining-team,
+.tournament-summary-remaining-row .remaining-readout {
   font-weight: 700;
-}
-.tournament-summary-remaining-row .remaining-strokes,
-.tournament-summary-remaining-row .remaining-net {
-  font-weight: 700;
-  white-space: nowrap;
 }
 .modal-overlay.tournament-summary .modal-actions {
   flex: 0 0 auto;
   width: min(300px, 88%);
-  margin: clamp(5px, 1dvh, 9px) auto 0;
+  margin: clamp(10px, 1.8dvh, 16px) auto 0;
   grid-template-columns: 1fr;
 }
 .modal-overlay.tournament-summary .modal-btn {
@@ -3263,13 +3266,6 @@ body.score-team-menu-open .score-fixed-top{
 }
 
 @media (max-height: 650px) {
-  .modal-overlay.tournament-result .modal-box,
-  .modal-overlay.tournament-summary .modal-box {
-    transform: translateY(7dvh);
-  }
-  .modal-overlay.tournament-summary .modal-box {
-    height: 78dvh;
-  }
   .tournament-summary-row {
     height: clamp(27px, 4.3dvh, 34px);
   }
@@ -3279,9 +3275,9 @@ body.score-team-menu-open .score-fixed-top{
 }
 @media (max-width: 420px) {
   .leader-final-action {
-    width: 90%;
-    height: 50px;
-    min-height: 50px;
+    width: min(62%, 360px);
+    height: 46px;
+    min-height: 46px;
   }
   .tournament-summary-row {
     grid-template-columns: 8% minmax(0, 1fr) 33% 20%;
@@ -3322,7 +3318,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.1</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.2</button>
 
       <div class="splash-image-wrap">
 
@@ -7193,14 +7189,18 @@ let scoreTimingDetail =
       button.setAttribute('aria-hidden', 'false');
 
       if (mode === 'break-tie') {
-        button.textContent = 'BREAK TIE';
+        button.innerHTML = '<span class="leader-final-main">BREAK TIE</span>';
         button.classList.add('break-tie');
       } else {
         const tied = firstPlaceTiedRows(lastLeaderboardRows);
-        button.textContent =
-          tied.length >= 2 && hasViewedTournamentTieBreak()
-            ? 'TOURNAMENT SUMMARY (*TIE BREAK WINNER)'
-            : 'TOURNAMENT SUMMARY';
+        if (tied.length >= 2 && hasViewedTournamentTieBreak()) {
+          button.innerHTML =
+            '<span class="leader-final-main">TOURNAMENT SUMMARY</span>' +
+            '<span class="leader-final-sub">* TIE BREAK WINNER *</span>';
+        } else {
+          button.innerHTML =
+            '<span class="leader-final-main">TOURNAMENT SUMMARY</span>';
+        }
         button.classList.add('tournament-summary');
       }
     }
@@ -7416,7 +7416,7 @@ let scoreTimingDetail =
       els.modalInput.style.display = 'none';
 
       let html =
-        '<div class="tournament-summary-subtitle">TOP 3 FINISHERS</div>' +
+        '<div class="tournament-summary-subtitle">TOP 3</div>' +
         '<div class="tournament-summary-grid">' +
         '<div class="tournament-summary-row header">' +
         '<div>#</div><div>TEAM</div><div>NET STROKES</div><div>NET SCORE</div>' +
@@ -7425,6 +7425,8 @@ let scoreTimingDetail =
       rows.slice(0, 3).forEach((row, index) => {
         const annotation = podium.annotations.get(row);
         const marks = annotation ? annotation.marks : '';
+        const leftMarks = marks ? marks + ' ' : '';
+        const rightMarks = marks ? ' ' + marks : '';
         const hcp = getSummaryHandicap(row);
         const strokesText =
           String(row.totalStrokes ?? '') +
@@ -7434,7 +7436,8 @@ let scoreTimingDetail =
           '<div class="tournament-summary-row place-' + (index + 1) + '">' +
           '<div class="tournament-summary-place">' + escapeHtml(String(index + 1)) + '</div>' +
           '<div class="tournament-summary-team">' +
-          escapeHtml(displayTeamName(row.team || '')) + escapeHtml(marks) + '</div>' +
+          escapeHtml(leftMarks) + escapeHtml(displayTeamName(row.team || '')) +
+          escapeHtml(rightMarks) + '</div>' +
           '<div class="tournament-summary-strokes">' + escapeHtml(strokesText) + '</div>' +
           '<div class="tournament-summary-net ' + scoreClass(row.net) + '">' +
           escapeHtml(formatGolfScore(row.net)) + '</div>' +
@@ -7467,11 +7470,11 @@ let scoreTimingDetail =
             (hcp === null ? '' : ' (HCP ' + hcp + ')');
           html +=
             '<div class="tournament-summary-remaining-row">' +
-            '<div class="bullet-place">• ' + escapeHtml(String(index + 4)) + '.</div>' +
-            '<div class="remaining-team">' + escapeHtml(displayTeamName(row.team || '')) + '</div>' +
-            '<div class="remaining-strokes">' + escapeHtml(strokesText) + '</div>' +
-            '<div class="remaining-net ' + scoreClass(row.net) + '">' +
-            escapeHtml(formatGolfScore(row.net)) + '</div>' +
+            '<span class="bullet-place">• ' + escapeHtml(String(index + 4)) + '.</span> ' +
+            '<span class="remaining-team">' + escapeHtml(displayTeamName(row.team || '')) + '</span>' +
+            '<span class="remaining-readout"> — ' + escapeHtml(strokesText) + ', ' +
+            '<span class="' + scoreClass(row.net) + '">' +
+            escapeHtml(formatGolfScore(row.net)) + '</span> TOTAL</span>' +
             '</div>';
         });
         html += '</div>';
