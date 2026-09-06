@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V12.14 -->
+  <!-- ROTB 2026 — V12.15 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3019,7 +3019,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12.14</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12.15</button>
 
       <div class="splash-image-wrap">
 
@@ -5103,7 +5103,7 @@ body.score-team-menu-open .score-fixed-top{
       }
 
       const maxFont = 22;
-      const minFont = 12;
+      const minFont = 8;
 
       let fontSize = maxFont;
 
@@ -5113,32 +5113,12 @@ body.score-team-menu-open .score-fixed-top{
         'important'
       );
 
-      while (fontSize > minFont) {
-        const computed =
-          getComputedStyle(button);
-
-        const lineHeight =
-          parseFloat(computed.lineHeight) ||
-          fontSize;
-
-        const maxTwoLineHeight =
-          lineHeight * 2 + 1;
-
-        const fitsHeight =
-          button.scrollHeight <=
-          Math.max(
-            button.clientHeight,
-            maxTwoLineHeight
-          );
-
-        const fitsWidth =
-          button.scrollWidth <=
-          button.clientWidth + 1;
-
-        if (fitsHeight && fitsWidth) {
-          break;
-        }
-
+      /* V12.15 — selected team is always one line.
+         Shrink only as much as the actual available bar width requires. */
+      while (
+        fontSize > minFont &&
+        button.scrollWidth > button.clientWidth + 1
+      ) {
         fontSize -= 0.5;
 
         button.style.setProperty(
@@ -8255,6 +8235,9 @@ body.score-team-menu-open .score-fixed-top{
           requestAnimationFrame(
             fitScorecardBodyTypography
           );
+          requestAnimationFrame(
+            fitScoreTeamSelectName
+          );
         }
       }
     );
@@ -8649,5 +8632,26 @@ body.score-team-menu-open .score-fixed-top{
   margin-bottom: 8px !important;
 }
 
+
+
+/* =========================================================
+   V12.15 — UNLIMITED SCORECARD SHRINK + ONE-LINE TEAM BAR
+   - No minimum score-row height: the 9-row viewport can keep compressing.
+   - No minimum certified-gold box height: gold boxes keep shrinking with rows.
+   - Selected team stays on one line; JS reduces font size to fit available width.
+   ========================================================= */
+.score-row {
+  min-height: 0 !important;
+}
+
+.score-button.saved {
+  min-height: 0 !important;
+}
+
+.top-team-select.has-team {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+}
 </style>
 
