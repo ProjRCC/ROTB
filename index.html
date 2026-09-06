@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V14.11 -->
+  <!-- ROTB 2026 — V14.12 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3052,7 +3052,7 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   ROTB 2026 — V14.11 TOURNAMENT FINISH
+   ROTB 2026 — V14.12 TOURNAMENT FINISH
    Aesthetic/final-results refinement only.
    ========================================================= */
 .leader-final-action {
@@ -3533,6 +3533,92 @@ body.score-team-menu-open .score-fixed-top{
   max-width: 170px !important;
 }
 
+
+/* V14.12 — exact visible-height geometry.
+   Do NOT size the 10-team summary with vh/dvh. Instead anchor the card
+   directly inside the full-screen overlay:
+   3 teams = 20% top/bottom margins = 60% tall
+   10 teams = 10% top/bottom margins = 80% tall.
+   This makes the visual percentage exact on the device. */
+.modal-overlay.tournament-summary {
+  position: fixed !important;
+  inset: 0 !important;
+  padding: 0 14px !important;
+  align-items: initial !important;
+  justify-content: initial !important;
+}
+
+.modal-overlay.tournament-summary .modal-box {
+  position: absolute !important;
+  top: var(--ts-edge, 20%) !important;
+  bottom: var(--ts-edge, 20%) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  width: min(660px, calc(100% - 28px)) !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.modal-overlay.tournament-summary .modal-title,
+.modal-overlay.tournament-summary .tournament-summary-subtitle,
+.modal-overlay.tournament-summary .tournament-summary-grid,
+.modal-overlay.tournament-summary .tournament-summary-notes,
+.modal-overlay.tournament-summary .modal-actions {
+  flex: 0 0 auto !important;
+}
+
+/* TOP 3 is fixed and always fully visible. Rounded border must remain intact. */
+.modal-overlay.tournament-summary .tournament-summary-grid {
+  overflow: hidden !important;
+  border: 1px solid var(--line-strong) !important;
+  border-radius: 9px !important;
+}
+
+/* The summary body owns the available space between title and BACK. */
+.modal-overlay.tournament-summary .modal-text {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Teams 4–10 get the flexible middle section. */
+.modal-overlay.tournament-summary .tournament-summary-remaining {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-evenly !important;
+}
+
+.modal-overlay.tournament-summary .tournament-summary-remaining-row {
+  flex: 0 0 auto !important;
+  height: auto !important;
+  min-height: var(--ts-rem-row, 24px) !important;
+}
+
+/* BACK stays clearly separated and visually secondary. */
+.modal-overlay.tournament-summary .modal-actions {
+  margin: 16px 0 10px !important;
+  width: 100% !important;
+}
+
+.modal-overlay.tournament-summary .modal-btn {
+  width: min(165px, 36%) !important;
+  min-width: 118px !important;
+  max-width: 165px !important;
+  height: 31px !important;
+}
+
 </style>
 </head>
 
@@ -3567,7 +3653,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.11</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.12</button>
 
       <div class="splash-image-wrap">
 
@@ -7675,28 +7761,24 @@ let scoreTimingDetail =
     function fitTournamentSummaryRemaining() {
       if (!els.modalOverlay.classList.contains('tournament-summary')) return;
 
-      const box = els.modalBox;
       const body = els.modalBody;
       const remaining = body.querySelector('.tournament-summary-remaining');
       const rows = remaining
         ? Array.from(remaining.querySelectorAll('.tournament-summary-remaining-row'))
         : [];
-      const actions = els.modalActions;
-
-      if (!box || !body || !actions) return;
 
       const root = document.documentElement;
       const teamCount = Math.min(10, Math.max(3, lastLeaderboardRows.length || 3));
 
-      /* V14.11: use the viewport itself. No 760px ceiling.
-         3 teams = 60dvh; 10 teams = 80dvh; linear between. */
-      const heightPct = 60 + ((teamCount - 3) / 7) * 20;
-      const targetHeight = window.innerHeight * (heightPct / 100);
+      /* Exact visual card height:
+         3 teams -> 60% tall -> 20% edge margins
+         10 teams -> 80% tall -> 10% edge margins */
+      const edgePct = 20 - ((teamCount - 3) / 7) * 10;
+      root.style.setProperty('--ts-edge', edgePct.toFixed(3) + '%');
 
-      root.style.setProperty('--ts-box-height', targetHeight + 'px');
-      root.style.setProperty('--ts-back-top-gap', Math.max(14, targetHeight * 0.018) + 'px');
-      root.style.setProperty('--ts-back-bottom-gap', Math.max(8, targetHeight * 0.010) + 'px');
-
+      root.style.removeProperty('--ts-box-height');
+      root.style.removeProperty('--ts-back-top-gap');
+      root.style.removeProperty('--ts-back-bottom-gap');
       root.style.removeProperty('--ts-rem-font');
       root.style.removeProperty('--ts-rem-row');
       root.style.removeProperty('--ts-rem-gap');
@@ -7704,16 +7786,13 @@ let scoreTimingDetail =
 
       if (!remaining || !rows.length) return;
 
-      /* With the full 60–80% card available, keep the lower standings readable
-         and let the remaining section distribute the spare height naturally. */
       const remFont = Math.min(22, Math.max(16, window.innerWidth * 0.045));
-      const remRow = Math.max(22, remFont * 1.18);
-      const remGap = Math.min(10, Math.max(5, targetHeight * 0.008));
+      const remRow = Math.max(24, remFont * 1.15);
       const noteFont = Math.min(17, Math.max(13, window.innerWidth * 0.035));
 
       root.style.setProperty('--ts-rem-font', remFont + 'px');
       root.style.setProperty('--ts-rem-row', remRow + 'px');
-      root.style.setProperty('--ts-rem-gap', remGap + 'px');
+      root.style.setProperty('--ts-rem-gap', '7px');
       root.style.setProperty('--ts-note-font', noteFont + 'px');
     }
 
