@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V14.8 -->
+  <!-- ROTB 2026 — V14.9 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3052,7 +3052,7 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   ROTB 2026 — V14.8 TOURNAMENT FINISH
+   ROTB 2026 — V14.9 TOURNAMENT FINISH
    Aesthetic/final-results refinement only.
    ========================================================= */
 .leader-final-action {
@@ -3393,6 +3393,55 @@ body.score-team-menu-open .score-fixed-top{
   }
 }
 
+
+/* V14.9 — Scramble Summary: reserve room for every finisher before BACK */
+.modal-overlay.tournament-summary .modal-box {
+  padding-top: clamp(10px, 1.5dvh, 15px) !important;
+  padding-bottom: clamp(8px, 1.1dvh, 11px) !important;
+}
+.modal-overlay.tournament-summary .modal-title {
+  font-size: clamp(25px, 4.4dvh, 35px) !important;
+  line-height: .98 !important;
+  margin-bottom: clamp(3px, .55dvh, 6px) !important;
+}
+.modal-overlay.tournament-summary .tournament-summary-subtitle {
+  font-size: clamp(19px, 3.1dvh, 25px) !important;
+  line-height: 1 !important;
+  margin-bottom: clamp(4px, .7dvh, 7px) !important;
+}
+.modal-overlay.tournament-summary .tournament-summary-notes {
+  margin-top: clamp(4px, .7dvh, 7px) !important;
+}
+.modal-overlay.tournament-summary .tournament-summary-note {
+  margin-top: 2px !important;
+  font-size: var(--ts-note-font, clamp(13px, 3.5vw, 17px)) !important;
+  line-height: 1.03 !important;
+}
+.modal-overlay.tournament-summary .tournament-summary-remaining {
+  margin-top: var(--ts-rem-gap, 3px) !important;
+  padding-top: var(--ts-rem-gap, 3px) !important;
+}
+.modal-overlay.tournament-summary .tournament-summary-remaining-row {
+  display: flex !important;
+  align-items: center !important;
+  min-height: 0 !important;
+  height: var(--ts-rem-row, 22px) !important;
+  font-size: var(--ts-rem-font, 16px) !important;
+  line-height: 1 !important;
+}
+.modal-overlay.tournament-summary .modal-actions {
+  margin: var(--ts-back-gap, 7px) 0 0 !important;
+  justify-content: center !important;
+}
+.modal-overlay.tournament-summary .modal-btn {
+  width: min(260px, 66%) !important;
+  min-width: 140px !important;
+  max-width: 260px !important;
+  min-height: 0 !important;
+  height: clamp(27px, 3.7dvh, 32px) !important;
+  padding: 0 8px !important;
+}
+
 </style>
 </head>
 
@@ -3427,7 +3476,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.8</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.9</button>
 
       <div class="splash-image-wrap">
 
@@ -7536,42 +7585,56 @@ let scoreTimingDetail =
       if (!els.modalOverlay.classList.contains('tournament-summary')) return;
 
       const box = els.modalBox;
-      const remaining = els.modalBody.querySelector('.tournament-summary-remaining');
+      const body = els.modalBody;
+      const remaining = body.querySelector('.tournament-summary-remaining');
       const rows = remaining
         ? Array.from(remaining.querySelectorAll('.tournament-summary-remaining-row'))
         : [];
+      const notes = body.querySelector('.tournament-summary-notes');
+      const actions = els.modalActions;
 
-      if (!box || !remaining || !rows.length) return;
+      if (!box || !body || !remaining || !rows.length || !actions) return;
 
       const root = document.documentElement;
-      const maxHeight = Math.min(window.innerHeight * 0.80, 760);
-      const actions = els.modalActions;
-      const reservedBottom = actions
-        ? actions.getBoundingClientRect().height +
-          parseFloat(getComputedStyle(actions).marginTop || 0) + 4
-        : 0;
-
       root.style.removeProperty('--ts-rem-font');
       root.style.removeProperty('--ts-rem-row');
       root.style.removeProperty('--ts-rem-gap');
+      root.style.removeProperty('--ts-note-font');
+      root.style.removeProperty('--ts-back-gap');
 
-      let fontPx = Math.min(23, Math.max(17, window.innerWidth * 0.046));
-      let rowPx = Math.min(34, Math.max(25, window.innerHeight * 0.035));
-      let gapPx = Math.min(8, Math.max(3, window.innerHeight * 0.008));
+      const maxHeight = Math.min(window.innerHeight * 0.80, 760);
+      let remFont = Math.min(21, Math.max(15, window.innerWidth * 0.043));
+      let remRow = Math.max(20, remFont * 1.18);
+      let remGap = 3;
+      let noteFont = Math.min(17, Math.max(13, window.innerWidth * 0.035));
+      let backGap = 7;
 
       const apply = () => {
-        root.style.setProperty('--ts-rem-font', fontPx + 'px');
-        root.style.setProperty('--ts-rem-row', rowPx + 'px');
-        root.style.setProperty('--ts-rem-gap', gapPx + 'px');
+        root.style.setProperty('--ts-rem-font', remFont + 'px');
+        root.style.setProperty('--ts-rem-row', remRow + 'px');
+        root.style.setProperty('--ts-rem-gap', remGap + 'px');
+        root.style.setProperty('--ts-note-font', noteFont + 'px');
+        root.style.setProperty('--ts-back-gap', backGap + 'px');
       };
 
       apply();
 
+      // First make the tiebreak explanation compact if the complete card needs it.
       let guard = 0;
-      while ((box.scrollHeight + Math.max(0, reservedBottom - actions.offsetHeight)) > maxHeight && guard < 100) {
-        if (fontPx > 10.5) fontPx -= 0.5;
-        if (rowPx > 15) rowPx -= 0.5;
-        if (gapPx > 1.5) gapPx -= 0.25;
+      while (box.scrollHeight > maxHeight && guard < 24) {
+        if (noteFont > 11) noteFont -= 0.5;
+        if (backGap > 4) backGap -= 0.5;
+        if (remGap > 1.5) remGap -= 0.25;
+        apply();
+        guard++;
+      }
+
+      // Teams 4-10 are the dynamic section. Shrink all of them together until
+      // every row plus the intentional BACK buffer is inside the 80% card.
+      guard = 0;
+      while (box.scrollHeight > maxHeight && guard < 80) {
+        if (remFont > 10) remFont -= 0.5;
+        remRow = Math.max(13, remFont * 1.12);
         apply();
         guard++;
       }
@@ -9324,3 +9387,4 @@ let scoreTimingDetail =
 
 </body>
 </html>
+
