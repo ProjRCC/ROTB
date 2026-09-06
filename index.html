@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V13 -->
+  <!-- ROTB 2026 — V13.1 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3030,7 +3030,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V13</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V13.1</button>
 
       <div class="splash-image-wrap">
 
@@ -4635,9 +4635,16 @@ body.score-team-menu-open .score-fixed-top{
     }
 
 
+    function displayTeamName(name) {
+      const fullName = String(name || '');
+      return fullName.length > 28
+        ? fullName.slice(0, 28) + '...'
+        : fullName;
+    }
+
     function updateHomeScorecardAccess() {
       const authorized = getAuthorizedTeam();
-      const secondLine = authorized ? authorized.toUpperCase() : 'SELECT TEAM';
+      const secondLine = authorized ? displayTeamName(authorized).toUpperCase() : 'SELECT TEAM';
       els.homeScorecardButton.innerHTML =
         '<span class="home-scorecard-action">ACCESS SCORECARD</span>' +
         '<span class="home-scorecard-team' + (authorized ? '' : ' select-team') + '">' +
@@ -4692,7 +4699,7 @@ body.score-team-menu-open .score-fixed-top{
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'home-team-option';
-        button.textContent = team.name;
+        button.textContent = displayTeamName(team.name);
         button.addEventListener('click', async () => {
           closeHomeTeamDropup();
           selectTeam(team.slot);
@@ -5142,7 +5149,7 @@ body.score-team-menu-open .score-fixed-top{
 
     function updateScoreTeamSelectButton() {
       if (!els.scoreTeamSelectButton) return;
-      els.scoreTeamSelectButton.textContent = selectedTeam ? selectedTeam.name : 'SELECT TEAM';
+      els.scoreTeamSelectButton.textContent = selectedTeam ? displayTeamName(selectedTeam.name) : 'SELECT TEAM';
       els.scoreTeamSelectButton.classList.toggle('has-team', !!selectedTeam);
 
       requestAnimationFrame(
@@ -5165,7 +5172,7 @@ body.score-team-menu-open .score-fixed-top{
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'home-team-option score-team-option';
-        button.textContent = team.name;
+        button.textContent = displayTeamName(team.name);
         button.setAttribute('role', 'option');
         button.addEventListener('click', () => {
           closeScoreTeamDropdown();
@@ -5894,7 +5901,7 @@ body.score-team-menu-open .score-fixed-top{
       els.modalOverlay.classList.add('authorization');
       els.modalTitle.textContent = 'AUTHORIZE SCORING FOR:';
       els.modalBody.innerHTML =
-        '<div class="auth-team-name">' + escapeHtml(selectedTeam.name) + '</div>' +
+        '<div class="auth-team-name">' + escapeHtml(displayTeamName(selectedTeam.name)) + '</div>' +
         '<label class="auth-captcha">' +
           '<input id="authConfirmCheck" type="checkbox" aria-label="Confirm scoring authorization">' +
           '<span class="auth-check-box">✓</span>' +
@@ -6816,7 +6823,7 @@ body.score-team-menu-open .score-fixed-top{
 
 
           teamName.textContent =
-            row.team || '';
+            displayTeamName(row.team || '');
 
 
           const hcpCell =
