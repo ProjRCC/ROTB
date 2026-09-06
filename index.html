@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V12.15 -->
+  <!-- ROTB 2026 — V13 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,18 +35,15 @@
       --red: #CC3535;
     }
 
-
     * {
       box-sizing: border-box;
     }
-
 
     html {
       margin: 0;
       min-height: 100%;
       background: #fff;
     }
-
 
     body {
       margin: 0;
@@ -60,7 +57,6 @@
       overflow-x: hidden;
       overflow-y: auto;
     }
-
 
     body::before {
       content: "";
@@ -83,24 +79,20 @@
       pointer-events: none;
     }
 
-
     button,
     input,
     select {
       font: inherit;
     }
 
-
     button,
     select {
       -webkit-tap-highlight-color: transparent;
     }
 
-
     button {
       cursor: pointer;
     }
-
 
     .view {
       display: none;
@@ -109,15 +101,9 @@
       min-height: 100dvh;
     }
 
-
     .view.active {
       display: block;
     }
-
-
-    /* =========================================================
-       TOP LOADING LINE
-       ========================================================= */
 
     .top-loading {
       position: fixed;
@@ -139,7 +125,6 @@
         opacity .2s ease;
     }
 
-
     .top-loading.active {
       width: 72%;
       opacity: 1;
@@ -152,12 +137,10 @@
         alternate;
     }
 
-
     .top-loading.done {
       width: 100%;
       opacity: 1;
     }
-
 
     @keyframes loadingSweep {
 
@@ -170,11 +153,6 @@
       }
 
     }
-
-
-    /* =========================================================
-       SHARED HEADER BUTTONS
-       ========================================================= */
 
     .nav-button {
       width: 74px;
@@ -199,16 +177,10 @@
       letter-spacing: .25px;
     }
 
-
-    /* =========================================================
-       HOME / SPLASH
-       ========================================================= */
-
     #homeView {
       text-align: center;
       overflow: visible;
     }
-
 
     .home-shell {
       width: 100%;
@@ -225,12 +197,10 @@
         );
     }
 
-
     .splash-image-wrap {
       width: 100%;
       margin: 0 auto;
     }
-
 
     .splash-image {
       display: block;
@@ -241,9 +211,6 @@
       margin: 0 auto;
     }
 
-
-    /* TESTING ONLY */
-
     .reset-user-float {
       position: relative;
 
@@ -252,7 +219,6 @@
 
       z-index: 10;
     }
-
 
     .reset-user-button {
       position: absolute;
@@ -289,7 +255,6 @@
       letter-spacing: .4px;
     }
 
-
     .home-actions {
       width:
         calc(
@@ -307,7 +272,6 @@
 
       gap: 13px;
     }
-
 
     .home-main-button {
       width: 100%;
@@ -334,14 +298,12 @@
       letter-spacing: .5px;
     }
 
-
     .home-main-button:active {
       background:
         var(--gold);
 
       color: #fff;
     }
-
 
     .quick-guide-button {
       align-self: center;
@@ -373,15 +335,9 @@
       letter-spacing: .4px;
     }
 
-
-    /* =========================================================
-       SCORECARD
-       ========================================================= */
-
     #scorecardView {
       height: 100dvh;
     }
-
 
     .scorecard-screen {
       width:
@@ -400,7 +356,6 @@
 
       overflow: visible;
     }
-
 
     .score-fixed-top {
       flex:
@@ -425,7 +380,6 @@
         blur(7px);
     }
 
-
     .score-nav {
       display: grid;
 
@@ -438,11 +392,6 @@
 
       gap: 8px;
     }
-
-
-    /* =========================================================
-       TEST TIMING
-       ========================================================= */
 
     .test-timing {
       min-width: 0;
@@ -468,11 +417,6 @@
       white-space: nowrap;
     }
 
-
-    /* =========================================================
-       TEAM SELECT / TEAM IDENTITY
-       ========================================================= */
-
     .team-select-wrap {
       position: relative;
 
@@ -482,7 +426,6 @@
         6px 10px
         6px;
     }
-
 
     .team-select-wrap::after {
       content: "";
@@ -509,7 +452,6 @@
 
       pointer-events: none;
     }
-
 
     .top-team-select {
       display: block;
@@ -544,7 +486,6 @@
       -moz-appearance: none;
     }
 
-
     .top-team-select.has-team {
       color:
         var(--gold);
@@ -552,7 +493,6 @@
       font-size: 19px;
       font-weight: 700;
     }
-
 
     .top-team-select:focus {
       border-color:
@@ -562,11 +502,6 @@
         0 0 0 1px
         var(--gold);
     }
-
-
-    /* =========================================================
-       SCORECARD TABLE HEADER
-       ========================================================= */
 
     .score-table-head {
       display: grid;
@@ -608,7 +543,6 @@
       letter-spacing: .35px;
     }
 
-
     .score-table-head > div {
       height: 100%;
 
@@ -622,7 +556,6 @@
         var(--line);
     }
 
-
     .score-table-head > div:last-child {
       border-right: 0;
 
@@ -630,11 +563,6 @@
 
       font-weight: 700;
     }
-
-
-    /* =========================================================
-       SCORECARD SCROLL
-       ========================================================= */
 
     .score-scroll {
       flex:
@@ -666,11 +594,9 @@
         rgba(255,255,255,.28);
     }
 
-
     #scoreRows {
       height: 100%;
     }
-
 
     .score-row {
       display: grid;
@@ -698,11 +624,9 @@
         rgba(255,255,255,.47);
     }
 
-
     #scoreRows > .score-row:nth-child(9) {
       border-bottom: 0;
     }
-
 
     .score-row > div {
       min-width: 0;
@@ -712,11 +636,9 @@
         var(--line);
     }
 
-
     .score-row > div:last-child {
       border-right: 0;
     }
-
 
     .hole-cell,
     .par-cell,
@@ -730,18 +652,15 @@
       text-align: center;
     }
 
-
     .hole-cell {
       font-size: 22px;
       font-weight: 700;
     }
 
-
     .par-cell {
       font-size: 20px;
       font-weight: 500;
     }
-
 
     .yardage-cell {
       gap: 4px;
@@ -752,26 +671,18 @@
       font-weight: 500;
     }
 
-
     .yard-white {
       color: #000;
     }
-
 
     .yard-slash {
       color: #555;
     }
 
-
     .yard-gold {
       color:
         var(--gold);
     }
-
-
-    /* =========================================================
-       SCORE BUTTONS
-       ========================================================= */
 
     .score-button {
       width: 58px;
@@ -794,14 +705,12 @@
       line-height: 1;
     }
 
-
     .score-button.empty {
       background:
         rgba(255,255,255,.72);
 
       color: #555;
     }
-
 
     .score-button.unsaved {
       border-color:
@@ -813,7 +722,6 @@
       color: #eee;
     }
 
-
     .score-button.saved {
       border-color:
         #D0A621;
@@ -824,22 +732,12 @@
       color: #eee;
     }
 
-
-    /* =========================================================
-       FRONT / BACK NINE DIVIDER
-       ========================================================= */
-
     .nine-break {
       height: 3px;
 
       background:
         var(--gold);
     }
-
-
-    /* =========================================================
-       SCORECARD BOTTOM
-       ========================================================= */
 
     .score-fixed-bottom {
       flex:
@@ -862,7 +760,6 @@
         blur(7px);
     }
 
-
     .score-bottom-actions {
       display: grid;
 
@@ -872,7 +769,6 @@
 
       gap: 11px;
     }
-
 
     .bottom-action {
       min-height: 55px;
@@ -885,7 +781,6 @@
       letter-spacing: .25px;
     }
 
-
     .leaderboard-button {
       border:
         1px solid
@@ -896,7 +791,6 @@
 
       color: #000;
     }
-
 
     .submit-button {
       border:
@@ -909,22 +803,15 @@
       color: #eee;
     }
 
-
     .submit-button:disabled {
       opacity: .42;
 
       cursor: default;
     }
 
-
-    /* =========================================================
-       LIVE LEADERBOARD
-       ========================================================= */
-
     #leaderboardView {
       min-height: 100dvh;
     }
-
 
     .leaderboard-screen {
       width:
@@ -942,7 +829,6 @@
       flex-direction: column;
     }
 
-
     .leader-top {
       flex:
         0 0 auto;
@@ -959,7 +845,6 @@
         rgba(255,255,255,.94);
     }
 
-
     .leader-nav {
       display: grid;
 
@@ -972,7 +857,6 @@
 
       align-items: center;
     }
-
 
     .leader-test-timing {
       min-width: 0;
@@ -1000,7 +884,6 @@
       white-space: nowrap;
     }
 
-
     .leader-title-bar {
       position: relative;
 
@@ -1014,7 +897,6 @@
       justify-content: center;
     }
 
-
     .leader-title {
       color: #000;
 
@@ -1027,7 +909,6 @@
 
       letter-spacing: .35px;
     }
-
 
     .leader-refresh-button {
       position: absolute;
@@ -1057,11 +938,9 @@
       letter-spacing: .25px;
     }
 
-
     .leader-refresh-button:disabled {
       opacity: .45;
     }
-
 
     .leader-content {
       flex:
@@ -1079,7 +958,6 @@
       -webkit-overflow-scrolling:
         touch;
     }
-
 
     .leader-table {
       width: calc(100% + 28px);
@@ -1105,7 +983,6 @@
         rgba(255,255,255,.42);
     }
 
-
     .leader-row {
       display: grid;
 
@@ -1125,11 +1002,9 @@
         rgba(255,255,255,.46);
     }
 
-
     .leader-row:last-child {
       border-bottom: 0;
     }
-
 
     .leader-row.header {
       position: sticky;
@@ -1151,7 +1026,6 @@
       letter-spacing: .3px;
     }
 
-
     .leader-row > div {
       min-width: 0;
 
@@ -1168,11 +1042,9 @@
         var(--line);
     }
 
-
     .leader-row > div:last-child {
       border-right: 0;
     }
-
 
     .leader-team-cell {
       flex-direction: column;
@@ -1185,7 +1057,6 @@
 
       text-align: center;
     }
-
 
     .leader-team-name {
       width: 100%;
@@ -1202,18 +1073,15 @@
       word-break: normal;
     }
 
-
     .leader-team-cell.authorized-team-cell {
       background:
         var(--gold);
     }
 
-
     .leader-team-cell.authorized-team-cell .leader-team-name {
       color:
         #eee;
     }
-
 
     .leader-hcp-cell {
       color: var(--red);
@@ -1228,13 +1096,11 @@
       padding-right: 3px !important;
     }
 
-
     .leader-hcp-header {
       padding-left: 0 !important;
       padding-right: 0 !important;
       overflow: visible;
     }
-
 
     .leader-hcp-header span {
       display: inline-block;
@@ -1244,13 +1110,11 @@
       max-width: 100%;
     }
 
-
     .leader-through-cell {
       flex-direction: column;
 
       text-align: center;
     }
-
 
     .leader-through-score {
       font-size: 22px;
@@ -1258,7 +1122,6 @@
 
       line-height: 1;
     }
-
 
     .leader-through-label {
       margin-top: 4px;
@@ -1271,7 +1134,6 @@
       line-height: 1;
     }
 
-
     .leader-total {
       font-size: 30px;
       font-weight: 700;
@@ -1281,17 +1143,14 @@
       text-align: center;
     }
 
-
     .under {
       color:
         var(--red);
     }
 
-
     .even-over {
       color: #000;
     }
-
 
     .leader-update-note {
       min-height: 18px;
@@ -1306,7 +1165,6 @@
 
       font-size: 11px;
     }
-
 
     .leader-bottom {
       flex:
@@ -1323,7 +1181,6 @@
       background:
         rgba(255,255,255,.96);
     }
-
 
     .access-scorecard {
       width: 100%;
@@ -1344,11 +1201,6 @@
       font-size: 18px;
       font-weight: 700;
     }
-
-
-    /* =========================================================
-       MODALS
-       ========================================================= */
 
     .modal-overlay,
     .score-entry-overlay {
@@ -1372,12 +1224,10 @@
         blur(7px);
     }
 
-
     .modal-overlay.open,
     .score-entry-overlay.open {
       display: flex;
     }
-
 
     .modal-box {
       position: relative;
@@ -1410,7 +1260,6 @@
       text-align: left;
     }
 
-
     .modal-title {
       margin-bottom: 16px;
 
@@ -1423,12 +1272,10 @@
       line-height: 1.1;
     }
 
-
     .modal-title.testing {
       color:
         var(--test-blue);
     }
-
 
     .modal-text {
       color: #222;
@@ -1437,7 +1284,6 @@
 
       line-height: 1.42;
     }
-
 
     .modal-input {
       width: 100%;
@@ -1464,7 +1310,6 @@
       font-size: 21px;
     }
 
-
     .modal-actions {
       display: grid;
 
@@ -1477,12 +1322,10 @@
       margin-top: 20px;
     }
 
-
     .modal-actions.single {
       grid-template-columns:
         1fr;
     }
-
 
     .modal-btn {
       min-height: 54px;
@@ -1501,7 +1344,6 @@
       font-weight: 700;
     }
 
-
     .modal-btn.primary {
       border-color:
         var(--gold);
@@ -1511,7 +1353,6 @@
 
       color: #eee;
     }
-
 
     .modal-btn.testing {
       border-color:
@@ -1523,29 +1364,21 @@
         var(--test-blue);
     }
 
-
     .quick-list {
       margin: 0;
 
       padding-left: 23px;
     }
 
-
     .quick-list li {
       margin-bottom: 8px;
     }
-
 
     .quick-correction {
       margin-top: 17px;
 
       color: #000;
     }
-
-
-    /* =========================================================
-       SCORE ENTRY
-       ========================================================= */
 
     .score-entry-overlay {
       align-items:
@@ -1555,7 +1388,6 @@
 
       z-index: 5200;
     }
-
 
     .score-entry-box {
       position: relative;
@@ -1578,7 +1410,6 @@
 
       text-align: center;
     }
-
 
     .score-entry-cancel {
       position: absolute;
@@ -1609,12 +1440,10 @@
       opacity: .88;
     }
 
-
     .score-entry-hole {
       font-size: 28px;
       font-weight: 700;
     }
-
 
     .score-entry-par {
       margin-top: 2px;
@@ -1623,7 +1452,6 @@
 
       font-size: 20px;
     }
-
 
     .score-entry-input {
       width: 100%;
@@ -1650,7 +1478,6 @@
       font-weight: 700;
     }
 
-
     .score-entry-enter {
       width: 100%;
 
@@ -1673,11 +1500,6 @@
       font-weight: 700;
     }
 
-
-    /* =========================================================
-       SMALL PHONES
-       ========================================================= */
-
     @media (max-width: 420px) {
 
       .score-fixed-top {
@@ -1685,12 +1507,10 @@
         padding-right: 12px;
       }
 
-
       .score-scroll {
         margin-left: 12px;
         margin-right: 12px;
       }
-
 
       .score-nav,
       .leader-nav {
@@ -1700,7 +1520,6 @@
           72px;
       }
 
-
       .nav-button {
         width: 72px;
         height: 40px;
@@ -1708,23 +1527,19 @@
         font-size: 15px;
       }
 
-
       .test-timing,
       .leader-test-timing {
         font-size: 10px;
       }
-
 
       .team-select-wrap {
         padding-left: 4px;
         padding-right: 4px;
       }
 
-
       .team-select-wrap::after {
         right: 23px;
       }
-
 
       .top-team-select {
         height: 44px;
@@ -1732,31 +1547,25 @@
         font-size: 17px;
       }
 
-
       .top-team-select.has-team {
         font-size: 18px;
       }
-
 
       .score-table-head {
         font-size: 15px;
       }
 
-
       .yardage-cell {
         font-size: 17px;
       }
-
 
       .bottom-action {
         font-size: 17px;
       }
 
-
       .leader-title {
         font-size: 22px;
       }
-
 
       .leader-refresh-button {
         width: 68px;
@@ -1765,11 +1574,9 @@
         font-size: 13px;
       }
 
-
       .leader-row {
         min-height: 58px;
       }
-
 
       .leader-row.header {
         min-height: 40px;
@@ -1777,31 +1584,25 @@
         font-size: 16px;
       }
 
-
       .leader-team-name {
         font-size: 17px;
       }
-
 
       .leader-hcp {
         font-size: 13px;
       }
 
-
       .leader-through-score {
         font-size: 21px;
       }
-
 
       .leader-through-label {
         font-size: 12px;
       }
 
-
       .leader-total {
         font-size: 29px;
       }
-
 
       .modal-box {
         padding:
@@ -1811,7 +1612,6 @@
 
     }
 
-
     @media (orientation: landscape) {
 
       body::before {
@@ -1819,19 +1619,12 @@
           50% auto;
       }
 
-
       .splash-image {
         width: 50%;
       }
 
     }
 
-  
-/* =========================================================
-   CURRENT ROTB UI RULES — CONSOLIDATED FOR V7-CF
-   These are the authoritative current rules. There are no
-   V2/V3 override layers below this point.
-   ========================================================= */
 .reset-user-float{display:none!important}
 .home-utility-row{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:13px;padding:0 13px;margin-top:7px}
 .home-utility-row .reset-user-button,.home-utility-row .quick-guide-button{position:static;transform:none;width:100%;min-height:44px;margin:0;border:1px solid #000;border-radius:8px;background:rgba(255,255,255,.78);color:#000;font-size:16px;font-weight:600;letter-spacing:.3px}
@@ -1875,7 +1668,6 @@
 .score-entry-control .score-entry-input{margin-top:0}
 .score-step-button{height:68px;border:1px solid var(--gold);border-radius:10px;background:#f4f4f4;color:var(--gold);font-size:34px;font-weight:600;line-height:1}
 
-/* V8-CF.2 — THUMB-ZONE POPUPS + CAPTCHA AUTHORIZATION */
 .score-entry-overlay{align-items:flex-end;justify-content:center;padding:20px 20px max(calc(env(safe-area-inset-bottom) + 20px),calc(33dvh - 143px));}
 .score-entry-box{width:min(420px,calc(100% - 4px));padding:28px 24px 22px;border-radius:18px;}
 .score-entry-hole{font-size:28px;margin-top:0}
@@ -1888,21 +1680,15 @@
 .score-entry-actions{width:min(330px,92%);margin:14px auto 0;display:block}
 .score-entry-enter{width:100%;min-height:66px;margin:0;border:1px solid var(--gold);border-radius:11px;background:var(--gold);color:#eee;font-size:21px;font-weight:700}
 
-/* Loading animation is visual only. It never delays or retries a request. */
 .top-loading.active{width:0;opacity:1;animation:loadingPulseCurrent 5s linear infinite}
 .top-loading.done{animation:none;width:100%;opacity:1}
 @keyframes loadingPulseCurrent{0%{width:0}80%{width:100%}100%{width:0}}
 
-/* Landscape is intentionally blocked without reload or state change. */
 .rotate-portrait-overlay{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(255,255,255,.28);backdrop-filter:blur(13px) brightness(.45);-webkit-backdrop-filter:blur(13px) brightness(.45);pointer-events:none}
 .rotate-portrait-box{width:min(420px,calc(100% - 36px));padding:24px 28px;border:2px solid var(--gold);border-radius:14px;background:rgba(255,255,255,.90);color:var(--gold);text-align:center;font-size:28px;font-weight:700;line-height:1.08;letter-spacing:.45px}
 @media(max-width:420px){.test-timing,.leader-test-timing{font-size:17px}.leader-bottom .leader-refresh-button{font-size:15px}}
 @media(orientation:landscape){.rotate-portrait-overlay{display:flex;pointer-events:auto}}
 
-
-/* =========================================================
-   V7-CF.12 TEST LOG
-   ========================================================= */
 .home-shell{position:relative}
 .test-log-hotspot{position:absolute;top:calc(60dvh - 22px);left:50%;transform:translateX(-50%);width:44px;height:44px;padding:0;border:0;background:transparent;z-index:20}
 .test-log-hotspot::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:14px;transform:translate(-50%,-50%);border-radius:50%;background:#f7f7f7;pointer-events:none}
@@ -1925,12 +1711,6 @@
 .test-log-reset{position:sticky;bottom:0;flex:0 0 auto;width:100%;min-height:46px;margin-top:10px;padding-bottom:env(safe-area-inset-bottom);border:1px solid var(--red);border-radius:8px;background:#fafafa;color:var(--red);font-size:15px;font-weight:700;z-index:5}
 .test-clear-scores{flex:0 0 auto;width:100%;min-height:46px;margin-top:10px;border:2px solid var(--red);border-radius:8px;background:#fafafa;color:var(--red);font-size:15px;font-weight:800;letter-spacing:.2px}
 
-
-
-/* =========================================================
-   V7-CF.12 VISUAL POLISH — TEXT SIZE ONLY
-   No scorecard geometry, row heights, or backend behavior changed.
-   ========================================================= */
 .par-cell{font-style:italic}
 .top-team-select.has-team{font-size:20px}
 .hole-cell{font-size:24px}
@@ -1942,11 +1722,6 @@
 .score-mark:not(.par-mark) .score-mark-number{transform:none}
 .leader-team-name{font-size:20.5px;white-space:nowrap;overflow:hidden}
 
-
-
-/* =========================================================
-   V7-CF.20 — TWO-LINE HOME SCORECARD ACCESS
-   ========================================================= */
 .home-scorecard-access{position:relative;width:100%}
 .home-scorecard-split{display:grid;grid-template-columns:minmax(0,1fr) 48px;width:100%;min-height:70px;border:2px solid var(--gold);border-radius:9px;overflow:visible;background:var(--gold)}
 .home-scorecard-main,.home-scorecard-arrow{border:0;background:var(--gold);color:#eee;font-weight:700}
@@ -1970,43 +1745,24 @@
 .modal-overlay.reset-authorization .modal-actions{grid-template-columns:1fr 1fr}
 .modal-btn.reset-danger{border-color:var(--red);background:#fafafa;color:var(--red)}
 
-
-
-/* =========================================================
-   V8-CF.2 — THUMB-ZONE POSITION CALIBRATION
-   Primary interaction controls are shifted upward from V7-CF.21.
-   ========================================================= */
-/* Move the complete score-entry panel upward by about 80% of
-   one +/- button height (~66px). This keeps the +/- row in the
-   primary thumb band while also improving the visual eye line. */
 .score-entry-overlay{
   padding-bottom:max(calc(env(safe-area-inset-bottom) + 20px),calc(33dvh - 77px));
 }
 
-/* Move authorization upward so the CAPTCHA/checkbox itself —
-   not the action buttons — occupies the primary thumb band. */
 .modal-overlay.authorization{
   padding-bottom:max(calc(env(safe-area-inset-bottom) + 20px),calc(33dvh - 84px));
 }
 
-
-/* V8-CF.2 — MATCH SCORECARD / LEADERBOARD BOTTOM ACTION GEOMETRY */
 .score-fixed-bottom{padding-left:18px;padding-right:18px}
 .score-bottom-actions{grid-template-columns:3fr 2fr;gap:11px}
 .score-bottom-actions .leaderboard-button{min-height:53px}
 .score-bottom-actions .submit-button{min-height:53px;font-size:17px}
 @media(max-width:420px){.score-bottom-actions .submit-button{font-size:15px}}
 
-/* V8-CF.2 — SCORECARD SINGLE FULL-WIDTH NAVIGATION ACTION */
 .score-bottom-actions{grid-template-columns:1fr}
 .score-bottom-actions .leaderboard-button{width:100%}
 .score-bottom-actions .submit-button{display:none!important}
 
-
-
-/* =========================================================
-   V9.3 — LIGHT MODE VISUAL CLEANUP
-   ========================================================= */
 .home-team-dropup{max-height:none}
 .score-team-select-wrap{position:relative}
 .score-team-select-button{position:relative;width:100%;text-align:center;appearance:none;-webkit-appearance:none;padding-right:42px}
@@ -2023,7 +1779,6 @@
 .leader-content{min-height:0;overflow-y:auto}
 .leader-bottom{position:relative;z-index:90;flex:0 0 auto}
 
-/* V8-CF.8 — SOLID BLACK TEAM MENU MODE */
 .team-menu-backdrop{
   position:fixed;
   inset:0;
@@ -2035,7 +1790,6 @@
 .home-scorecard-access.menu-open{z-index:101}
 .score-team-select-wrap.menu-open{z-index:121}
 
-/* Scorecard menu owns the screen while open. */
 body.score-team-menu-open .score-fixed-top{
   z-index:110;
   background:#fff;
@@ -2052,7 +1806,6 @@ body.score-team-menu-open .score-fixed-top{
   -webkit-backdrop-filter:none;
 }
 
-    /* V9LM: gold remains the ROTB accent; text on gold stays black. */
     .leader-team-cell.authorized-team-cell,
     .leader-team-cell.authorized-team-cell .leader-team-name {
       color: #000;
@@ -2065,13 +1818,6 @@ body.score-team-menu-open .score-fixed-top{
       color: #000;
     }
 
-  
-    /* =========================================================
-       V9LM.1 — LIGHT MODE VISUAL REFINEMENT ONLY
-       Functional/layout behavior remains V8-CF.9 / V9LM.
-       ========================================================= */
-
-    /* Gold-filled controls always use black text/icons. */
     .home-leaderboard-button,
     .home-scorecard-main,
     .home-scorecard-arrow,
@@ -2091,15 +1837,12 @@ body.score-team-menu-open .score-fixed-top{
       border-bottom-color: #000;
     }
 
-    /* Secondary leaderboard REFRESH matches HOME / INFO treatment. */
     .leader-bottom .leader-refresh-button {
       border-color: #000;
       background: #fff;
       color: #000;
     }
 
-    /* Scorecard team selector: same visual language as splash selector.
-       Sizing/position/dropdown behavior are intentionally untouched. */
     .score-team-select-button,
     .score-team-select-button.has-team {
       background: var(--gold);
@@ -2111,20 +1854,17 @@ body.score-team-menu-open .score-fixed-top{
       border-bottom-color: #000;
     }
 
-    /* One light gray for light-mode background/state use. */
     .score-button.unsaved {
       border-color: rgba(0,0,0,.48);
       background: var(--light-gray);
       color: #000;
     }
 
-    /* Only blurred popup OUTER borders are doubled and made black. */
     .modal-box,
     .score-entry-box {
       border: 2px solid #000;
     }
 
-    /* Score popup treatment agreed screen-by-screen. */
     .score-entry-box {
       background: var(--light-gray);
     }
@@ -2141,7 +1881,7 @@ body.score-team-menu-open .score-fixed-top{
     }
 
     .score-entry-clear {
-      /* CLEAR intentionally remains as-is. */
+      
       border: 1px solid rgba(0,0,0,.72);
       background: #f6f6f6;
       color: #000;
@@ -2153,19 +1893,11 @@ body.score-team-menu-open .score-fixed-top{
       color: #000;
     }
 
-    /* Authorized leaderboard highlight remains TEAM cell only. */
     .leader-team-cell.authorized-team-cell,
     .leader-team-cell.authorized-team-cell .leader-team-name {
       color: #000;
     }
 
-  
-    /* =========================================================
-       V9LM.2 — CONSISTENCY PASS
-       Visual-only corrections from screenshot review.
-       ========================================================= */
-
-    /* GOLD SURFACES = BLACK TEXT / ICONS */
     #homeLeaderboardButton,
     .home-main-button,
     .home-scorecard-main,
@@ -2179,7 +1911,6 @@ body.score-team-menu-open .score-fixed-top{
       color: #000 !important;
     }
 
-    /* Splash/home split-button arrow: fully black. */
     .home-scorecard-arrow {
       border-left-color: rgba(0,0,0,.28) !important;
     }
@@ -2191,9 +1922,6 @@ body.score-team-menu-open .score-fixed-top{
       border-bottom: 0 !important;
     }
 
-    /* Scorecard team selector:
-       solid gold, no trigger border, black team text + black arrow.
-       Size/position/menu behavior are untouched. */
     .score-team-select-button,
     .score-team-select-button.has-team {
       border: 0 !important;
@@ -2212,8 +1940,6 @@ body.score-team-menu-open .score-fixed-top{
       border-bottom: 2px solid #000 !important;
     }
 
-    /* Submitted score notation must be black on gold:
-       numbers, circles, squares, inner/outer notation strokes. */
     .score-button.saved .score-mark,
     .score-button.saved .score-mark-number {
       color: #000 !important;
@@ -2232,15 +1958,12 @@ body.score-team-menu-open .score-fixed-top{
       border-color: #000 !important;
     }
 
-    /* Secondary leaderboard button matches HOME / INFO. */
     .leader-bottom .leader-refresh-button {
       border: 1px solid #000 !important;
       background: #fff !important;
       color: #000 !important;
     }
 
-    /* Sticky leaderboard header:
-       opaque white mask + stronger cutoff so rows disappear behind it. */
     .leader-row.header {
       top: -4px !important;
       z-index: 120 !important;
@@ -2250,8 +1973,6 @@ body.score-team-menu-open .score-fixed-top{
       box-shadow: 0 -10px 0 #fff !important;
     }
 
-    /* Score-entry popup:
-       popup is white; ONLY the score-display field is light gray. */
     .score-entry-box {
       background: #fafafa !important;
     }
@@ -2261,7 +1982,6 @@ body.score-team-menu-open .score-fixed-top{
       color: #000 !important;
     }
 
-    /* Score controls exactly as agreed. */
     .score-step-button {
       border: 0 !important;
       background: var(--gold) !important;
@@ -2280,40 +2000,25 @@ body.score-team-menu-open .score-fixed-top{
       color: #000 !important;
     }
 
-    /* Authorization check mark is black when checked. */
     .auth-captcha input:checked + .auth-check-box {
       color: #000 !important;
     }
 
-    /* Only blurred popup OUTER borders are thick.
-       Everything else keeps its existing border thickness. */
     .modal-box,
     .score-entry-box {
       border: 2px solid #000 !important;
     }
 
-    /* Authorized leaderboard highlight remains TEAM cell only. */
     .leader-team-cell.authorized-team-cell,
     .leader-team-cell.authorized-team-cell .leader-team-name {
       color: #000 !important;
     }
 
-  
-    /* =========================================================
-       V9.3 — VISUAL CLEANUP ONLY
-       Baseline: authoritative V9LM.2
-       No Cloudflare / Sheets / scoring / leaderboard / auth timing changes.
-       ========================================================= */
-
-    /* RESET AUTHORIZATION + QUICK GUIDE:
-       pure white card background, existing popup sizing/position/blur untouched. */
     .modal-overlay.reset-authorization .modal-box,
     .modal-overlay.quick-guide .modal-box {
       background: #fff !important;
     }
 
-    /* Score-entry popup remains white.
-       ONLY the numeric score display field uses the light-gray surface. */
     .score-entry-box {
       background: #fff !important;
     }
@@ -2323,9 +2028,6 @@ body.score-team-menu-open .score-fixed-top{
       color: #000 !important;
     }
 
-    /* Pending / uncertified score:
-       darker gray container with WHITE number + golf notation.
-       Gray->gold verification behavior/timing is untouched. */
     .score-button.unsaved {
       background: #666 !important;
       border-color: #555 !important;
@@ -2350,9 +2052,6 @@ body.score-team-menu-open .score-fixed-top{
       border-color: #fff !important;
     }
 
-    /* Certified gold score boxes:
-       taller, ~5% narrower, slightly smaller radius.
-       Score number and circle/square contents are NOT resized/repositioned. */
     .score-button.saved {
       width: 61px !important;
       height: calc(100% - 8px) !important;
@@ -2361,9 +2060,6 @@ body.score-team-menu-open .score-fixed-top{
       border-radius: 6px !important;
     }
 
-    /* Scorecard team selector:
-       keep gold/no-border trigger, but use the same clean custom black-chevron
-       construction as the splash selector. Geometry/sizing of trigger unchanged. */
     .score-team-select-button::after {
       content: "" !important;
       position: absolute !important;
@@ -2378,19 +2074,10 @@ body.score-team-menu-open .score-fixed-top{
       transform: translateY(-65%) rotate(225deg) !important;
     }
 
-    /* Keep checked authorization mark black on gold. */
     .auth-captcha input:checked + .auth-check-box {
       color: #000 !important;
     }
 
-  
-
-    /* =========================================================
-       V9.6 — CONSISTENT TABLE BOUNDS
-       Visual only. Scorecard and all functional behavior untouched.
-       ========================================================= */
-
-    /* Use the exact splash/home chevron construction on the scorecard selector. */
     .score-team-select-button::after {
       content: "" !important;
       position: absolute !important;
@@ -2405,8 +2092,6 @@ body.score-team-menu-open .score-fixed-top{
       transform: translateY(-65%) rotate(45deg) !important;
     }
 
-    /* Leaderboard table top now speaks the same visual language as scorecard:
-       rounded top corners, clean 1px shell/dividers, opaque sticky white header. */
     .leader-table {
       border: 1px solid var(--line-strong) !important;
       border-radius: 9px 9px 0 0 !important;
@@ -2434,14 +2119,6 @@ body.score-team-menu-open .score-fixed-top{
       border-right: 0 !important;
       color: #000 !important;
     }
-
-  
-    /* =========================================================
-       V9.6 — CONSISTENT TABLE BOUNDS
-       The scorecard does not let rows scroll behind its header because
-       the header lives OUTSIDE the scroll container. Leaderboard now uses
-       the same structure. Functional leaderboard behavior is unchanged.
-       ========================================================= */
 
     .leader-table-head {
       flex: 0 0 auto;
@@ -2494,7 +2171,6 @@ body.score-team-menu-open .score-fixed-top{
       border-radius: 0 !important;
     }
 
-    /* Old sticky header no longer exists in the scrolling body. */
     .leader-row.header {
       position: static !important;
     }
@@ -2506,16 +2182,6 @@ body.score-team-menu-open .score-fixed-top{
       }
     }
 
-  
-    /* =========================================================
-       V9.6 — CONSISTENT TABLE BOUNDS
-       TOPS ARE NOT REDESIGNED.
-       Scorecard + leaderboard now share the same left/right edge,
-       rounded-bottom frame, bottom border, and safe button clearance.
-       ========================================================= */
-
-    /* HARD RULE: closed scorecard selector uses a simple DOWN triangle.
-       No rotated chevron geometry. */
     .score-team-select-wrap::after {
       display: none !important;
     }
@@ -2535,9 +2201,6 @@ body.score-team-menu-open .score-fixed-top{
       pointer-events: none !important;
     }
 
-    /* SCORECARD:
-       Preserve the existing top/header exactly.
-       Finish the existing scroll viewport with a real bottom edge. */
     .score-scroll {
       margin-left: 14px !important;
       margin-right: 14px !important;
@@ -2549,25 +2212,17 @@ body.score-team-menu-open .score-fixed-top{
       overflow-x: hidden !important;
     }
 
-    /* Same horizontal edge as scorecard top/table: 14px.
-       More breathing room above the sticky action. */
     .score-fixed-bottom {
       padding-top: 14px !important;
       padding-left: 14px !important;
       padding-right: 14px !important;
     }
 
-    /* LEADERBOARD:
-       Keep V9.5's top/header appearance; only align its outer edges
-       with the 14px system used by scorecard/top controls. */
     .leader-table-head {
       margin-left: 14px !important;
       margin-right: 14px !important;
     }
 
-    /* The leaderboard body is now the actual bounded scroll viewport.
-       Short leaderboard: natural height.
-       Long leaderboard: shrinks before the sticky controls and scrolls inside. */
     .leader-content {
       flex: 0 1 auto !important;
       min-height: 0 !important;
@@ -2592,8 +2247,6 @@ body.score-team-menu-open .score-fixed-top{
       background: transparent !important;
     }
 
-    /* Short leaderboards end naturally; remaining screen space lives
-       between the table/update note and the sticky bottom controls. */
     .leader-update-note {
       flex: 0 0 auto !important;
       margin: 4px 14px 0 !important;
@@ -2605,14 +2258,6 @@ body.score-team-menu-open .score-fixed-top{
       padding-left: 14px !important;
       padding-right: 14px !important;
     }
-
-    /* =========================================================
-       V9.9 — LIVE GROSS / NET SCORECARD HEADER
-       Left: gross score to par (normal weight)
-       Center: existing SCORE label
-       Right: net score to par (bold)
-       Negative = red; E / positive = black
-       ========================================================= */
 
     .score-running-header {
       display: flex !important;
@@ -2646,16 +2291,6 @@ body.score-team-menu-open .score-fixed-top{
       color: #c93636;
     }
 
-
-
-  
-    /* =========================================================
-       V9.10 — EIGHT-ROW LEADERBOARD VIEWPORT
-       Preserve the current V9.9 top, header, status-note, bottom controls,
-       and buffers. The remaining leaderboard body fills that exact space.
-       One team row = 1/8 of the body's inner height.
-       ========================================================= */
-
     .leader-content {
       flex: 1 1 0 !important;
     }
@@ -2665,18 +2300,10 @@ body.score-team-menu-open .score-fixed-top{
       min-height: var(--leader-row-height, 58px) !important;
     }
 
-
-    /* =========================================================
-       V9.8 — FINAL TABLE EDGE / SCROLLBAR CLEANUP
-       ========================================================= */
-
-    /* Hole 18 uses the rounded outer scorecard edge as its bottom line. */
     #scoreRows > .score-row:last-child {
       border-bottom: 0 !important;
     }
 
-    /* Force the native overlay scrollbar to be painted inside the same
-       rounded bottom clip as the scorecard and leaderboard frames. */
     .score-scroll,
     .leader-content {
       clip-path: inset(0 round 0 0 9px 9px);
@@ -2684,8 +2311,6 @@ body.score-team-menu-open .score-fixed-top{
       contain: paint;
     }
 
-    /* On <=420px phones the existing scorecard TOP uses 12px side padding.
-       Match the body to that existing top without changing the top itself. */
     @media (max-width: 420px) {
       .score-scroll {
         margin-left: 12px !important;
@@ -2693,14 +2318,6 @@ body.score-team-menu-open .score-fixed-top{
       }
     }
 
-
-
-    /* =========================================================
-       V10 — HOME SPLASH 60 / CONTROLS 40
-       The splash image no longer determines home-page height.
-       Splash_white.jpg is contained inside the top 60% stage;
-       all home controls own the bottom 40%.
-       ========================================================= */
     #homeView.active {
       height: 100dvh;
       min-height: 100dvh;
@@ -2755,11 +2372,6 @@ body.score-team-menu-open .score-fixed-top{
       top: -1vh;
     }
 
-    /* =========================================================
-       V9.13 — AUTHORIZED TEAM LEADERBOARD HIGHLIGHT
-       White TEAM cell with a 5px gold inset outline.
-       Inset only: no leaderboard row/column geometry changes.
-       ========================================================= */
     .leader-team-cell.authorized-team-cell {
       background: #fff !important;
       box-shadow: inset 0 0 0 5px var(--gold) !important;
@@ -2770,17 +2382,6 @@ body.score-team-menu-open .score-fixed-top{
       color: #000 !important;
     }
 
-
-    /* =========================================================
-       V10.7 — iOS / WebKit COMPATIBILITY PATCH ONLY
-       Targets the two iPhone rendering differences observed:
-       1) score-entry − / CLEAR / + row track sizing
-       2) score number / golf-notation centering inside score boxes
-
-       No outer popup sizing, scorecard row geometry, leaderboard,
-       home/splash, authorization, backend, or Android positioning
-       is intentionally changed.
-       ========================================================= */
     @supports (-webkit-touch-callout: none) {
       .score-entry-control > .score-step-button,
       .score-entry-control > .score-entry-clear {
@@ -2824,35 +2425,10 @@ body.score-team-menu-open .score-fixed-top{
       }
     }
 
-
-
-    /* =========================================================
-       V11.0 — PROPORTIONAL SCORE SYSTEM
-
-       One responsive chain:
-       score-cell height
-         -> score-button height
-         -> score-button width (1.25 : 1 aspect ratio)
-         -> score font size
-         -> notation envelope
-
-       Intent:
-       - No phone-sized hard cap on larger portrait displays/tablets.
-       - Gold/pending/empty score box scales from the actual row height.
-       - Keep a minimum sliver of white above/below on short phones.
-       - One universal gold-box-derived numeral size for every score.
-       - Plain scores and circle/square assemblies use true centering with NO manual shift.
-       - Circle/square geometry is based on the gold-box environment,
-         NOT on the width/shape of the individual digit.
-       ========================================================= */
-
     .score-cell {
       container-type: size;
     }
 
-    /* The score box follows the row vertically.
-       Normally ~95% of cell height; on short rows, preserve at least
-       2px of air above and below. Width follows height at 1.25 : 1. */
     .score-button {
       height: calc(100% - max(4px, 5cqh)) !important;
       min-height: 0 !important;
@@ -2868,14 +2444,10 @@ body.score-team-menu-open .score-fixed-top{
       align-items: center !important;
       justify-content: center !important;
 
-      /* ~61% of the gold-box CSS height; visually the glyph occupies
-         roughly the ~40% range we are tuning for. */
       font-size: 58cqh !important;
       line-height: 1 !important;
     }
 
-    /* Plain/par score uses the full responsive score-font size.
-       V10.11 removes the legacy optical shift: true flex centering only. */
     .score-mark.par-mark {
       width: auto !important;
       height: auto !important;
@@ -2886,10 +2458,6 @@ body.score-team-menu-open .score-fixed-top{
       transform: none !important;
     }
 
-    /* Circle/square is a fixed proportional ENVELOPE within the score
-       box. It does not resize according to whether the digit is 3/4/5/6/9.
-       The contained numeral scales from the score font, while the shape
-       itself scales from score-cell/gold-box space. */
     .score-mark:not(.par-mark) {
       position: relative !important;
       width: 68cqh !important;
@@ -2901,7 +2469,6 @@ body.score-team-menu-open .score-fixed-top{
 
       flex: 0 0 auto !important;
 
-      /* V11.0: every score numeral uses the same gold-box-derived size. */
       font-size: 1em !important;
       line-height: 1 !important;
 
@@ -2909,13 +2476,10 @@ body.score-team-menu-open .score-fixed-top{
       margin: 0 !important;
     }
 
-    /* Symbol groups are geometrically centered — absolutely no optical
-       shift on the numeral once it lives inside a circle/square. */
     .score-mark:not(.par-mark) .score-mark-number {
       transform: none !important;
     }
 
-    /* Let notation stroke spacing scale too, instead of staying phone-only. */
     .score-mark.single-circle,
     .score-mark.double-circle,
     .score-mark.single-square,
@@ -2933,10 +2497,6 @@ body.score-team-menu-open .score-fixed-top{
       border-width: max(1.5px, 0.04em) !important;
     }
 
-    /* V11.2 — DOUBLE NOTATION STROKE WEIGHT
-       Two outlines already create extra visual weight, so each line in a
-       double circle/square is ~80% of the corresponding single stroke.
-       Geometry, envelope, spacing and centering remain unchanged. */
     .score-mark.double-circle,
     .score-mark.double-square {
       border-width: max(1.6px, 0.044em) !important;
@@ -2947,8 +2507,6 @@ body.score-team-menu-open .score-fixed-top{
       border-width: max(1.2px, 0.032em) !important;
     }
 
-
-    /* V11.7 VERSION MARKER — direct text in the real hotspot button */
     .test-log-hotspot {
       color: #d4d4d4 !important;
       font-size: 9px !important;
@@ -2963,9 +2521,6 @@ body.score-team-menu-open .score-fixed-top{
       display: none !important;
     }
 
-
-/* V12.14 — leaderboard header and every body row use the exact same
-   five grid tracks on their real containers so divider lines align. */
 .leader-table-head,
 .leader-row,
 .leader-row.header {
@@ -2977,12 +2532,468 @@ body.score-team-menu-open .score-fixed-top{
     22% !important;
 }
 
-/* V12.14 — HCP header stays horizontal and scales to the narrow column. */
 .leader-table-head .leader-hcp-header span {
   transform: none !important;
   font-size: clamp(10px, 3.35vw, 1em) !important;
   line-height: 1 !important;
   white-space: nowrap !important;
+}
+
+.yard-white {
+  color: #000 !important;
+  font-weight: 800 !important;
+}
+.yard-slash {
+  color: #000 !important;
+  font-weight: 400 !important;
+}
+.yard-gold {
+  color: #000 !important;
+  font-weight: 400 !important;
+}
+
+.hole-cell {
+  container-type: size;
+}
+.hole-number {
+  font-size: 58cqh !important;
+  line-height: 1 !important;
+  font-weight: 700 !important;
+}
+
+.score-mark:not(.par-mark) .score-mark-number {
+  transform: translateY(-0.04em) !important;
+}
+
+.leader-through-word,
+.leader-through-value {
+  font-size: 118% !important;
+  font-weight: 400 !important;
+}
+.leader-through-value.has-progress {
+  font-weight: 800 !important;
+}
+
+.score-table-head,
+.score-row {
+  grid-template-columns:
+    20%
+    15%
+    30%
+    35% !important;
+}
+
+@media (min-width: 600px) {
+  .score-button.saved {
+    height: calc(100% - max(4px, 5cqh)) !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    width: auto !important;
+    max-width: calc(100% - 6px) !important;
+    aspect-ratio: 1.25 / 1 !important;
+
+    border-radius: 6px !important;
+  }
+}
+
+.leader-row {
+  grid-template-columns:
+    9%
+    40%
+    9%
+    20%
+    22% !important;
+}
+
+#leaderRows .leader-team-name {
+  font-size:
+    var(--leader-team-font, 20px) !important;
+  line-height: 1 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  width: 100% !important;
+}
+
+#leaderRows .leader-total {
+  font-size:
+    var(--leader-total-font, 29px) !important;
+  line-height: 1 !important;
+}
+
+#leaderRows .leader-place-cell {
+  font-size:
+    var(--leader-place-font, 15px) !important;
+  line-height: 1 !important;
+}
+
+#leaderRows .leader-hcp-cell {
+  font-size:
+    var(--leader-hcp-font, 10px) !important;
+  line-height: 1 !important;
+}
+
+#leaderRows .leader-through-score {
+  font-size:
+    var(--leader-status-score-font, 13px) !important;
+  line-height: 1 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  font-weight: 800 !important;
+}
+
+#leaderRows .leader-through-label,
+#leaderRows .leader-through-word,
+#leaderRows .leader-through-value {
+  font-size:
+    var(--leader-status-thru-font, 12px) !important;
+  line-height: 1 !important;
+}
+
+#leaderRows .leader-through-label {
+  width: 100% !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  margin-top:
+    var(--leader-status-gap, 4px) !important;
+  font-weight: 400 !important;
+}
+
+#leaderRows .leader-through-word {
+  font-weight: 400 !important;
+}
+
+#leaderRows .leader-through-value,
+#leaderRows .leader-through-value.has-progress {
+  font-weight: 800 !important;
+}
+
+.top-team-select {
+  padding-left: 58px !important;
+  padding-right: 58px !important;
+}
+
+.top-team-select.has-team {
+  font-size: 22px !important;
+}
+
+.leader-title {
+  font-size: 26.4px !important;
+}
+
+#homeLeaderboardButton,
+#homeLeaderboardButton:active {
+  background: #fff !important;
+  color: #000 !important;
+  border: 5px solid var(--gold) !important;
+  box-sizing: border-box !important;
+}
+
+.score-team-select-button,
+.score-team-select-button:focus {
+  background: #fff !important;
+  color: #000 !important;
+  border: 5px solid var(--gold) !important;
+  box-sizing: border-box !important;
+}
+
+.score-team-select-button.has-team {
+  color: #000 !important;
+  font-size: 22px !important;
+}
+
+.leader-content.short-leaderboard {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
+  contain: layout !important;
+}
+
+.leader-content.short-leaderboard .leader-table {
+  width: 100% !important;
+  border-left: 1px solid var(--line-strong) !important;
+  border-right: 1px solid var(--line-strong) !important;
+  border-bottom: 1px solid var(--line-strong) !important;
+  border-radius: 0 0 9px 9px !important;
+  background: rgba(255,255,255,.42) !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.score-team-select-button.has-team {
+  white-space: normal !important;
+  line-height: .95 !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+#leaderRows .leader-team-name {
+  line-height: .95 !important;
+  max-height: 1.9em !important;
+  overflow: hidden !important;
+}
+
+.score-team-select-button,
+.score-team-select-button.has-team,
+.score-team-select-button:focus {
+  background: #fff !important;
+  color: #000 !important;
+  border: 5px solid var(--gold) !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+}
+
+.score-running-gross,
+.score-running-net {
+  font-size: 17px !important;
+}
+
+.leader-refresh-progress {
+  width: 58%;
+  max-width: 430px;
+  height: 5px;
+  margin: 5px auto 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #b5b5b5;
+}
+
+.leader-refresh-progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: #cfcfcf;
+}
+
+.leader-update-note {
+  display: none !important;
+}
+
+.leader-title-bar {
+  transform: translateY(-6px);
+}
+
+.leader-refresh-progress {
+  margin-top: -3px !important;
+  margin-bottom: 8px !important;
+}
+
+.score-row {
+  min-height: 0 !important;
+}
+
+.score-button.saved {
+  min-height: 0 !important;
+}
+
+.top-team-select.has-team {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+}
+
+/* =========================================================
+   ROTB 2026 — V13 LAYOUT CONTRACT
+
+   V12.15 remains the frozen recovery build.
+
+   FIXED CONTROLS
+   Controls outside data tables intentionally keep their proven physical
+   dimensions: navigation, footer actions, modal actions and utility buttons.
+   The target design range begins at normal iPhone portrait height; shorter
+   torture-test viewports may look compressed but must remain functional.
+
+   RESPONSIVE TABLE CONTENT
+   Scorecard and leaderboard table content owns the available row space.
+   Anything inside a resizable row may shrink with that row, including the
+   tappable score box and its notation.
+
+   ACTION POPUPS
+   Thumb-zone position remains viewport based. Non-scrollable action popups
+   compress their internal vertical geometry when viewport height becomes
+   shorter than the normal phone range rather than becoming scrollable.
+   ========================================================= */
+
+/* SCORECARD — one geometry for EMPTY, PENDING and CERTIFIED states.
+   State changes appearance only; the row controls the box dimensions. */
+.score-row {
+  min-height: 0 !important;
+}
+
+.score-cell {
+  container-type: size;
+}
+
+.score-button,
+.score-button.empty,
+.score-button.unsaved,
+.score-button.saved {
+  height: calc(100% - max(4px, 5cqh)) !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  width: auto !important;
+  max-width: calc(100% - 6px) !important;
+  aspect-ratio: 1.25 / 1 !important;
+
+  padding: 0 !important;
+  border-radius: 6px !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  font-size: 58cqh !important;
+  line-height: 1 !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+/* The three score states now differ only visually. */
+.score-button.empty {
+  border: 1px solid rgba(0,0,0,.48) !important;
+  background: rgba(255,255,255,.72) !important;
+  color: #555 !important;
+}
+
+.score-button.unsaved {
+  border: 1px solid #1f1f1f !important;
+  background: #484848 !important;
+  color: #fff !important;
+}
+
+.score-button.saved {
+  border: 1px solid #D0A621 !important;
+  background: var(--gold) !important;
+  color: #000 !important;
+}
+
+/* SCORE ENTRY — normal iPhone/Samsung portrait keeps the approved V12.15
+   dimensions. Below that range, each vertical component contracts smoothly.
+   The panel remains in the established lower thumb zone and never scrolls. */
+.score-entry-overlay {
+  align-items: flex-end !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  padding: 20px 20px max(
+    calc(env(safe-area-inset-bottom) + 20px),
+    calc(33dvh - 77px)
+  ) !important;
+}
+
+.score-entry-box {
+  width: min(420px, calc(100% - 4px)) !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding:
+    clamp(12px, 4dvh, 28px)
+    24px
+    clamp(10px, 3dvh, 22px) !important;
+  border: 2px solid #000 !important;
+  border-radius: 18px !important;
+  background: #fafafa !important;
+  box-sizing: border-box !important;
+}
+
+.score-entry-hole {
+  margin-top: 0 !important;
+  font-size: clamp(18px, 3.8dvh, 28px) !important;
+  line-height: 1 !important;
+}
+
+.score-entry-par {
+  margin-top: clamp(1px, .3dvh, 2px) !important;
+  font-size: clamp(14px, 2.8dvh, 20px) !important;
+  line-height: 1.15 !important;
+}
+
+.score-entry-input {
+  display: block !important;
+  width: min(150px, 46%) !important;
+  height: clamp(42px, 10dvh, 74px) !important;
+  min-height: 0 !important;
+  margin: clamp(7px, 1.9dvh, 14px) auto 0 !important;
+  border-radius: clamp(9px, 1.9dvh, 14px) !important;
+  font-size: clamp(27px, 5.5dvh, 40px) !important;
+  line-height: 1 !important;
+}
+
+.score-entry-control {
+  width: min(330px, 92%) !important;
+  margin: clamp(8px, 2.45dvh, 18px) auto 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: clamp(7px, 1.65dvh, 12px) !important;
+  align-items: center !important;
+}
+
+.score-entry-control > .score-step-button,
+.score-entry-control > .score-entry-clear {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: clamp(44px, 11.1dvh, 82px) !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-radius: clamp(9px, 1.9dvh, 14px) !important;
+  box-sizing: border-box !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
+
+.score-step-button {
+  border: 0 !important;
+  background: var(--gold) !important;
+  color: #000 !important;
+  font-size: clamp(30px, 6.25dvh, 46px) !important;
+  line-height: 1 !important;
+}
+
+.score-entry-clear {
+  border: 1px solid rgba(0,0,0,.72) !important;
+  background: #f6f6f6 !important;
+  color: #000 !important;
+  font-size: clamp(13px, 2.45dvh, 18px) !important;
+  line-height: 1 !important;
+}
+
+.score-entry-actions {
+  width: min(330px, 92%) !important;
+  margin: clamp(7px, 1.9dvh, 14px) auto 0 !important;
+  display: block !important;
+}
+
+.score-entry-enter {
+  width: 100% !important;
+  height: clamp(42px, 9dvh, 66px) !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: clamp(8px, 1.5dvh, 11px) !important;
+  background: var(--gold) !important;
+  color: #000 !important;
+  font-size: clamp(15px, 2.85dvh, 21px) !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+
+/* Closed scorecard team identity is always a single line; JS only reduces
+   its font when the actual available width requires it. */
+.top-team-select.has-team {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
 }
 
 </style>
@@ -3019,7 +3030,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12.15</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V13</button>
 
       <div class="splash-image-wrap">
 
@@ -5113,7 +5124,7 @@ body.score-team-menu-open .score-fixed-top{
         'important'
       );
 
-      /* V12.15 — selected team is always one line.
+      /* V13 — selected team is always one line.
          Shrink only as much as the actual available bar width requires. */
       while (
         fontSize > minFont &&
@@ -8316,342 +8327,4 @@ body.score-team-menu-open .score-fixed-top{
 
 </body>
 </html>
-
-<style>
-/* V11.5 — corrected yardage hierarchy */
-.yard-white {
-  color: #000 !important;
-  font-weight: 800 !important;
-}
-.yard-slash {
-  color: #000 !important;
-  font-weight: 400 !important;
-}
-.yard-gold {
-  color: #000 !important;
-  font-weight: 400 !important;
-}
-
-/* Hole number uses the exact same responsive 58cqh rule as the score numeral,
-   but from its own cell height. */
-.hole-cell {
-  container-type: size;
-}
-.hole-number {
-  font-size: 58cqh !important;
-  line-height: 1 !important;
-  font-weight: 700 !important;
-}
-</style>
-
-<style>
-/* V11.6 — notation numeral optical centering only
-   Circles/squares stay geometrically centered in the gold box.
-   Only the numeral inside a circle/square moves upward, proportionally.
-   No pixel offset; 0.04em = 4% of the numeral's own font size. */
-.score-mark:not(.par-mark) .score-mark-number {
-  transform: translateY(-0.04em) !important;
-}
-</style>
-
-<style>
-/* V11.7 — leaderboard STATUS THRU treatment only.
-   Gross score above remains exactly V11.6. */
-.leader-through-word,
-.leader-through-value {
-  font-size: 118% !important;
-  font-weight: 400 !important;
-}
-.leader-through-value.has-progress {
-  font-weight: 800 !important;
-}
-</style>
-
-
-<style>
-/* =========================================================
-   V12 — RESPONSIVE SCORECARD + LEADERBOARD
-   Scope is intentionally limited to table columns and row content.
-   Headers keep their existing typography; footers/buttons/modal/home/backend
-   remain untouched.
-   ========================================================= */
-
-/* SCORECARD COLUMN PROPORTIONS — approved universal ratio:
-   HOLE 20% | PAR 20% | YARDS 25% | SCORE 35%. */
-.score-table-head,
-.score-row {
-  grid-template-columns:
-    20%
-    15%
-    30%
-    35% !important;
-}
-
-/* V12.14 — scorecard body typography is applied in JS from the actual
-   computed SCORE numeral size: HOLE = 85% of SCORE; PAR = 80% of HOLE; YARDS = 70% of HOLE. */
-
-/* Keep the already-approved larger-screen SAVED gold score-box geometry. */
-@media (min-width: 600px) {
-  .score-button.saved {
-    height: calc(100% - max(4px, 5cqh)) !important;
-    min-height: 0 !important;
-    max-height: none !important;
-
-    width: auto !important;
-    max-width: calc(100% - 6px) !important;
-    aspect-ratio: 1.25 / 1 !important;
-
-    border-radius: 6px !important;
-  }
-}
-
-/* LEADERBOARD COLUMN PROPORTIONS — approved universal ratio:
-   PLACE 10% | TEAM 40% | HCP 5% | STATUS 20% | TOTAL 25%.
-   Applies to header and body for alignment; existing header typography stays. */
-.leader-row {
-  grid-template-columns:
-    9%
-    40%
-    9%
-    20%
-    22% !important;
-}
-
-/* V12.14 leaderboard body typography — row-height driven. */
-#leaderRows .leader-team-name {
-  font-size:
-    var(--leader-team-font, 20px) !important;
-  line-height: 1 !important;
-  white-space: normal !important;
-  overflow: visible !important;
-  word-break: normal !important;
-  overflow-wrap: normal !important;
-  width: 100% !important;
-}
-
-#leaderRows .leader-total {
-  font-size:
-    var(--leader-total-font, 29px) !important;
-  line-height: 1 !important;
-}
-
-#leaderRows .leader-place-cell {
-  font-size:
-    var(--leader-place-font, 15px) !important;
-  line-height: 1 !important;
-}
-
-#leaderRows .leader-hcp-cell {
-  font-size:
-    var(--leader-hcp-font, 10px) !important;
-  line-height: 1 !important;
-}
-
-#leaderRows .leader-through-score {
-  font-size:
-    var(--leader-status-score-font, 13px) !important;
-  line-height: 1 !important;
-  width: 100% !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
-  font-weight: 800 !important;
-}
-
-#leaderRows .leader-through-label,
-#leaderRows .leader-through-word,
-#leaderRows .leader-through-value {
-  font-size:
-    var(--leader-status-thru-font, 12px) !important;
-  line-height: 1 !important;
-}
-
-#leaderRows .leader-through-label {
-  width: 100% !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
-  margin-top:
-    var(--leader-status-gap, 4px) !important;
-  font-weight: 400 !important;
-}
-
-#leaderRows .leader-through-word {
-  font-weight: 400 !important;
-}
-
-#leaderRows .leader-through-value,
-#leaderRows .leader-through-value.has-progress {
-  font-weight: 800 !important;
-}
-
-/* =========================================================
-   V12.14 — PHONE HEADER REFINEMENTS
-   ========================================================= */
-
-/* Center team identity against the entire gold bar; arrow remains independently positioned. */
-.top-team-select {
-  padding-left: 58px !important;
-  padding-right: 58px !important;
-}
-
-.top-team-select.has-team {
-  font-size: 22px !important;
-}
-
-/* Slightly larger leaderboard title without changing header height/spacing. */
-.leader-title {
-  font-size: 26.4px !important;
-}
-
-
-/* =========================================================
-   V12.14 — ACTION HIERARCHY
-   ========================================================= */
-#homeLeaderboardButton,
-#homeLeaderboardButton:active {
-  background: #fff !important;
-  color: #000 !important;
-  border: 5px solid var(--gold) !important;
-  box-sizing: border-box !important;
-}
-
-.score-team-select-button,
-.score-team-select-button:focus {
-  background: #fff !important;
-  color: #000 !important;
-  border: 5px solid var(--gold) !important;
-  box-sizing: border-box !important;
-}
-
-.score-team-select-button.has-team {
-  color: #000 !important;
-  font-size: 22px !important;
-}
-
-
-/* =========================================================
-   V12.14 — SHORT LEADERBOARD FRAME + TWO-LINE TEAM NAMES
-   ========================================================= */
-
-/* Fewer than eight teams:
-   keep the leaderboard viewport and bottom controls exactly where they are,
-   but move the visible body frame onto the actual rendered rows. */
-.leader-content.short-leaderboard {
-  border-left: 0 !important;
-  border-right: 0 !important;
-  border-bottom: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  clip-path: none !important;
-  -webkit-clip-path: none !important;
-  contain: layout !important;
-}
-
-.leader-content.short-leaderboard .leader-table {
-  width: 100% !important;
-  border-left: 1px solid var(--line-strong) !important;
-  border-right: 1px solid var(--line-strong) !important;
-  border-bottom: 1px solid var(--line-strong) !important;
-  border-radius: 0 0 9px 9px !important;
-  background: rgba(255,255,255,.42) !important;
-  overflow: hidden !important;
-  box-sizing: border-box !important;
-}
-
-/* Closed scorecard selector only.
-   Dropdown options retain their existing larger available space. */
-.score-team-select-button.has-team {
-  white-space: normal !important;
-  line-height: .95 !important;
-  overflow: hidden !important;
-  text-overflow: clip !important;
-  overflow-wrap: normal !important;
-  word-break: normal !important;
-}
-
-/* Leaderboard team names are never allowed to occupy more than two lines.
-   JS reduces only an oversized name until it fits. */
-#leaderRows .leader-team-name {
-  line-height: .95 !important;
-  max-height: 1.9em !important;
-  overflow: hidden !important;
-}
-
-
-/* =========================================================
-   V12.14 — SCORECARD SELECTOR + RUNNING SCORE + LEADER REFRESH
-   ========================================================= */
-.score-team-select-button,
-.score-team-select-button.has-team,
-.score-team-select-button:focus {
-  background: #fff !important;
-  color: #000 !important;
-  border: 5px solid var(--gold) !important;
-  box-sizing: border-box !important;
-  box-shadow: none !important;
-}
-
-.score-running-gross,
-.score-running-net {
-  font-size: 17px !important;
-}
-
-.leader-refresh-progress {
-  width: 58%;
-  max-width: 430px;
-  height: 5px;
-  margin: 5px auto 8px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: #b5b5b5;
-}
-
-.leader-refresh-progress-fill {
-  width: 0%;
-  height: 100%;
-  border-radius: inherit;
-  background: #cfcfcf;
-}
-
-.leader-update-note {
-  display: none !important;
-}
-
-
-/* =========================================================
-   V12.14 — LEADERBOARD TOP SPACING REFINEMENT
-   ========================================================= */
-
-/* Shift only the LIVE LEADERBOARD title/progress group upward slightly. */
-.leader-title-bar {
-  transform: translateY(-6px);
-}
-
-/* Tighten the gap between LIVE LEADERBOARD and the refresh progress bar. */
-.leader-refresh-progress {
-  margin-top: -3px !important;
-  margin-bottom: 8px !important;
-}
-
-
-
-/* =========================================================
-   V12.15 — UNLIMITED SCORECARD SHRINK + ONE-LINE TEAM BAR
-   - No minimum score-row height: the 9-row viewport can keep compressing.
-   - No minimum certified-gold box height: gold boxes keep shrinking with rows.
-   - Selected team stays on one line; JS reduces font size to fit available width.
-   ========================================================= */
-.score-row {
-  min-height: 0 !important;
-}
-
-.score-button.saved {
-  min-height: 0 !important;
-}
-
-.top-team-select.has-team {
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: clip !important;
-}
-</style>
 
