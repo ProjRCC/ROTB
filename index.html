@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V14.6 -->
+  <!-- ROTB 2026 — V14.7 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1530,7 +1530,7 @@
     padding-top: 4px;
   }
   .modal-overlay.tournament-summary .modal-actions {
-    margin-top: clamp(8px, 1.2dvh, 12px);
+    margin-top: clamp(5px, .8dvh, 8px);
   }
 }
 
@@ -3052,7 +3052,7 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   ROTB 2026 — V14.6 TOURNAMENT FINISH
+   ROTB 2026 — V14.7 TOURNAMENT FINISH
    Aesthetic/final-results refinement only.
    ========================================================= */
 .leader-final-action {
@@ -3313,13 +3313,19 @@ body.score-team-menu-open .score-fixed-top{
 }
 .modal-overlay.tournament-summary .modal-actions {
   flex: 0 0 auto;
-  width: min(300px, 88%);
-  margin: clamp(10px, 1.6dvh, 16px) auto 0;
-  grid-template-columns: 1fr;
+  width: 100%;
+  margin: clamp(7px, 1.1dvh, 11px) 0 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .modal-overlay.tournament-summary .modal-btn {
-  min-height: clamp(42px, 6.2dvh, 52px);
-  font-size: clamp(16px, 4.1vw, 20px);
+  width: 25%;
+  min-width: 92px;
+  max-width: 150px;
+  min-height: clamp(36px, 5.2dvh, 44px);
+  padding: 0 10px;
+  font-size: clamp(14px, 3.7vw, 18px);
 }
 
 @media (max-height: 650px) {
@@ -3367,8 +3373,11 @@ body.score-team-menu-open .score-fixed-top{
     padding-top: 4px;
   }
   .modal-overlay.tournament-summary .modal-btn {
-    min-height: clamp(38px, 5.8dvh, 45px);
-    font-size: clamp(14px, 3.6vw, 17px);
+    width: 25%;
+    min-width: 84px;
+    max-width: 132px;
+    min-height: clamp(32px, 4.8dvh, 39px);
+    font-size: clamp(13px, 3.3vw, 16px);
   }
 }
 @media (max-width: 420px) {
@@ -3416,7 +3425,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.6</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.7</button>
 
       <div class="splash-image-wrap">
 
@@ -7540,8 +7549,8 @@ let scoreTimingDetail =
       root.style.removeProperty('--ts-rem-gap');
 
       let fontPx = Math.min(23, Math.max(17, window.innerWidth * 0.046));
-      let rowPx = Math.min(34, Math.max(26, window.innerHeight * 0.037));
-      let gapPx = Math.min(9, Math.max(4, window.innerHeight * 0.010));
+      let rowPx = Math.min(34, Math.max(25, window.innerHeight * 0.035));
+      let gapPx = Math.min(8, Math.max(3, window.innerHeight * 0.008));
 
       const apply = () => {
         root.style.setProperty('--ts-rem-font', fontPx + 'px');
@@ -7552,10 +7561,10 @@ let scoreTimingDetail =
       apply();
 
       let guard = 0;
-      while (box.scrollHeight > maxHeight && guard < 80) {
-        if (fontPx > 11) fontPx -= 0.5;
-        if (rowPx > 16) rowPx -= 0.5;
-        if (gapPx > 2) gapPx -= 0.25;
+      while (box.scrollHeight > maxHeight && guard < 100) {
+        if (fontPx > 10.5) fontPx -= 0.5;
+        if (rowPx > 15) rowPx -= 0.5;
+        if (gapPx > 1.5) gapPx -= 0.25;
         apply();
         guard++;
       }
