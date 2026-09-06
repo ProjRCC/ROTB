@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V14.3 -->
+  <!-- ROTB 2026 — V14.4 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3018,7 +3018,7 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   ROTB 2026 — V14.3 TOURNAMENT FINISH
+   ROTB 2026 — V14.4 TOURNAMENT FINISH
    Aesthetic/final-results refinement only.
    ========================================================= */
 .leader-final-action {
@@ -3048,6 +3048,9 @@ body.score-team-menu-open .score-fixed-top{
 .leader-final-main {
   display: block;
   white-space: nowrap;
+}
+.leader-final-action.summary-label {
+  font-size: clamp(17px, 5vw, 24px);
 }
 .leader-final-sub {
   display: block;
@@ -3132,13 +3135,13 @@ body.score-team-menu-open .score-fixed-top{
 }
 .modal-overlay.tournament-summary .modal-box {
   width: min(660px, calc(100% - 4px));
-  height: auto;
+  height: min(80dvh, 760px);
   max-height: calc(100dvh - 20px);
   min-height: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: clamp(10px, 1.8dvh, 18px) clamp(10px, 3vw, 20px) clamp(10px, 1.7dvh, 16px);
+  padding: clamp(14px, 2.4dvh, 24px) clamp(12px, 3vw, 22px) clamp(14px, 2.2dvh, 22px);
   border: 2px solid #000;
   border-radius: 18px;
   background: #fff;
@@ -3146,10 +3149,10 @@ body.score-team-menu-open .score-fixed-top{
 }
 .modal-overlay.tournament-summary .modal-title {
   flex: 0 0 auto;
-  margin-bottom: clamp(3px, .8dvh, 7px);
+  margin-bottom: clamp(5px, 1dvh, 10px);
   color: var(--gold);
   text-align: center;
-  font-size: clamp(24px, 4.2dvh, 34px);
+  font-size: clamp(28px, 5dvh, 40px);
 }
 .modal-overlay.tournament-summary .modal-text {
   flex: 1 1 auto;
@@ -3159,9 +3162,9 @@ body.score-team-menu-open .score-fixed-top{
   line-height: 1.1;
 }
 .tournament-summary-subtitle {
-  margin: 0 0 clamp(3px, .7dvh, 6px);
+  margin: 0 0 clamp(6px, 1.2dvh, 12px);
   text-align: center;
-  font-size: clamp(17px, 2.9dvh, 23px);
+  font-size: clamp(21px, 3.6dvh, 28px);
   font-weight: 800;
   letter-spacing: .3px;
 }
@@ -3176,14 +3179,14 @@ body.score-team-menu-open .score-fixed-top{
   display: grid;
   grid-template-columns: 9% minmax(0, 1fr) 31% 20%;
   min-height: 0;
-  height: clamp(36px, 5.4dvh, 48px);
+  height: clamp(44px, 6.4dvh, 58px);
   border-bottom: 1px solid var(--line);
 }
 .tournament-summary-row:last-child { border-bottom: 0; }
 .tournament-summary-row.header {
-  height: clamp(34px, 5dvh, 44px);
+  height: clamp(42px, 6dvh, 54px);
   background: #f7f7f7;
-  font-size: clamp(12px, 3.4vw, 16px);
+  font-size: clamp(14px, 4vw, 19px);
   font-weight: 800;
   line-height: 1.02;
 }
@@ -3196,7 +3199,7 @@ body.score-team-menu-open .score-fixed-top{
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px 4px;
+  padding: 4px 6px;
   border-right: 1px solid var(--line);
   text-align: center;
 }
@@ -3211,41 +3214,41 @@ body.score-team-menu-open .score-fixed-top{
   overflow: hidden;
 }
 .tournament-summary-row.place-1 .tournament-summary-team {
-  font-size: clamp(19px, 5.2vw, 26px);
+  font-size: clamp(22px, 6vw, 30px);
 }
 .tournament-summary-row.place-2 .tournament-summary-team {
-  font-size: clamp(17px, 4.7vw, 23px);
+  font-size: clamp(20px, 5.4vw, 27px);
 }
 .tournament-summary-row.place-3 .tournament-summary-team {
-  font-size: clamp(15px, 4.2vw, 20px);
+  font-size: clamp(18px, 4.9vw, 24px);
 }
 .tournament-summary-strokes,
 .tournament-summary-net {
-  font-size: clamp(13px, 3.6vw, 17px);
+  font-size: clamp(16px, 4.3vw, 21px);
   font-weight: 800;
   white-space: nowrap;
 }
 .tournament-summary-notes {
-  margin-top: clamp(3px, .7dvh, 6px);
+  margin-top: clamp(7px, 1.3dvh, 13px);
 }
 .tournament-summary-note {
-  margin-top: 2px;
+  margin-top: 4px;
   color: #222;
   text-align: center;
-  font-size: clamp(13px, 3.6vw, 17px);
+  font-size: clamp(16px, 4.2vw, 21px);
   font-weight: 600;
   line-height: 1.08;
 }
 .tournament-summary-remaining {
-  margin-top: clamp(4px, .8dvh, 7px);
-  padding-top: clamp(3px, .6dvh, 5px);
+  margin-top: clamp(10px, 1.8dvh, 18px);
+  padding-top: clamp(8px, 1.3dvh, 13px);
   border-top: 1px solid var(--line);
   text-align: left;
 }
 .tournament-summary-remaining-row {
   display: block;
-  min-height: clamp(23px, 3.25dvh, 29px);
-  font-size: clamp(15px, 4vw, 19px);
+  min-height: clamp(31px, 4.3dvh, 38px);
+  font-size: clamp(20px, 5.2vw, 26px);
   font-weight: 700;
   line-height: 1.15;
   white-space: nowrap;
@@ -3262,50 +3265,62 @@ body.score-team-menu-open .score-fixed-top{
 .modal-overlay.tournament-summary .modal-actions {
   flex: 0 0 auto;
   width: min(300px, 88%);
-  margin: clamp(10px, 1.8dvh, 16px) auto 0;
+  margin: auto auto 0;
   grid-template-columns: 1fr;
 }
 .modal-overlay.tournament-summary .modal-btn {
-  min-height: clamp(40px, 6.5dvh, 50px);
-  font-size: clamp(14px, 3.5vw, 17px);
+  min-height: clamp(46px, 7dvh, 56px);
+  font-size: clamp(17px, 4.3vw, 21px);
 }
 
 @media (max-height: 650px) {
+  .modal-overlay.tournament-summary .modal-box {
+    height: min(88dvh, 620px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
   .modal-overlay.tournament-summary .modal-title {
-    font-size: clamp(20px, 3.8dvh, 28px);
+    font-size: clamp(21px, 4dvh, 30px);
   }
   .tournament-summary-subtitle {
-    font-size: clamp(15px, 2.6dvh, 20px);
+    font-size: clamp(16px, 2.8dvh, 21px);
+    margin-bottom: 4px;
   }
   .tournament-summary-row {
-    height: clamp(30px, 4.6dvh, 37px);
+    height: clamp(31px, 4.7dvh, 39px);
   }
   .tournament-summary-row.header {
-    height: clamp(30px, 4.4dvh, 36px);
-    font-size: clamp(11px, 3vw, 14px);
+    height: clamp(31px, 4.6dvh, 38px);
+    font-size: clamp(11px, 3.1vw, 15px);
   }
   .tournament-summary-row.place-1 .tournament-summary-team {
-    font-size: clamp(17px, 4.7vw, 22px);
+    font-size: clamp(17px, 4.8vw, 23px);
   }
   .tournament-summary-row.place-2 .tournament-summary-team {
-    font-size: clamp(15px, 4.2vw, 20px);
+    font-size: clamp(16px, 4.4vw, 21px);
   }
   .tournament-summary-row.place-3 .tournament-summary-team {
-    font-size: clamp(14px, 3.8vw, 18px);
+    font-size: clamp(14px, 4vw, 19px);
   }
   .tournament-summary-strokes,
   .tournament-summary-net {
-    font-size: clamp(11px, 3.2vw, 15px);
+    font-size: clamp(12px, 3.3vw, 16px);
   }
   .tournament-summary-note {
-    font-size: clamp(11px, 3.2vw, 15px);
+    font-size: clamp(12px, 3.4vw, 16px);
+    margin-top: 2px;
+  }
+  .tournament-summary-remaining {
+    margin-top: 5px;
+    padding-top: 4px;
   }
   .tournament-summary-remaining-row {
-    min-height: clamp(18px, 2.65dvh, 22px);
-    font-size: clamp(12px, 3.3vw, 16px);
+    min-height: clamp(19px, 2.8dvh, 24px);
+    font-size: clamp(13px, 3.5vw, 17px);
   }
   .modal-overlay.tournament-summary .modal-btn {
     min-height: clamp(38px, 5.8dvh, 45px);
+    font-size: clamp(14px, 3.6vw, 17px);
   }
 }
 @media (max-width: 420px) {
@@ -3353,7 +3368,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.3</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.4</button>
 
       <div class="splash-image-wrap">
 
@@ -7211,7 +7226,7 @@ let scoreTimingDetail =
     function setLeaderboardFinalAction(mode) {
       if (!els.leaderFinalActionButton || !els.leaderTop) return;
       const button = els.leaderFinalActionButton;
-      button.classList.remove('break-tie', 'tournament-summary');
+      button.classList.remove('break-tie', 'tournament-summary', 'summary-label');
 
       if (!mode) {
         button.textContent = '';
@@ -7235,7 +7250,7 @@ let scoreTimingDetail =
           button.innerHTML =
             '<span class="leader-final-main">SCRAMBLE SUMMARY</span>';
         }
-        button.classList.add('tournament-summary');
+        button.classList.add('tournament-summary', 'summary-label');
       }
     }
 
