@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V13.4 -->
+  <!-- ROTB 2026 — V14 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3015,6 +3015,194 @@ body.score-team-menu-open .score-fixed-top{
   text-overflow: clip !important;
 }
 
+
+
+/* =========================================================
+   ROTB 2026 — V14 TOURNAMENT FINISH
+   The normal LIVE LEADERBOARD title/progress area keeps its exact
+   footprint. At tournament completion that footprint becomes one fixed
+   final-action button: red BREAK TIE until acknowledged on this device,
+   then gold TOURNAMENT SUMMARY. Both states are identical geometry.
+   ========================================================= */
+.leader-final-action {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 1px;
+  transform: translateX(-50%);
+  width: min(80%, 430px);
+  height: 52px;
+  min-height: 52px;
+  padding: 0 12px;
+  border: 5px solid #000;
+  border-radius: 9px;
+  box-sizing: border-box;
+  color: #000;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: .35px;
+  text-align: center;
+  z-index: 5;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.leader-final-action.break-tie {
+  display: block;
+  background: var(--red);
+  color: #fff;
+}
+.leader-final-action.tournament-summary {
+  display: block;
+  background: var(--gold);
+  color: #000;
+}
+.leader-top.final-action-active .leader-title { visibility: hidden; }
+.leader-top.final-action-active .leader-refresh-progress { visibility: hidden; }
+
+.modal-overlay.tournament-result {
+  align-items: flex-end;
+  justify-content: center;
+  padding: 20px 20px max(calc(env(safe-area-inset-bottom) + 20px), clamp(20px, 10dvh, 78px));
+}
+.modal-overlay.tournament-result .modal-box {
+  width: min(470px, calc(100% - 4px));
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  padding: clamp(18px, 3.5dvh, 28px) 24px clamp(16px, 3dvh, 24px);
+  border: 2px solid #000;
+  border-radius: 18px;
+  background: #fff;
+  text-align: center;
+}
+.modal-overlay.tournament-result .modal-title {
+  margin-bottom: clamp(10px, 2dvh, 16px);
+  color: #000;
+  text-align: center;
+  font-size: clamp(21px, 3.4dvh, 27px);
+}
+.modal-overlay.tournament-result .modal-text {
+  font-size: clamp(16px, 2.5dvh, 19px);
+  line-height: 1.32;
+  text-align: center;
+}
+.tiebreak-winner {
+  margin: 2px 0 12px;
+  color: var(--gold);
+  font-size: clamp(25px, 4.2dvh, 34px);
+  font-weight: 800;
+  line-height: 1.05;
+}
+.tiebreak-explanation { color: #222; }
+.modal-overlay.tournament-result .modal-actions {
+  margin-top: clamp(14px, 2.5dvh, 20px);
+  grid-template-columns: 3fr 2fr;
+  gap: 11px;
+}
+.modal-btn.tournament-summary-button {
+  border: 5px solid #000 !important;
+  background: var(--gold) !important;
+  color: #000 !important;
+  box-sizing: border-box;
+}
+
+.modal-overlay.tournament-summary {
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px 16px calc(env(safe-area-inset-bottom) + 16px);
+}
+.modal-overlay.tournament-summary .modal-box {
+  width: min(620px, calc(100% - 4px));
+  height: min(78dvh, 650px);
+  max-height: calc(100dvh - 32px);
+  min-height: min(58dvh, 430px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(16px, 2.8dvh, 24px) clamp(14px, 4vw, 24px) clamp(14px, 2.2dvh, 20px);
+  border: 2px solid #000;
+  border-radius: 18px;
+  background: #fff;
+}
+.modal-overlay.tournament-summary .modal-title {
+  flex: 0 0 auto;
+  margin-bottom: clamp(9px, 1.7dvh, 14px);
+  color: var(--gold);
+  text-align: center;
+  font-size: clamp(22px, 3.5dvh, 28px);
+}
+.modal-overlay.tournament-summary .modal-text {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: 16px;
+  line-height: 1.2;
+}
+.modal-overlay.tournament-summary .modal-actions {
+  flex: 0 0 auto;
+  width: min(330px, 92%);
+  margin: clamp(10px, 1.8dvh, 16px) auto 0;
+  grid-template-columns: 1fr;
+}
+.tournament-summary-grid {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  border-radius: 9px;
+  background: #fff;
+}
+.tournament-summary-row {
+  display: grid;
+  grid-template-columns: 11% minmax(0, 1fr) 24% 20%;
+  min-height: clamp(38px, 5.4dvh, 48px);
+  border-bottom: 1px solid var(--line);
+}
+.tournament-summary-row:last-child { border-bottom: 0; }
+.tournament-summary-row.header {
+  min-height: clamp(34px, 4.7dvh, 42px);
+  background: #f7f7f7;
+  font-size: clamp(11px, 2.8vw, 14px);
+  font-weight: 800;
+}
+.tournament-summary-row > div {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 6px;
+  border-right: 1px solid var(--line);
+  text-align: center;
+}
+.tournament-summary-row > div:last-child { border-right: 0; }
+.tournament-summary-place { font-weight: 700; }
+.tournament-summary-team {
+  justify-content: flex-start !important;
+  text-align: left !important;
+  font-weight: 700;
+  line-height: 1.05;
+}
+.tournament-summary-strokes,
+.tournament-summary-net { font-weight: 800; }
+.tournament-summary-note {
+  margin-top: 12px;
+  color: #222;
+  text-align: center;
+  font-size: clamp(13px, 3.5vw, 16px);
+  font-weight: 600;
+}
+@media (max-width: 420px) {
+  .leader-final-action {
+    width: 84%;
+    height: 50px;
+    min-height: 50px;
+    font-size: 18px;
+  }
+  .tournament-summary-row {
+    grid-template-columns: 11% minmax(0, 1fr) 25% 19%;
+  }
+}
+
 </style>
 </head>
 
@@ -3049,7 +3237,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V13.4</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14</button>
 
       <div class="splash-image-wrap">
 
@@ -3265,6 +3453,13 @@ body.score-team-menu-open .score-fixed-top{
           <div class="leader-title">
             LIVE LEADERBOARD
           </div>
+
+          <button
+            id="leaderFinalActionButton"
+            class="leader-final-action"
+            type="button"
+            aria-hidden="true"
+          ></button>
 
 
           <button
@@ -3492,7 +3687,7 @@ body.score-team-menu-open .score-fixed-top{
   <script>
 
     // ==========================================================
-    // ROTB 2026 — V8-CF.4
+    // ROTB 2026 — V14
     //
     // BACKEND ARCHITECTURE — LOCKED
     //
@@ -3625,8 +3820,17 @@ body.score-team-menu-open .score-fixed-top{
       leaderUpdateNote:
         document.getElementById('leaderUpdateNote'),
 
+      leaderRefreshProgress:
+        document.getElementById('leaderRefreshProgress'),
+
       leaderRefreshProgressFill:
         document.getElementById('leaderRefreshProgressFill'),
+
+      leaderFinalActionButton:
+        document.getElementById('leaderFinalActionButton'),
+
+      leaderTop:
+        document.querySelector('.leader-top'),
 
       leaderTiming:
         document.getElementById('leaderTiming'),
@@ -3774,7 +3978,10 @@ body.score-team-menu-open .score-fixed-top{
       null;
 
 
-    let scoreTimingDetail =
+    
+
+    let lastLeaderboardRows = [];
+let scoreTimingDetail =
       '';
 
 
@@ -4318,6 +4525,34 @@ body.score-team-menu-open .score-fixed-top{
 
     }
 
+
+    /* =========================================================
+       V14 — TOURNAMENT FINISH STATE
+       The tiebreak acknowledgement is intentionally per-device.
+       Returning to any incomplete tournament state clears it, which also
+       makes score correction/testing naturally re-arm BREAK TIE.
+       ========================================================= */
+    const TOURNAMENT_TIEBREAK_VIEWED_KEY =
+      'rotbTournamentTieBreakViewedV14';
+
+    function hasViewedTournamentTieBreak() {
+      return localStorage.getItem(
+        TOURNAMENT_TIEBREAK_VIEWED_KEY
+      ) === '1';
+    }
+
+    function markTournamentTieBreakViewed() {
+      localStorage.setItem(
+        TOURNAMENT_TIEBREAK_VIEWED_KEY,
+        '1'
+      );
+    }
+
+    function resetTournamentTieBreakViewed() {
+      localStorage.removeItem(
+        TOURNAMENT_TIEBREAK_VIEWED_KEY
+      );
+    }
 
     /* =========================================================
        RESET USER
@@ -6647,6 +6882,9 @@ body.score-team-menu-open .score-fixed-top{
         renderLeaderboard(
           rows
         );
+        updateTournamentFinishState(
+          rows
+        );
 
         const renderedAt =
           timerStart();
@@ -6762,6 +7000,256 @@ body.score-team-menu-open .score-fixed-top{
 
     }
 
+
+    /* =========================================================
+       V14 — TOURNAMENT COMPLETION / TIEBREAK
+       ========================================================= */
+    function tournamentIsComplete(rows) {
+      return Array.isArray(rows) && rows.length > 0 &&
+        rows.every(row => Number(row.thru) === 18);
+    }
+
+    function firstPlaceTiedRows(rows) {
+      if (!Array.isArray(rows) || rows.length < 2) return [];
+      const numericRows = rows.filter(row => Number.isFinite(Number(row.net)));
+      if (numericRows.length < 2) return [];
+      const bestNet = Math.min(...numericRows.map(row => Number(row.net)));
+      return numericRows.filter(row => Number(row.net) === bestNet);
+    }
+
+    function resolveFirstPlaceTie(rows) {
+      const tied = firstPlaceTiedRows(rows);
+      if (tied.length < 2) return null;
+      let contenders = [...tied];
+
+      for (let index = 0; index < 5; index++) {
+        const scored = contenders.map(row => {
+          const raw = Array.isArray(row.tiebreakScores)
+            ? row.tiebreakScores[index]
+            : '';
+          return {
+            row,
+            score: raw === '' || raw === null || raw === undefined
+              ? NaN
+              : Number(raw)
+          };
+        });
+
+        if (scored.some(item => !Number.isFinite(item.score))) {
+          return { tied, winner: null, decidingIndex: null, unresolved: true };
+        }
+
+        const bestScore = Math.min(...scored.map(item => item.score));
+        contenders = scored.filter(item => item.score === bestScore).map(item => item.row);
+
+        if (contenders.length === 1) {
+          return {
+            tied,
+            winner: contenders[0],
+            decidingIndex: index,
+            winningScore: bestScore,
+            unresolved: false
+          };
+        }
+      }
+
+      return { tied, winner: null, decidingIndex: null, unresolved: true };
+    }
+
+    function ordinalHandicapHole(index) {
+      return [
+        '1st Handicap Hole',
+        '2nd Handicap Hole',
+        '3rd Handicap Hole',
+        '4th Handicap Hole',
+        '5th Handicap Hole'
+      ][index] || '';
+    }
+
+    function setLeaderboardFinalAction(mode) {
+      if (!els.leaderFinalActionButton || !els.leaderTop) return;
+      const button = els.leaderFinalActionButton;
+      button.classList.remove('break-tie', 'tournament-summary');
+
+      if (!mode) {
+        button.textContent = '';
+        button.setAttribute('aria-hidden', 'true');
+        els.leaderTop.classList.remove('final-action-active');
+        return;
+      }
+
+      els.leaderTop.classList.add('final-action-active');
+      button.setAttribute('aria-hidden', 'false');
+
+      if (mode === 'break-tie') {
+        button.textContent = 'BREAK TIE';
+        button.classList.add('break-tie');
+      } else {
+        button.textContent = 'TOURNAMENT SUMMARY';
+        button.classList.add('tournament-summary');
+      }
+    }
+
+    function updateTournamentFinishState(rows) {
+      lastLeaderboardRows = Array.isArray(rows) ? rows.map(row => ({ ...row })) : [];
+
+      if (!tournamentIsComplete(lastLeaderboardRows)) {
+        resetTournamentTieBreakViewed();
+        setLeaderboardFinalAction(null);
+        return;
+      }
+
+      const tied = firstPlaceTiedRows(lastLeaderboardRows);
+      if (tied.length < 2) {
+        setLeaderboardFinalAction('tournament-summary');
+        return;
+      }
+
+      setLeaderboardFinalAction(
+        hasViewedTournamentTieBreak() ? 'tournament-summary' : 'break-tie'
+      );
+    }
+
+    function joinTeamNames(rows) {
+      const names = rows.map(row => displayTeamName(row.team || ''));
+      if (names.length <= 1) return names[0] || '';
+      if (names.length === 2) return names[0] + ' and ' + names[1];
+      return names.slice(0, -1).join(', ') + ', and ' + names[names.length - 1];
+    }
+
+    function showTieBreakResult() {
+      const resolution = resolveFirstPlaceTie(lastLeaderboardRows);
+      if (!resolution || resolution.tied.length < 2) {
+        showTournamentSummary();
+        return;
+      }
+
+      markTournamentTieBreakViewed();
+      setLeaderboardFinalAction('tournament-summary');
+      closeModal();
+      els.modalOverlay.classList.add('tournament-result');
+      els.modalTitle.textContent = 'TIE BREAK RESULT';
+      els.modalTitle.classList.remove('testing');
+      els.modalInput.style.display = 'none';
+
+      if (!resolution.winner || resolution.decidingIndex === null) {
+        els.modalBody.innerHTML =
+          '<div class="tiebreak-winner">TIE REMAINS</div>' +
+          '<div class="tiebreak-explanation">The configured handicap holes did not separate the tied teams.</div>';
+      } else {
+        const tiedNet = formatGolfScore(resolution.tied[0].net);
+        const holeLabel = ordinalHandicapHole(resolution.decidingIndex);
+        const priorCount = resolution.decidingIndex;
+        const priorText = priorCount === 0 ? '' :
+          (priorCount === 1 ? 'They remained tied on the 1st Handicap Hole.<br><br>' :
+          'They remained tied through the first ' + priorCount + ' Handicap Holes.<br><br>');
+
+        const losingScores = resolution.tied
+          .filter(row => row !== resolution.winner)
+          .map(row => Number(row.tiebreakScores[resolution.decidingIndex]));
+        const nextBest = losingScores.length ? Math.min(...losingScores) : null;
+        const scoreText = Number.isFinite(nextBest)
+          ? ', ' + resolution.winningScore + ' to ' + nextBest
+          : '';
+
+        els.modalBody.innerHTML =
+          '<div class="tiebreak-winner">' +
+          escapeHtml(displayTeamName(resolution.winner.team || '').toUpperCase()) +
+          ' WINS</div>' +
+          '<div class="tiebreak-explanation">' +
+          escapeHtml(joinTeamNames(resolution.tied)) +
+          ' finished tied at <strong>' + escapeHtml(tiedNet) + '</strong>.<br><br>' +
+          priorText +
+          escapeHtml(displayTeamName(resolution.winner.team || '')) +
+          ' won on the <strong>' + escapeHtml(holeLabel) + '</strong>' +
+          escapeHtml(scoreText) + '.</div>';
+      }
+
+      const summary = makeModalButton(
+        'TOURNAMENT SUMMARY',
+        'tournament-summary-button',
+        showTournamentSummary
+      );
+      const back = makeModalButton('BACK', '', closeModal);
+      els.modalActions.className = 'modal-actions';
+      els.modalActions.replaceChildren(summary, back);
+      els.modalOverlay.classList.add('open');
+    }
+
+    function tournamentSummaryRows(rows, resolution) {
+      return [...rows].sort((a, b) => {
+        const aNet = Number(a.net);
+        const bNet = Number(b.net);
+        if (Number.isFinite(aNet) && Number.isFinite(bNet) && aNet !== bNet) {
+          return aNet - bNet;
+        }
+        if (resolution && resolution.winner &&
+            Number(a.net) === Number(resolution.winner.net) &&
+            Number(b.net) === Number(resolution.winner.net)) {
+          if (a === resolution.winner) return -1;
+          if (b === resolution.winner) return 1;
+        }
+        return 0;
+      });
+    }
+
+    function showTournamentSummary() {
+      if (!tournamentIsComplete(lastLeaderboardRows)) {
+        closeModal();
+        return;
+      }
+
+      const resolution = resolveFirstPlaceTie(lastLeaderboardRows);
+      const rows = tournamentSummaryRows(lastLeaderboardRows, resolution);
+
+      closeModal();
+      els.modalOverlay.classList.add('tournament-summary');
+      els.modalTitle.textContent = 'TOURNAMENT SUMMARY';
+      els.modalTitle.classList.remove('testing');
+      els.modalInput.style.display = 'none';
+
+      let html =
+        '<div class="tournament-summary-grid">' +
+        '<div class="tournament-summary-row header">' +
+        '<div>#</div><div>TEAM</div><div>STROKES</div><div>NET</div>' +
+        '</div>';
+
+      rows.forEach((row, index) => {
+        const tiedWinner = resolution && resolution.winner && row === resolution.winner;
+        html +=
+          '<div class="tournament-summary-row">' +
+          '<div class="tournament-summary-place">' + escapeHtml(String(index + 1)) + '</div>' +
+          '<div class="tournament-summary-team">' + escapeHtml(displayTeamName(row.team || '')) +
+          (tiedWinner ? '*' : '') + '</div>' +
+          '<div class="tournament-summary-strokes">' + escapeHtml(String(row.totalStrokes ?? '')) + '</div>' +
+          '<div class="tournament-summary-net ' + scoreClass(row.net) + '">' +
+          escapeHtml(formatGolfScore(row.net)) + '</div>' +
+          '</div>';
+      });
+
+      html += '</div>';
+
+      if (resolution && resolution.winner && resolution.decidingIndex !== null) {
+        html += '<div class="tournament-summary-note">* Won on ' +
+          escapeHtml(ordinalHandicapHole(resolution.decidingIndex)) + '</div>';
+      }
+
+      els.modalBody.innerHTML = html;
+      const back = makeModalButton('BACK', '', closeModal);
+      els.modalActions.className = 'modal-actions single';
+      els.modalActions.replaceChildren(back);
+      els.modalOverlay.classList.add('open');
+    }
+
+    function handleLeaderboardFinalAction() {
+      if (!tournamentIsComplete(lastLeaderboardRows)) return;
+      const tied = firstPlaceTiedRows(lastLeaderboardRows);
+      if (tied.length >= 2 && !hasViewedTournamentTieBreak()) {
+        showTieBreakResult();
+        return;
+      }
+      showTournamentSummary();
+    }
 
     /* =========================================================
        LEADERBOARD RENDER
@@ -7874,7 +8362,9 @@ body.score-team-menu-open .score-fixed-top{
           'open',
           'authorization',
           'reset-authorization',
-          'quick-guide'
+          'quick-guide',
+          'tournament-result',
+          'tournament-summary'
         );
 
 
@@ -8092,6 +8582,13 @@ body.score-team-menu-open .score-fixed-top{
         }
       );
 
+
+
+    els.leaderFinalActionButton
+      .addEventListener(
+        'click',
+        handleLeaderboardFinalAction
+      );
 
 
     els.leaderScorecardButton
@@ -8355,4 +8852,3 @@ body.score-team-menu-open .score-fixed-top{
 
 </body>
 </html>
-
