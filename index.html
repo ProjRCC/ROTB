@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V14 -->
+  <!-- ROTB 2026 — V14.1 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3018,11 +3018,8 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   ROTB 2026 — V14 TOURNAMENT FINISH
-   The normal LIVE LEADERBOARD title/progress area keeps its exact
-   footprint. At tournament completion that footprint becomes one fixed
-   final-action button: red BREAK TIE until acknowledged on this device,
-   then gold TOURNAMENT SUMMARY. Both states are identical geometry.
+   ROTB 2026 — V14.1 TOURNAMENT FINISH
+   Aesthetic/final-results refinement only.
    ========================================================= */
 .leader-final-action {
   display: none;
@@ -3030,19 +3027,20 @@ body.score-team-menu-open .score-fixed-top{
   left: 50%;
   top: 1px;
   transform: translateX(-50%);
-  width: min(80%, 430px);
+  width: min(88%, 470px);
   height: 52px;
   min-height: 52px;
-  padding: 0 12px;
+  padding: 0 10px;
   border: 5px solid #000;
   border-radius: 9px;
   box-sizing: border-box;
   color: #000;
-  font-size: 20px;
+  font-size: clamp(13px, 4.1vw, 20px);
   font-weight: 800;
   line-height: 1;
-  letter-spacing: .35px;
+  letter-spacing: .2px;
   text-align: center;
+  white-space: nowrap;
   z-index: 5;
   -webkit-appearance: none;
   appearance: none;
@@ -3060,44 +3058,52 @@ body.score-team-menu-open .score-fixed-top{
 .leader-top.final-action-active .leader-title { visibility: hidden; }
 .leader-top.final-action-active .leader-refresh-progress { visibility: hidden; }
 
+/* Tiebreak result: center the card around 65% of viewport height. */
 .modal-overlay.tournament-result {
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: 20px 20px max(calc(env(safe-area-inset-bottom) + 20px), clamp(20px, 10dvh, 78px));
+  padding: 14px 20px;
 }
 .modal-overlay.tournament-result .modal-box {
   width: min(470px, calc(100% - 4px));
-  max-height: calc(100dvh - 40px);
-  overflow-y: auto;
-  padding: clamp(18px, 3.5dvh, 28px) 24px clamp(16px, 3dvh, 24px);
+  max-height: min(66dvh, 520px);
+  overflow: hidden;
+  padding: clamp(14px, 2.7dvh, 24px) 24px clamp(13px, 2.4dvh, 20px);
   border: 2px solid #000;
   border-radius: 18px;
   background: #fff;
   text-align: center;
+  transform: translateY(clamp(24px, 15dvh, 105px));
 }
 .modal-overlay.tournament-result .modal-title {
-  margin-bottom: clamp(10px, 2dvh, 16px);
+  margin-bottom: clamp(8px, 1.5dvh, 13px);
   color: #000;
   text-align: center;
-  font-size: clamp(21px, 3.4dvh, 27px);
+  font-size: clamp(19px, 3.1dvh, 26px);
 }
 .modal-overlay.tournament-result .modal-text {
-  font-size: clamp(16px, 2.5dvh, 19px);
-  line-height: 1.32;
+  font-size: clamp(14px, 2.25dvh, 18px);
+  line-height: 1.28;
   text-align: center;
 }
 .tiebreak-winner {
-  margin: 2px 0 12px;
+  margin: 1px 0 clamp(7px, 1.5dvh, 12px);
   color: var(--gold);
-  font-size: clamp(25px, 4.2dvh, 34px);
+  font-size: clamp(16px, 7.5vw, 34px);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.02;
+  white-space: nowrap;
+  letter-spacing: -.25px;
 }
 .tiebreak-explanation { color: #222; }
 .modal-overlay.tournament-result .modal-actions {
-  margin-top: clamp(14px, 2.5dvh, 20px);
-  grid-template-columns: 3fr 2fr;
+  margin-top: clamp(10px, 2dvh, 16px);
+  grid-template-columns: 2fr 3fr;
   gap: 11px;
+}
+.modal-overlay.tournament-result .modal-btn {
+  min-height: clamp(44px, 7.2dvh, 54px);
+  font-size: clamp(14px, 3.7vw, 18px);
 }
 .modal-btn.tournament-summary-button {
   border: 5px solid #000 !important;
@@ -3106,44 +3112,47 @@ body.score-team-menu-open .score-fixed-top{
   box-sizing: border-box;
 }
 
+/* Tournament Summary: fixed no-scroll card, centered around the same
+   65%-down viewport line. Content compresses to keep up to 10 teams visible. */
 .modal-overlay.tournament-summary {
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  padding: 16px 16px calc(env(safe-area-inset-bottom) + 16px);
+  padding: 10px 14px;
 }
 .modal-overlay.tournament-summary .modal-box {
   width: min(620px, calc(100% - 4px));
-  height: min(78dvh, 650px);
-  max-height: calc(100dvh - 32px);
-  min-height: min(58dvh, 430px);
+  height: min(66dvh, 610px);
+  max-height: calc(100dvh - 20px);
+  min-height: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: clamp(16px, 2.8dvh, 24px) clamp(14px, 4vw, 24px) clamp(14px, 2.2dvh, 20px);
+  padding: clamp(10px, 1.8dvh, 18px) clamp(10px, 3vw, 20px) clamp(10px, 1.7dvh, 16px);
   border: 2px solid #000;
   border-radius: 18px;
   background: #fff;
+  transform: translateY(clamp(18px, 15dvh, 95px));
 }
 .modal-overlay.tournament-summary .modal-title {
   flex: 0 0 auto;
-  margin-bottom: clamp(9px, 1.7dvh, 14px);
+  margin-bottom: clamp(3px, .8dvh, 7px);
   color: var(--gold);
   text-align: center;
-  font-size: clamp(22px, 3.5dvh, 28px);
+  font-size: clamp(19px, 3dvh, 26px);
 }
 .modal-overlay.tournament-summary .modal-text {
   flex: 1 1 auto;
   min-height: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  font-size: 16px;
-  line-height: 1.2;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.1;
 }
-.modal-overlay.tournament-summary .modal-actions {
-  flex: 0 0 auto;
-  width: min(330px, 92%);
-  margin: clamp(10px, 1.8dvh, 16px) auto 0;
-  grid-template-columns: 1fr;
+.tournament-summary-subtitle {
+  margin: 0 0 clamp(3px, .7dvh, 6px);
+  text-align: center;
+  font-size: clamp(13px, 2.2dvh, 17px);
+  font-weight: 800;
+  letter-spacing: .3px;
 }
 .tournament-summary-grid {
   width: 100%;
@@ -3154,15 +3163,16 @@ body.score-team-menu-open .score-fixed-top{
 }
 .tournament-summary-row {
   display: grid;
-  grid-template-columns: 11% minmax(0, 1fr) 24% 20%;
-  min-height: clamp(38px, 5.4dvh, 48px);
+  grid-template-columns: 9% minmax(0, 1fr) 31% 20%;
+  min-height: 0;
+  height: clamp(31px, 4.7dvh, 42px);
   border-bottom: 1px solid var(--line);
 }
 .tournament-summary-row:last-child { border-bottom: 0; }
 .tournament-summary-row.header {
-  min-height: clamp(34px, 4.7dvh, 42px);
+  height: clamp(28px, 4.1dvh, 36px);
   background: #f7f7f7;
-  font-size: clamp(11px, 2.8vw, 14px);
+  font-size: clamp(9px, 2.55vw, 12px);
   font-weight: 800;
 }
 .tournament-summary-row > div {
@@ -3170,36 +3180,111 @@ body.score-team-menu-open .score-fixed-top{
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px 6px;
+  padding: 2px 4px;
   border-right: 1px solid var(--line);
   text-align: center;
 }
 .tournament-summary-row > div:last-child { border-right: 0; }
-.tournament-summary-place { font-weight: 700; }
+.tournament-summary-place { font-weight: 800; }
 .tournament-summary-team {
-  justify-content: flex-start !important;
-  text-align: left !important;
-  font-weight: 700;
-  line-height: 1.05;
+  justify-content: center !important;
+  text-align: center !important;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.tournament-summary-row.place-1 .tournament-summary-team {
+  font-size: clamp(16px, 4.4vw, 22px);
+}
+.tournament-summary-row.place-2 .tournament-summary-team {
+  font-size: clamp(14px, 3.9vw, 19px);
+}
+.tournament-summary-row.place-3 .tournament-summary-team {
+  font-size: clamp(12px, 3.4vw, 17px);
 }
 .tournament-summary-strokes,
-.tournament-summary-net { font-weight: 800; }
+.tournament-summary-net {
+  font-size: clamp(10px, 2.9vw, 14px);
+  font-weight: 800;
+  white-space: nowrap;
+}
+.tournament-summary-notes {
+  margin-top: clamp(3px, .7dvh, 6px);
+}
 .tournament-summary-note {
-  margin-top: 12px;
+  margin-top: 2px;
   color: #222;
   text-align: center;
-  font-size: clamp(13px, 3.5vw, 16px);
+  font-size: clamp(10px, 2.8vw, 13px);
   font-weight: 600;
+  line-height: 1.08;
+}
+.tournament-summary-remaining {
+  margin-top: clamp(4px, .8dvh, 7px);
+  padding-top: clamp(3px, .6dvh, 5px);
+  border-top: 1px solid var(--line);
+  text-align: left;
+}
+.tournament-summary-remaining-row {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr) auto auto;
+  gap: 5px;
+  align-items: center;
+  min-height: clamp(17px, 2.6dvh, 23px);
+  font-size: clamp(10px, 2.75vw, 13px);
+  line-height: 1;
+}
+.tournament-summary-remaining-row .bullet-place {
+  font-weight: 800;
+  white-space: nowrap;
+}
+.tournament-summary-remaining-row .remaining-team {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 700;
+}
+.tournament-summary-remaining-row .remaining-strokes,
+.tournament-summary-remaining-row .remaining-net {
+  font-weight: 700;
+  white-space: nowrap;
+}
+.modal-overlay.tournament-summary .modal-actions {
+  flex: 0 0 auto;
+  width: min(300px, 88%);
+  margin: clamp(5px, 1dvh, 9px) auto 0;
+  grid-template-columns: 1fr;
+}
+.modal-overlay.tournament-summary .modal-btn {
+  min-height: clamp(40px, 6.5dvh, 50px);
+  font-size: clamp(14px, 3.5vw, 17px);
+}
+
+@media (max-height: 650px) {
+  .modal-overlay.tournament-result .modal-box,
+  .modal-overlay.tournament-summary .modal-box {
+    transform: translateY(7dvh);
+  }
+  .modal-overlay.tournament-summary .modal-box {
+    height: 78dvh;
+  }
+  .tournament-summary-row {
+    height: clamp(27px, 4.3dvh, 34px);
+  }
+  .tournament-summary-remaining-row {
+    min-height: clamp(15px, 2.35dvh, 19px);
+  }
 }
 @media (max-width: 420px) {
   .leader-final-action {
-    width: 84%;
+    width: 90%;
     height: 50px;
     min-height: 50px;
-    font-size: 18px;
   }
   .tournament-summary-row {
-    grid-template-columns: 11% minmax(0, 1fr) 25% 19%;
+    grid-template-columns: 8% minmax(0, 1fr) 33% 20%;
   }
 }
 
@@ -7002,7 +7087,7 @@ let scoreTimingDetail =
 
 
     /* =========================================================
-       V14 — TOURNAMENT COMPLETION / TIEBREAK
+       V14.1 — TOURNAMENT COMPLETION / PODIUM TIEBREAK
        ========================================================= */
     function tournamentIsComplete(rows) {
       return Array.isArray(rows) && rows.length > 0 &&
@@ -7017,23 +7102,49 @@ let scoreTimingDetail =
       return numericRows.filter(row => Number(row.net) === bestNet);
     }
 
+    function tiebreakValue(row, index) {
+      const raw = Array.isArray(row.tiebreakScores)
+        ? row.tiebreakScores[index]
+        : '';
+      if (raw === '' || raw === null || raw === undefined) return NaN;
+      return Number(raw);
+    }
+
+    function compareTiebreakRows(a, b) {
+      for (let index = 0; index < 5; index++) {
+        const aScore = tiebreakValue(a, index);
+        const bScore = tiebreakValue(b, index);
+        if (!Number.isFinite(aScore) || !Number.isFinite(bScore)) return 0;
+        if (aScore !== bScore) {
+          return {
+            order: aScore - bScore,
+            decidingIndex: index
+          };
+        }
+      }
+      return { order: 0, decidingIndex: null };
+    }
+
+    function resolveTieGroup(rows) {
+      const original = [...rows];
+      const sorted = [...rows].sort((a, b) => {
+        const result = compareTiebreakRows(a, b);
+        return result && typeof result === 'object' ? result.order : 0;
+      });
+      return { original, sorted };
+    }
+
     function resolveFirstPlaceTie(rows) {
       const tied = firstPlaceTiedRows(rows);
       if (tied.length < 2) return null;
+
       let contenders = [...tied];
 
       for (let index = 0; index < 5; index++) {
-        const scored = contenders.map(row => {
-          const raw = Array.isArray(row.tiebreakScores)
-            ? row.tiebreakScores[index]
-            : '';
-          return {
-            row,
-            score: raw === '' || raw === null || raw === undefined
-              ? NaN
-              : Number(raw)
-          };
-        });
+        const scored = contenders.map(row => ({
+          row,
+          score: tiebreakValue(row, index)
+        }));
 
         if (scored.some(item => !Number.isFinite(item.score))) {
           return { tied, winner: null, decidingIndex: null, unresolved: true };
@@ -7085,7 +7196,11 @@ let scoreTimingDetail =
         button.textContent = 'BREAK TIE';
         button.classList.add('break-tie');
       } else {
-        button.textContent = 'TOURNAMENT SUMMARY';
+        const tied = firstPlaceTiedRows(lastLeaderboardRows);
+        button.textContent =
+          tied.length >= 2 && hasViewedTournamentTieBreak()
+            ? 'TOURNAMENT SUMMARY (*TIE BREAK WINNER)'
+            : 'TOURNAMENT SUMMARY';
         button.classList.add('tournament-summary');
       }
     }
@@ -7126,6 +7241,11 @@ let scoreTimingDetail =
 
       markTournamentTieBreakViewed();
       setLeaderboardFinalAction('tournament-summary');
+
+      /* Re-render immediately so the resolved winner moves to #1 and
+         receives the single asterisk on the normal leaderboard. */
+      renderLeaderboard(lastLeaderboardRows);
+
       closeModal();
       els.modalOverlay.classList.add('tournament-result');
       els.modalTitle.textContent = 'TIE BREAK RESULT';
@@ -7146,7 +7266,7 @@ let scoreTimingDetail =
 
         const losingScores = resolution.tied
           .filter(row => row !== resolution.winner)
-          .map(row => Number(row.tiebreakScores[resolution.decidingIndex]));
+          .map(row => tiebreakValue(row, resolution.decidingIndex));
         const nextBest = losingScores.length ? Math.min(...losingScores) : null;
         const scoreText = Number.isFinite(nextBest)
           ? ', ' + resolution.winningScore + ' to ' + nextBest
@@ -7165,32 +7285,119 @@ let scoreTimingDetail =
           escapeHtml(scoreText) + '.</div>';
       }
 
+      const back = makeModalButton('BACK', '', closeModal);
       const summary = makeModalButton(
         'TOURNAMENT SUMMARY',
         'tournament-summary-button',
         showTournamentSummary
       );
-      const back = makeModalButton('BACK', '', closeModal);
       els.modalActions.className = 'modal-actions';
-      els.modalActions.replaceChildren(summary, back);
+      els.modalActions.replaceChildren(back, summary);
       els.modalOverlay.classList.add('open');
     }
 
-    function tournamentSummaryRows(rows, resolution) {
-      return [...rows].sort((a, b) => {
-        const aNet = Number(a.net);
-        const bNet = Number(b.net);
+    function getSummaryHandicap(row) {
+      const match = teams.find(team => Number(team.slot) === Number(row.slot));
+      const candidates = [
+        row.handicap,
+        row.hcp,
+        row.teamHandicap,
+        row.teamHcp,
+        match ? match.handicap : undefined,
+        match ? match.hcp : undefined
+      ];
+      const direct = candidates.find(value =>
+        value !== undefined && value !== null && String(value).trim() !== ''
+      );
+      let hcp = Number(direct);
+      if (!Number.isFinite(hcp)) {
+        const gross = Number(row.gross);
+        const net = Number(row.net);
+        if (Number.isFinite(gross) && Number.isFinite(net)) {
+          hcp = Math.abs(gross - net);
+        }
+      }
+      return Number.isFinite(hcp) ? Math.abs(hcp) : null;
+    }
+
+    function buildTournamentPodium(rows) {
+      const source = rows.slice(0, 10);
+      const indexed = source.map((row, index) => ({ row, index }));
+      indexed.sort((a, b) => {
+        const aNet = Number(a.row.net);
+        const bNet = Number(b.row.net);
         if (Number.isFinite(aNet) && Number.isFinite(bNet) && aNet !== bNet) {
           return aNet - bNet;
         }
-        if (resolution && resolution.winner &&
-            Number(a.net) === Number(resolution.winner.net) &&
-            Number(b.net) === Number(resolution.winner.net)) {
-          if (a === resolution.winner) return -1;
-          if (b === resolution.winner) return 1;
-        }
-        return 0;
+        return a.index - b.index;
       });
+
+      const ordered = [];
+      let cursor = 0;
+      while (cursor < indexed.length) {
+        const net = Number(indexed[cursor].row.net);
+        let end = cursor + 1;
+        while (
+          end < indexed.length &&
+          Number(indexed[end].row.net) === net
+        ) end++;
+
+        const group = indexed.slice(cursor, end).map(item => item.row);
+        const startsAtPlace = ordered.length + 1;
+        const touchesPodium = startsAtPlace <= 3;
+
+        if (group.length > 1 && touchesPodium) {
+          const resolved = resolveTieGroup(group);
+          ordered.push(...resolved.sorted);
+        } else {
+          ordered.push(...group);
+        }
+        cursor = end;
+      }
+
+      const annotations = new Map();
+      const firstTie = firstPlaceTiedRows(source);
+      const firstResolution = resolveFirstPlaceTie(source);
+
+      if (firstResolution && firstResolution.winner && firstResolution.decidingIndex !== null) {
+        annotations.set(firstResolution.winner, {
+          marks: '*',
+          note: '* Won on ' + ordinalHandicapHole(firstResolution.decidingIndex)
+        });
+      }
+
+      /* Only podium positions 2 and 3 receive secondary playoff treatment.
+         Fourth place and below retain ordinary leaderboard order. */
+      for (const placeIndex of [1, 2]) {
+        const row = ordered[placeIndex];
+        const next = ordered[placeIndex + 1];
+        if (!row || !next) continue;
+        if (Number(row.net) !== Number(next.net)) continue;
+
+        const comparison = compareTiebreakRows(row, next);
+        if (!comparison || comparison.order >= 0 || comparison.decidingIndex === null) continue;
+
+        if (!annotations.has(row)) {
+          annotations.set(row, {
+            marks: '**',
+            note: '** Won ' + (placeIndex + 1) + ordinalSuffix(placeIndex + 1) +
+              '-place tiebreak on ' + ordinalHandicapHole(comparison.decidingIndex)
+          });
+        }
+      }
+
+      return { ordered, annotations, firstTie };
+    }
+
+    function ordinalSuffix(number) {
+      if (number === 1) return 'st';
+      if (number === 2) return 'nd';
+      if (number === 3) return 'rd';
+      return 'th';
+    }
+
+    function tournamentSummaryRows(rows, resolution) {
+      return buildTournamentPodium(rows).ordered;
     }
 
     function showTournamentSummary() {
@@ -7199,8 +7406,8 @@ let scoreTimingDetail =
         return;
       }
 
-      const resolution = resolveFirstPlaceTie(lastLeaderboardRows);
-      const rows = tournamentSummaryRows(lastLeaderboardRows, resolution);
+      const podium = buildTournamentPodium(lastLeaderboardRows);
+      const rows = podium.ordered.slice(0, 10);
 
       closeModal();
       els.modalOverlay.classList.add('tournament-summary');
@@ -7209,19 +7416,26 @@ let scoreTimingDetail =
       els.modalInput.style.display = 'none';
 
       let html =
+        '<div class="tournament-summary-subtitle">TOP 3 FINISHERS</div>' +
         '<div class="tournament-summary-grid">' +
         '<div class="tournament-summary-row header">' +
-        '<div>#</div><div>TEAM</div><div>STROKES</div><div>NET</div>' +
+        '<div>#</div><div>TEAM</div><div>NET STROKES</div><div>NET SCORE</div>' +
         '</div>';
 
-      rows.forEach((row, index) => {
-        const tiedWinner = resolution && resolution.winner && row === resolution.winner;
+      rows.slice(0, 3).forEach((row, index) => {
+        const annotation = podium.annotations.get(row);
+        const marks = annotation ? annotation.marks : '';
+        const hcp = getSummaryHandicap(row);
+        const strokesText =
+          String(row.totalStrokes ?? '') +
+          (hcp === null ? '' : ' (HCP ' + hcp + ')');
+
         html +=
-          '<div class="tournament-summary-row">' +
+          '<div class="tournament-summary-row place-' + (index + 1) + '">' +
           '<div class="tournament-summary-place">' + escapeHtml(String(index + 1)) + '</div>' +
-          '<div class="tournament-summary-team">' + escapeHtml(displayTeamName(row.team || '')) +
-          (tiedWinner ? '*' : '') + '</div>' +
-          '<div class="tournament-summary-strokes">' + escapeHtml(String(row.totalStrokes ?? '')) + '</div>' +
+          '<div class="tournament-summary-team">' +
+          escapeHtml(displayTeamName(row.team || '')) + escapeHtml(marks) + '</div>' +
+          '<div class="tournament-summary-strokes">' + escapeHtml(strokesText) + '</div>' +
           '<div class="tournament-summary-net ' + scoreClass(row.net) + '">' +
           escapeHtml(formatGolfScore(row.net)) + '</div>' +
           '</div>';
@@ -7229,9 +7443,38 @@ let scoreTimingDetail =
 
       html += '</div>';
 
-      if (resolution && resolution.winner && resolution.decidingIndex !== null) {
-        html += '<div class="tournament-summary-note">* Won on ' +
-          escapeHtml(ordinalHandicapHole(resolution.decidingIndex)) + '</div>';
+      const notes = [];
+      rows.slice(0, 3).forEach(row => {
+        const annotation = podium.annotations.get(row);
+        if (annotation && annotation.note && !notes.includes(annotation.note)) {
+          notes.push(annotation.note);
+        }
+      });
+      if (notes.length) {
+        html += '<div class="tournament-summary-notes">' +
+          notes.map(note =>
+            '<div class="tournament-summary-note">' + escapeHtml(note) + '</div>'
+          ).join('') +
+          '</div>';
+      }
+
+      if (rows.length > 3) {
+        html += '<div class="tournament-summary-remaining">';
+        rows.slice(3).forEach((row, index) => {
+          const hcp = getSummaryHandicap(row);
+          const strokesText =
+            String(row.totalStrokes ?? '') +
+            (hcp === null ? '' : ' (HCP ' + hcp + ')');
+          html +=
+            '<div class="tournament-summary-remaining-row">' +
+            '<div class="bullet-place">• ' + escapeHtml(String(index + 4)) + '.</div>' +
+            '<div class="remaining-team">' + escapeHtml(displayTeamName(row.team || '')) + '</div>' +
+            '<div class="remaining-strokes">' + escapeHtml(strokesText) + '</div>' +
+            '<div class="remaining-net ' + scoreClass(row.net) + '">' +
+            escapeHtml(formatGolfScore(row.net)) + '</div>' +
+            '</div>';
+        });
+        html += '</div>';
       }
 
       els.modalBody.innerHTML = html;
@@ -7259,6 +7502,31 @@ let scoreTimingDetail =
     function renderLeaderboard(
       rows
     ) {
+
+      if (
+        tournamentIsComplete(rows) &&
+        hasViewedTournamentTieBreak() &&
+        firstPlaceTiedRows(rows).length >= 2
+      ) {
+        const resolution = resolveFirstPlaceTie(rows);
+        if (resolution && resolution.winner) {
+          rows = [...rows].sort((a, b) => {
+            const aNet = Number(a.net);
+            const bNet = Number(b.net);
+            if (Number.isFinite(aNet) && Number.isFinite(bNet) && aNet !== bNet) {
+              return aNet - bNet;
+            }
+            if (
+              Number(a.net) === Number(resolution.winner.net) &&
+              Number(b.net) === Number(resolution.winner.net)
+            ) {
+              if (a === resolution.winner) return -1;
+              if (b === resolution.winner) return 1;
+            }
+            return 0;
+          });
+        }
+      }
 
       els.leaderRows.innerHTML =
         '';
@@ -7331,8 +7599,20 @@ let scoreTimingDetail =
             'leader-team-name';
 
 
+          const completedTieResolution =
+            tournamentIsComplete(rows) &&
+            hasViewedTournamentTieBreak()
+              ? resolveFirstPlaceTie(rows)
+              : null;
+
           teamName.textContent =
-            displayTeamName(row.team || '');
+            displayTeamName(row.team || '') +
+            (
+              completedTieResolution &&
+              completedTieResolution.winner === row
+                ? '*'
+                : ''
+            );
 
 
           const hcpCell =
