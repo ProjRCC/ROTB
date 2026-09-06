@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V12.13 -->
+  <!-- ROTB 2026 — V12.14 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2964,7 +2964,7 @@ body.score-team-menu-open .score-fixed-top{
     }
 
 
-/* V12.13 — leaderboard header and every body row use the exact same
+/* V12.14 — leaderboard header and every body row use the exact same
    five grid tracks on their real containers so divider lines align. */
 .leader-table-head,
 .leader-row,
@@ -2977,7 +2977,7 @@ body.score-team-menu-open .score-fixed-top{
     22% !important;
 }
 
-/* V12.13 — HCP header stays horizontal and scales to the narrow column. */
+/* V12.14 — HCP header stays horizontal and scales to the narrow column. */
 .leader-table-head .leader-hcp-header span {
   transform: none !important;
   font-size: clamp(10px, 3.35vw, 1em) !important;
@@ -3019,7 +3019,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12.13</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V12.14</button>
 
       <div class="splash-image-wrap">
 
@@ -4777,7 +4777,7 @@ body.score-team-menu-open .score-fixed-top{
       );
 
 
-      /* V12.13 — fresh backend read every time the scorecard is entered.
+      /* V12.14 — fresh backend read every time the scorecard is entered.
        No polling while the scorecard remains open. */
       if (!scorecardLoadInProgress) {
         await loadScorecard();
@@ -5089,10 +5089,74 @@ body.score-team-menu-open .score-fixed-top{
       updateScoreTeamSelectButton();
     }
 
+    function fitScoreTeamSelectName() {
+      const button = els.scoreTeamSelectButton;
+
+      if (!button) {
+        return;
+      }
+
+      button.style.removeProperty('font-size');
+
+      if (!selectedTeam) {
+        return;
+      }
+
+      const maxFont = 22;
+      const minFont = 12;
+
+      let fontSize = maxFont;
+
+      button.style.setProperty(
+        'font-size',
+        fontSize + 'px',
+        'important'
+      );
+
+      while (fontSize > minFont) {
+        const computed =
+          getComputedStyle(button);
+
+        const lineHeight =
+          parseFloat(computed.lineHeight) ||
+          fontSize;
+
+        const maxTwoLineHeight =
+          lineHeight * 2 + 1;
+
+        const fitsHeight =
+          button.scrollHeight <=
+          Math.max(
+            button.clientHeight,
+            maxTwoLineHeight
+          );
+
+        const fitsWidth =
+          button.scrollWidth <=
+          button.clientWidth + 1;
+
+        if (fitsHeight && fitsWidth) {
+          break;
+        }
+
+        fontSize -= 0.5;
+
+        button.style.setProperty(
+          'font-size',
+          fontSize + 'px',
+          'important'
+        );
+      }
+    }
+
     function updateScoreTeamSelectButton() {
       if (!els.scoreTeamSelectButton) return;
       els.scoreTeamSelectButton.textContent = selectedTeam ? selectedTeam.name : 'SELECT TEAM';
       els.scoreTeamSelectButton.classList.toggle('has-team', !!selectedTeam);
+
+      requestAnimationFrame(
+        fitScoreTeamSelectName
+      );
     }
 
     function closeScoreTeamDropdown() {
@@ -5377,7 +5441,7 @@ body.score-team-menu-open .score-fixed-top{
         return;
       }
 
-      /* V12.13 agreed scorecard typography:
+      /* V12.14 agreed scorecard typography:
          HOLE = 85% of SCORE.
          PAR = 80% of HOLE.
          YARDS = 70% of HOLE. */
@@ -6692,6 +6756,13 @@ body.score-team-menu-open .score-fixed-top{
       els.leaderRows.innerHTML =
         '';
 
+      if (els.leaderContent) {
+        els.leaderContent.classList.toggle(
+          'short-leaderboard',
+          Array.isArray(rows) && rows.length < 8
+        );
+      }
+
 
       let previousNet = null;
       let previousPlace = 0;
@@ -7055,7 +7126,7 @@ body.score-team-menu-open .score-fixed-top{
       const root =
         els.leaderRows;
 
-      /* V12.13 agreed body typography:
+      /* V12.14 agreed body typography:
          TEAM 40% RH
          TOTAL 60% RH
          PLACE 33% RH
@@ -7189,8 +7260,8 @@ body.score-team-menu-open .score-fixed-top{
       setSizes();
 
       /* TEAM is 40% RH by default.
-         Multi-word names may naturally wrap to a second line.
-         A single unbroken word shrinks only that specific name if needed. */
+         Every name may use at most two lines.
+         Only names that would exceed two lines are reduced. */
       root
         .querySelectorAll(
           '.leader-team-name'
@@ -7204,44 +7275,59 @@ body.score-team-menu-open .score-fixed-top{
             const name =
               (element.textContent || '').trim();
 
-            if (
-              !name ||
-              /\s/.test(name)
-            ) {
+            if (!name) {
               return;
             }
 
-            const cell =
-              element.closest(
-                '.leader-team-cell'
-              );
+            const maxFont =
+              teamSize;
 
-            if (!cell) {
-              return;
-            }
-
-            const available =
+            const minFont =
               Math.max(
-                0,
-                cell.clientWidth - 8
+                11,
+                teamSize * 0.52
               );
 
-            const needed =
-              element.scrollWidth;
+            let fontSize =
+              maxFont;
 
-            if (
-              available > 0 &&
-              needed > available
-            ) {
-              const scale =
-                Math.min(
-                  1,
-                  available / needed
-                );
+            element.style.setProperty(
+              'font-size',
+              fontSize + 'px',
+              'important'
+            );
+
+            while (fontSize > minFont) {
+              const computed =
+                getComputedStyle(element);
+
+              const lineHeight =
+                parseFloat(computed.lineHeight) ||
+                fontSize;
+
+              const maxTwoLineHeight =
+                lineHeight * 2 + 1;
+
+              const fitsTwoLines =
+                element.scrollHeight <=
+                maxTwoLineHeight;
+
+              const fitsWidth =
+                element.scrollWidth <=
+                element.clientWidth + 1;
+
+              if (
+                fitsTwoLines &&
+                fitsWidth
+              ) {
+                break;
+              }
+
+              fontSize -= 0.5;
 
               element.style.setProperty(
                 'font-size',
-                (teamSize * scale) + 'px',
+                fontSize + 'px',
                 'important'
               );
             }
@@ -8213,7 +8299,7 @@ body.score-team-menu-open .score-fixed-top{
 
   
     /* =========================================================
-       V12.13 — LEADERBOARD IDLE REFRESH
+       V12.14 — LEADERBOARD IDLE REFRESH
        Any interaction while the leaderboard is open resets the
        progress bar and requires 10 full idle seconds before refresh.
        ========================================================= */
@@ -8318,7 +8404,7 @@ body.score-team-menu-open .score-fixed-top{
     35% !important;
 }
 
-/* V12.13 — scorecard body typography is applied in JS from the actual
+/* V12.14 — scorecard body typography is applied in JS from the actual
    computed SCORE numeral size: HOLE = 85% of SCORE; PAR = 80% of HOLE; YARDS = 70% of HOLE. */
 
 /* Keep the already-approved larger-screen SAVED gold score-box geometry. */
@@ -8348,7 +8434,7 @@ body.score-team-menu-open .score-fixed-top{
     22% !important;
 }
 
-/* V12.13 leaderboard body typography — row-height driven. */
+/* V12.14 leaderboard body typography — row-height driven. */
 #leaderRows .leader-team-name {
   font-size:
     var(--leader-team-font, 20px) !important;
@@ -8415,7 +8501,7 @@ body.score-team-menu-open .score-fixed-top{
 }
 
 /* =========================================================
-   V12.13 — PHONE HEADER REFINEMENTS
+   V12.14 — PHONE HEADER REFINEMENTS
    ========================================================= */
 
 /* Center team identity against the entire gold bar; arrow remains independently positioned. */
@@ -8435,7 +8521,7 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   V12.13 — ACTION HIERARCHY
+   V12.14 — ACTION HIERARCHY
    ========================================================= */
 #homeLeaderboardButton,
 #homeLeaderboardButton:active {
@@ -8460,7 +8546,56 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   V12.13 — SCORECARD SELECTOR + RUNNING SCORE + LEADER REFRESH
+   V12.14 — SHORT LEADERBOARD FRAME + TWO-LINE TEAM NAMES
+   ========================================================= */
+
+/* Fewer than eight teams:
+   keep the leaderboard viewport and bottom controls exactly where they are,
+   but move the visible body frame onto the actual rendered rows. */
+.leader-content.short-leaderboard {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  clip-path: none !important;
+  -webkit-clip-path: none !important;
+  contain: layout !important;
+}
+
+.leader-content.short-leaderboard .leader-table {
+  width: 100% !important;
+  border-left: 1px solid var(--line-strong) !important;
+  border-right: 1px solid var(--line-strong) !important;
+  border-bottom: 1px solid var(--line-strong) !important;
+  border-radius: 0 0 9px 9px !important;
+  background: rgba(255,255,255,.42) !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Closed scorecard selector only.
+   Dropdown options retain their existing larger available space. */
+.score-team-select-button.has-team {
+  white-space: normal !important;
+  line-height: .95 !important;
+  overflow: hidden !important;
+  text-overflow: clip !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+/* Leaderboard team names are never allowed to occupy more than two lines.
+   JS reduces only an oversized name until it fits. */
+#leaderRows .leader-team-name {
+  line-height: .95 !important;
+  max-height: 1.9em !important;
+  overflow: hidden !important;
+}
+
+
+/* =========================================================
+   V12.14 — SCORECARD SELECTOR + RUNNING SCORE + LEADER REFRESH
    ========================================================= */
 .score-team-select-button,
 .score-team-select-button.has-team,
@@ -8500,7 +8635,7 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   V12.13 — LEADERBOARD TOP SPACING REFINEMENT
+   V12.14 — LEADERBOARD TOP SPACING REFINEMENT
    ========================================================= */
 
 /* Shift only the LIVE LEADERBOARD title/progress group upward slightly. */
