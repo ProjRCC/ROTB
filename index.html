@@ -12,7 +12,7 @@
 
   <title>ROTB 2026</title>
 
-  <!-- ROTB 2026 — V14.14 -->
+  <!-- ROTB 2026 — V14.15 -->
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3052,7 +3052,7 @@ body.score-team-menu-open .score-fixed-top{
 
 
 /* =========================================================
-   ROTB 2026 — V14.14 TOURNAMENT FINISH
+   ROTB 2026 — V14.15 TOURNAMENT FINISH
    Aesthetic/final-results refinement only.
    ========================================================= */
 .leader-final-action {
@@ -3726,6 +3726,64 @@ body.score-team-menu-open .score-fixed-top{
   color:#c93a36 !important;
 }
 
+
+/* V14.15 — Tie Break Result is content-sized, centered, and capped at
+   70% of the full visible screen. Headline + winner are always one line.
+   Explanation text yields first; action buttons never clip. */
+.modal-overlay.tournament-result {
+  position:fixed !important;
+  inset:0 !important;
+  padding:0 14px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:#000 !important;
+}
+
+.modal-overlay.tournament-result .modal-box {
+  position:relative !important;
+  top:auto !important;
+  bottom:auto !important;
+  left:auto !important;
+  transform:none !important;
+  width:min(660px,calc(100% - 4px)) !important;
+  height:auto !important;
+  min-height:0 !important;
+  max-height:70% !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  display:flex !important;
+  flex-direction:column !important;
+}
+
+.modal-overlay.tournament-result .modal-title {
+  flex:0 0 auto !important;
+  white-space:nowrap !important;
+  font-size:clamp(25px,6.2vw,38px) !important;
+  line-height:1 !important;
+}
+
+.modal-overlay.tournament-result .tiebreak-winner {
+  flex:0 0 auto !important;
+  white-space:nowrap !important;
+  font-size:clamp(31px,8.2vw,48px) !important;
+  line-height:1 !important;
+}
+
+.modal-overlay.tournament-result .modal-text,
+.modal-overlay.tournament-result .tiebreak-explanation {
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+  font-size:clamp(16px,4.4vw,22px) !important;
+  line-height:1.18 !important;
+}
+
+.modal-overlay.tournament-result .modal-actions {
+  flex:0 0 auto !important;
+  margin-bottom:0 !important;
+}
+
 </style>
 </head>
 
@@ -3760,7 +3818,7 @@ body.score-team-menu-open .score-fixed-top{
 
     <div class="home-shell">
 
-      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.14</button>
+      <button id="testLogHotspot" class="test-log-hotspot" type="button" aria-label="Open test log">V14.15</button>
 
       <div class="splash-image-wrap">
 
@@ -7933,7 +7991,7 @@ let scoreTimingDetail =
       els.modalInput.style.display = 'none';
 
       let html =
-        '<div class="tournament-summary-subtitle">TOP 3</div>' +
+        '<div class="tournament-summary-subtitle">TOP 10</div>' +
         '<div class="tournament-summary-grid">' +
         '<div class="tournament-summary-row header">' +
         '<div>#</div><div>TEAM</div><div>NET STROKES</div><div>NET SCORE</div>' +
